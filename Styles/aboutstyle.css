@@ -1,14 +1,26 @@
-.mainDiv {
+#articleContent {
 	font-family: 'Open Sans', sans-serif;
-	margin: 60px auto;
+	font-size: 115%;
+}
+
+#articleContent p {
 	width: 70%;
+	margin: 60px auto;
 }
 
-.mainDiv content {
-	padding: 0% 20%;
+.negativeContent {
+	background-color: white;
+	color: #101214;
 }
 
-.mainDiv footer {
+.positiveContent {
+	background-color: #101214;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#contentFooter {
 	text-align: center;
 	font-style: italic
 }
