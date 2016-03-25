@@ -3,45 +3,45 @@ body {
 }
 
 .pageHeader {
-    padding: 100px;
+    padding: 100px 0 100px 0;
     background-color: #101214;
     color: white;
 }
 
-.pageHeader ul {
-	background-color: #101214;
-	list-style: none;
-	font-size: 110%;
+.navBar {
+	background-color: white;
+	list-style-type: none;
+	font-size:'[]' 110%;
 	margin: 0;
 	padding: 0;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 60px;
 }
 
-.pageHeader ul li {
-	display: inline-block;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0px 10px 0px 10px;
+.navBar li {
+	float: left;
 }
 
-.pageHeader ul li a {
+.navBar a {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	text-align: center;
 	display: block;
-	color: white;
+	color: #101214;
 	text-decoration: none;
-	padding: 11px;
 	cursor: pointer;
+	padding: 16px;
 }
 
-.pageHeader ul li a:hover {
-	background-color: #333;
+.navBar a:hover, .navBar a.active {
+	color: white;
+	background-color: #101214;
 }
 
 .headerText {
     padding: 0;
-    margin: 40px 40px;
+    text-align: center;
 }
 
 .headerUL {
@@ -56,24 +56,6 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     margin: 0;
-}
-
-.mainDiv {
-	margin: 60px auto;
-	width: 70%;
-}
-
-.mainDiv content {
-	padding: 0% 20%;
-}
-
-.mainDiv footer {
-	text-align: center;
-	font-style: italic
-}
-
-.aboutContent p {
-    
 }
 
 .mainFooter {

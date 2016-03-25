@@ -1,0 +1,14 @@
+.mainDiv {
+	font-family: 'Open Sans', sans-serif;
+	margin: 60px auto;
+	width: 70%;
+}
+
+.mainDiv content {
+	padding: 0% 20%;
+}
+
+.mainDiv footer {
+	text-align: center;
+	font-style: italic
+}
