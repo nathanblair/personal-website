@@ -12,7 +12,7 @@ body {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 5%;
+	height: 44px;
 }
 
 .pageHeader ul li {
@@ -42,7 +42,7 @@ body {
 }
 
 .mainDiv {
-	margin: 10% auto;
+	margin: 60px auto;
 	width: 70%;
 }
 
