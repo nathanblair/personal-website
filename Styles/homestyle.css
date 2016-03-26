@@ -1,11 +1,25 @@
+#pageHeader {
+	height: 93.6vh;
+	background-image: url("../Assets/misc_eq.png");
+	background-size: 100%;
+}
+
+#equations {
+	z-index: 10;
+}
+
 #articleContent {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 115%;
-	width: 70%;
-	margin: 60px auto;
+	padding: 2% 15% 0 10%;
 }
 
 #contentFooter {
 	text-align: center;
 	font-style: italic
+}
+
+#labview {
+	float: left;
+	padding: 0 10% 10% 0;
 }

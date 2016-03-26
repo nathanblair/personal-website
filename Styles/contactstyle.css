@@ -1,11 +1,10 @@
+#pageHeader {
+	padding-bottom: 5%;
+}
+
 #articleContent {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 115%;
 	width: 70%;
 	margin: 60px auto;
-}
-
-#contentFooter {
-	text-align: center;
-	font-style: italic
 }

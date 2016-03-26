@@ -1,3 +1,7 @@
+#pageHeader {
+	padding-bottom: 5%;
+}
+
 #articleContent {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 115%;
@@ -18,9 +22,4 @@
 	color: white;
 	padding-top: 10px;
 	padding-bottom: 10px;
-}
-
-#contentFooter {
-	text-align: center;
-	font-style: italic
 }
