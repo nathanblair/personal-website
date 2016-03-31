@@ -1,10 +1,7 @@
-#pageHeader {
-	padding-bottom: 5%;
-}
-
 #articleContent {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 115%;
+	font-family: 'Slabo 27px', serif;
+	font-size: 140%;
+	line-height: 2.0;
 }
 
 #articleContent p {
@@ -14,12 +11,68 @@
 
 .negativeContent {
 	background-color: white;
-	color: #101214;
+	color: #262626;
 }
 
 .positiveContent {
-	background-color: #101214;
+	background-color: #262626;
 	color: white;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+#drumpic {
+	padding-left: 19%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#motopic {
+	padding-left: 1%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#bearcatpic {
+	padding-left: 19%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#raiderpic {
+	padding-left: 1%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#fracturepic {
+	padding-left: 19%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#prpic {
+	padding-left: 1%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#dogpic {
+	padding-left: 19%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
+}
+
+#birdpic {
+	padding-left: 1%;
+	padding-bottom: 1%;
+	width: 30vw;
+	height: 33vh;
 }

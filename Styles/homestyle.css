@@ -1,17 +1,8 @@
-#pageHeader {
-	height: 93.6vh;
-	background-image: url("../Assets/misc_eq.png");
-	background-size: 100%;
-}
-
-#equations {
-	z-index: 10;
-}
-
 #articleContent {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 115%;
-	padding: 2% 15% 0 10%;
+	line-height: 1.8;
+	padding: 2% 15% 10% 10%;
 }
 
 #contentFooter {
@@ -20,6 +11,8 @@
 }
 
 #labview {
-	float: left;
-	padding: 0 10% 10% 0;
+float: left;
+width: 30vw;
+height: 48vh;
+padding: 2% 10% 4% 0;
 }
