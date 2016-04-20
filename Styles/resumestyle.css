@@ -76,7 +76,7 @@ h2, h4, h5, h6 {
 }
 
 #skills .title {
-	margin: 0 0 0 8.5%;
+	padding-left: 6%;
 }
 
 #coursetable {
@@ -86,7 +86,7 @@ h2, h4, h5, h6 {
 }
 
 #skilltable {
-	padding: 0.4% 0 0 2%;
+	padding: 0.4% 0 0 0.5%;
 	width: 85%;
 	table-layout: fixed;
 }
