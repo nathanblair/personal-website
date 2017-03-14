@@ -11,37 +11,43 @@
 	<link rel="shortcut icon" href="../favicon.png" type="image/png">
 	<link rel="stylesheet" href="../_styles/pagetemplate.css" type="text/css">
 	<link rel="stylesheet" href="../_styles/newsstyle.css" type="text/css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
 </head>
-
 <body>
 
 <!--Navigation Bar-->
 <nav>
-	<ul id="navBar">
+	<ul class="navBar">
 		<li><a href="home.html">home</a></li>
-		<li><a href="resume.html">r&eacute;sum&eacute;</a></li>
 		<li><a href="about.html">about</a></li>
+		<li><a href="resume.html">r&eacute;sum&eacute;</a></li>
 		<li><a class="active" href="news.html">news and blog</a></li>
 	</ul>
 </nav>
 
-<!--Header-->
-<header id="pageHeader">
-	<p id="headerUL"><b>News</b></p>
-	<p id="headerLL">and Blog</p>
-</header>
-
 
 <!--Page Body-->
-<article id="articleContent">
-	<p>Nothing here yet!</p>
-</article>
+<main>
+	<article class="blogpost">
+		<h2>Website Update</h2>
+		<h4>3/14/2017</h4>
+		<p>
+		Here is another major update to the website. A nominal cover photo has been included though this will likely change in the future. I've restructured the r&eacute;sum&eacute; and about sections, removed the images (as I didn't fully have permissions to release some of them), and am including these couple of blog posts. I'm still proud to share that this site runs fully javascript free and thus should be very performance-friendly. Meanwhile, a mobile/small-viewport version of the site is still in the works. The design has been mostly determined, what's left is the implementation and testing. This site is also still in desparate need of color and more attractive elements, a goal which remains high-priority and a problem I hope to remedy soon.
+		</p>
+		<p>
+		From here on, blog posts will likely be less about this website and more about some of the projects I've built and am maintaining. Hopefully my work in some of these projects will inspire or help anyone who comes across them, much the same as others I've run across have helped me tremendously.
+		</p>
+	</article>
+	<article class="blogpost">
+		<h2>Website Update</h2>
+		<h4>3/11/2017</h4>
+		<p>I am updating my website after a few months of no work being done to it. These changes will make the website more modern, aesthetic, easier to read and find, and provide a better demonstration of my progression as a developer.</p>
+		<p>On the landing page, I'm embracing the cover photo design approach. It looks great; I like the simplicity. It is also very easy to work with when designing for responsive sites, which is what I hope to bring this site more in line with.</p>
+	</article>
+</main>
 
-<footer id="pageFooter">
-	<p>Copyright &copy; 2017 Nathan Blair</p>
-	<ul id="contact">
+<!--Contact widget-->
+<aside class="contactEdge">
+	<ul id="contactList">
 		<li><a href="https://github.com/nathanblair" class="contact-button">
 			<img class="contact-icon" id="githubIcon" src="../_res/icons/github.png" alt="X">
 		</a></li>
@@ -58,6 +64,11 @@
 			<img class="contact-icon" id="emailIcon" src="../_res/icons/email.png" alt="X">
 		</a></li>
 	</ul>
+</aside>
+
+<!--Page footer-->
+<footer>
+	<p>Copyright &copy; 2017 Nathan Blair</p>
 </footer>
 
 </body>

@@ -1,82 +1,92 @@
-body {
-	margin: 0 0;
+/*Clean up the body for full page use and apply default font*/
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
-#navBar {
-	background-color: white;
-	list-style-type: none;
-	font-size:'[]' 110%;
-	margin: 0;
-	padding: 0;
-	position: fixed;
-	top: 0;
-	left: 0;
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+nav {
+	background-color: #262626;
 	width: 100%;
 }
 
-#navBar li {
+.nav, .contact {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.nav {
+	float: right;
+}
+
+.contact {
 	float: left;
-}
-
-#navBar a {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	text-align: center;
-	display: block;
-	color: #262626;
-	text-decoration: none;
-	cursor: pointer;
-	padding: 16px;
-}
-
-#navBar a:hover, #navBar a.active {
-	color: white;
-	background-color: #262626;
-}
-
-#pageHeader {
-	background-color: #262626;
-    color: white;
-	margin-top: 5vh;
-	padding: 1% 0 1% 0;
-	font-family: 'Raleway', sans-serif;
-	font-size: 300%;
-	text-align: center;
-	line-height: 0.5;
 }
 
 .contact-icon {
 	display: block;
-	max-height: 36px;
+	height: 1.6em;
 	width: auto;
 }
 
-#pageFooter {
+.nav li, .contact li {
+	float: left;
+	min-height: 2.6em;
+}
+
+.nav a, .contact a {
+	font-size: 1.3em;
+	text-align: center;
+	display: block;
+	color: white;
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0 1em;
+}
+
+.nav a {
+	transition: font-size 0.1s linear;
+}
+
+.contact img {
+	transition: height 0.1s linear;
+}
+
+.nav a:hover {
+	font-size: 1.5em;
+}
+
+.contact img:hover {
+	height: 2em;
+}
+
+.nav a.active {
+	text-decoration: underline;
+}
+
+main {
+	flex: 1;
+	padding: 1em 0;
+}
+
+footer {
 	clear: all;
-	font-family: 'Open Sans', sans-serif;
     background-color: #262626;
 	width: 100%;
 	text-align: center;
-	padding: 1% 0;
+	padding: 1.5em 0;
 }
 
-#pageFooter p {
+footer p {
 	color: white;
-}
-
-#contact {
-	list-style-type: none;
-	padding: 2% 20% 10% 20%;
-	display: flex;
-	justify-content: space-between;
-}
-
-#contact li {
-	float: left;
-}
-
-#contact a {
-	display: block;
-	background-color: #262626;
-	text-decoration: none;
+	margin: 0;
 }
 

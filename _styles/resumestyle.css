@@ -1,110 +1,45 @@
-#articleContent {
-	padding: 0 0 5% 0;
-	font-family: 'Open Sans', sans-serif;
-}
-
-/*Primary Titles*/
 h1 {
-	margin: 0 2%;
-	text-decoration: underline;
-	font-size: 170%;
-}
-
-h2, h4, h5, h6 {
 	margin: 0;
-}
-
-.sectionpairparent {
-	margin: 0;
-	padding: 2% 0;
-	overflow: auto;
-}
-
-.title {
-	float: left;
+	text-align: center;
+	font-size: 350%;
+	border: solid 1px white;
 }
 
 .content {
-	margin: 0.5% 2% 0 16%;
+	padding: 0 2em;
 }
 
 .titlebar {
-	border-bottom: solid 1px;
-	overflow: auto;
-}
-
-.titlename {
 	float: left;
-	font-size: 115%;
-}
-
-.date {
-	float: right;
-	font-size: 105%;
 }
 
 .detailbar {
-	overflow: auto;
-}
-
-.detail {
-	font-style: italic;
-	float: left;
-}
-
-.location {
-	float: right;
+	text-align: right;
 }
 
 .degreelist {
-	margin: 0;
-	color: red;
-	text-indent: 5%;
-	line-height: 0.8;
+	list-style: none;
 }
 
-.degreelist p {
-	margin: 1% 0;
+.name {
+	font-weight: bold;
+	font-size: 125%;
 }
 
-.workdesc {
-	margin: 3px 0 15px 15px;
+.location {
+	font-size: 125%;
 }
 
-#education .title {
-	margin-left: 4%;
-}
-
-#skills .title {
-	padding-left: 6%;
-}
-
-#coursetable {
-	padding: 0.4% 0 0 0.5%;
-	width: 83%;
+#coursetable, #skilltable {
+	padding: 1em 2em;
 	table-layout: fixed;
+	width: 100%;
 }
 
-#skilltable {
-	padding: 0.4% 0 0 0.5%;
-	width: 85%;
-	table-layout: fixed;
+#coursetable th, #skilltable th {
+	border-bottom: 1px solid;
 }
 
-table th {
-	border-bottom: 2px solid grey;
-}
-
-table td {
+#coursetable td, #skilltable td {
 	text-align: center;
-}
-
-.negativetheme {
-	background-color: white;
-	color: #262626;
-}
-
-.positivetheme {
-	background-color: #262626;
-	color: white;
 }
