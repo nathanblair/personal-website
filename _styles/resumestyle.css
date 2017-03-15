@@ -1,7 +1,8 @@
 h1 {
 	margin: 0;
 	text-align: center;
-	font-size: 350%;
+	font-size: 250%;
+	font-weight: 600;
 	border: solid 1px white;
 }
 
@@ -24,6 +25,10 @@ h1 {
 .name {
 	font-weight: bold;
 	font-size: 125%;
+}
+
+.detail {
+	font-style: italic;
 }
 
 .location {
