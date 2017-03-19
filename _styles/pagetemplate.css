@@ -63,6 +63,14 @@ nav a {
 	padding: 0.5em 1.3em;
 }
 
+.pages a:hover, .pages a.active {
+	font-weight: bold;
+}
+
+.contact a:hover > img {
+	filter: brightness(150%);
+}
+
 @media screen and (min-width: 950px) {
 	#menuCheckBox, #menuBox {
 		display: none;
@@ -85,10 +93,6 @@ nav a {
 		float: left;
 	}
 
-	.pages a:hover, .pages a.active {
-		font-weight: bold;
-	}
-
 	.contact {
 		float: right;
 		height: 100%;
@@ -96,10 +100,6 @@ nav a {
 
 	.contact a {
 		padding: 0 1.3em;
-	}
-
-	.contact a:hover > img {
-		filter: brightness(150%);
 	}
 }
 
