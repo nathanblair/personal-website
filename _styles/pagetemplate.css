@@ -7,19 +7,14 @@ html, body {
 	font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
-body {
-	display: flex;
-	flex-direction: column;
-}
-
 #menuCheckBox {
 	display: none;
 }
 
 #menuCheckBox:checked ~ nav {
-	display: block;
-	position: relative;
+	display: inline-block;
 	z-index: 5;
+	position: absolute;
 }
 
 #menuCheckBox:checked ~ #menuBox {
@@ -27,12 +22,13 @@ body {
 }
 
 #menuBox {
+	display: block;
 	background-color: #262626;
-	z-index: 6;
+	z-index: 5;
 	background-image: url('../_res/icons/menu.png');
 	background-size: 48px;
 	background-repeat: no-repeat;
-	background-position-x: 24px;
+	background-position-x: center;
 	background-position-y: center;
 	height: 50px;
 	padding: 8px 0;
@@ -42,13 +38,14 @@ nav {
 	display: none;
 	background-color: #262626;
 	width: 100%;
+	overflow: hidden;
 }
 
 nav a {
 	text-decoration: none;
 	color: white;
 	display: block;
-	text-align: center;	
+	text-align: center;
 }
 
 .pages a {
@@ -59,7 +56,6 @@ nav a {
 .contact a {
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	padding: 0.5em 1.3em;
 }
 
@@ -81,35 +77,24 @@ nav a {
 	}
 
 	nav {
-		display: block;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	nav a {
 		float: left;
-		height: 100%;
-	}
-
-	.pages {
-		float: left;
-	}
-
-	.contact {
-		float: right;
-		height: 100%;
 	}
 
 	.contact a {
+		height: 100%;
 		padding: 0 1.3em;
+		align-items: center;
 	}
 }
 
 .contact-icon {
 	display: block;
-}
-
-main {
-	flex: 1;
-	padding: 1em 0;
+	height: 40px;
 }
 
 footer {
