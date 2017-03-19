@@ -1,7 +1,7 @@
 .blogpost {
-	padding: 0 4em 0 8em;
+	padding: 0 0 0 5%;
 }
 
 .blogpost p {
-	width: 60%;
+	max-width: 800px;
 }
