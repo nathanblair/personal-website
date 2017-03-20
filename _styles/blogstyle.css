@@ -4,11 +4,7 @@ main {
 }
 
 .blogpost {
-	padding: 0 0 5% 5%;
-}
-
-.blogpost p {
-	max-width: 800px;
+	padding: 0 5% 5% 5%;
 }
 
 .code, .blockcode {
@@ -19,7 +15,6 @@ main {
 }
 
 .blockcode {
-	width: 90%;
 	padding: 1% 3%;
 	font-size: 0.95em;
 	overflow-x: auto;
@@ -41,5 +36,9 @@ main {
 @media screen and (min-width: 950px) {
 	.blockcode {
 		max-width: 750px;
+	}
+
+	.blogpost p {
+		max-width: 810px;
 	}
 }
