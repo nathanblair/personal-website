@@ -105,6 +105,10 @@ h1 {
 		padding: 0;
 	}
 
+	#coursetable, #skilltable {
+		width: 80%;
+	}
+
 	#coursetable th, #skilltable th {
 		background-color: transparent;
 		color: unset;
