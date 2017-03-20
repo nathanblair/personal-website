@@ -8,7 +8,7 @@ h1 {
 }
 
 .content {
-	padding: 0 2em;
+	padding: 0 0.5em;
 }
 
 .titlebar {
@@ -76,6 +76,7 @@ h1 {
 }
 
 @media screen and (min-width: 950px) {
+	.content {padding: 0 10%;}
 	#titleDivider {display: block;}
 	#detailDivider {display: block;}
 	#detailBreak {display: block;}
