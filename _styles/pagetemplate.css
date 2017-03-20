@@ -12,7 +12,7 @@ html, body {
 }
 
 #menuCheckBox:checked ~ nav {
-	display: inline-block;
+	display: block;
 	z-index: 5;
 	position: absolute;
 }
@@ -38,7 +38,6 @@ nav {
 	display: none;
 	background-color: #262626;
 	width: 100%;
-	overflow: hidden;
 }
 
 nav a {
