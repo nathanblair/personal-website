@@ -1,9 +1,5 @@
-main {
-	padding: 2em 0 0 0;
-}
-
 h1 {
-	padding: 5% 0;
+	padding: 1% 0;
 	margin: 0;
 	text-align: center;
 	font-size: 250%;
@@ -43,6 +39,10 @@ h1 {
 
 .detail {
 	font-style: italic;
+}
+
+.school, .job {
+	padding: 4% 0;
 }
 
 #titleDivider {display: none;}
@@ -100,6 +100,10 @@ h1 {
 		font-size: 125%;
 	}
 
+	.school, .job {
+		padding: 0;
+	}
+
 	#coursetable th, #skilltable th {
 		background-color: transparent;
 		color: unset;
@@ -109,7 +113,7 @@ h1 {
 		background-color: unset;
 	}
 
-	#coursetable td, #skilltable td {
+	#coursetable tr, #skilltable tr {
 		border-bottom: none;
 	}
 }
