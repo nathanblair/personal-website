@@ -49,8 +49,172 @@
 <!--Page Body-->
 <main>
 	<article class="blogpost">
+		<h2>Revisiting CSS Toggle DropDowns</h2>
+		<h3>3/18/2017</h3>
+
+		<h5>Try a working example of this widget on jsfiddle <a href="https://jsfiddle.net/TheThinker/453xro98/" target="_blank">here</a>.</h5>
+
+		<p>
+		I worked on my proprietorship's website a couple months ago and got a beautiful, functional, toggle-able, dropdown menu working for navigational purposes. Naturally, that site is hosted from my Raspberry Pi and recently I have not had access to its files. No matter! We can rebuild it; we have the technology.
+		</p>
+		<p>
+		This navigational menu is to be used on this very site - for the purposes of respecting responsive web design. It needs to be pure CSS (because javascript makes for horrible UX!), work across multiple browsers both desktop and mobile, and of course, it needs to look good. My approach will be to use a dropdown type of menu that employs a clickable toggle. The way this was accomplished with great support for my other website was by using a checkbox input and its clickable label and I expect to borrow that methodology.
+		</p>
+		<p>
+		So, here is what I was able to come up with. You could of course see for yourself using various browser inspection tools but I'll assume you just want the filtered version. First, the HTML.
+		</p>
+		<h4>The HTML</h4>
+		<p>
+		The checkbox input and its label, from my testing, has served me best when included outside everything (i.e. a child only to the body tag). Here's their extremely simple code:
+		</p>
+
+		<section class="blockcode">
+			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
+			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;
+		</section>
+
+		<p>
+		As you can see, its VERY simplistic as syntax goes and that's what I strive for. Note that actual text can be used if set between the opening and closing <span class="code">&lt;label&gt;</span> tags.
+		</p>
+		<p>
+		My objective is to be able to create a navigational dropdown menu so elements I want to reveal are stored in the <span class="code">&lt;nav&gt;</span> tag. Within the <span class="code">&lt;nav&gt;</span> tag I use two generic <span class="code">&lt;div&gt;</span> containers to hold navigational links (home, about, etc.) and contact links (GitHub, Facebook, etc.), with a <span class="code">&lt;hr&gt;</span> to visually separate them. Here they are:
+		</p>
+
+		<section class="blockcode">
+			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
+			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br/>
+			<br/>
+			&lt;nav&gt;<br/>
+			<span class="indent"></span>&lt;div class="pages"&gt;<br/>
+				<span class="double-indent"></span>...<br/>
+			<span class="indent"></span>&lt;/div&gt;<br/>
+			<span class="indent"></span>&lt;hr id="navDiv"/&gt;<br/>
+			<span class="indent"></span>&lt;div class="contact"&gt;<br/>
+				<span class="double-indent"></span>...<br/>
+				<span class="indent"></span>&lt;/div&gt;<br/>
+			&lt;/nav&gt;
+		</section>
+
+		<p>
+		Beans. Let's include some actual links in those generic <span class="code">&lt;div&gt;</span> containers to take users around the site. Here's a sample navigational menu with links to pages on the website and external social media sites.
+		</p>
+
+		<section class="blockcode">
+			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
+			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br/>
+			<br/>
+			&lt;nav&gt;<br/>
+				<span class="indent"/>&lt;div class="pages"&gt;<br/>
+					<span class="double-indent"/>&lt;a href="index.html" class="active"&gt;home&lt;/a&gt;<br/>
+					<span class="double-indent"/>&lt;a href="about.html"&gt;about&lt;/a&gt;<br/>
+					<span class="double-indent"/>&lt;a href="blog.html"&gt;blog&lt;/a&gt;<br/>
+				<span class="indent"/>&lt;/div&gt;<br/>
+				<span class="indent"/>&lt;hr id="navDiv"/&gt;<br/>
+				<span class="indent"/>&lt;div class="contact"&gt;<br/>
+					<span class="double-indent"/>&lt;a href="https://github.com/nathanblair" target="_blank"&gt;<br/>
+						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/github.png" alt="X"&gt;<br/>
+					<span class="double-indent"/>&lt;/a&gt;<br/>
+					<span class="double-indent"/>&lt;a href="https://facebook.com/TheGr8Nate" target="_blank"&gt;<br/>
+						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/facebook.png" alt="X"&gt;<br/>
+					<span class="double-indent"/>&lt;/a&gt;<br/>
+					<span class="double-indent"/>&lt;a href="https://linked.com/in/engineerblair/" target="_blank"&gt;<br/>
+						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/linkedin.png" alt="X"&gt;<br/>
+					<span class="double-indent"/>&lt;/a&gt;<br/>
+				<span class="indent"/>&lt;/div&gt;<br/>
+			&lt;/nav&gt;
+		</section>
+
+		<p>
+		Cool beans. So that's done. On to the CSS.
+		</p>
+		<h4>The CSS</h4>
+
+		<p>
+		First, let's put together the checkbox functionality. We want to hide the checkbox graphic but keep its label. In my case, I want the label to be a placeholder with a background image. In that case, here's the css necessary to get the checkbox visuals right:
+		</p>
+
+		<section class="blockcode">
+			/*Hide the checkbox graphic*/<br/>
+			#menuCheckBox {<br/>
+				<span class="indent"/>display: none;<br/>
+			}<br/>
+			<br/>
+			/*Settings for the checkbox label*/
+			#menuBox {<br/>
+				<span class="indent"/>display: block;<br/>
+				<span class="indent"/>z-index: 5;<br/>
+				<span class="indent"/>background-image: url('../_res/icons/menu.png');<br/>
+				<span class="indent"/>background-size: 48px;<br/>
+				<span class="indent"/>background-repeat: no-repeat;<br/>
+				<span class="indent"/>background-position-x: center;<br/>
+				<span class="indent"/>background-position-y: center;<br/>
+				<span class="indent"/>height: 50px;<br/>
+				<span class="indent"/>padding: 8px 0;<br/>
+			}			
+		</section>
+
+		<p>
+		I normally swear against using hard-coded height settings but in this case, since the label element is only serving to display the background image, the height must be set explicitly otherwise the label element would not show up at all. Nominally the background image would be an icon (in my case, the hamburger menu icon), and I've explicitly set the dimensions of the icon to be 48px x 48px. From my experience, this is a manageable size on any browser regardless of desktop or mobile usage.
+		</p>
+
+		<p>
+		Next, the settings for the navigation menu itself:
+		</p>
+
+		<section class="blockcode">
+			/*Hide the nav menu until the toggle is activated*/<br/>
+			nav {<br/>
+				<span class="indent"/>display: none;<br/>
+				<span class="indent"/>width: 100%;<br/>
+				<span class="indent"/>overflow: hidden;<br/>
+			}<br/>
+			<br/>
+			/*Make the links look like they're used for page navigation*/<br/>
+			nav a {<br/>
+				<span class="indent"/>text-decoration: none;<br/>
+				<span class="indent"/>display: block;<br/>
+				<span class="indent"/>text-align: center;<br/>
+			}<br/>
+			<br/>
+			/*Settings for site page navigation links - adjust to your liking*/<br/>
+			.pages a {<br/>
+				<span class="indent"/>/*padding: 0.5em 1em;*/<br/>
+			}<br/>
+			<br/>
+			/*Settings for contact icon links - keep display settings, adjust anything else*/<br/>
+			.contact a {<br/>
+				<span class="indent"/>display: flex;<br/>
+				<span class="indent"/>justify-content: center;<br/>
+				<span class="indent"/>/*padding: 0.5em 1.3em;*/<br/>
+			}
+		</section>
+
+		<p>
+		Now its time to implement the desired behavior for the toggle functionality. This is done using the <span class="code">:checked</span> pseudo-class selector. Since the <span class="code">&lt;nav&gt;</span> element and <span class="code">&lt;input&gt;</span> element are siblings, we can apply all kinds of settings to the <span class="code">&lt;nav&gt;</span> element and its children when the <span class="code">:checked</span> flag is ticked by using the <span class="code">~</span> sibling selector.
+		</p>
+
+		<section class="blockcode">
+			/*Display the nav element properly if the toggle is activated*/<br/>
+			#menuCheckBox:checked ~ nav {<br/>
+				<span class="indent"/>display: inline-block;<br/>
+				<span class="indent"/>z-index: 5;<br/>
+				<span class="indent"/>position: absolute;<br/>
+			}<br/>
+			<br/>
+			/*Nominally change the background image of the toggle label to something else*/<br/>
+			#menuCheckBox:checked ~ #menuBox {<br/>
+				<span class="indent"/>background-image: url('../_res/icons/close.png');<br/>
+			}
+		</section>
+
+		<p>
+		And thats it. A sample working toggle-able navigation menu that can be used to help keep sites responsive on a wide array of devices and browsers. 
+		</p>
+
+	</article>
+	<article class="blogpost">
 		<h2>Website Update</h2>
-		<h4>3/14/2017</h4>
+		<h3>3/14/2017</h3>
 		<p>
 		Here is another major update to the website. A nominal cover photo has been included though this will likely change in the future. I've restructured the r&eacute;sum&eacute; and about sections, removed the images (as I didn't fully have permissions to release some of them), and am including these couple of blog posts. I'm still proud to share that this site runs fully javascript free and thus should be very performance-friendly. Meanwhile, a mobile/small-viewport version of the site is still in the works. The design has been mostly determined, what's left is the implementation and testing. This site is also still in desparate need of color and more attractive elements, a goal which remains high-priority and a problem I hope to remedy soon.
 		</p>
@@ -60,7 +224,7 @@
 	</article>
 	<article class="blogpost">
 		<h2>Website Update</h2>
-		<h4>3/11/2017</h4>
+		<h3>3/11/2017</h3>
 		<p>I am updating my website after a few months of no work being done to it. These changes will make the website more modern, aesthetic, easier to read and find, and provide a better demonstration of my progression as a developer.</p>
 		<p>On the landing page, I'm embracing the cover photo design approach. It looks great; I like the simplicity. It is also very easy to work with when designing for responsive sites, which is what I hope to bring this site more in line with.</p>
 	</article>
