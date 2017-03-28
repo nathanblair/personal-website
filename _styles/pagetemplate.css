@@ -48,22 +48,35 @@ nav a {
 }
 
 .pages a {
-	font-size: 1.4em;
-	padding: 0.5em 1em;
+	font-size: 1.3em;
+	padding: 0.5em 0.8em;
 }
 
 .contact a {
 	display: flex;
 	justify-content: center;
-	padding: 0.5em 1.3em;
+	padding: 0.5em 1em;
 }
 
-.pages a:hover, .pages a.active {
+.pages a:hover, .pages a.active, .contact a:hover {
 	font-weight: bold;
 }
 
-.contact a:hover > img {
-	filter: brightness(150%);
+.contact a:hover > svg {
+	fill-opacity: 1.0;
+}
+
+.contact-icon {
+	display: block;
+	height: 40px;
+	width: auto;
+
+	fill: white;
+	fill-opacity: 0.9;
+}
+
+.contact-label {
+	display: none;
 }
 
 @media screen and (min-width: 950px) {
@@ -85,15 +98,19 @@ nav a {
 	}
 
 	.contact a {
+		font-size: 1.1em;
 		height: 100%;
-		padding: 0 1.3em;
+		padding: 0 1em;
 		align-items: center;
 	}
-}
 
-.contact-icon {
-	display: block;
-	height: 40px;
+	.contact-label {
+		display: block;
+	}
+
+	.contact-icon {
+		display: none;
+	}
 }
 
 footer {
