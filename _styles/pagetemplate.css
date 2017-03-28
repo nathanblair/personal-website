@@ -26,12 +26,12 @@ html, body {
 	background-color: #262626;
 	z-index: 5;
 	background-image: url('../_res/icons/menu.png');
-	background-size: 48px;
+	background-size: 50px;
 	background-repeat: no-repeat;
 	background-position-x: center;
 	background-position-y: center;
 	height: 50px;
-	padding: 8px 0;
+	padding: 4px 0;
 }
 
 nav {
@@ -43,40 +43,32 @@ nav {
 nav a {
 	text-decoration: none;
 	color: white;
-	display: block;
 	text-align: center;
 }
 
-.pages a {
-	font-size: 1.3em;
-	padding: 0.5em 0.8em;
+.contact a, .pages a {
+	display: block;
+	font-size: 1.2em;
+	padding: 10px 16px;
 }
 
 .contact a {
 	display: flex;
+	align-items: center;
 	justify-content: center;
-	padding: 0.5em 1em;
 }
 
 .pages a:hover, .pages a.active, .contact a:hover {
 	font-weight: bold;
 }
 
-.contact a:hover > svg {
-	fill-opacity: 1.0;
-}
-
 .contact-icon {
-	display: block;
+	display: inline-block;
 	height: 40px;
 	width: auto;
+	margin: 0 10px;
 
 	fill: white;
-	fill-opacity: 0.9;
-}
-
-.contact-label {
-	display: none;
 }
 
 @media screen and (min-width: 950px) {
@@ -91,26 +83,44 @@ nav a {
 	nav {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	nav a {
 		float: left;
 	}
 
-	.contact a {
-		font-size: 1.1em;
-		height: 100%;
-		padding: 0 1em;
-		align-items: center;
-	}
-
-	.contact-label {
+	.contact a, .contact-label {
+		font-size: 1em;
 		display: block;
 	}
 
 	.contact-icon {
-		display: none;
+		height: 30px;
 	}
+}
+
+.hire-me-link {
+	position: fixed;
+	top: 90px;
+	right: 10px;
+}
+
+.hire-me-link a {
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.1em;
+	color: white;
+	background-color: rgba(220, 70, 0, 0.7);
+
+	display: block;
+	padding: 1em;
+	border-radius: 4px;
+}
+
+.hire-me-link a:hover {
+	font-weight: 600;
+	background-color: rgba(200, 10, 20, 1.0);
 }
 
 footer {
