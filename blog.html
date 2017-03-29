@@ -140,7 +140,7 @@
 		<h4>The CSS</h4>
 
 		<p>
-			Let's start with the banner itself. This element, for me, is something I want prominently (but not annoyingly) displayed at all times. So I'm going to set it as a fixed position element, somewhere near the top right corner of the page. Out of the way but accessible if someone decides they want to get a hold of me about an opportunity! Inside this <span class="code">&lt;aside&gt;</span> container is the checkbox, its label, and the anchor itself. All four of these need to be styled. You'll notice the styling of the checkbox and its label should be pretty similar to the dropdown widget's style. Its also going to hold some global settings for its textual children. First, the banner:
+			Let's start with the banner itself. This element, for me, is something I want prominently (but not annoyingly) displayed at all times. So I'm going to set it as a fixed position element, somewhere near the top right corner of the page. Out of the way but accessible if someone decides they want to get a hold of me about an opportunity! Inside this <span class="code">&lt;aside&gt;</span> container is the checkbox, its label, and the anchor itself. All four of these need to be styled. You'll notice the styling of the checkbox and its label should be pretty similar to the dropdown widget's style. First, the banner:
 		</p>
 
 		<section class="blockcode">
@@ -205,7 +205,7 @@
 		</p>
 
 		<p>
-			That wraps up the display of all the elements. Now we need to implement their behavior using our friend the checkbox's <span class="code">:checked</span> pseudo-class. I left the label's container devoid of any content so that I could set it using the #toggle's <span class="code">:after</span> pseudo-class. When the checkbox is not checked, the label shows a fitting '/>' close tag that demonstrates that clicking the anchor will collapse the banner. After clicking the '/>' end tag the checkbox gets checked, the collapse "animation" triggers, and the display of the label changes to the '<' open tag. The settings for the #collapsible element are there to round out the transition effects and make sure it looks good.
+			That wraps up (huehue) the display of all the elements. Now we need to implement their behavior using our friend the checkbox's <span class="code">:checked</span> pseudo-class. I left the label's container devoid of any content so that I could set it using the #toggle's <span class="code">:after</span> pseudo-class. When the checkbox is not checked, the label shows a fitting '/>' close tag that demonstrates that clicking the anchor will collapse the banner. After clicking the '/>' close tag the checkbox gets checked, the collapse "animation" triggers, and the display of the label changes to the '<' open tag. The settings for the #collapsible element are there to round out the transition effects and make sure it looks good.
 		</p>
 
 		<section class="blockcode">
