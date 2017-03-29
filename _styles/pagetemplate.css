@@ -7,7 +7,7 @@ html, body {
 	font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
-#menuCheckBox {
+#menuCheckBox, #hire-me-box {
 	display: none;
 }
 
@@ -106,28 +106,55 @@ nav a {
 	}
 }
 
-.hire-me-link {
-	visibility: hidden;
+.hire-me {
 	position: fixed;
-	top: 90px;
-	right: 10px;
-}
-
-.hire-me-link a {
-	text-decoration: none;
-	text-align: center;
+	top: 100px;
+	right: 20px;
 	font-size: 1.1em;
-	color: white;
-	background-color: rgba(220, 70, 0, 0.7);
-
-	display: block;
-	padding: 1em;
-	border-radius: 4px;
+	text-align: center;
 }
 
-.hire-me-link a:hover {
-	font-weight: 600;
-	background-color: rgba(200, 10, 20, 1.0);
+#hire-me-toggle, #hire-me-link {
+	display: block;
+	color: white;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#hire-me-toggle {
+	float: left;
+	background-color: rgba(250, 0, 0, 0.7);
+	padding: 10px 6px 10px 10px;
+	border-bottom-left-radius: 2px;
+	border-top-left-radius: 2px;
+}
+
+#hire-me-link {
+	float: right;
+	background-color: rgba(220, 70, 0, 0.7);
+	padding: 10px 16px 10px 4px;
+	border-bottom-right-radius: 2px;
+	border-top-right-radius: 2px;
+	transition: padding 1s;
+	white-space: nowrap;
+}
+
+#hire-me-box ~ #hire-me-toggle:after {
+  content: "/>";
+}
+
+#hire-me-box:checked ~ #hire-me-toggle:after {
+  content: "<";
+}
+
+#hire-me-box:checked ~ #hire-me-link {
+	width: 0;
+	padding: 10px 0;
+	overflow: hidden;
+}
+
+#hire-me-link:hover, #hire-me-toggle:hover {
+	background-color: rgba(170, 10, 20, 1.0);
 }
 
 footer {
