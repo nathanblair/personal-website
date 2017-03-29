@@ -6,8 +6,9 @@ main {
 main p {
 	padding: 1% 10%;
 	margin: 0;
-	font-family: 'Slabo 27px', serif;
-	font-size: 1.2em;
+	/*font-family: Georgia, 'Times New Roman', Times, serif;*/
+	/*font-family: 'Slabo 27px', serif;*/
+	font-size: 1.3em;
 	line-height: 2.0;
 }
 

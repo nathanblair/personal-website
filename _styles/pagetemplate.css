@@ -47,26 +47,29 @@ nav a {
 }
 
 .contact a, .pages a {
+	box-sizing: border-box;
 	display: block;
 	font-size: 1.2em;
-	padding: 10px 16px;
+	padding: 10px 20px;
 }
 
-.contact a {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.contact-label {
+	font-size: 0.8em;
+	display: block;
 }
 
-.pages a:hover, .pages a.active, .contact a:hover {
+.pages a:hover, .contact a:hover {
+	box-shadow: inset 0 0 0 5px white;
+}
+
+.pages a.active {
 	font-weight: bold;
 }
 
 .contact-icon {
 	display: inline-block;
-	height: 40px;
+	height: 30px;
 	width: auto;
-	margin: 0 10px;
 
 	fill: white;
 }
@@ -83,24 +86,28 @@ nav a {
 	nav {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: stretch;
 	}
 
 	nav a {
 		float: left;
 	}
 
-	.contact a, .contact-label {
-		font-size: 1em;
-		display: block;
+	.pages a.active {
+		border-bottom: 3px solid white;
 	}
 
-	.contact-icon {
-		height: 30px;
+	.pages {
+		display: flex;
+	}
+
+	.pages a {
+		padding: 20px 20px;
 	}
 }
 
 .hire-me-link {
+	visibility: hidden;
 	position: fixed;
 	top: 90px;
 	right: 10px;
