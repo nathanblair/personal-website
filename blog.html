@@ -80,7 +80,7 @@
 	<label id="hire-me-toggle" for="hire-me-box"></label>
 	<a href="mailto:nathan.t.blair@outlook.com?subject=Opportunities (From nateblair.info)&body=
 	I found your site and liked reading about you.%0D%0A
-	Would you be interested in hearing about some opportunities I can offer? Here's my contact infomration:%0D%0A%0D%0A
+	Would you be interested in hearing about some opportunities I can offer? Here's my contact infomration: %0D%0A%0D%0A
 
 	Name: %0D%0A
 	Phone: %0D%0A
@@ -94,6 +94,142 @@
 
 <!--Main page content-->
 <main>
+	<article class="blogpost">
+		<h1>Hire-Me Banner</h1>
+		<h3>3/29/2017</h3>
+
+		<h5>Try a working example of this widget on jsfiddle <a href="https://jsfiddle.net/TheThinker/LLhv5o68/13/" target="_blank">here</a>.</h5>
+
+		<p>
+			This site has been pretty cool to work on and I think its effective in telling my story but...it doesn't do a great job in achieving some of my metrics. Therefore, I'm shutting it down. Its been real guys.
+		</p>
+
+		<p>
+			Obviously I'm kidding! I've worked <i>way</i> too hard on this site to just let it go now. Really though, this site could be doing a better job in generating higher CTR. What kind of metrics/CTR would a personal blog need? Why, a contact banner to hire me! So I made one. And now, I'm going to give a quick demo of how you can make one too. A lot of the UX basis for this widget is going to come from the <a href="#css-nav-dropdown">pure CSS nav menu </a> discussed in one of my previous posts. Let's. Get. Started.
+		</p>
+
+		<h4>The HTML</h4>
+
+		<p>
+			I love simple HTML. This widget is no different! I embedded my banner in an <span class="code">&lt;aside&gt;</span> tag because (<i>ahem</i>) we're going to <i>cast it aside</i>, now how about that? Ugh. Moving on! We're putting our old friends the checkbox and its label, along with an anchor tag that will use the mailto URL fragment, into this aside element. Here's what that looks like:
+		</p>
+
+		<section class="blockcode">
+			&lt;aside class="banner"&gt;<br>
+				<span class="indent">&lt;input type="checkbox" id="box"/&gt;</span><br>
+				<span class="indent">&lt;label id="toggle" for="box"&gt;&lt;/label&gt;</span><br><br>
+				<span class="indent">&lt;a id="collapsible" href="mailto:me@email.com?</span><br>
+				<span class="indent">subject=Opportunities (From website.com)&body=</span><br>
+				<span class="indent">Blah blah blah blah blah.%0D%0A</span><br>
+				<span class="indent">Blah blah blah, blah blah blah blah blah? Here's my contact infomration: %0D%0A%0D%0A</span><br>
+				<br>
+				<span class="indent">Name: %0D%0A</span><br>
+				<span class="indent">Phone: %0D%0A</span><br>
+				<span class="indent">E-Mail: %0D%0A%0D%0A</span><br>
+				<br>
+				<span class="indent">Thanks,%0D%0A%0D%0A&gt;"</span><br>
+				<span class="double-indent">Ready to hire me? Send me an e-mail!</span><br>
+				<span class="indent">&lt;/a&gt;</span><br>
+			&lt;/aside&gt;<br>
+		</section>
+
+		<p>
+			Bam. HTML's done. Simple! I love it. I only wish the CSS were quite so easy...
+		</p>
+
+		<h4>The CSS</h4>
+
+		<p>
+			Let's start with the banner itself. This element, for me, is something I want prominently (but not annoyingly) displayed at all times. So I'm going to set it as a fixed position element, somewhere near the top right corner of the page. Out of the way but accessible if someone decides they want to get a hold of me about an opportunity! Inside this <span class="code">&lt;aside&gt;</span> container is the checkbox, its label, and the anchor itself. All four of these need to be styled. You'll notice the styling of the checkbox and its label should be pretty similar to the dropdown widget's style. Its also going to hold some global settings for its textual children. First, the banner:
+		</p>
+
+		<section class="blockcode">
+			.banner {<br>
+			<span class="indent">position: fixed;</span><br>
+			<span class="indent">top: 100px;</span><br>
+			<span class="indent">right: 20px;</span><br>
+			<span class="indent">font-size: 1.1em;</span><br>
+			<span class="indent">text-align: center;</span><br>
+			}
+		</section>
+
+		<p>
+			The checkbox graphic is very easy.
+		</p>
+
+		<section class="blockcode">
+			#box {<br>
+			<span class="indent">display: none;</span><br>
+			}
+		</section>
+
+		<p>
+			That one's done. Next, the shared settings for the checkbox label and the anchor link.
+		</p>
+
+		<section class="blockcode">
+			#toggle, #collapsible {<br>
+			<span class="indent">display: block;</span><br>
+			<span class="indent">color: white;</span><br>
+			<span class="indent">text-decoration: none;</span><br>
+			<span class="indent">cursor: pointer;</span><br>
+			}
+		</section>
+
+		<p>
+			And then the individual settings for the checkbox label and anchor link.
+		</p>
+
+		<section class="blockcode">
+			#toggle {<br>
+			<span class="indent">float: left;</span><br>
+			<span class="indent">background-color: rgba(250, 0, 0, 0.7)</span><br>
+			<span class="indent">padding: 10px 6px 10px 10px;</span><br>
+			<span class="indent">/*border-bottom-left-radius: 2px;*/</span><br>
+			<span class="indent">/*border-top-left-radius: 2px;*/</span><br>
+			}<br>
+			<br>
+			#collapsible {<br>
+			<span class="indent">float: right;</span><br>
+			<span class="indent">background-color: rgba(220, 70, 0, 0.7)</span><br>
+			<span class="indent">padding: 10px 16px 10px 4px;</span><br>
+			<span class="indent">/*border-bottom-right-radius: 2px;*/</span><br>
+			<span class="indent">/*border-top-right-radius: 2px;*/</span><br>
+			<span class="indent">white-space: nowrap;</span><br>
+			<span class="indent">transition: padding 1s;</span><br>
+			}
+		</section>
+
+		<p>
+			Note that I have not set a width for the #collapsible element; this prevents me from animating the full width shrinking effect but I can't stress how much I dislike hard coding those kinds of things. It only leads to site problems and bad user experiences. Anyway, I've also included the nowrap settings for the white-space property. As the #collapsible shrinks the text will get pushed and automatically wrap itself downward, expanding the height of the entire .banner. In turn, this makes the #toggle look funny. Best to just avoid that altogether and set a nowrap!
+		</p>
+
+		<p>
+			That wraps up the display of all the elements. Now we need to implement their behavior using our friend the checkbox's <span class="code">:checked</span> pseudo-class. I left the label's container devoid of any content so that I could set it using the #toggle's <span class="code">:after</span> pseudo-class. When the checkbox is not checked, the label shows a fitting '/>' close tag that demonstrates that clicking the anchor will collapse the banner. After clicking the '/>' end tag the checkbox gets checked, the collapse "animation" triggers, and the display of the label changes to the '<' open tag. The settings for the #collapsible element are there to round out the transition effects and make sure it looks good.
+		</p>
+
+		<section class="blockcode">
+			#box ~ #toggle:after {<br>
+			<span class="indent">content: "/>";</span><br>
+			}<br>
+			<br>
+			#box:checked ~ #toggle:after {<br>
+			<span class="indent">content: "<";</span><br>
+			}<br>
+			<br>
+			#box:checked ~ #collapsible {<br>
+			<span class="indent">width: 0;</span><br>
+			<span class="indent">padding: 10px 0;</span><br>
+			<span class="indent">overflow: hidden;</span><br>
+			}
+		</section>
+
+		<p>
+			And that's it. Another fun, pure CSS widget done!
+		</p>
+
+	</article>
+
 	<article class="blogpost">
 		<h1>Master of None</h1>
 		<h3>3/29/2017</h3>
@@ -132,164 +268,163 @@
 		</p>
 
 	</article>
-	<article class="blogpost">
+	<article class="blogpost" id="css-nav-dropdown">
 		<h1>Revisiting CSS Toggle DropDowns</h1>
 		<h3>3/18/2017</h3>
 
 		<h5>Try a working example of this widget on jsfiddle <a href="https://jsfiddle.net/TheThinker/453xro98/" target="_blank">here</a>.</h5>
 
 		<p>
-		I worked on my proprietorship's website a couple months ago and got a beautiful, functional, toggle-able, dropdown menu working for navigational purposes. Naturally, that site is hosted from my Raspberry Pi and recently I have not had access to its files. No matter! We can rebuild it; we have the technology.
+			I worked on my proprietorship's website a couple months ago and got a beautiful, functional, toggle-able, dropdown menu working for navigational purposes. Naturally, that site is hosted from my Raspberry Pi and recently I have not had access to its files. No matter! We can rebuild it; we have the technology.
 		</p>
+
 		<p>
-		This navigational menu is to be used on this very site - for the purposes of respecting responsive web design. It needs to be pure CSS (because javascript makes for horrible UX!), work across multiple browsers both desktop and mobile, and of course, it needs to look good. My approach will be to use a dropdown type of menu that employs a clickable toggle. The way this was accomplished with great support for my other website was by using a checkbox input and its clickable label and I expect to borrow that methodology.
+			This navigational menu is to be used on this very site - for the purposes of respecting responsive web design. It needs to be pure CSS (because javascript makes for horrible UX!), work across multiple browsers both desktop and mobile, and of course, it needs to look good. My approach will be to use a dropdown type of menu that employs a clickable toggle. The way this was accomplished with great support for my other website was by using a checkbox input and its clickable label and I expect to borrow that methodology.
 		</p>
+
 		<p>
-		So, here is what I was able to come up with. You could of course see for yourself using various browser inspection tools but I'll assume you just want the filtered version. First, the HTML.
+			So, here is what I was able to come up with. You could of course see for yourself using various browser inspection tools but I'll assume you just want the filtered version. First, the HTML.
 		</p>
+
 		<h4>The HTML</h4>
+
 		<p>
-		The checkbox input and its label, from my testing, has served me best when included outside everything (i.e. a child only to the body tag). Here's their extremely simple code:
+			The checkbox input and its label, from my testing, has served me best when included outside everything (i.e. a child only to the body tag). Here's their extremely simple code:
 		</p>
 
 		<section class="blockcode">
-			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
+			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br>
 			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;
 		</section>
 
 		<p>
-		As you can see, its VERY simplistic as syntax goes and that's what I strive for. Note that actual text can be used if set between the opening and closing <span class="code">&lt;label&gt;</span> tags.
+			As you can see, its VERY simplistic as syntax goes and that's what I strive for. Note that actual text can be used if set between the opening and closing <span class="code">&lt;label&gt;</span> tags.
 		</p>
+
 		<p>
-		My objective is to be able to create a navigational dropdown menu so elements I want to reveal are stored in the <span class="code">&lt;nav&gt;</span> tag. Within the <span class="code">&lt;nav&gt;</span> tag I use two generic <span class="code">&lt;div&gt;</span> containers to hold navigational links (home, about, etc.) and contact links (GitHub, Facebook, etc.), with a <span class="code">&lt;hr&gt;</span> to visually separate them. Here they are:
+			My objective is to be able to create a navigational dropdown menu so elements I want to reveal are stored in the <span class="code">&lt;nav&gt;</span> tag. Within the <span class="code">&lt;nav&gt;</span> tag I use two generic <span class="code">&lt;div&gt;</span> containers to hold navigational links (home, about, etc.) and contact links (GitHub, Facebook, etc.), with a <span class="code">&lt;hr&gt;</span> to visually separate them. Here they are:
 		</p>
 
 		<section class="blockcode">
-			&lt;nav&gt;<br/>
-			<span class="indent"></span>&lt;div class="pages"&gt;<br/>
-				<span class="double-indent"></span>...<br/>
-			<span class="indent"></span>&lt;/div&gt;<br/>
-			<span class="indent"></span>&lt;hr id="navDiv"/&gt;<br/>
-			<span class="indent"></span>&lt;div class="contact"&gt;<br/>
-				<span class="double-indent"></span>...<br/>
-				<span class="indent"></span>&lt;/div&gt;<br/>
+			&lt;nav&gt;<br>
+			<span class="indent">&lt;div class="pages"&gt;</span><br>
+				<span class="double-indent">...</span><br>
+			<span class="indent">&lt;/div&gt;</span><br>
+			<span class="indent">&lt;hr id="navDiv"/&gt;</span><br>
+			<span class="indent">&lt;div class="contact"&gt;</span><br>
+				<span class="double-indent">...</span><br>
+				<span class="indent">&lt;/div&gt;</span><br>
 			&lt;/nav&gt;
 		</section>
 
 		<p>
-		Beans. Let's include some actual links in those generic <span class="code">&lt;div&gt;</span> containers to take users around the site. Here's a sample navigational menu with links to pages on the website and external social media sites.
+			Beans. Let's include some actual links in those generic <span class="code">&lt;div&gt;</span> containers to take users around the site. Here's a sample navigational menu with links to pages on the website and external social media sites.
 		</p>
 
 		<section class="blockcode">
-			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
-			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br/>
-			<br/>
-			&lt;nav&gt;<br/>
-				<span class="indent"/>&lt;div class="pages"&gt;<br/>
-					<span class="double-indent"/>&lt;a href="index.html" class="active"&gt;home&lt;/a&gt;<br/>
-					<span class="double-indent"/>&lt;a href="about.html"&gt;about&lt;/a&gt;<br/>
-					<span class="double-indent"/>&lt;a href="blog.html"&gt;blog&lt;/a&gt;<br/>
-				<span class="indent"/>&lt;/div&gt;<br/>
-				<span class="indent"/>&lt;hr id="navDiv"/&gt;<br/>
-				<span class="indent"/>&lt;div class="contact"&gt;<br/>
-					<span class="double-indent"/>&lt;a href="https://github.com/nathanblair" target="_blank"&gt;<br/>
-						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/github.png" alt="X"&gt;<br/>
-					<span class="double-indent"/>&lt;/a&gt;<br/>
-					<span class="double-indent"/>&lt;a href="https://facebook.com/TheGr8Nate" target="_blank"&gt;<br/>
-						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/facebook.png" alt="X"&gt;<br/>
-					<span class="double-indent"/>&lt;/a&gt;<br/>
-					<span class="double-indent"/>&lt;a href="https://linked.com/in/engineerblair/" target="_blank"&gt;<br/>
-						<span class="triple-indent"/>&lt;img class="contact-icon" src="_res/icons/linkedin.png" alt="X"&gt;<br/>
-					<span class="double-indent"/>&lt;/a&gt;<br/>
-				<span class="indent"/>&lt;/div&gt;<br/>
+			&lt;input type="checkbox" id="menuCheckBox"/&gt;<br>
+			&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br>
+			<br>
+			&lt;nav&gt;<br>
+				<span class="indent">&lt;div class="pages"&gt;</span><br>
+					<span class="double-indent">&lt;a href="index.html" class="active"&gt;home&lt;/a&gt;</span><br>
+					<span class="double-indent">&lt;a href="about.html"&gt;about&lt;/a&gt;</span><br>
+					<span class="double-indent">&lt;a href="blog.html"&gt;blog&lt;/a&gt;</span><br>
+				<span class="indent">&lt;/div&gt;</span><br>
+				<span class="indent">&lt;hr id="navDiv"/&gt;</span><br>
+				<span class="indent">&lt;div class="contact"&gt;</span><br>
+					<span class="double-indent">&lt;a href="https://github.com/nathanblair" target="_blank"&gt;</span><br>
+						<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/github.png" alt="X"&gt;</span><br>
+					<span class="double-indent">&lt;/a&gt;</span><br>
+					<span class="double-indent">&lt;a href="https://facebook.com/TheGr8Nate" target="_blank"&gt;</span><br>
+						<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/facebook.png" alt="X"&gt;</span><br>
+					<span class="double-indent">&lt;/a&gt;</span><br>
+					<span class="double-indent">&lt;a href="https://linked.com/in/engineerblair/" target="_blank"&gt;</span><br>
+						<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/linkedin.png" alt="X"&gt;</span><br>
+					<span class="double-indent">&lt;/a&gt;</span><br>
+				<span class="indent">&lt;/div&gt;</span><br>
 			&lt;/nav&gt;
 		</section>
 
 		<p>
-		Cool beans. So that's done. On to the CSS.
+			Cool beans. So that's done. On to the CSS.
 		</p>
+
 		<h4>The CSS</h4>
 
 		<p>
-		First, let's put together the checkbox functionality. We want to hide the checkbox graphic but keep its label. In my case, I want the label to be a placeholder with a background image. In that case, here's the css necessary to get the checkbox visuals right:
+			First, let's put together the checkbox functionality. We want to hide the checkbox graphic but keep its label. In my case, I want the label to be a placeholder with a background image. In that case, here's the css necessary to get the checkbox visuals right:
 		</p>
 
 		<section class="blockcode">
-			/*Hide the checkbox graphic*/<br/>
-			#menuCheckBox {<br/>
-				<span class="indent"/>display: none;<br/>
-			}<br/>
-			<br/>
-			/*Settings for the checkbox label*/<br/>
-			#menuBox {<br/>
-				<span class="indent"/>display: block;<br/>
-				<span class="indent"/>z-index: 5;<br/>
-				<span class="indent"/>background-image: url('../_res/icons/menu.png');<br/>
-				<span class="indent"/>background-size: 48px;<br/>
-				<span class="indent"/>background-repeat: no-repeat;<br/>
-				<span class="indent"/>background-position-x: center;<br/>
-				<span class="indent"/>background-position-y: center;<br/>
-				<span class="indent"/>height: 50px;<br/>
-				<span class="indent"/>padding: 8px 0;<br/>
+			/*Hide the checkbox graphic*/<br>
+			#menuCheckBox {<br>
+				<span class="indent">display: none;</span><br>
+			}<br>
+			<br>
+			#menuBox {<br>
+				<span class="indent">display: block;</span><br>
+				<span class="indent">z-index: 5;</span><br>
+				<span class="indent">background-image: url('../_res/icons/menu.png');</span><br>
+				<span class="indent">background-size: 48px;</span><br>
+				<span class="indent">background-repeat: no-repeat;</span><br>
+				<span class="indent">background-position-x: center;</span><br>
+				<span class="indent">background-position-y: center;</span><br>
+				<span class="indent">height: 50px;</span><br>
+				<span class="indent">padding: 8px 0;</span><br>
 			}			
 		</section>
 
 		<p>
-		I normally swear against using hard-coded height settings but in this case, since the label element is only serving to display the background image, the height must be set explicitly otherwise the label element would not show up at all. Nominally the background image would be an icon (in my case, the hamburger menu icon), and I've explicitly set the dimensions of the icon to be 48px x 48px. From my experience, this is a manageable size on any browser regardless of desktop or mobile usage.
+			I normally swear against using hard-coded height settings but in this case, since the label element is only serving to display the background image, the height must be set explicitly otherwise the label element would not show up at all. Nominally the background image would be an icon (in my case, the hamburger menu icon), and I've explicitly set the dimensions of the icon to be 48px x 48px. From my experience, this is a manageable size on any browser regardless of desktop or mobile usage.
 		</p>
 
 		<p>
-		Next, the settings for the navigation menu itself:
+			Next, the settings for the navigation menu itself:
 		</p>
 
 		<section class="blockcode">
-			/*Hide the nav menu until the toggle is activated*/<br/>
-			nav {<br/>
-				<span class="indent"/>display: none;<br/>
-				<span class="indent"/>width: 100%;<br/>
-				<span class="indent"/>overflow: hidden;<br/>
-			}<br/>
-			<br/>
-			/*Make the links look like they're used for page navigation*/<br/>
-			nav a {<br/>
-				<span class="indent"/>text-decoration: none;<br/>
-				<span class="indent"/>display: block;<br/>
-				<span class="indent"/>text-align: center;<br/>
-			}<br/>
-			<br/>
-			/*Settings for site page navigation links - adjust to your liking*/<br/>
-			.pages a {<br/>
-				<span class="indent"/>/*padding: 0.5em 1em;*/<br/>
-			}<br/>
-			<br/>
-			/*Settings for contact icon links - keep display settings, adjust anything else*/<br/>
-			.contact a {<br/>
-				<span class="indent"/>display: flex;<br/>
-				<span class="indent"/>justify-content: center;<br/>
-				<span class="indent"/>/*padding: 0.5em 1.3em;*/<br/>
+			nav {<br>
+				<span class="indent">display: none;</span><br>
+				<span class="indent">width: 100%;</span><br>
+				<span class="indent">overflow: hidden;</span><br>
+			}<br>
+			<br>
+			nav a {<br>
+				<span class="indent">text-decoration: none;</span><br>
+				<span class="indent">display: block;</span><br>
+				<span class="indent">text-align: center;</span><br>
+			}<br>
+			<br>
+			.pages a {<br>
+				<span class="indent">/*padding: 0.5em 1em;*/</span><br>
+			}<br>
+			<br>
+			.contact a {<br>
+				<span class="indent">display: flex;</span><br>
+				<span class="indent">justify-content: center;</span><br>
+				<span class="indent">/*padding: 0.5em 1.3em;*/</span><br>
 			}
 		</section>
 
 		<p>
-		Now its time to implement the desired behavior for the toggle functionality. This is done using the <span class="code">:checked</span> pseudo-class selector. Since the <span class="code">&lt;nav&gt;</span> element and <span class="code">&lt;input&gt;</span> element are siblings, we can apply all kinds of settings to the <span class="code">&lt;nav&gt;</span> element and its children when the <span class="code">:checked</span> flag is ticked by using the <span class="code">~</span> sibling selector.
+			Now its time to implement the desired behavior for the toggle functionality. This is done using the <span class="code">:checked</span> pseudo-class selector. Since the <span class="code">&lt;nav&gt;</span> element and <span class="code">&lt;input&gt;</span> element are siblings, we can apply all kinds of settings to the <span class="code">&lt;nav&gt;</span> element and its children when the <span class="code">:checked</span> flag is ticked by using the <span class="code">~</span> sibling selector.
 		</p>
 
 		<section class="blockcode">
-			/*Display the nav element properly if the toggle is activated*/<br/>
-			#menuCheckBox:checked ~ nav {<br/>
-				<span class="indent"/>display: inline-block;<br/>
-				<span class="indent"/>z-index: 5;<br/>
-				<span class="indent"/>position: absolute;<br/>
-			}<br/>
-			<br/>
-			/*Nominally change the background image of the toggle label to something else*/<br/>
-			#menuCheckBox:checked ~ #menuBox {<br/>
-				<span class="indent"/>background-image: url('../_res/icons/close.png');<br/>
+			#menuCheckBox:checked ~ nav {<br>
+				<span class="indent">display: inline-block;</span><br>
+				<span class="indent">z-index: 5;</span><br>
+				<span class="indent">position: absolute;</span><br>
+			}<br>
+			<br>
+			#menuCheckBox:checked ~ #menuBox {<br>
+				<span class="indent">background-image: url('../_res/icons/close.png');</span><br>
 			}
 		</section>
 
 		<p>
-		And thats it. A sample working toggle-able navigation menu that can be used to help keep sites responsive on a wide array of devices and browsers. 
+			And thats it. A sample working toggle-able navigation menu that can be used to help keep sites responsive on a wide array of devices and browsers. 
 		</p>
 
 	</article>
