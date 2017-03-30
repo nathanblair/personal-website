@@ -13,25 +13,25 @@
 </url>
 <url>
   <loc>http://www.nateblair.info/index.html</loc>
-  <lastmod>2017-03-20T12:54:59+00:00</lastmod>
+  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/about.html</loc>
-  <lastmod>2017-03-20T12:54:59+00:00</lastmod>
+  <loc>http://www.nateblair.info/about/index.html</loc>
+  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/resume.html</loc>
-  <lastmod>2017-03-20T12:54:59+00:00</lastmod>
+  <loc>http://www.nateblair.info/resume/index.html</loc>
+  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/blog.html</loc>
-  <lastmod>2017-03-20T12:54:59+00:00</lastmod>
+  <loc>http://www.nateblair.info/blog/index.html</loc>
+  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
