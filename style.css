@@ -14,7 +14,7 @@
 }
 
 main {
-	background-image: url('../_res/landingPic.jpeg');
+	background-image: url('_res/landingPic.jpeg');
 	background-attachment: fixed;
 	background-size: cover;
 	background-repeat: no-repeat;
