@@ -6,31 +6,31 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-  <loc>http://www.nateblair.info/</loc>
+  <loc>http://nathanblair.rocks/</loc>
   <lastmod>2017-03-20T12:54:59+00:00</lastmod>
-  <changefreq>monthly</changefreq>
+  <changefreq>weekly</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/index.html</loc>
+  <loc>http://nathanblair.rocks/index.html</loc>
+  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/about/index.html</loc>
   <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/about/index.html</loc>
-  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
-  <changefreq>yearly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.nateblair.info/resume/index.html</loc>
+  <loc>http://nathanblair.rocks/resume/index.html</loc>
   <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.nateblair.info/blog/index.html</loc>
+  <loc>http://nathanblair.rocks/blog/index.html</loc>
   <lastmod>2017-03-30T12:54:59+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
