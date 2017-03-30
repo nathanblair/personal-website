@@ -18,14 +18,14 @@ html, body {
 }
 
 #menuCheckBox:checked ~ #menuBox {
-	background-image: url('../_res/icons/close.png');
+	background-image: url('_res/icons/close.png');
 }
 
 #menuBox {
 	display: block;
 	background-color: #262626;
 	z-index: 5;
-	background-image: url('../_res/icons/menu.png');
+	background-image: url('_res/icons/menu.png');
 	background-size: 50px;
 	background-repeat: no-repeat;
 	background-position-x: center;
@@ -158,12 +158,11 @@ nav a {
 }
 
 footer {
-	clear: all;
+	/*clear: all;*/
     background-color: #262626;
 	color: white;
 	width: 100%;
-	text-align: center;	
+	text-align: center;
 	padding: 1.2em 0;
 	font-size: 1.1em;
 }
-
