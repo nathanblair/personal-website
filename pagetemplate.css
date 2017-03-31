@@ -106,11 +106,13 @@ nav a {
 	}
 }
 
-.hire-me {
+#hire-me {
 	position: fixed;
-	top: 100px;
-	right: 20px;
-	font-size: 1.1em;
+	right: 0;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	font-size: 4vw;
 	text-align: center;
 }
 
@@ -122,39 +124,39 @@ nav a {
 }
 
 #hire-me-toggle {
-	float: left;
-	background-color: rgba(250, 0, 0, 0.7);
+	background-color: rgba(10, 10, 10, 0.9);
 	padding: 10px 6px 10px 10px;
 	border-bottom-left-radius: 2px;
 	border-top-left-radius: 2px;
 }
 
+#hire-me-toggle:after {
+  content: "/>";
+}
+
 #hire-me-link {
-	float: right;
-	background-color: rgba(220, 70, 0, 0.7);
+	background-color: rgba(20, 20, 20, 0.7);
 	padding: 10px 16px 10px 4px;
 	border-bottom-right-radius: 2px;
 	border-top-right-radius: 2px;
 	transition: padding 1s;
 	white-space: nowrap;
+	flex-grow: 1;
 }
 
-#hire-me-box ~ #hire-me-toggle:after {
-  content: "/>";
-}
-
-#hire-me-box:checked ~ #hire-me-toggle:after {
+#hire-me-box:checked ~ #hire-me #hire-me-toggle:after {
   content: "<";
 }
 
-#hire-me-box:checked ~ #hire-me-link {
+#hire-me-box:checked ~ #hire-me #hire-me-link {
+	flex-grow: 0;
 	width: 0;
 	padding: 10px 0;
 	overflow: hidden;
 }
 
 #hire-me-link:hover, #hire-me-toggle:hover {
-	background-color: rgba(170, 10, 20, 1.0);
+	background-color: rgba(50, 50, 50, 1.0);
 }
 
 footer {

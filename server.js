@@ -5,7 +5,7 @@ const port		= 3000
 const path		= 'C:/Users/nathan/Documents/Github/nathanblair.github.io'
 
 
-// Get the URI
+// Get the URI - has its own function to allow recursivity
 function deliverURI(uri, res) {
 	// Try accessing the file
 	fileSys.readFile(uri, (err, contents) => {
@@ -27,7 +27,7 @@ function deliverURI(uri, res) {
 				deliverURI(uri, res)
 			}
 		} else {
-			console.log('Delivered: ' + uri)
+			// console.log('Delivered: ' + uri)
 			res.statusCode = 200
 			res.end(contents)
 		}
@@ -37,7 +37,7 @@ function deliverURI(uri, res) {
 // Callback that handles the request and serves the response
 const requestHandler = (req, res) => {	
 	var fullURI = path + req.url
-	console.log(`Request was made for ${req.url}`)
+	// console.log(`Request was made for ${req.url}`)
 
 	deliverURI(fullURI, res)
 }

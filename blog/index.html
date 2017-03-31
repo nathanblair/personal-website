@@ -11,10 +11,6 @@
 	<link rel="shortcut icon" href="../favicon.png" type="image/png">
 	<link rel="stylesheet" href="../pagetemplate.css" type="text/css">
 	<link rel="stylesheet" href="style.css" type="text/css">
-	<!-- jquery snippet -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Load the manager.js to get blog posts -->
-	<script src="manager.js"></script>
 	<!--Google Analytics snippet-->
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -78,8 +74,8 @@
 
 
 <!--Hire me!!!-->
-<aside class="hire-me">
-	<input type="checkbox" id="hire-me-box"/>
+<input type="checkbox" id="hire-me-box"/>
+<aside id="hire-me">
 	<label id="hire-me-toggle" for="hire-me-box"></label>
 	<a href="mailto:nathan.t.blair@outlook.com?subject=Opportunities (From nateblair.info)&body=
 	I found your site and liked reading about you.%0D%0A
@@ -93,6 +89,20 @@
 		Ready to hire me? Send me an e-mail!
 	</a>
 </aside>
+
+
+<!--Radio inputs to select filter - not shown!-->
+<input type="radio" id="featured-radio" class="radio-button" name="content-filter" checked="checked">
+<input type="radio" id="personal-radio" class="radio-button" name="content-filter" value="Personal">
+<input type="radio" id="tech-radio" class="radio-button" name="content-filter" value="Tech">
+
+<!--Filter buttons-->
+<header id="blog-filter">
+	<label for="featured-radio" class="filter-label featured" id="feature-label">Featured</label>
+    <label for="personal-radio" class="filter-label personal" id="personal-label">Personal</label>
+    <label for="tech-radio" class="filter-label tech" id="tech-label">Tech</label>
+</header>
+
 
 <!--Main page content-->
 <main>

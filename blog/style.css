@@ -3,6 +3,46 @@ main {
 	min-height: 99vh;
 }
 
+.radio-button {
+    display: none;
+}
+
+#blog-filter {
+    padding: 5% 0;
+    display: flex;
+    justify-content: center;
+	color: white;
+}
+
+.filter-label {
+    display: inline-block;
+	background-color: #262626;
+    padding: 10px 20px;
+    font-size: 1.4em;
+    text-align: center;
+    cursor: pointer;
+	flex-grow: 1;
+}
+
+.filter-label:hover {
+	box-shadow: inset 0 0 5px 5px #FFF;
+}
+
+#featured-radio:checked~#blog-filter .featured,
+#personal-radio:checked~#blog-filter .personal,
+#tech-radio:checked~#blog-filter .tech {
+    background-color: white;
+	color: #262626;
+	border: 2px solid #262626;
+	
+}
+
+#tech-radio:checked~main .tech,
+#featured-radio:checked~main .featured,
+#personal-radio:checked~main .personal {
+    display: block;
+}
+
 h1 {
 	font-size: 2.5em;
 	font-family: Georgia, 'Times New Roman', Times, serif;
@@ -12,8 +52,13 @@ h4 {
 	font-size: 1.3em;
 }
 
-.blogpost {
+.blogpost, .embedded {
 	padding: 0 5% 5% 5%;
+}
+
+.embedded {
+	max-height: 50vh;
+	overflow: auto;
 }
 
 .blogpost p {
@@ -48,7 +93,12 @@ h4 {
 }
 
 @media screen and (min-width: 950px) {
-	.blogpost {
+	.filter-label {
+		flex-grow: unset;
+		margin: 0 10px;
+	}
+
+	.blogpost, .embedded {
 		margin: 0 5% 5% 5%;
 		border: 1px solid;
 		box-shadow: 5px 5px 5px #262626;

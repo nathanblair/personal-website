@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <article class="blogpost tech" id="css-nav-dropdown">
-	<h1>Revisiting CSS Toggle DropDowns</h1>
-	<h3>3/18/2017</h3>
+	<header>
+		<h1>Revisiting CSS Toggle DropDowns</h1>
+		<h3 class="date">3/18/2017</h3>
+	</header>
 
 	<h5>Try a working example of this widget on jsfiddle <a href="https://jsfiddle.net/TheThinker/453xro98/" target="_blank">here</a>.</h5>
 
@@ -24,7 +26,7 @@
 	</p>
 
 	<section class="blockcode">
-		&lt;input type="checkbox" id="menuCheckBox"/&gt;<br>
+		&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
 		&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;
 	</section>
 
@@ -37,14 +39,14 @@
 	</p>
 
 	<section class="blockcode">
-		&lt;nav&gt;<br>
-		<span class="indent">&lt;div class="pages"&gt;</span><br>
-			<span class="double-indent">...</span><br>
-		<span class="indent">&lt;/div&gt;</span><br>
-		<span class="indent">&lt;hr id="navDiv"/&gt;</span><br>
-		<span class="indent">&lt;div class="contact"&gt;</span><br>
-			<span class="double-indent">...</span><br>
-			<span class="indent">&lt;/div&gt;</span><br>
+		&lt;nav&gt;<br/>
+		<span class="indent">&lt;div class="pages"&gt;</span><br/>
+			<span class="double-indent">...</span><br/>
+		<span class="indent">&lt;/div&gt;</span><br/>
+		<span class="indent">&lt;hr id="navDiv"/&gt;</span><br/>
+		<span class="indent">&lt;div class="contact"&gt;</span><br/>
+			<span class="double-indent">...</span><br/>
+			<span class="indent">&lt;/div&gt;</span><br/>
 		&lt;/nav&gt;
 	</section>
 
@@ -53,27 +55,27 @@
 	</p>
 
 	<section class="blockcode">
-		&lt;input type="checkbox" id="menuCheckBox"/&gt;<br>
-		&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br>
-		<br>
-		&lt;nav&gt;<br>
-			<span class="indent">&lt;div class="pages"&gt;</span><br>
-				<span class="double-indent">&lt;a href="index.html" class="active"&gt;home&lt;/a&gt;</span><br>
-				<span class="double-indent">&lt;a href="about.html"&gt;about&lt;/a&gt;</span><br>
-				<span class="double-indent">&lt;a href="blog.html"&gt;blog&lt;/a&gt;</span><br>
-			<span class="indent">&lt;/div&gt;</span><br>
-			<span class="indent">&lt;hr id="navDiv"/&gt;</span><br>
-			<span class="indent">&lt;div class="contact"&gt;</span><br>
-				<span class="double-indent">&lt;a href="https://github.com/nathanblair" target="_blank"&gt;</span><br>
-					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/github.png" alt="X"&gt;</span><br>
-				<span class="double-indent">&lt;/a&gt;</span><br>
-				<span class="double-indent">&lt;a href="https://facebook.com/TheGr8Nate" target="_blank"&gt;</span><br>
-					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/facebook.png" alt="X"&gt;</span><br>
-				<span class="double-indent">&lt;/a&gt;</span><br>
-				<span class="double-indent">&lt;a href="https://linked.com/in/engineerblair/" target="_blank"&gt;</span><br>
-					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/linkedin.png" alt="X"&gt;</span><br>
-				<span class="double-indent">&lt;/a&gt;</span><br>
-			<span class="indent">&lt;/div&gt;</span><br>
+		&lt;input type="checkbox" id="menuCheckBox"/&gt;<br/>
+		&lt;label id="menuBox" for="menuCheckBox"&gt;&lt;/label&gt;<br/>
+		<br/>
+		&lt;nav&gt;<br/>
+			<span class="indent">&lt;div class="pages"&gt;</span><br/>
+				<span class="double-indent">&lt;a href="index.html" class="active"&gt;home&lt;/a&gt;</span><br/>
+				<span class="double-indent">&lt;a href="about.html"&gt;about&lt;/a&gt;</span><br/>
+				<span class="double-indent">&lt;a href="blog.html"&gt;blog&lt;/a&gt;</span><br/>
+			<span class="indent">&lt;/div&gt;</span><br/>
+			<span class="indent">&lt;hr id="navDiv"/&gt;</span><br/>
+			<span class="indent">&lt;div class="contact"&gt;</span><br/>
+				<span class="double-indent">&lt;a href="https://github.com/nathanblair" target="_blank"&gt;</span><br/>
+					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/github.png" alt="X"&gt;</span><br/>
+				<span class="double-indent">&lt;/a&gt;</span><br/>
+				<span class="double-indent">&lt;a href="https://facebook.com/TheGr8Nate" target="_blank"&gt;</span><br/>
+					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/facebook.png" alt="X"&gt;</span><br/>
+				<span class="double-indent">&lt;/a&gt;</span><br/>
+				<span class="double-indent">&lt;a href="https://linked.com/in/engineerblair/" target="_blank"&gt;</span><br/>
+					<span class="triple-indent">&lt;img class="contact-icon" src="_res/icons/linkedin.png" alt="X"&gt;</span><br/>
+				<span class="double-indent">&lt;/a&gt;</span><br/>
+			<span class="indent">&lt;/div&gt;</span><br/>
 		&lt;/nav&gt;
 	</section>
 
@@ -88,21 +90,21 @@
 	</p>
 
 	<section class="blockcode">
-		/*Hide the checkbox graphic*/<br>
-		#menuCheckBox {<br>
-			<span class="indent">display: none;</span><br>
-		}<br>
-		<br>
-		#menuBox {<br>
-			<span class="indent">display: block;</span><br>
-			<span class="indent">z-index: 5;</span><br>
-			<span class="indent">background-image: url('../_res/icons/menu.png');</span><br>
-			<span class="indent">background-size: 48px;</span><br>
-			<span class="indent">background-repeat: no-repeat;</span><br>
-			<span class="indent">background-position-x: center;</span><br>
-			<span class="indent">background-position-y: center;</span><br>
-			<span class="indent">height: 50px;</span><br>
-			<span class="indent">padding: 8px 0;</span><br>
+		/*Hide the checkbox graphic*/<br/>
+		#menuCheckBox {<br/>
+			<span class="indent">display: none;</span><br/>
+		}<br/>
+		<br/>
+		#menuBox {<br/>
+			<span class="indent">display: block;</span><br/>
+			<span class="indent">z-index: 5;</span><br/>
+			<span class="indent">background-image: url('../_res/icons/menu.png');</span><br/>
+			<span class="indent">background-size: 48px;</span><br/>
+			<span class="indent">background-repeat: no-repeat;</span><br/>
+			<span class="indent">background-position-x: center;</span><br/>
+			<span class="indent">background-position-y: center;</span><br/>
+			<span class="indent">height: 50px;</span><br/>
+			<span class="indent">padding: 8px 0;</span><br/>
 		}
 	</section>
 
@@ -115,26 +117,26 @@
 	</p>
 
 	<section class="blockcode">
-		nav {<br>
-			<span class="indent">display: none;</span><br>
-			<span class="indent">width: 100%;</span><br>
-			<span class="indent">overflow: hidden;</span><br>
-		}<br>
-		<br>
-		nav a {<br>
-			<span class="indent">text-decoration: none;</span><br>
-			<span class="indent">display: block;</span><br>
-			<span class="indent">text-align: center;</span><br>
-		}<br>
-		<br>
-		.pages a {<br>
-			<span class="indent">/*padding: 0.5em 1em;*/</span><br>
-		}<br>
-		<br>
-		.contact a {<br>
-			<span class="indent">display: flex;</span><br>
-			<span class="indent">justify-content: center;</span><br>
-			<span class="indent">/*padding: 0.5em 1.3em;*/</span><br>
+		nav {<br/>
+			<span class="indent">display: none;</span><br/>
+			<span class="indent">width: 100%;</span><br/>
+			<span class="indent">overflow: hidden;</span><br/>
+		}<br/>
+		<br/>
+		nav a {<br/>
+			<span class="indent">text-decoration: none;</span><br/>
+			<span class="indent">display: block;</span><br/>
+			<span class="indent">text-align: center;</span><br/>
+		}<br/>
+		<br/>
+		.pages a {<br/>
+			<span class="indent">/*padding: 0.5em 1em;*/</span><br/>
+		}<br/>
+		<br/>
+		.contact a {<br/>
+			<span class="indent">display: flex;</span><br/>
+			<span class="indent">justify-content: center;</span><br/>
+			<span class="indent">/*padding: 0.5em 1.3em;*/</span><br/>
 		}
 	</section>
 
@@ -143,14 +145,14 @@
 	</p>
 
 	<section class="blockcode">
-		#menuCheckBox:checked ~ nav {<br>
-			<span class="indent">display: inline-block;</span><br>
-			<span class="indent">z-index: 5;</span><br>
-			<span class="indent">position: absolute;</span><br>
-		}<br>
-		<br>
-		#menuCheckBox:checked ~ #menuBox {<br>
-			<span class="indent">background-image: url('../_res/icons/close.png');</span><br>
+		#menuCheckBox:checked ~ nav {<br/>
+			<span class="indent">display: inline-block;</span><br/>
+			<span class="indent">z-index: 5;</span><br/>
+			<span class="indent">position: absolute;</span><br/>
+		}<br/>
+		<br/>
+		#menuCheckBox:checked ~ #menuBox {<br/>
+			<span class="indent">background-image: url('../_res/icons/close.png');</span><br/>
 		}
 	</section>
 
