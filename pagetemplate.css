@@ -7,50 +7,86 @@ html, body {
 	font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
-#menuCheckBox, #hire-me-box {
+
+/***************************Menu Nav Bar**********************************/
+#menu-box, #hire-me-box {
 	display: none;
-}
-
-#menuCheckBox:checked ~ nav {
-	display: block;
-	z-index: 5;
-	position: absolute;
-}
-
-#menuCheckBox:checked ~ #menuBox {
-	background-image: url('_res/icons/close.png');
-}
-
-#menuBox {
-	display: block;
-	background-color: #262626;
-	z-index: 5;
-	background-image: url('_res/icons/menu.png');
-	background-size: 50px;
-	background-repeat: no-repeat;
-	background-position-x: center;
-	background-position-y: center;
-	height: 50px;
-	padding: 4px 0;
 }
 
 nav {
-	display: none;
+	position: fixed;
+	top: 0; 
+	left: 0;
+	display: flex;
 	background-color: #262626;
+	z-index: 5;
+	width: 5em;
+	height: 5em;
+	transition: width 0.5s, height 0.5s;
+	overflow-y: auto;
+}
+
+#menu-toggle {
+	background-image: url('_res/icons/menu.png');
+	background-size: 5em;
+	width: 5em;
+	height: 5em;
+	z-index: 5;
+}
+
+#nav-links {
+	position: absolute;
+	display: none;
+	padding-top: 5em;
 	width: 100%;
 }
 
-nav a {
+#nav-divider {
+	margin: 3vh;
+}
+
+#menu-box:checked ~ nav {
+	width: 100%;
+	height: 100vh;
+}
+
+#menu-box:checked ~ nav > #nav-links {
+	display: block;
+}
+
+#menu-box:checked ~ nav > #menu-toggle {
+	background-image: url('_res/icons/close.png');
+}
+
+.pages > a, .contact > a {
 	text-decoration: none;
 	color: white;
 	text-align: center;
+	display: block;
+	font-size: 3em;
 }
 
-.contact a, .pages a {
-	box-sizing: border-box;
-	display: block;
-	font-size: 1.2em;
-	padding: 10px 20px;
+.pages > a:hover, .contact > a:hover {
+	box-shadow: inset 0 0 0 5px white;
+}
+
+.pages > a {
+	padding: 15px 0;
+	margin: 0 10vw;
+}
+
+.pages > a.active {
+	font-weight: bold;
+}
+
+.contact {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.contact > a {
+	flex-grow: 1;
 }
 
 .contact-label {
@@ -58,109 +94,67 @@ nav a {
 	display: block;
 }
 
-.pages a:hover, .contact a:hover {
-	box-shadow: inset 0 0 0 5px white;
-}
-
-.pages a.active {
-	font-weight: bold;
-}
-
 .contact-icon {
 	display: inline-block;
-	height: 30px;
+	height: 1.5em;
 	width: auto;
-
 	fill: white;
 }
 
-@media screen and (min-width: 950px) {
-	#menuCheckBox, #menuBox {
-		display: none;
-	}
 
-	#navDiv {
-		display: none;
-	}
-
-	nav {
-		display: flex;
-		justify-content: space-between;
-		align-items: stretch;
-	}
-
-	nav a {
-		float: left;
-	}
-
-	.pages a.active {
-		border-bottom: 3px solid white;
-	}
-
-	.pages {
-		display: flex;
-	}
-
-	.pages a {
-		padding: 20px 20px;
-	}
-}
-
+/***************************Hire Me Banner*******************************/
 #hire-me {
 	position: fixed;
-	right: 0;
+	top: 0;
+	left: 0;
 	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-	font-size: 4vw;
 	text-align: center;
+	font-size: 2em;
 }
 
 #hire-me-toggle, #hire-me-link {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2.5em;
 	color: white;
-	text-decoration: none;
 	cursor: pointer;
+}
+
+#hire-me-link {
+	text-decoration: none;
+	background-color: rgba(20, 20, 20, 0.7);
+	transition: height 1s, padding 1s;
+	white-space: nowrap;
 }
 
 #hire-me-toggle {
 	background-color: rgba(10, 10, 10, 0.9);
-	padding: 10px 6px 10px 10px;
-	border-bottom-left-radius: 2px;
-	border-top-left-radius: 2px;
-}
-
-#hire-me-toggle:after {
-  content: "/>";
-}
-
-#hire-me-link {
-	background-color: rgba(20, 20, 20, 0.7);
-	padding: 10px 16px 10px 4px;
-	border-bottom-right-radius: 2px;
-	border-top-right-radius: 2px;
-	transition: padding 1s;
-	white-space: nowrap;
-	flex-grow: 1;
-}
-
-#hire-me-box:checked ~ #hire-me #hire-me-toggle:after {
-  content: "<";
-}
-
-#hire-me-box:checked ~ #hire-me #hire-me-link {
-	flex-grow: 0;
-	width: 0;
-	padding: 10px 0;
-	overflow: hidden;
 }
 
 #hire-me-link:hover, #hire-me-toggle:hover {
 	background-color: rgba(50, 50, 50, 1.0);
 }
 
+#hire-me-toggle:after {
+  content: "^";
+}
+
+#hire-me-box:checked ~ #hire-me > #hire-me-toggle:after {
+  content: "V";
+}
+
+#hire-me-box:checked ~ #hire-me > #hire-me-link {
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+
+/******************************Footer***********************************/
 footer {
-	/*clear: all;*/
+	position: absolute;
+	bottom: 0;
     background-color: #262626;
 	color: white;
 	width: 100%;

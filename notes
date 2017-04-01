@@ -1,20 +1,68 @@
-Useful API Functions and examples
-[jquery]
-------- Load content into a <div> -------------------------------------------------------
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $("#div1").load("demo_test.txt");
-    });
-});
-</script>
-</head>
-<body>
+Still figuring out how to organize blog
+- Preview/filter featured, personal, and tech blogs on /blog/ domain
+    - Featured blogs pull from both personal, tech, and otherwhere
+    - Personal blogs will show as if from /blog/personal/
+    - Tech blogs will show as if from /blog/tech/)
 
-<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
 
-<button>Get External Content</button>
+- Create static file that lists (in HTML/XML?) the directories of all blog posts
+- Update static file with known blog posts
+- Use static file to populate an index in each category directory (personal/tech/etc.)
 
-</body>
+
+- Could also approach simulating a change in directories to view "new content" (i.e. the blogs belonging to that category) by using a simple URL-spoof by using a hash (i.e. .../blog/#personal/) or the window.history.pushState/replaceState functions in JS
+
+
+----- HTML to include for filtering tags
+<!--Radio inputs to select filter - not shown!-->
+<input type="radio" id="featured-radio" class="radio-button" name="content-filter" checked="checked">
+<input type="radio" id="personal-radio" class="radio-button" name="content-filter">
+<input type="radio" id="tech-radio" class="radio-button" name="content-filter">
+
+<!--Filter buttons-->
+<div id="blog-filter">
+	<label for="featured-radio" class="filter-label featured">Featured</label>
+	<label for="personal-radio" class="filter-label personal">Personal</label>
+	<label for="tech-radio" class="filter-label tech">Tech</label>
+</div>
+
+
+----- CSS to include for filtering tags
+.radio-button {
+    display: none;
+}
+
+#blog-filter {
+    padding: 5% 0;
+    display: flex;
+    justify-content: center;
+	color: white;
+}
+
+.filter-label {
+	background-color: #262626;
+    padding: 10px 20px;
+    font-size: 1.4em;
+    text-align: center;
+    cursor: pointer;
+	flex-grow: 1;
+}
+
+.filter-label:hover {
+	text-decoration: underline;
+}
+
+#featured-radio:checked~#blog-filter .featured,
+#personal-radio:checked~#blog-filter .personal,
+#tech-radio:checked~#blog-filter .tech {
+    background-color: white;
+	color: #262626;
+	border: 2px solid #262626;
+	
+}
+
+#tech-radio:checked~main .tech,
+#featured-radio:checked~main .featured,
+#personal-radio:checked~main .personal {
+    display: block;
+}
