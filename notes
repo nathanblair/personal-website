@@ -66,3 +66,5 @@ Still figuring out how to organize blog
 #personal-radio:checked~main .personal {
     display: block;
 }
+
+-- Add '$ add-awesomeness' or something like it as a command in the hire-me dropdown!
