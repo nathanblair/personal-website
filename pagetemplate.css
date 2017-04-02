@@ -39,7 +39,6 @@ nav {
 #nav-links {
 	position: absolute;
 	display: none;
-	padding: 0 0 8vh 0;
 	width: 100%;
 }
 
@@ -70,28 +69,40 @@ nav {
 	background-image: url('_res/icons/close.png');
 }
 
-.pages, .contact { margin: 0 10vw; }
+.pages, .contact { display: flex; margin: 0 10vw; }
 
-.pages { padding-top: 60px; }
+.pages { padding-top: 60px; flex-direction: column; align-items: center; }
 
 .pages > a, .contact > a {
 	text-decoration: none;
 	color: white;
 	text-align: center;
-	display: block;
 	font-size: 3em;
+	border: solid 4px white;
 }
 
-.pages > a:hover, .contact > a:hover {
-	box-shadow: inset 0 0 0 5px white;
+.pages > a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	min-height: 1.5em;
+	padding: 0 3%;
+	margin: 1vh 0;
 }
 
-.pages > a { padding: 15px 0; }
+.pages > a.active { background-color: white; color: #262626; pointer-events: none; }
 
-.pages > a.active { font-weight: bold; }
+.pages > a:hover { font-family: Courier New, Courier, monospace; }
+.pages > a:hover > .inline-command { display: inline; }
+
+.pages > a > .inline-command { 
+	display: none;
+	font-style: normal;
+	font-weight: normal;
+}
 
 .contact {
-	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
@@ -101,6 +112,9 @@ nav {
 	flex-basis: 100%;
 	max-width: 5em;
 }
+
+.contact > a:hover { background-color: white; color: #262626; }
+.contact > a:hover > .contact-icon { fill: #262626; }
 
 .contact-label {
 	font-size: 0.8em;
@@ -126,42 +140,41 @@ nav {
 #hire-me-toggle, #hire-me-link {
 	display: flex;
 	align-items: flex-end;
+	align-content: center;
 	justify-content: center;
 	color: white;
 	cursor: pointer;
 }
 
-#hire-me-link {
-	font-size: 2em;
-	height: 30vh;
-	padding: 5vh 0;
-	text-decoration: none;
-	background-color: rgba(20, 20, 20, 0.7);
-	transition: height 1s, padding 1s;
-}
-
 #hire-me-toggle {
 	height: 70px;
-	background-color: rgba(10, 10, 10, 0.9);
+	background-color: #262626;
 }
 
-#hire-me-toggle .name-logo {
+#hire-me-toggle > .name-logo {
 	height: 70px;
 	font-size: 3vw;
 	justify-content: flex-end;
 	margin: 0 4vw 0 78px;
 }
 
+#hire-me-link {
+	font-size: 2em;
+	padding: 140px 0 70px 0;
+	text-decoration: none;
+	background-color: rgba(10, 10, 10, 0.7);
+	transition: height 1s, padding 1s;
+	text-align: center;
+}
+#hire-me-link:hover { background-color: rgba(20, 20, 20, 0.9); }
+#hire-me-toggle:hover { background-color: #303030; }
+
 @media screen and (min-width: 950px) {
-	#hire-me-toggle .name-logo {
+	#hire-me-toggle > .name-logo {
 		font-size: 28px;
 		justify-content: center;
 		margin: 0;
 	}
-}
-
-#hire-me-link:hover, #hire-me-toggle:hover {
-	background-color: rgba(50, 50, 50, 1.0);
 }
 
 #hire-me-box:checked ~ #hire-me > #hire-me-link {
