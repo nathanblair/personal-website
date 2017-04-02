@@ -9,9 +9,7 @@ html, body {
 
 
 /***************************Menu Nav Bar**********************************/
-#menu-box, #hire-me-box {
-	display: none;
-}
+#menu-box, #hire-me-box { display: none; }
 
 nav {
 	position: fixed;
@@ -36,9 +34,7 @@ nav {
 	transition: border 0.7s, opacity 0.7s;
 }
 
-#menu-toggle:hover {
-	opacity: 1;
-}
+#menu-toggle:hover { opacity: 1; }
 
 #nav-links {
 	position: absolute;
@@ -59,9 +55,7 @@ nav {
 	height: 78px;
 }
 
-#nav-divider {
-	margin: 3vh;
-}
+#nav-divider { margin: 3vh; }
 
 #menu-box:checked ~ nav {
 	width: 100%;
@@ -69,22 +63,16 @@ nav {
 	overflow-y: auto;
 }
 
-#menu-box:checked ~ nav > #nav-links {
-	display: block;
-}
+#menu-box:checked ~ nav > #nav-links { display: block; }
 
 #menu-box:checked ~ nav > #menu-toggle {
 	border: 4px solid white;
 	background-image: url('_res/icons/close.png');
 }
 
-.pages, .contact {
-	margin: 0 10vw;
-}
+.pages, .contact { margin: 0 10vw; }
 
-.pages {
-	padding-top: 60px;
-}
+.pages { padding-top: 60px; }
 
 .pages > a, .contact > a {
 	text-decoration: none;
@@ -98,13 +86,9 @@ nav {
 	box-shadow: inset 0 0 0 5px white;
 }
 
-.pages > a {
-	padding: 15px 0;
-}
+.pages > a { padding: 15px 0; }
 
-.pages > a.active {
-	font-weight: bold;
-}
+.pages > a.active { font-weight: bold; }
 
 .contact {
 	display: flex;
