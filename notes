@@ -12,6 +12,13 @@ Still figuring out how to organize blog
 
 - Could also approach simulating a change in directories to view "new content" (i.e. the blogs belonging to that category) by using a simple URL-spoof by using a hash (i.e. .../blog/#personal/) or the window.history.pushState/replaceState functions in JS
 
+********************************************************************************************
+- Host blogs from primary categories (featured, tech, personal)
+    - Create a script that pulls the necessary blogs and creates an index.html in each category using previews of each blog
+    - Clicking on header category links cycles to that directory and pulls its index.html with all the blog previews
+    - Clicking a specific blog will navigate to the actual blog page to view each blog individually
+********************************************************************************************
+
 
 ----- HTML to include for filtering tags
 <!--Radio inputs to select filter - not shown!-->
@@ -68,3 +75,4 @@ Still figuring out how to organize blog
 }
 
 -- Add '$ add-awesomeness' or something like it as a command in the hire-me dropdown!
+-- Color the CLI prompts on the nav bar, the menu bar, the hire-me banner, etc.
