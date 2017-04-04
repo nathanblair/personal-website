@@ -7,6 +7,14 @@ html, body {
 	font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
+main {
+	margin-top: 4em;
+}
+
+.caret {
+	color: lime;
+}
+
 @keyframes typing {
 	from { width: 1.2em; }
 	to { width: 100% }
@@ -37,7 +45,7 @@ nav {
 
 #menu-toggle {
 	background-image: url('_res/icons/menu.png');
-	background-size: 3rem;
+	background-size: 2.2rem;
 	background-position: center;
 	background-repeat: no-repeat;
 	width: 3rem;
@@ -47,7 +55,7 @@ nav {
 	border: 0 solid transparent;
 	transition: border 0.7s, background-size 0.5s linear;
 }
-#menu-toggle:hover { background-size: 2.2rem; }
+#menu-toggle:hover { background-size: 3rem; }
 #menu-box:checked ~ nav > #menu-toggle {
 	border: 0.25rem solid white;
 	background-image: url('_res/icons/close.png');
@@ -214,8 +222,8 @@ nav {
 
 /******************************Footer***********************************/
 footer {
-	position: absolute;
-	bottom: 0;
+	/*position: absolute;*/
+	/*bottom: 0;*/
     background-color: #262626;
 	color: white;
 	width: 100%;
