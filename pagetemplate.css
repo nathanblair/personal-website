@@ -79,16 +79,14 @@ nav {
 }
 
 .name-logo span {
-	position: absolute;
+/*	position: absolute;*/
 	display: block;
 	overflow: hidden;
 	white-space: nowrap;
 	border-right: 0.58em solid transparent;
 }
 #menu-box:checked ~ nav > #nav-links > .name-logo > span { 
-	animation: typing 3s steps(9);
-/*		caret-reveal 2.0s,*/
-/*		caret-color 0.75s step-end 3;*/
+/*	animation: typing 3s steps(9);*/
 }
 
 #nav-divider { margin: 3vh; }
@@ -191,6 +189,10 @@ nav {
 }
 
 #hire-me-link {
+/*
+	position: fixed;
+	top: 0;
+*/
 	font-size: 2rem;
 	padding: 5rem 0 2rem 0;
 	text-decoration: none;
