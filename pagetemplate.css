@@ -95,7 +95,7 @@ nav {
 
 #nav-divider { margin: 3vh; }
 
-#pages, #contact { display: flex; margin-left: 10vw; margin-right: 10vw; flex: none; }
+#pages, #contact { display: flex; flex: none; }
 
 #pages {
 	overflow: hidden;
@@ -222,8 +222,6 @@ nav {
 
 /******************************Footer***********************************/
 footer {
-	/*position: absolute;*/
-	/*bottom: 0;*/
     background-color: #262626;
 	color: white;
 	width: 100%;

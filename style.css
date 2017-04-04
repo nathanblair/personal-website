@@ -40,6 +40,6 @@ main {
 	width: 100%;
 	margin: 0;
 
-	filter: blur(3px) brightness(70%);
+	filter: blur(2px) brightness(60%);
 	z-index: -5;
 }
