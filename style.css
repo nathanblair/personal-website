@@ -1,16 +1,30 @@
 .landingText {
-	line-height: 0.5;
 	position: absolute;
-	top: 30%;
-	right: 5%;
-	text-align: right;
-	font-size: 3.5vw;
-	z-index: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	font-size: 4vw;
+	z-index: -1;
+}
+
+@media screen and (min-width: 950px) {
+	.landingText {
+		justify-content: center;
+		align-items: flex-end;
+		font-size: 3vmin;
+		min-width: 80%;
+	}
 }
 
 .landingText h1, .landingText h4 {
 	font-weight: normal;
 	color: white;
+	text-align: right;
+	line-height: 1em;
+	margin: 2.5rem;
 }
 
 main {
@@ -26,6 +40,6 @@ main {
 	width: 100%;
 	margin: 0;
 
-	filter: blur(6px) brightness(45%);
+	filter: blur(3px) brightness(70%);
 	z-index: -5;
 }
