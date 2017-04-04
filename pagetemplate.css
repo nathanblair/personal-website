@@ -12,10 +12,6 @@ html, body {
 	to { width: 100% }
 }
 
-@keyframes caret-reveal {
-	from, to { border-right-width: 0.58em; }
-}
-
 @keyframes caret-color {
 	from, to { border-right-color: lime; }
 	50% { border-right-color: transparent; }
@@ -78,15 +74,15 @@ nav {
 	font-family: Courier New, Courier, monospace;
 }
 
-.name-logo span {
-/*	position: absolute;*/
+.inline-type {
 	display: block;
 	overflow: hidden;
 	white-space: nowrap;
 	border-right: 0.58em solid transparent;
 }
-#menu-box:checked ~ nav > #nav-links > .name-logo > span { 
-/*	animation: typing 3s steps(9);*/
+#menu-box:checked ~ nav > #nav-links > .name-logo .inline-type { 
+	animation: typing 2s steps(9),
+		caret-color 0.5s step-end 4;
 }
 
 #nav-divider { margin: 3vh; }
@@ -100,7 +96,7 @@ nav {
 	margin-top: 1em;
 	height: 0;
 }
-/*#menu-box:checked ~ nav > #nav-links > #pages { height: 500px; transition: height 0.5s linear 2s; }*/
+#menu-box:checked ~ nav > #nav-links > #pages { height: 28em; transition: height 0.5s linear 2s; }
 
 #pages > a, #contact > a {
 	text-decoration: none;
@@ -122,11 +118,13 @@ nav {
 
 #pages > a.active { background-color: white; color: #262626; pointer-events: none; }
 
-#pages > a:hover { font-family: Courier New, Courier, monospace; width: auto; padding: 0 3vw; content: ''; }
+#pages > a:hover { padding: 0 3vw; }
 #pages > a:hover > .inline-command { display: inline; }
+#pages > a:hover > span { display: none; }
 
-#pages > a > .inline-command { 
+#pages > a > .inline-command {
 	display: none;
+	font-family: Courier New, Courier, monospace;
 	font-style: normal;
 	font-weight: normal;
 }
@@ -189,10 +187,6 @@ nav {
 }
 
 #hire-me-link {
-/*
-	position: fixed;
-	top: 0;
-*/
 	font-size: 2rem;
 	padding: 5rem 0 2rem 0;
 	text-decoration: none;
