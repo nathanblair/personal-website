@@ -1,25 +1,47 @@
-h1 {
-	font-size: 2.5em;
-	font-family: Georgia, 'Times New Roman', Times, serif;
+/* Settings for the index page */
+#blog-sources {
+	display: flex;
+	flex-direction: column;
+}
+#blog-sources .active {
+	background-color: #262626;
+	color: white;
+	pointer-events: none;
+	border: 2px solid white;
 }
 
-h4 {
-	font-size: 1.3em;
+.blog-source {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.5em; 
+	min-height: 2em;
+
+	border: 2px solid #262626;
+	color: #262626;
+	text-decoration: none;
+}
+.blog-source:hover > .disp-text { display: none; }
+.blog-source:hover > .inline-cmd { display: inline; }
+
+.inline-cmd {
+	display: none;
+	font-style: normal;
+	font-family: monospace;
 }
 
-.blogpost, .embedded {
-	padding: 0 5% 5% 5%;
-}
 
-.embedded {
-	max-height: 50vh;
-	overflow: auto;
-}
+/* Settings for the actual blog posts */
+h1 { font-size: 2.5em; font-family: Georgia, 'Times New Roman', Times, serif; }
 
-.blogpost p {
-	font-size: 1.2em;
-	line-height: 1.8;
-}
+h4 { font-size: 1.3em; }
+
+.blogpost, .embedded { padding: 0 5% 5% 5%; }
+
+.embedded { max-height: 50vh; overflow: auto; }
+
+.blogpost p { font-size: 1.2em; line-height: 1.8; }
 
 .code, .blockcode {
 	font-family: Consolas, 'Courier New', Courier, monospace;
@@ -35,30 +57,24 @@ h4 {
 	white-space: nowrap;
 }
 
-.indent {
-	margin-left: 30px;
-}
+.indent { margin-left: 30px; }
 
-.double-indent {
-	margin-left: 60px;
-}
+.double-indent { margin-left: 60px; }
 
-.triple-indent {
-	margin-left: 90px;
-}
+.triple-indent { margin-left: 90px; }
 
+
+/* Responsive handler */
 @media screen and (min-width: 950px) {
+	#blog-sources { flex-direction: row; }
+
 	.blogpost, .embedded {
 		margin: 0 5% 5% 5%;
 		border: 1px solid;
 		box-shadow: 5px 5px 5px #262626;
 	}
 
-	.blockcode {
-		max-width: 750px;
-	}
+	.blockcode { max-width: 750px; }
 
-	.blogpost p {
-		max-width: 810px;
-	}
+	.blogpost p { max-width: 810px; }
 }
