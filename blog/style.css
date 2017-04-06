@@ -1,8 +1,5 @@
 /* Settings for the index page */
-#blog-sources {
-	display: flex;
-	flex-direction: column;
-}
+#blog-sources { display: flex; flex-direction: column; }
 #blog-sources .active {
 	background-color: #262626;
 	color: white;
@@ -25,16 +22,11 @@
 .blog-source:hover > .disp-text { display: none; }
 .blog-source:hover > .inline-cmd { display: inline; }
 
-.inline-cmd {
-	display: none;
-	font-style: normal;
-	font-family: monospace;
-}
+.inline-cmd { display: none; font-style: normal; font-family: monospace; }
 
 
 /* Settings for the actual blog posts */
 h1 { font-size: 2.5em; font-family: Georgia, 'Times New Roman', Times, serif; }
-
 h4 { font-size: 1.3em; }
 
 .blogpost, .embedded { padding: 0 5% 5% 5%; }
