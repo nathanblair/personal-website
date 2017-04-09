@@ -1,25 +1,3 @@
-Still figuring out how to organize blog
-- Preview/filter featured, personal, and tech blogs on /blog/ domain
-    - Featured blogs pull from both personal, tech, and otherwhere
-    - Personal blogs will show as if from /blog/personal/
-    - Tech blogs will show as if from /blog/tech/)
-
-
-- Create static file that lists (in HTML/XML?) the directories of all blog posts
-- Update static file with known blog posts
-- Use static file to populate an index in each category directory (personal/tech/etc.)
-
-
-- Could also approach simulating a change in directories to view "new content" (i.e. the blogs belonging to that category) by using a simple URL-spoof by using a hash (i.e. .../blog/#personal/) or the window.history.pushState/replaceState functions in JS
-
-********************************************************************************************
-- Host blogs from primary categories (featured, tech, personal)
-    - Create a script that pulls the necessary blogs and creates an index.html in each category using previews of each blog
-    - Clicking on header category links cycles to that directory and pulls its index.html with all the blog previews
-    - Clicking a specific blog will navigate to the actual blog page to view each blog individually
-********************************************************************************************
-
-
 ----- HTML to include for filtering tags
 <!--Radio inputs to select filter - not shown!-->
 <input type="radio" id="featured-radio" class="radio-button" name="content-filter" checked="checked">
@@ -74,5 +52,14 @@ Still figuring out how to organize blog
     display: block;
 }
 
--- Add '$ add-awesomeness' or something like it as a command in the hire-me dropdown!
--- Color the CLI prompts on the nav bar, the menu bar, the hire-me banner, etc.
+
+
+Need to store all of the articles into a buffer array that will then be used to write to an appropriate file
+		TODO		1. Create template files to be used as string sources where blog previews from each category are inserted
+		TODO		2. During template copy->write process, make sure anchor class for current directory is changed depending on the category
+		TODO		3. Read template file into string buffer
+		CURRENT		4. Extract blog preview from sources into string buffer (2D buffer array?)
+		NEXT		5. Order blog previews based on post date (included in buffer array?)
+		TODO		6. Export ordered blog previews into new single buffer array
+		TODO		7. Insert ordered blog previews single buffer array into appropriate place in template file string buffer
+		TODO		8. Write full page string buffer into appropriate file
