@@ -10,44 +10,7 @@ const blogPattern 			= /(<article class="blogpost">[\s\S]*?<p>[\s\S]*?<\/p>)[\s\
 const datePattern 			= /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
 
 
-exports.ClearArticles = () => {
-	console.log('Clearing current contents...');
-
-	// Clear the portion of the indexes between the <main> tag
-	// TODO
-	// Regex expression?
-	// Buffer the index file, find the area between the main tag and replace with an empty string?
-
-	console.log('Done clearing current contents!');
-}
-
-
-function WriteToFeatured(file, blogDate, source) {
-	console.log('		Writing feature article...');
-
-	// Determine appropriate order from post date
-	// TODO
-
-	// Write to the appropriate order
-	// TODO
-
-	console.log('		Done writing feature article!');
-}
-
-function WriteToRegular(file, blogDate, source, category) {
-	console.log('		Writing new article...');
-
-	// Determine appropriate order from post date
-	// TODO
-
-	// Write to the appropriate order
-	// TODO
-
-	console.log('		Done writing new article!');
-}
-
-
-exports.WriteArticles = (fileName, contents, category) => {
+exports.GetBlogPreview = (fileName, contents, category) => {
 	console.log('Parsing file: ' + fileName + '...');
 
 	// Extract the blog preview source
@@ -66,17 +29,10 @@ exports.WriteArticles = (fileName, contents, category) => {
 
 		// Check that the post date is valid
 		if (blogDate[1] != undefined) {
-			console.log('	Blog recorded on: ' + blogDate[1]);
+			var returnArray = [category, blogDate[1], previewSrc, featured]
+			console.log( returnArray);
 			
-			// Populate the appropriate index with the blog in the appropriate order
-			WriteToRegular(fileName, blogDate[1], previewSrc, category);
-
-			// Feature the blog if necessary
-			if (featured) {
-				console.log('	Blog is featured!');
-				// Populate the featured articles in the appropriate order
-				WriteToFeatured(fileName, blogDate[1], previewSrc);
-			}
+			return returnArray;
 		} else { console.log('Skipping: ' + fileName + ' because no post date could be parsed from it!'); }
 	} else { console.log('Skipping: ' + fileName + ' because no standard preview data could be parsed from it!'); }
 }

@@ -39,6 +39,7 @@ main {
 	height: 100%;
 	width: 100%;
 	margin: 0;
+	padding: 0;
 
 	filter: blur(2px) brightness(60%);
 	z-index: -5;

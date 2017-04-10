@@ -4,6 +4,9 @@ const cwd						= process.cwd();
 var categories 					= ['tech', 'personal'];
 
 
+var blogPreviews				= [];
+
+
 // Main call for module functionality
 function GenerateStaticSite(categories) {
 	// Clear the current featured and regular articles to make way for new content
@@ -40,7 +43,7 @@ function GenerateStaticSite(categories) {
 									// Otherwise...
 									else {
 										// Call to write the articles for that file
-										sg.WriteArticles(fileName, contents, categories[cat]);
+										blogPreviews[cat] = sg.GetBlogPreview(fileName, contents, categories[cat]);
 									}
 								})
 							}
