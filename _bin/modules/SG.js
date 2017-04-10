@@ -1,8 +1,4 @@
 const fs 					= require('fs');
-const cwd 					= process.cwd();
-const featuredDir 			= cwd + '/blog/'; 				// To be cleared
-const techDir 				= cwd + '/blog/tech/'; 			// To be cleared
-const personalDir 			= cwd + '/blog/personal/'; 		// To be cleared
 
 const catPattern 			= /<!--Category: (featured)-->/;
 // Blog preview article pattern: should extract the blog article tag, header information (date, etc.) and the first <p> element!
@@ -11,7 +7,7 @@ const datePattern 			= /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
 
 
 exports.GetBlogPreview = (fileName, contents, category) => {
-	console.log('Parsing file: ' + fileName + '...');
+	// console.log('Parsing file: ' + fileName + '...');
 
 	// Extract the blog preview source
 	var blogHTML = contents.match(blogPattern);
@@ -29,8 +25,7 @@ exports.GetBlogPreview = (fileName, contents, category) => {
 
 		// Check that the post date is valid
 		if (blogDate[1] != undefined) {
-			var returnArray = [category, blogDate[1], previewSrc, featured]
-			console.log( returnArray);
+			var returnArray = [blogDate[1], previewSrc, featured]
 			
 			return returnArray;
 		} else { console.log('Skipping: ' + fileName + ' because no post date could be parsed from it!'); }
