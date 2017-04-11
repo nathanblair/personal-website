@@ -64,3 +64,28 @@ Need to store all of the articles into a buffer array that will then be used to 
 		TODO		6. Export ordered blog previews into new single buffer array
 		TODO		7. Insert ordered blog previews single buffer array into appropriate place in template file string buffer
 		TODO		8. Write full page string buffer into appropriate file
+
+
+files.forEach( function CheckBlog(entry, ind) {
+				console.log(entry);
+				// Local save of the full file directory
+				var filePath = pth.join( fileCat, entry );
+				fs.stat( filePath, function TestFile(err, fileStats) {
+					// If there was an error in testing the file
+					if( err ) { console.log( err.message ); } else {
+						// Check that the file found is actually a directory
+						if( fileStats.isDirectory() ) {
+							// Local save of the full file name
+							var fileName = pth.join( filePath, 'index.html' );
+							// Attempt to read the file
+							fs.readFile( fileName, 'utf8', function GetPreviewSource( err, contents ) {
+								// Check that no error was made in reading the file
+								if( err ) { console.log( err.message ); } else {
+									// Call to write the articles for that file
+									blogPreviews[fileName] = sg.GetBlogPreview( fileName, contents, categories[cat] );
+								}
+							})
+						}
+					}
+				}); 
+			});
