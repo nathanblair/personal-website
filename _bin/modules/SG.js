@@ -7,7 +7,6 @@ const datePattern 			= /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
 
 
 exports.GetBlogPreview = (fileName, contents, category) => {
-	// console.log('Parsing file: ' + fileName + '...');
 
 	// Extract the blog preview source
 	var blogHTML = contents.match(blogPattern);
