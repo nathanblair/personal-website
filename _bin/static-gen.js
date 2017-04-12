@@ -1,13 +1,36 @@
-const fs 						= require('fs');
-const pth						= require('path');
-const sg						= require('./modules/SG.js');
-var categories 					= ['tech', 'personal'];
+const fs = require('fs');
+const pth = require('path');
+const EventEmitter = require('events');
+const sg = require('./modules/SG.js');
+var categories = ['tech', 'personal'];
 
-var blogFiles					= [];
-var blogPreviews				= [];
+class ASyncController extends EventEmitter {};
+const asyncController = new ASyncController();
 
-var numArticles					= 0;
-var blogsDone					= 0;
+var blogFiles = [];
+var blogPreviews = [];
+
+var numArticles = 0;
+var blogsWalked = 0;
+var previewsPushed = 0;
+
+
+// Get the blog preview source
+// When all previews are retrieved, wrap up preview procedure
+function HandlePreviews(file) {
+	// Read a source file, return the contents, and pass the contents to be parsed to the sg.GetBlogPreview
+	// sg.GetBlogPreview populates the blogPreviews array with the blog post date, the article source, and a featured flag
+	fs.readFile(file, 'utf8', (err, contents) => {
+		if (previewsPushed == 1) {console.time("previews"); }
+		blogPreviews.push(sg.GetBlogPreview(file, contents));
+		previewsPushed = previewsPushed + 1;
+		if (previewsPushed == numArticles) {
+			console.log("Previews Found: " + blogPreviews.length);
+			console.timeEnd("previews");
+			console.timeEnd("main");
+		}
+	})
+}
 
 
 // Call the WalkDirectory with the appropriate arguments depending on the current path
@@ -19,16 +42,20 @@ function HandleDirectory(file, blogDir, inBlog) {
 }
 
 
+// Push the file name of a blog to the blogFiles and emit a signal to handle getting its preview
+// When done, wrap up the Walking procedure
 function HandleArticles(blogDir) {
 	// Add the current blog file (blogDir) into the list of blogFiles
 	blogFiles.push(blogDir);
+	// Trigger the async blog preview source getter event
+	asyncController.emit('blogFilePushed', blogDir);
 	// Mark how many blog files have been pushed
-	blogsDone = blogsDone + 1;
+	blogsWalked = blogsWalked + 1;
 	// Handle end of sequence
-	if (blogsDone == numArticles) {
-		console.log("Blog Directory and Files Mapped!");
+	if (blogsWalked == numArticles) {
+		console.log("Blog Directory Walked!");
 		// Stop the main feature process timer
-		console.timeEnd("main");
+		console.timeEnd("walk");
 	}
 }
 
@@ -50,7 +77,7 @@ function AssignFile(fileList, fileIndex, dir, inBlog) {
 	if (inBlog) { numArticles = numArticles + 1; }
 
 	// Call a stat on the blogDir path/file, return the stats object and pass it into CheckPath to see if its the right blog directory
-	fs.stat( blogDir, (err, fileStats) => { CheckPath(file, fileStats, blogDir, inBlog) })
+	fs.stat(blogDir, (err, fileStats) => { CheckPath(file, fileStats, blogDir, inBlog) })
 }
 
 
@@ -67,6 +94,15 @@ function WalkDirectory(dir, inBlog) {
 	})
 }
 
+
+// Asynchronous event handling
+asyncController.on('blogFilePushed', (file) => {
+	// Perform asynchronously
+	setImmediate(() => { HandlePreviews(file); })
+});
+
+
 // Start of procedure
 console.time("main");
-WalkDirectory( "blog", false );
+console.time("walk");
+WalkDirectory("blog", false);
