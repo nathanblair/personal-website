@@ -1,14 +1,14 @@
 ----- HTML to include for filtering tags
 <!--Radio inputs to select filter - not shown!-->
-<input type="radio" id="featured-radio" class="radio-button" name="content-filter" checked="checked">
-<input type="radio" id="personal-radio" class="radio-button" name="content-filter">
-<input type="radio" id="tech-radio" class="radio-button" name="content-filter">
+<input type="radio" id="css-radio" class="radio-button" name="content-filter" checked="checked">
+<input type="radio" id="cpp-radio" class="radio-button" name="content-filter">
+<input type="radio" id="devops-radio" class="radio-button" name="content-filter">
 
 <!--Filter buttons-->
 <div id="blog-filter">
-	<label for="featured-radio" class="filter-label featured">Featured</label>
-	<label for="personal-radio" class="filter-label personal">Personal</label>
-	<label for="tech-radio" class="filter-label tech">Tech</label>
+	<label for="css-radio" class="filter-label css">CSS</label>
+	<label for="cpp-radio" class="filter-label cpp">C++</label>
+	<label for="devops-radio" class="filter-label devops">DevOps</label>
 </div>
 
 
@@ -37,18 +37,18 @@
 	text-decoration: underline;
 }
 
-#featured-radio:checked~#blog-filter .featured,
-#personal-radio:checked~#blog-filter .personal,
-#tech-radio:checked~#blog-filter .tech {
+#css-radio:checked~#blog-filter .css,
+#cpp-radio:checked~#blog-filter .cpp,
+#devops-radio:checked~#blog-filter .devops {
     background-color: white;
 	color: #262626;
 	border: 2px solid #262626;
 	
 }
 
-#tech-radio:checked~main .tech,
-#featured-radio:checked~main .featured,
-#personal-radio:checked~main .personal {
+#devops-radio:checked~main .devops,
+#cpp-radio:checked~main .cpp,
+#css-radio:checked~main .css {
     display: block;
 }
 
@@ -63,3 +63,6 @@ Project Task List
 		TODO		6. Export ordered blog previews into new single buffer array
 		TODO		7. Insert ordered blog previews single buffer array into appropriate place in template file string buffer
 		TODO		8. Write full page string buffer into appropriate file
+
+
+Consider renaming featured flag in each individual blog post to something other than <!--Category: (featured)-->
