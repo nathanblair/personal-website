@@ -58,9 +58,9 @@ Project Task List
 		TODO		2. During template copy->write process, make sure anchor class for current directory is changed depending on the category
 		TODO		3. Read template file into string buffer
 		DONE		4. Extract blog preview from sources into string buffer (2D buffer array?)
-		CURRENT		5. Inject anchor element link to permalink blog article using header text as link trigger
-		NEXT		5. Order blog previews based on post date (included in buffer array?)
-		TODO		6. Export ordered blog previews into new single buffer array
+		DONE		5. Inject anchor element link to permalink blog article using header text as link trigger
+		CURRENT		5. Order blog previews based on post date (included in buffer array?)
+		NEXT		6. Export ordered blog previews into new single buffer array
 		TODO		7. Insert ordered blog previews single buffer array into appropriate place in template file string buffer
 		TODO		8. Write full page string buffer into appropriate file
 

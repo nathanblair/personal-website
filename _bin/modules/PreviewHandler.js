@@ -9,7 +9,7 @@ const catPattern 			= /<!--Category: (featured)-->/;
 // Blog preview article pattern: should extract the blog article tag, header information (date, etc.) and the first <p> element!
 const blogPattern 			= /(<article class="blogpost">[\s\S]*?<p>[\s\S]*?<\/p>)[\s\S]*?(\s?<\/article>)/;
 const datePattern 			= /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
-const headerPattern			= /<header>[\s\S]*?(<h1 id="title">[\s\S]*?<\/h1>)/;
+const headerPattern			= /<header>[\s\S]*?<h1 id="title">([\s\S]*?)<\/h1>/;
 
 
 // Extract blog preview source using regular expressions
@@ -61,13 +61,30 @@ function PushPreviewSource(file, numArticles) {
 	})
 }
 
+
+// Build the anchor string to be injected
+function BuildAnchorString(permalink, title) {
+	permalink = permalink.replace("index.html", "");
+	permalink = permalink.replace(/\\/g, "/");
+	var anchor = "<a href=\"" + permalink + ">" + title + "</a>";
+	return anchor;
+}
+
 // Inject the permalink anchor into the header text of each blog preview
 function InjectPermalinkToPreview() {
 	console.time("permalinkInjection");
-	console.log("Injecting Permalinks...");
-	
-	console.log("Permalinks Injected!");
+	for (blogInd = 0; blogInd < blogPreviews.length; blogInd++) {
+		var titleString = blogPreviews[blogInd][1].match(headerPattern);
+		var injectedString = BuildAnchorString(blogPreviews[blogInd][3], titleString[1]);
+
+		// Replace the title text with a permalink (still using the title of the article)
+		blogPreviews[blogInd][1] = blogPreviews[blogInd][1].replace(titleString[1], injectedString);
+	}
 	console.timeEnd("permalinkInjection");
+
+	// Trigger the next event
+	
+
 	console.timeEnd("main");
 }
 
