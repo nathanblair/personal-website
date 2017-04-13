@@ -3,23 +3,29 @@ const fs = require('fs');
 const ASC = require('./ASyncController');
 
 var blogPreviews = [];
+var featuredBlogs = [];
+var techBlogs = [];
+var personalBlogs = [];
 var previewsPushed = 0;
 
 var sortElements = [];
 
-const catPattern = /<!--Category: (featured)-->/;
+const featuredPattern = /<!--Category: (featured)-->/;
 // Blog preview article pattern: should extract the blog article tag, header information (date, etc.) and the first <p> element!
 const blogPattern = /(<article class="blogpost">[\s\S]*?<p>[\s\S]*?<\/p>)[\s\S]*?(\s?<\/article>)/;
 const datePattern = /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
 const headerPattern = /<header>[\s\S]*?<h1 id="title">([\s\S]*?)<\/h1>/;
+const categoryPattern = /blog\\([\s\S]*?)\\[\s\S]*?/
 
 
 // Extract blog preview source using regular expressions
-function GetBlogPreview(fileName, contents, category) {
+function GetBlogPreview(fileName, contents) {
 	// Extract the blog preview source
 	var blogHTML = contents.match(blogPattern);
 	// Extract if the blog file contains the 'featured' tag
-	var featured = catPattern.test(contents);
+	var featured = featuredPattern.test(contents);
+	// Extract the category from the file name
+	var category = fileName.match(categoryPattern)[1];
 
 	// Verify that the source contains the necessary information to create a preview
 	// (includes the primary article tag and one introductory paragraph)
@@ -32,7 +38,7 @@ function GetBlogPreview(fileName, contents, category) {
 		blogDate = new Date(blogDate[1]);
 
 		// Check that the post date is valid
-		if (blogDate != undefined) { return [blogDate, previewSrc, featured, fileName]; }
+		if (blogDate != undefined) { return [blogDate, previewSrc, featured, fileName, category]; }
 			else { console.log('Skipping: ' + fileName + ' because no post date could be parsed from it!'); } 
 	} else { console.log('Skipping: ' + fileName + ' because no standard preview data could be parsed from it!'); }
 }
@@ -97,42 +103,51 @@ function Swap(array, leftInd, rightInd) {
 }
 
 
-// Insertion sort
-function insertSort(array) {
+// Sort the blog previews in the blogPreviews array
+function SortBlogPreviews() {
+	console.time("sortBlogPreviews");
+
+	// Sort the blogs
 	var currentInd = 0;
 	var checkedInd = 0;
 	var needSwap = true;
 	var notSorted = true;
 
 	while (notSorted) {
-		if (currentInd == array.length - 1) { notSorted = false; break; }
+		if (currentInd == blogPreviews.length - 1) { notSorted = false; break; }
 		checkedInd = currentInd + 1;
 		needSwap = true;
 		while (needSwap) {
-			if (checkedInd == array.length - 1) { needSwap = false; currentInd++; }
-			if (array[currentInd][0] < array[checkedInd][0]) {
-				array = Swap(array, currentInd, checkedInd); 
+			if (checkedInd == blogPreviews.length - 1) { needSwap = false; currentInd++; }
+			if (blogPreviews[currentInd][0] < blogPreviews[checkedInd][0]) {
+				blogPreviews = Swap(blogPreviews, currentInd, checkedInd); 
 				needSwap = false;
 			} else { checkedInd++; }
 		}
 	}
-	return array;
-}
-
-
-// Sort the blog previews in the blogPreviews array
-function SortBlogPreviews() {
-	console.time("sortBlogPreviews");
-
-	// Sort the blogs
-	blogPreviews = insertSort(blogPreviews);
 
 	console.timeEnd("sortBlogPreviews");
-	console.timeEnd("main");
-
-	console.log(blogPreviews);
+	ASC.TriggerAssortCategories();
 }
+
+
+// Assign blog previews to appropriate category arrays
+function AssortBlogCategories() {
+	console.time("assortCategories");
+	for (currInd = 0; currInd < blogPreviews.length; currInd++) {
+		if (blogPreviews[currInd][4] == "tech") { techBlogs.push(blogPreviews[currInd][1]); }
+		else if (blogPreviews[currInd][4] == "personal") { personalBlogs.push(blogPreviews[currInd][1]); }
+
+		if (blogPreviews[currInd][2]) { featuredBlogs.push(blogPreviews[currInd][1]); }
+	}
+
+	console.timeEnd("assortCategories");
+	console.timeEnd("main");
+	// console.log(featuredBlogs);
+}
+
 
 exports.PushPreview = PushPreviewSource;
 exports.InjectPermalinkToPreview = InjectPermalinkToPreview;
 exports.SortBlogPreviews = SortBlogPreviews;
+exports.AssortBlogCategories = AssortBlogCategories;

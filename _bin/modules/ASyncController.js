@@ -24,6 +24,12 @@ asyncController.on('linksInjected', () => {
 	setImmediate(() => { PH.SortBlogPreviews(); });
 })
 
+// Sorting is done - separate blogs by category
+asyncController.on('blogsSorted', () => {
+	// Perform asynchronously
+	setImmediate(() => { PH.AssortBlogCategories(); } );
+})
+
 
 // Wrapper to emit the blogFilePushed event
 function TriggerBlogPush(file, numArticles) { asyncController.emit('blogFilePushed', file, numArticles); }
@@ -34,6 +40,10 @@ function TriggerPermalinkInjection() { asyncController.emit('blogPreviewsFinishe
 // Wrapper to emit the linksInjected event
 function TriggerSortPreviews() { asyncController.emit('linksInjected'); }
 
+// Wrapper to emit the blogsSorted event
+function TriggerAssortCategories() { asyncController.emit('blogsSorted'); }
+
 exports.TriggerBlogPush = TriggerBlogPush;
 exports.TriggerPermalinkInjection = TriggerPermalinkInjection;
 exports.TriggerSortPreviews = TriggerSortPreviews;
+exports.TriggerAssortCategories = TriggerAssortCategories;
