@@ -5,15 +5,17 @@ const ASC = require('./ASyncController');
 var blogPreviews = [];
 var previewsPushed = 0;
 
-const catPattern 			= /<!--Category: (featured)-->/;
+var sortElements = [];
+
+const catPattern = /<!--Category: (featured)-->/;
 // Blog preview article pattern: should extract the blog article tag, header information (date, etc.) and the first <p> element!
-const blogPattern 			= /(<article class="blogpost">[\s\S]*?<p>[\s\S]*?<\/p>)[\s\S]*?(\s?<\/article>)/;
-const datePattern 			= /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
-const headerPattern			= /<header>[\s\S]*?<h1 id="title">([\s\S]*?)<\/h1>/;
+const blogPattern = /(<article class="blogpost">[\s\S]*?<p>[\s\S]*?<\/p>)[\s\S]*?(\s?<\/article>)/;
+const datePattern = /[\s\S]*?<header>[\s\S]*?<h3 id="blog-date">(.*)<\/h3>/;
+const headerPattern = /<header>[\s\S]*?<h1 id="title">([\s\S]*?)<\/h1>/;
 
 
 // Extract blog preview source using regular expressions
-function GetBlogPreview (fileName, contents, category) {
+function GetBlogPreview(fileName, contents, category) {
 	// Extract the blog preview source
 	var blogHTML = contents.match(blogPattern);
 	// Extract if the blog file contains the 'featured' tag
@@ -27,13 +29,11 @@ function GetBlogPreview (fileName, contents, category) {
 
 		// Extract the blog's post date
 		var blogDate = previewSrc.match(datePattern);
+		blogDate = new Date(blogDate[1]);
 
 		// Check that the post date is valid
-		if (blogDate[1] != undefined) {
-			var returnArray = [blogDate[1], previewSrc, featured, fileName]
-			
-			return returnArray;
-		} else { console.log('Skipping: ' + fileName + ' because no post date could be parsed from it!'); }
+		if (blogDate != undefined) { return [blogDate, previewSrc, featured, fileName]; }
+			else { console.log('Skipping: ' + fileName + ' because no post date could be parsed from it!'); } 
 	} else { console.log('Skipping: ' + fileName + ' because no standard preview data could be parsed from it!'); }
 }
 
@@ -83,10 +83,56 @@ function InjectPermalinkToPreview() {
 	console.timeEnd("permalinkInjection");
 
 	// Trigger the next event
-	
+	ASC.TriggerSortPreviews();
+}
 
+
+// Swap two elements in an array and return the swapped array
+function Swap(array, leftInd, rightInd) {
+	var leftTemp = array[leftInd];
+	var rightTemp = array[rightInd];
+	array[leftInd] = rightTemp;
+	array[rightInd] = leftTemp;
+	return array;
+}
+
+
+// Insertion sort
+function insertSort(array) {
+	var currentInd = 0;
+	var checkedInd = 0;
+	var needSwap = true;
+	var notSorted = true;
+
+	while (notSorted) {
+		if (currentInd == array.length - 1) { notSorted = false; break; }
+		checkedInd = currentInd + 1;
+		needSwap = true;
+		while (needSwap) {
+			if (checkedInd == array.length - 1) { needSwap = false; currentInd++; }
+			if (array[currentInd][0] < array[checkedInd][0]) {
+				array = Swap(array, currentInd, checkedInd); 
+				needSwap = false;
+			} else { checkedInd++; }
+		}
+	}
+	return array;
+}
+
+
+// Sort the blog previews in the blogPreviews array
+function SortBlogPreviews() {
+	console.time("sortBlogPreviews");
+
+	// Sort the blogs
+	blogPreviews = insertSort(blogPreviews);
+
+	console.timeEnd("sortBlogPreviews");
 	console.timeEnd("main");
+
+	console.log(blogPreviews);
 }
 
 exports.PushPreview = PushPreviewSource;
 exports.InjectPermalinkToPreview = InjectPermalinkToPreview;
+exports.SortBlogPreviews = SortBlogPreviews;

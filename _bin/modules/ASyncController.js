@@ -15,7 +15,13 @@ asyncController.on('blogFilePushed', (file, numArticles) => {
 // Blog previews are populated, inject the link tags into the previews
 asyncController.on('blogPreviewsFinished', () => {
 	// Perform asynchronously
-	setImmediate(() => { PH.InjectPermalinkToPreview(); })
+	setImmediate(() => { PH.InjectPermalinkToPreview(); });
+})
+
+// Link tags are injected, sort the blog preview list
+asyncController.on('linksInjected', () => {
+	// Perform asynchronously
+	setImmediate(() => { PH.SortBlogPreviews(); });
 })
 
 
@@ -25,5 +31,9 @@ function TriggerBlogPush(file, numArticles) { asyncController.emit('blogFilePush
 // Wrapper to emit the blogPreviewFinished event
 function TriggerPermalinkInjection() { asyncController.emit('blogPreviewsFinished'); }
 
+// Wrapper to emit the linksInjected event
+function TriggerSortPreviews() { asyncController.emit('linksInjected'); }
+
 exports.TriggerBlogPush = TriggerBlogPush;
 exports.TriggerPermalinkInjection = TriggerPermalinkInjection;
+exports.TriggerSortPreviews = TriggerSortPreviews;
