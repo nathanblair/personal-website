@@ -54,15 +54,18 @@
 
 
 Project Task List
-		DONE?		1. Create template files to be used as string sources where blog previews from each category are inserted
-		TODO		2. During template copy->write process, make sure anchor class for current directory is changed depending on the category
-		TODO		3. Read template file into string buffer
-		DONE		4. Extract blog preview from sources into string buffer (2D buffer array?)
-		DONE		5. Inject anchor element link to permalink blog article using header text as link trigger
-		CURRENT		5. Order blog previews based on post date (included in buffer array?)
+		DONE		1. Create template files to be used as string sources where blog previews from each category are inserted
+		DONE		2. Extract blog preview from sources into string buffer (2D buffer array?)
+		DONE		3. Inject anchor element link to permalink blog article using header text as link trigger
+		DONE		4. Order blog previews based on post date (included in buffer array?)
+		CURRENT		5. Create the featured blog array
 		NEXT		6. Export ordered blog previews into new single buffer array
-		TODO		7. Insert ordered blog previews single buffer array into appropriate place in template file string buffer
-		TODO		8. Write full page string buffer into appropriate file
+		TODO		7. Read template file into string buffer
+		TODO		8. Insert each of the blog preview buffer arrays into appropriate template file string buffer
+		TODO		9. Write full page string buffer into appropriate file
+		TODO		10. Copy complete generated file into the appropriate location
+			TODO	11. During template copy->write process, make sure anchor class for current directory is changed depending on the category
+
 
 
 Consider renaming featured flag in each individual blog post to something other than <!--Category: (featured)-->
