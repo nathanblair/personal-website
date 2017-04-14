@@ -7,6 +7,12 @@ const TH = require('./TemplateHandler');
 class ASyncController extends EventEmitter { };
 const asyncController = new ASyncController();
 
+// Initial index files were deleted, proceed with walk
+asyncController.on('initialIndexesDeleted', () => {
+	// Perform asynchronously
+	setImmediate(() => { walk.Walk("blog", false); })
+});
+
 // Trigger for a blog file being handled
 asyncController.on('blogFilePushed', (file, numArticles) => {
 	// Perform asynchronously
@@ -37,12 +43,20 @@ asyncController.on('blogsAssorted', () => {
 	setImmediate(() => { PH.ConcatenateBlogs(); })
 })
 
-// Assorting is done - concatenate blog articles
+// Blogs are concatenated - populate template strings
 asyncController.on('blogsConcatenated', () => {
 	// Perform asynchronously
 	setImmediate(() => { TH.PopulateBlogTemplates(); })
 })
 
+// Template strings are gathered - write to the files
+asyncController.on('templatesCreated', () => {
+	// Perform asynchronously
+	setImmediate(() => { TH.WriteArticlePages(); })
+})
+
+// Wrapper to emit the initialIndexesDeleted event
+function TriggerWalk() { asyncController.emit('initialIndexesDeleted'); }
 
 // Wrapper to emit the blogFilePushed event
 function TriggerBlogPush(file, numArticles) { asyncController.emit('blogFilePushed', file, numArticles); }
@@ -62,9 +76,15 @@ function TriggerConcatenateBlogs() { asyncController.emit('blogsAssorted'); }
 // Wrapper to emit the blogsConcatenated event
 function TriggerPopulateTemplates() { asyncController.emit('blogsConcatenated'); }
 
+// Wrapper to emit the templatesCreated event
+function TriggerWriteArticles() { asyncController.emit('templatesCreated'); }
+
+
+exports.TriggerWalk = TriggerWalk;
 exports.TriggerBlogPush = TriggerBlogPush;
 exports.TriggerPermalinkInjection = TriggerPermalinkInjection;
 exports.TriggerSortPreviews = TriggerSortPreviews;
 exports.TriggerAssortCategories = TriggerAssortCategories;
 exports.TriggerConcatenateBlogs = TriggerConcatenateBlogs;
 exports.TriggerPopulateTemplates = TriggerPopulateTemplates;
+exports.TriggerWriteArticles = TriggerWriteArticles;

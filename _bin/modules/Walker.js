@@ -31,7 +31,6 @@ function HandleArticles(blogDir) {
 	blogsWalked = blogsWalked + 1;
 	// Handle end of sequence
 	if (blogsWalked == numArticles) {
-		console.log("Blog Directory Walked!");
 		// Stop the main feature process timer
 		console.timeEnd("walk");
 	}
@@ -62,6 +61,7 @@ function AssignFile(fileList, fileIndex, dir, inBlog) {
 // Main call for module functionality
 // Recursively called to get to actual blog directories
 function WalkDirectory(dir, inBlog) {
+	console.time("walk");
 	// Get file/folder list of passed directory
 	fs.readdir(dir, (err, fileList) => {
 		// From returned fileList, iterate over earch file and check if its a blog

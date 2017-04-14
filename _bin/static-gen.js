@@ -1,6 +1,33 @@
-const walk = require('./modules/Walker.js');
+const fs = require('fs');
+
+const ASC = require('./modules/AsyncController');
+const TH = require('./modules/TemplateHandler');
+
+var filesRemoved = 0;
+
+// Callback after initial files are removed
+function FileRemoved_Callback(err) {
+	if (err) { 
+		if (err.errno != -4058) { throw err; }
+	}
+	filesRemoved++
+	if (filesRemoved == TH.numFiles) {
+		console.timeEnd('removeFiles');
+		console.time('walk');
+		ASC.TriggerWalk();
+	}
+}
+
+// Delete the initial source files so they are not read by the walk procedure
+function RemoveInitialFiles() {
+	console.time('removeFiles');
+	fs.unlink(TH.featuredFile, FileRemoved_Callback);
+	fs.unlink(TH.techFile, FileRemoved_Callback);
+	fs.unlink(TH.personalFile, FileRemoved_Callback);
+}
 
 // Start of procedure
 console.time("main");
-console.time("walk");
-walk.Walk("blog", false);
+
+RemoveInitialFiles();
+

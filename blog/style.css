@@ -24,6 +24,10 @@
 
 .inline-cmd { display: none; font-style: normal; font-family: monospace; }
 
+#blog-population {
+	padding-top: 2%;
+}
+
 
 /* Settings for the actual blog posts */
 h1 { font-size: 2.5em; font-family: Georgia, 'Times New Roman', Times, serif; }

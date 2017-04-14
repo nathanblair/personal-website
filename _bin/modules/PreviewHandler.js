@@ -60,8 +60,6 @@ function PushPreviewSource(file, numArticles) {
 		previewsPushed = previewsPushed + 1;
 		// Procedure is complete when previews pushed == number of articles
 		if (previewsPushed == numArticles) {
-			// Wrap up
-			console.log("Previews Found: " + blogPreviews.length);
 			// console.log(blogPreviews);
 			console.timeEnd("previews");
 			ASC.TriggerPermalinkInjection();
@@ -74,7 +72,7 @@ function PushPreviewSource(file, numArticles) {
 function BuildAnchorString(permalink, title) {
 	permalink = permalink.replace("index.html", "");
 	permalink = permalink.replace(/\\/g, "/");
-	var anchor = "<a href=\"" + permalink + ">" + title + "</a>";
+	var anchor = "<a href=\"/" + permalink + "\">" + title + "</a>";
 	return anchor;
 }
 

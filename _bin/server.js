@@ -13,12 +13,14 @@ function deliverURI(uri, res) {
 			// Test if the url was requested of a root directory and populate a default index file if it was
 			if ((uri[uri.length-1]) == '/') {
 				try {
-					fileSys.accessSync(uri + 'index.html');
-					uri = uri + 'index.html';
+					var tmpUri = uri + 'index.html';
+					fileSys.accessSync(tmpUri);
+					uri = tmpUri;
 				} catch (e) { 
 					try {
-						fileSys.accessSync(uri + 'index');
-						uri = uri + 'index';
+						var tmpUri = uri + 'index';
+					fileSys.accessSync(tmpUri);
+					uri = tmpUri;
 					} catch (e) {
 						res.statusCode = 404;
 						res.end('Bad request\nNo file given or file not found!');
@@ -27,7 +29,6 @@ function deliverURI(uri, res) {
 				deliverURI(uri, res);
 			}
 		} else {
-			// console.log('Delivered: ' + uri)
 			res.statusCode = 200;
 			res.end(contents);
 		}
@@ -37,7 +38,7 @@ function deliverURI(uri, res) {
 // Callback that handles the request and serves the response
 const requestHandler = (req, res) => {	
 	var fullURI = path + req.url;
-	// console.log(`Request was made for ${req.url}`)
+	console.log(`Request was made for ${req.url}`)
 
 	deliverURI(fullURI, res);
 }
