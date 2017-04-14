@@ -16,11 +16,10 @@ var templateFile = "blog/_template/preview.html";
 function InjectElements(source, path, previews) {
 	const linkString = "<a href=\"blog/" + path + "\" class=\"blog-source\">";
 	const replaceString = "<a href=\"blog/" + path + "\" class=\"blog-source active\">";
-	const articleInsert = /<section id="blog-population">[\s\S]*?([\s\S]*?)<\/section>/;
+	const articleInsert = /(<section id="blog-population">[\s\S]*?)[\s\S]*?(<\/section>)/;
 
 	source = source.replace(linkString, replaceString);
-
-	console.log(articleInsert[1].test(source));
+	source = source.replace(articleInsert, "$1\n" + previews + "$2");
 	return source;
 }
 
@@ -50,6 +49,9 @@ function PopulateBlogTemplates() {
 	Populator(techTemplate, "tech/", techPreviews);
 	Populator(personalTemplate, "personal/", personalPreviews);
 }
+
+
+
 
 
 exports.PopulateBlogTemplates = PopulateBlogTemplates;
