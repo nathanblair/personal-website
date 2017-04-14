@@ -60,12 +60,9 @@ Project Task List
 		DONE		4. Order master blog preview array based on post date
 		DONE		5. Create the featured, tech, and personal blog arrays
 		DONE		6. Export ordered blog previews into new single buffer array
-		CURRENT		7. Read template file into string
-		NEXT		8. Insert each of the blog preview arrays into appropriate template file string
-		TODO		9. Write full page string buffer into appropriate file
-		TODO		10. Copy complete generated file into the appropriate location
-			TODO	11. During template copy->write process, make sure anchor class for current directory is changed depending on the category
-
+		DONE		7. Read template file into string
+		CURRENT		8. Insert each of the blog preview arrays into appropriate template file string
+		NEXT		9. Write full page string buffer into appropriate file
 
 
 Consider renaming featured flag in each individual blog post to something other than <!--Category: (featured)-->

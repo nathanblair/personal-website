@@ -166,6 +166,10 @@ function ConcatenateBlogs() {
 	techArticles = StringArticles(techBlogs);
 	personalArticles = StringArticles(personalBlogs);
 
+	exports.featuredArticles = featuredArticles;
+	exports.techArticles = techArticles;
+	exports.personalArticles = personalArticles;
+
 	console.timeEnd("concatenateBlogs");
 
 	ASC.TriggerPopulateTemplates();

@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const ASC = require('./ASyncController');
+const PH = require('./PreviewHandler');
 
 
 var featureTemplate = "";
@@ -12,22 +13,26 @@ var templateFile = "blog/_template/preview.html";
 
 
 // Inject appropriate link class into blog folder links
-function InjectClass(source, path) {
-	var linkString = "<a href=\"blog/" + path + "\" class=\"blog-source\">";
-	var replaceString = "<a href=\"blog/" + path + "\" class=\"blog-source active\">";
+function InjectElements(source, path, previews) {
+	const linkString = "<a href=\"blog/" + path + "\" class=\"blog-source\">";
+	const replaceString = "<a href=\"blog/" + path + "\" class=\"blog-source active\">";
+	const articleInsert = /<section id="blog-population">[\s\S]*?([\s\S]*?)<\/section>/;
 
 	source = source.replace(linkString, replaceString);
+
+	console.log(articleInsert[1].test(source));
 	return source;
 }
 
 
 // Grab and populate the blog templates
-function Populator(templateString, path) {
+function Populator(templateString, path, previews) {
 	fs.readFile(templateFile, 'utf8', (err, contents) => {
-		templateString = InjectClass(contents, path);
+		templateString = InjectElements(contents, path, previews);
 		templatesDone++;
 		if (templatesDone == numTemplates) {
 			console.timeEnd("populatingArticles");
+			console.log(featureTemplate);
 			console.timeEnd("main");
 		}
 	});
@@ -36,9 +41,14 @@ function Populator(templateString, path) {
 // Wrapper to call the Populatorfor each category
 function PopulateBlogTemplates() {
 	console.time("populatingArticles");
-	Populator(featureTemplate, "");
-	Populator(techTemplate, "tech/");
-	Populator(personalTemplate, "personal/");
+
+	featuredPreviews = PH.featuredArticles;
+	techPreviews = PH.techArticles;
+	personalPreviews = PH.personalArticles;
+
+	Populator(featureTemplate, "", featuredPreviews);
+	Populator(techTemplate, "tech/", techPreviews);
+	Populator(personalTemplate, "personal/", personalPreviews);
 }
 
 
