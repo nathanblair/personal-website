@@ -51,20 +51,3 @@
 #css-radio:checked~main .css {
     display: block;
 }
-
-
-Project Task List
-		DONE		1. Create template files to be used as string sources where blog previews from each category are inserted
-		DONE		2. Create master blog preview array by extracting relevant information from sources
-		DONE		3. Inject anchor element link to permalink blog article using header text as link trigger
-		DONE		4. Order master blog preview array based on post date
-		DONE		5. Create the featured, tech, and personal blog arrays
-		DONE		6. Export ordered blog previews into new single buffer array
-		DONE		7. Read template file into string
-		CURRENT		8. Insert each of the blog preview arrays into appropriate template file string
-		NEXT		9. Write full page string buffer into appropriate file
-
-
-Consider renaming featured flag in each individual blog post to something other than <!--Category: (featured)-->
-
-Large discrepancy in time between Task run and Debug run of script - possibly due to difference in how each handles printing to log

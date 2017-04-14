@@ -38,7 +38,7 @@ function deliverURI(uri, res) {
 // Callback that handles the request and serves the response
 const requestHandler = (req, res) => {	
 	var fullURI = path + req.url;
-	console.log(`Request was made for ${req.url}`)
+	// console.log(`Request was made for ${req.url}`)
 
 	deliverURI(fullURI, res);
 }
