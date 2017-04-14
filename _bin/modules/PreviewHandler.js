@@ -4,11 +4,13 @@ const ASC = require('./ASyncController');
 
 var blogPreviews = [];
 var featuredBlogs = [];
+var featuredArticles = "";
 var techBlogs = [];
+var techArticles = "";
 var personalBlogs = [];
-var previewsPushed = 0;
+var personalArticles = "";
 
-var sortElements = [];
+var previewsPushed = 0;
 
 const featuredPattern = /<!--Category: (featured)-->/;
 // Blog preview article pattern: should extract the blog article tag, header information (date, etc.) and the first <p> element!
@@ -142,8 +144,31 @@ function AssortBlogCategories() {
 	}
 
 	console.timeEnd("assortCategories");
-	console.timeEnd("main");
-	// console.log(featuredBlogs);
+	ASC.TriggerConcatenateBlogs();
+}
+
+
+// String articles together for a given blog
+function StringArticles(blogArray) {
+	blogArticles = "";
+	for (article = 0; article < blogArray.length; article++) { 
+		blogArticles = blogArticles + blogArray[article] + "\n"; 
+	}
+	return blogArticles;
+}
+
+
+// Wrapper to StringArticles called for each of the blogs
+function ConcatenateBlogs() {
+	console.time("concatenateBlogs");
+
+	featuredArticles = StringArticles(featuredBlogs);
+	techArticles = StringArticles(techBlogs);
+	personalArticles = StringArticles(personalBlogs);
+
+	console.timeEnd("concatenateBlogs");
+
+	ASC.TriggerPopulateTemplates();
 }
 
 
@@ -151,3 +176,4 @@ exports.PushPreview = PushPreviewSource;
 exports.InjectPermalinkToPreview = InjectPermalinkToPreview;
 exports.SortBlogPreviews = SortBlogPreviews;
 exports.AssortBlogCategories = AssortBlogCategories;
+exports.ConcatenateBlogs = ConcatenateBlogs;
