@@ -27,7 +27,7 @@ main {
 
 
 /***************************Menu Nav Bar**********************************/
-#menu-box, #hire-me-box { display: none; }
+#menu-box, #nav-bar-box { display: none; }
 
 nav {
 	position: fixed;
@@ -43,11 +43,14 @@ nav {
 	overflow-y: auto;
 }
 
+#menu-box:checked ~ nav > #nav-bar { display: none; }
+
 #menu-box:checked ~ main {
 	position: fixed;
 }
 
 #menu-toggle {
+	background-color: #262626;
 	background-image: url('_res/icons/menu.png');
 	background-size: 2.2rem;
 	background-position: center;
@@ -168,14 +171,14 @@ nav {
 
 
 /***************************Hire Me Banner*******************************/
-#hire-me {
+#nav-bar {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 }
 
-#hire-me-toggle, #hire-me-link {
+#nav-bar-toggle, #nav-bar-link {
 	display: flex;
 	align-items: flex-end;
 	align-content: center;
@@ -184,19 +187,19 @@ nav {
 	cursor: pointer;
 }
 
-#hire-me-toggle {
+#nav-bar-toggle {
 	height: 4rem;
 	background-color: #262626;
 }
 
-#hire-me-toggle > .name-logo {
+#nav-bar-toggle > .name-logo {
 	height: 4rem;
 	font-size: 3vw;
 	margin: 0 3vw 0 4rem;
 	justify-content: flex-end;
 }
 
-#hire-me-link {
+#nav-bar-link {
 	font-size: 2rem;
 	padding: 5rem 0 2rem 0;
 	text-decoration: none;
@@ -204,18 +207,18 @@ nav {
 	transition: height 1s, padding 1s;
 	text-align: center;
 }
-#hire-me-link:hover { background-color: rgba(20, 20, 20, 0.9); }
-#hire-me-toggle:hover { background-color: #303030; }
+#nav-bar-link:hover { background-color: rgba(20, 20, 20, 0.9); }
+#nav-bar-toggle:hover { background-color: #303030; }
 
 @media screen and (min-width: 950px) {
-	#hire-me-toggle > .name-logo {
+	#nav-bar-toggle > .name-logo {
 		font-size: 1.5rem;
 		margin: 0;
 		justify-content: center;
 	}
 }
 
-#hire-me-box:checked ~ #hire-me > #hire-me-link {
+#nav-bar-box:checked ~ #nav-bar > #nav-bar-link {
 	height: 0;
 	padding: 0;
 	overflow: hidden;
