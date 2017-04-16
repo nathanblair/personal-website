@@ -43,6 +43,10 @@ nav {
 	overflow-y: auto;
 }
 
+#menu-box:checked ~ main {
+	position: fixed;
+}
+
 #menu-toggle {
 	background-image: url('_res/icons/menu.png');
 	background-size: 2.2rem;
