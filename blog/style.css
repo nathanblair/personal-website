@@ -25,14 +25,21 @@
 .inline-cmd { display: none; font-style: normal; font-family: monospace; }
 
 #blog-population {
-	padding-top: 2%;
+	padding-top: 1%;
 }
 
 
 /* Settings for the actual blog posts */
-h1 { font-size: 2.5em; font-family: Georgia, 'Times New Roman', Times, serif; }
+h1 { 
+	font-size: 2.5em;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	padding-top: 5%;
+}
 
-.blogpost, .embedded { padding: 0 5% 5% 5%; }
+.blogpost, .embedded { padding: 0 5% 2% 5%; }
+
+.blogpost { background-color: #262626; color: white; }
+.blogpost a { color: white; }
 
 .embedded { max-height: 50vh; overflow: auto; }
 
@@ -61,12 +68,12 @@ h1 { font-size: 2.5em; font-family: Georgia, 'Times New Roman', Times, serif; }
 
 /* Responsive handler */
 @media screen and (min-width: 950px) {
+	main { padding-bottom: 3%; }
 	#blog-sources { flex-direction: row; }
 
 	.blogpost, .embedded {
-		margin: 0 5% 5% 5%;
-		border: 1px solid;
-		box-shadow: 5px 5px 5px #262626;
+		margin: 0 5% 10px 5%;
+		box-shadow: 5px 5px 5px #959595;
 	}
 
 	.blockcode { max-width: 750px; }
