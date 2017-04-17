@@ -7,32 +7,74 @@
 
 <url>
   <loc>http://nathanblair.rocks/</loc>
-  <lastmod>2017-03-20T12:54:59+00:00</lastmod>
-  <changefreq>weekly</changefreq>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>http://nathanblair.rocks/index.html</loc>
-  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
-  <changefreq>weekly</changefreq>
+  <loc>http://nathanblair.rocks/about/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://nathanblair.rocks/about/index.html</loc>
-  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
-  <changefreq>yearly</changefreq>
+  <loc>http://nathanblair.rocks/resume/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://nathanblair.rocks/resume/index.html</loc>
-  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
-  <changefreq>monthly</changefreq>
+  <loc>http://nathanblair.rocks/blog/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://nathanblair.rocks/blog/index.html</loc>
-  <lastmod>2017-03-30T12:54:59+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
+  <loc>http://nathanblair.rocks/blog/tech/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/personal/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/personal/master-of-none/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/tech/hire-me-banner/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/personal/jack-of-all-trades/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/tech/pure-css-toggleable-dropdown/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/personal/website-update-ii/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://nathanblair.rocks/blog/personal/website-update/</loc>
+  <lastmod>2017-04-16T04:07:54+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
 </url>
 </urlset>
