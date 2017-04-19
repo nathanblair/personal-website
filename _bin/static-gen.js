@@ -11,7 +11,7 @@ function FileRemoved_Callback(err) {
 		if (err.errno != -4058) { throw err; }
 	}
 	filesRemoved++
-	if (filesRemoved == TH.numFiles) {
+	if (filesRemoved == TH.numIndexes) {
 		console.timeEnd('removeFiles');
 		console.time('walk');
 		ASC.TriggerWalk();

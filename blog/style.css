@@ -24,17 +24,19 @@
 
 .inline-cmd { display: none; font-style: normal; font-family: monospace; }
 
-#blog-population {
-	padding-top: 1%;
-}
+#blog-population { padding-top: 1%; }
 
 
 /* Settings for the actual blog posts */
+main { min-height: 99vh; }
+
 h1 { 
 	font-size: 2.5em;
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	padding-top: 5%;
 }
+
+h4 { font-size: 1.5em; }
 
 .blogpost, .embedded { padding: 0 5% 2% 5%; }
 

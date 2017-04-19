@@ -15,12 +15,12 @@ var techFile = "blog/tech/index.html";
 var personalFile = "blog/personal/index.html";
 
 var filesWritten = 0;
-var numFiles = 3;
+var numIndexes = 3;
 
 exports.featuredFile = featuredFile;
 exports.techFile = techFile;
 exports.personalFile = personalFile;
-exports.numFiles = numFiles;
+exports.numIndexes = numIndexes;
 
 
 // Inject appropriate link class into blog folder links
@@ -67,7 +67,7 @@ function WritePageSource(file, source) {
 	fs.writeFile(file, source[0], (err) => {
 		if (err) { throw err; }
 		filesWritten++
-		if (filesWritten == numFiles) {
+		if (filesWritten == numIndexes) {
 			console.timeEnd("writeFiles");
 			console.timeEnd("main");
 			console.log("Everything is done!");

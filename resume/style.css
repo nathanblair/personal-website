@@ -73,11 +73,6 @@ h1 {
 	border-bottom: 1px solid;
 }
 
-#skilltable tr:last-child {
-	/*Applied for padding effect*/
-	border-bottom: solid transparent 30px;
-}
-
 @media screen and (min-width: 950px) {
 	.content {padding: 0 10%;}
 	#titleDivider {display: block;}
