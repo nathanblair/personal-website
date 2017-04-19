@@ -1,27 +1,16 @@
+html { height: 100%; }
 /*Clean up the body for full page use and apply default font*/
-html, body {
-	padding: 0;
-	margin: 0;
-	font-family: 'Segoe UI', Verdana, sans-serif;
-}
+html, body { padding: 0; margin: 0; font-family: 'Segoe UI', Verdana, sans-serif; }
 
-main {
-	padding: 4em 0;
-}
+body { min-height: 100%; display: flex; flex-direction: column; }
 
-.caret {
-	color: lime;
-}
+main { padding: 4em 0; flex: 1; }
 
-@keyframes typing {
-	from { width: 1.2em; }
-	to { width: 100% }
-}
+.caret { color: lime; }
 
-@keyframes caret-color {
-	from, to { border-right-color: lime; }
-	50% { border-right-color: transparent; }
-}
+@keyframes typing { from { width: 1.2em; } to { width: 100% } }
+
+@keyframes caret-color { from, to { border-right-color: lime; } 50% { border-right-color: transparent; } }
 
 
 /***************************Menu Nav Bar**********************************/
@@ -43,9 +32,7 @@ nav {
 
 #menu-box:checked ~ nav > #nav-bar { display: none; }
 
-#menu-box:checked ~ main {
-	position: fixed;
-}
+#menu-box:checked ~ main { position: fixed; }
 
 #menu-toggle {
 	background-color: #262626;
@@ -61,10 +48,7 @@ nav {
 	transition: border 0.7s, background-size 0.5s linear;
 }
 #menu-toggle:hover { background-size: 3rem; }
-#menu-box:checked ~ nav > #menu-toggle {
-	border: 0.25rem solid white;
-	background-image: url('_res/icons/close.png');
-}
+#menu-box:checked ~ nav > #menu-toggle { border: 0.25rem solid white; background-image: url('_res/icons/close.png'); }
 
 #nav-links {
 	position: absolute;
@@ -155,10 +139,7 @@ nav {
 #contact > a:hover { background-color: white; color: #262626; }
 #contact > a:hover > .contact-icon { fill: #262626; }
 
-.contact-label {
-	font-size: 0.5em;
-	display: block;
-}
+.contact-label { font-size: 0.5em; display: block; }
 
 .contact-icon {
 	display: inline-block;
@@ -185,10 +166,7 @@ nav {
 	cursor: pointer;
 }
 
-#nav-bar-toggle {
-	height: 4rem;
-	background-color: #262626;
-}
+#nav-bar-toggle { height: 4rem; background-color: #262626; }
 
 #nav-bar-toggle > .name-logo {
 	height: 4rem;
@@ -216,11 +194,7 @@ nav {
 	}
 }
 
-#nav-bar-box:checked ~ #nav-bar > #nav-bar-link {
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-}
+#nav-bar-box:checked ~ #nav-bar > #nav-bar-link { height: 0; padding: 0; overflow: hidden; }
 
 
 /******************************Footer***********************************/

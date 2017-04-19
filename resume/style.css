@@ -99,9 +99,8 @@ h1 {
 		font-size: 1.25em;
 	}
 
-	.school, .job {
-		padding: 0;
-	}
+	.school { padding: 0; }
+	.job { padding: 1% 0; }
 
 	#coursetable, #skilltable {
 		width: 80%;
