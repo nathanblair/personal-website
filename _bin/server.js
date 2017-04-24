@@ -1,26 +1,28 @@
 // content of index.js
-const http		= require('http');
-const fileSys	= require('fs');
-const port		= 3000;
-const path		= 'C:/Users/nathan/Documents/Github/nathanblair.github.io';
+const http				= require('http');
+const fs				= require('fs');
+const port				= 3000;
+const home				= require('os').homedir();
+const projectRoot		= home + '/Documents/Github/nathanblair.github.io';
 
 
 // Get the URI - has its own function to allow recursivity
 function deliverURI(uri, res) {
 	// Try accessing the file
-	fileSys.readFile(uri, (err, contents) => {
+	fs.readFile(uri, (err, contents) => {
 		if (err) {
 			// Test if the url was requested of a root directory and populate a default index file if it was
 			if ((uri[uri.length-1]) == '/') {
 				try {
 					var tmpUri = uri + 'index.html';
-					fileSys.accessSync(tmpUri);
+					fs.accessSync(tmpUri);
 					uri = tmpUri;
-				} catch (e) { 
+				} catch (e) {
 					try {
+						console.log('Could not find file ' + tmpUri);
 						var tmpUri = uri + 'index';
-					fileSys.accessSync(tmpUri);
-					uri = tmpUri;
+						fs.accessSync(tmpUri);
+						uri = tmpUri;
 					} catch (e) {
 						res.statusCode = 404;
 						res.end('Bad request\nNo file given or file not found!');
@@ -36,9 +38,9 @@ function deliverURI(uri, res) {
 }
 
 // Callback that handles the request and serves the response
-const requestHandler = (req, res) => {	
-	var fullURI = path + req.url;
-	// console.log(`Request was made for ${req.url}`)
+const requestHandler = (req, res) => {
+	var fullURI = projectRoot + req.url;
+	// console.log(`Request was made for ${fullURI}`)
 
 	deliverURI(fullURI, res);
 }

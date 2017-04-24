@@ -18,7 +18,7 @@ main { padding: 4em 0; flex: 1; }
 
 nav {
 	position: fixed;
-	top: 0; 
+	top: 0;
 	left: 0;
 	display: flex;
 	background-color: #262626;
@@ -52,8 +52,7 @@ nav {
 
 #nav-links {
 	position: absolute;
-	display: block;
-	flex-direction: column;
+	top: 0; left: 0;
 	overflow: hidden;
 	opacity: 0;
 	height: 100%;
@@ -77,7 +76,7 @@ nav {
 	white-space: nowrap;
 	border-right: 0.58em solid transparent;
 }
-#menu-box:checked ~ nav > #nav-links > .name-logo .inline-type { 
+#menu-box:checked ~ nav > #nav-links > .name-logo .inline-type {
 	animation: typing 2s steps(9),
 		caret-color 0.5s step-end 4;
 }
