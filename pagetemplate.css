@@ -55,7 +55,6 @@ nav {
 	top: 0; left: 0;
 	overflow: hidden;
 	opacity: 0;
-	height: 100%;
 	width: 100%;
 }
 #menu-box:checked ~ nav > #nav-links { opacity: 1; overflow: visible;}
@@ -131,7 +130,6 @@ nav {
 
 #contact > a {
 	padding: 0.1em 1em;
-	flex-basis: 100%;
 	max-width: 2em;
 }
 
