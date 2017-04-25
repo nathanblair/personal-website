@@ -25,7 +25,6 @@
 }
 
 .filter-label {
-	background-color: #262626;
     padding: 10px 20px;
     font-size: 1.4em;
     text-align: center;
@@ -41,8 +40,7 @@
 #cpp-radio:checked~#blog-filter .cpp,
 #devops-radio:checked~#blog-filter .devops {
     background-color: white;
-	color: #262626;
-	border: 2px solid #262626;
+	border: 2px solid;
 	
 }
 

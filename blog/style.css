@@ -1,10 +1,8 @@
 /* Settings for the index page */
 #blog-sources { display: flex; flex-direction: column; }
 #blog-sources .active {
-	background-color: #262626;
-	color: white;
+	background-color: rgba(5, 10, 30, 1.0);
 	pointer-events: none;
-	border: 2px solid white;
 }
 
 .blog-source {
@@ -14,13 +12,13 @@
 	justify-content: center;
 	font-size: 2.5em; 
 	min-height: 2em;
-
-	border: 2px solid #262626;
-	color: #262626;
+	background-color: rgba(5, 10, 90, 1.0);
+	color: white;
 	text-decoration: none;
 }
+.blog-source:hover { background-color: rgba(5, 10, 70, 1.0); }
 .blog-source:hover > .disp-text { display: none; }
-.blog-source:hover > .inline-cmd { display: inline; }
+.blog-source:hover > .inline-cmd { display: inline; color: white; }
 
 .inline-cmd { display: none; font-style: normal; font-family: monospace; }
 
@@ -28,8 +26,6 @@
 
 
 /* Settings for the actual blog posts */
-main { min-height: 99vh; }
-
 h1 { 
 	font-size: 2.5em;
 	font-family: Georgia, 'Times New Roman', Times, serif;
@@ -40,7 +36,7 @@ h4 { font-size: 1.5em; }
 
 .blogpost, .embedded { padding: 0 5% 2% 5%; }
 
-.blogpost { background-color: #262626; color: white; }
+.blogpost { background-color: rgba(2, 15, 40, 0.95); color: white; }
 .blogpost a { color: white; }
 
 .embedded { max-height: 50vh; overflow: auto; }
@@ -50,7 +46,7 @@ h4 { font-size: 1.5em; }
 .code, .blockcode {
 	font-family: Consolas, 'Courier New', Courier, monospace;
 	color: lime;
-	background-color: #303030;
+	background-color: #252525;
 	padding: 0 0.5em;
 }
 
@@ -70,7 +66,7 @@ h4 { font-size: 1.5em; }
 
 /* Responsive handler */
 @media screen and (min-width: 950px) {
-	main { padding-bottom: 3%; }
+	/*main { padding-bottom: 3%; }*/
 	#blog-sources { flex-direction: row; }
 
 	.blogpost, .embedded {

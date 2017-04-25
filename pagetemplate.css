@@ -21,7 +21,7 @@ nav {
 	top: 0;
 	left: 0;
 	display: flex;
-	background-color: #262626;
+	background-color: rgba(2, 24, 44, 0.96);
 	z-index: 5;
 }
 #menu-box:checked ~ nav {
@@ -35,7 +35,7 @@ nav {
 #menu-box:checked ~ main { position: fixed; }
 
 #menu-toggle {
-	background-color: #262626;
+	background-color: rgba(9, 6, 34, 1);
 	background-image: url('_res/icons/menu.png');
 	background-size: 2.2rem;
 	background-position: center;
@@ -110,7 +110,7 @@ nav {
 	min-width: 50vw;
 }
 
-#pages > a.active { background-color: white; color: #262626; pointer-events: none; }
+#pages > a.active { background-color: white; color: #0f3066; pointer-events: none; }
 
 #pages > a:hover { padding: 0 3vw; }
 #pages > a:hover > .inline-command { display: inline; }
@@ -133,8 +133,8 @@ nav {
 	max-width: 2em;
 }
 
-#contact > a:hover { background-color: white; color: #262626; }
-#contact > a:hover > .contact-icon { fill: #262626; }
+#contact > a:hover { background-color: white; color: #0f3066; }
+#contact > a:hover > .contact-icon { fill: #0f3066; }
 
 .contact-label { font-size: 0.5em; display: block; }
 
@@ -163,7 +163,7 @@ nav {
 	cursor: pointer;
 }
 
-#nav-bar-toggle { height: 4rem; background-color: #262626; }
+#nav-bar-toggle { height: 4rem;	background-color: rgba(2, 7, 60, 1); }
 
 #nav-bar-toggle > .name-logo {
 	height: 4rem;
@@ -176,12 +176,12 @@ nav {
 	font-size: 2rem;
 	padding: 5rem 0 2rem 0;
 	text-decoration: none;
-	background-color: rgba(10, 10, 10, 0.7);
+	background-color: rgba(5, 10, 20, 0.7);
 	transition: height 1s, padding 1s;
 	text-align: center;
 }
-#nav-bar-link:hover { background-color: rgba(20, 20, 20, 0.9); }
-#nav-bar-toggle:hover { background-color: #303030; }
+#nav-bar-link:hover { background-color: rgba(5, 10, 30, 0.9); }
+#nav-bar-toggle:hover { background-color: rgba(5, 10, 75, 1.0); }
 
 @media screen and (min-width: 950px) {
 	#nav-bar-toggle > .name-logo {
@@ -196,7 +196,7 @@ nav {
 
 /******************************Footer***********************************/
 footer {
-    background-color: #262626;
+    background-color: rgba(2, 24, 44, 1.0);
 	color: white;
 	width: 100%;
 	text-align: center;

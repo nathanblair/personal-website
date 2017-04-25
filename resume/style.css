@@ -14,7 +14,7 @@ h1 {
 
 .titlebar {
 	text-align: center;
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #00001e;
 	padding-bottom: 0.5em;
 }
 
@@ -60,7 +60,7 @@ h1 {
 
 #coursetable th, #skilltable th {
 	border-bottom: 1px solid;
-	background-color: #262626;
+	background-color: #00001e;
 	color: white;
 }
 
