@@ -10,7 +10,7 @@
 			"protocol": "inspector",
 			"name": "Start Server",
 			"program": "${workspaceRoot}/_bin/server.js"
-		}
+		},
 		{
 			"type": "node",
 			"request": "launch",
