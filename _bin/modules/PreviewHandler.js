@@ -58,8 +58,9 @@ function PushPreviewSource(file, numArticles) {
 		if (previewsPushed == 1) { console.time("previews"); }
 		// Get the preview source and data and push it into the local container
 		var blogPreview = GetBlogPreview(file, contents);
-		if (Math.ceil((today - blogPreview[0])/(1000*3600*24*7)) < 6) {
-			blogPreviews.push(blogPreview); }
+		// if (Math.ceil((today - blogPreview[0])/(1000*3600*24*7)) < 6) {
+			blogPreviews.push(blogPreview);
+		// }
 		// Increment the number of previews retrieved to know when procedure is complete
 		previewsPushed = previewsPushed + 1;
 		// Procedure is complete when previews pushed == number of articles

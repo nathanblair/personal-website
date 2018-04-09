@@ -2,8 +2,6 @@
 const http				= require('http');
 const fs				= require('fs');
 const port				= 3000;
-const home				= require('os').homedir();
-const projectRoot		= home + '/Documents/Github/nathanblair.github.io';
 
 
 // Get the URI - has its own function to allow recursivity
@@ -39,8 +37,8 @@ function deliverURI(uri, res) {
 
 // Callback that handles the request and serves the response
 const requestHandler = (req, res) => {
-	var fullURI = projectRoot + req.url;
-	// console.log(`Request was made for ${fullURI}`)
+	var fullURI = '.' + req.url;
+	console.log(`Request was made for ${fullURI}`)
 
 	deliverURI(fullURI, res);
 }
