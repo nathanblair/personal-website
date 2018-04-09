@@ -1,15 +1,13 @@
 const fs = require('fs');
 
-const ASC = require('./modules/AsyncController');
+const ASC = require('./modules/ASyncController');
 const TH = require('./modules/TemplateHandler');
 
 var filesRemoved = 0;
 
 // Callback after initial files are removed
 function FileRemoved_Callback(err) {
-	if (err) { 
-		if (err.errno != -4058) { throw err; }
-	}
+	if (err) { if (err.errno != -4058) { throw err; } }
 	filesRemoved++
 	if (filesRemoved == TH.numIndexes) {
 		console.timeEnd('removeFiles');
