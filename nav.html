@@ -1,34 +1,3 @@
-<!DOCTYPE html>
-<!--The following line is used for static site generation purposes-->
-<!--Category: -->
-
-<html lang="en">
-<head>
-	<title>Nathan Blair | Blog</title>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta name="author" content="Nathan Blair"/>
-	<meta name="description" content="Blog of Nathan Blair: my tech blog and news of various projects I work on in any of my multiple disciplines. Keep your eye out, there's sure to be some really interesting stuff here!"/>
-	<meta name="keywords" content="Nathan, Blair, personal, engineer, Nate, Blair, resume, news, blog"/>
-	<meta name="robots" content="index, follow"/>
-	<link rel="shortcut icon" href="/favicon.png" type="image/png">
-	<link rel="stylesheet" href="/pagetemplate.css" type="text/css">
-	<link rel="stylesheet" href="/blog/style.css" type="text/css">
-	<!--Google Analytics snippet-->
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-75617267-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-</head>
-<body>
-
-
-<!--Navigation Bar-->
 <input type="checkbox" id="menu-box"/>
 <nav>
 	<label id="menu-toggle" for="menu-box"></label>
@@ -39,15 +8,15 @@
 				<em class="inline-command">cd&nbsp;~/</em>
 				<span>home</span>
 			</a>
-			<a href="/about/">
+			<a href="/about/" id="about">
 				<em class="inline-command">cd&nbsp;~/about/</em>
 				<span>about</span>
 			</a>
-			<a href="/resume/">
+			<a href="/resume/" id="resume">
 				<em class="inline-command">cd&nbsp;~/r&eacute;sum&eacute;/</em>
 				<span>r&eacute;sum&eacute;</span>
 			</a>
-			<a href="/blog/" class="active">
+			<a href="/blog/" id="blog">
 				<em class="inline-command">cd&nbsp;~/blog/</em>
 				<span>blog</span>
 			</a>
@@ -103,40 +72,7 @@
 			Ready to hire me? Send me an e-mail!
 		</a>
 		<label id="nav-bar-toggle" for="nav-bar-box">
-			<div class="name-logo"><span>you-are@<i>nathanblair.rocks</i> : ~/blog/ $ <span class="caret">&#9608;</span></span></div>
+			<div class="name-logo"><span></span></div>
 		</label>
 	</section>
 </nav>
-
-
-<!--Main page content-->
-<main>
-	<!--Blog Post-->
-	<section id="blog-population">
-		<article class="blogpost">
-			<header>
-				<h1 id="title">Against All Odds</h1>
-				<h3 id="blog-date">4/18/2017</h3>
-			</header>
-
-			<p>
-				I had an interview the other week that went really well. I'll say that, being a multidisciplinary engineer, I'm uniquely suited to filling certain kinds of rolls in engineering departments. That's not me tooting my own horn (well, maybe a little), that is just what I've spent my professional life developing as my skillset. I'm most valuable in roles where I can wear multiple hats and interface with multiple disciplines and departments. Its what I'm good at.
-			</p>
-			<p>
-				It wasn't enough to get the job though. I got the boilerplate "it was very hard but we found someone who better fits the position we're trying to fill" response; my mother aptly calls them "you-suck letters".
-			</p>
-			<p>
-				No worries though. I'm not discouraged and will continue trying to find a career in this industry. Despite not having a Computer Science degree, I still have two other engineering degrees that show I'm more than capable of learning advanced mathematical and abstract concepts plus 5 years worth of disciplined and rigorous self-taught programming experience and projects.
-			</p>
-		</article>
-	</section>
-</main>
-
-
-<!--Page footer-->
-<footer>
-	Copyright &copy; 2018 <b>Nathan Blair</b>
-</footer>
-
-</body>
-</html>

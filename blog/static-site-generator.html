@@ -1,0 +1,27 @@
+<article class="blog-post">
+	<header>
+		<h1 id="title">Static Site Generator</h1>
+		<h3 id="blog-date">4/15/2017</h3>
+	</header>
+	<p>
+		So. Its finally done. New domain name. New look. New theme. And...a new method of managing the static nature of this site. Because GitHub Pages is a static site hosting platform, my options were limited when it came to delivering updated articles/news/blogs. I've now created a solution that manages updating my articles across personal, tech-related, and general featured categories. Its probably not as feature rich as Jekyll but it is still very robust and most importantly, its <i>mine</i>. Lets talk a little more about what has changed in detail.
+	</p>
+	<h4>New Domain Name</h4>
+	<p>
+		nathanblair.rocks. Because I was so sick of typing in "Nate Blair" into Google and getting <a href="https://www.google.com/search?q=nate+blair&ie=&oe=#spf=1">these search results</a>. I've tried to incorporate SEO practices into this site as much as possible but nateblair.info just wasn't going to compete against Gossip Girl fanfic. nathanblair.rocks on the other hand not only has a couple more degrees of search engine separation to Gossip Girl it also better fits my character. The .rocks TLD (top level domain) is playfully facetious which I think is a defining trait in my personality. 
+	</p>
+	<h4>New Look/Theme</h4>
+	<p>
+		The website's new design is inspired by none other than Linux shell commands. I appreciate the open-source sentiment a lot and enjoy programming so what better way to mesh my site's theme and my persona than to use the look and feel of an operating system environment that parallels many of my own values. Hopefully you've caught on by now to the play-on-words/symbols used by the (clickable) nav-bar at the top of this page. Maybe you've even noticed the aptly styled nav-menu command (ls -h1 ~).
+	</p>
+	<p>
+		Having a centralized/common layout on both desktop and mobile screens should help tremendously with user experience. Admittedly, the nav-menu has a slight-hiccup due to flex-boxes being hit or miss with webkit, so those of you using iOS mobile Safari browser will likely be missing out on the cleaner, optimal nav-menu and may have to scroll left or right a little to view all of the options. I am working on devising a fix for this currently.
+	</p>
+	<h4>Static Site Generator</h4>
+	<p>
+		The feature you've (I've) been waiting for. This article that I'm writing currently no longer needs to be manually ported into 3 different article categories, an appropriate preview extracted, so on and so forth. All of this work is now done manually. A node package retained right here within this site's directory does a directory walk, finds the relevant articles from the last 6 weeks, extracts a preview string from each one, stores it in a JS container, sorts the preview articles by their posting date, writes them into different categories of article indexes depending on the nature of their content, and then those category index pages are written to files that can be browsed right here on this blog page.
+	</p>
+	<p>
+		Node packages are a tough animal to walk through a tech demo of, but if you're curious to see how I've created my own static site blog generation tool you can check out this site's <a href="https://github.com/nathanblair/nathanblair.github.io">GitHub page</a>, navigate into the <span class="code">_bin</span> directory and look at the <span class="code">static-gen.js</span> file and related <span class="code">modules</span> directory.
+	</p>
+</article>

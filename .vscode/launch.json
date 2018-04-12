@@ -10,13 +10,6 @@
 			"protocol": "inspector",
 			"name": "Start Server",
 			"program": "${workspaceRoot}/_bin/server.js"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"protocol": "inspector",
-			"name": "Generate Static Site",
-			"program": "${workspaceRoot}/_bin/static-gen.js"
 		}
 	]
 }

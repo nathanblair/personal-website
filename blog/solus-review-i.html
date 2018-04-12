@@ -1,0 +1,52 @@
+<article class="blog-post">
+	<header>
+		<h1 id="title">Solus Review I</h1>
+		<h3 id="blog-date">4/18/2017</h3>
+	</header>
+
+	<p>
+		Much to the dismay of my SO, I've been spending most of my weekend and the start of this week testing some new Linux distros rather than doing house chores. Sorry bae. But let's talk about some of the experiences I've had with testing some of these distros!
+	</p>
+
+	<h4>Ubuntu Mate 17.04</h4>
+
+	<p>
+		This was to be my daily driver (I had Ubuntu Mate 16.04 running until the release of 17.04). It works great, Mate is smooth, responsive, and Ubuntu and its package management/Debian base means I have almost any software I could want at my disposal. My Linux machine had been running as a VM under Windows 10 because all of these tests were done on a laptop and Windows gets better battery life even when running Linux under a VM. So it was important to have a pretty lightweight, but still very capable, system. Mate fits that configuration perfectly.
+	</p>
+	<p>
+		And yet, my appreciation for the sentiment of open-source means I would rather support a distribution that relies primarily on itself or is derived from only other community built distros. Canonical is a very capable company and Ubuntu has had its ups and downs, and I believe Ubuntu is a great choice for many people. But for myself, I desired something...else.
+	</p>
+
+	<h4>Enter Arch/Manjaro</h4>
+
+	<p>
+		I love Arch. Why? Documentation. Documentation really is at the heart of the maintainers of Arch and I wouldn't have nearly the comptenency I do with Linux if it wasn't for the Arch document maintainer folks. That being said, I don't have as much time on my hands as I used to and my machine's dual Intel and NVidia 960M graphics card are so wonky right now with support between display servers, desktop environments, and the Linux kernels themselves, that Arch always ends up being a huge undertaking. On an ideal system I could install Arch with my eyes closed and my hands tied behind my back but my Dell 15 7559-763BLK laptop has such a hard time with graphics support that Arch could never be actualized.  
+	</p>
+	<p>
+		I have been wanting to invest more experience in Manjaro for a long time and now seemed like the ideal moment. Manjaro even had the benefit of coming in a Community flavor of LXQt, yum. My favorite distro brought to life with a desktop environment that I think will be perfect for my VM needs. Booting it up on UEFI proved to take longer than I would have liked (from within VirtualBox) so I disabled UEFI boot and switched to booting from MBR. The MBR boot interface looks very nice and provided extra helpful options like booting directly into the firmware interface. 
+	</p>
+	<p>
+		The install process took some time; with the UEFI installation attempt I noticed the install seemed to freeze during the chfrootcfg step. According to <a href="https://forum.manjaro.org/t/manjaro-netinstall-edition-ready-for-public-testing/9956/21">this post</a>, a mirror-list update needed to be done. Upon checking my mirrorlist by <span class="code">cat /etc/pacman.d/mirrorlist</span> I found that the top-ranking mirrors were in Africa and the US mirrors were towards the bottom. I followed the advice on the post and performed a <span class="code">pacman-mirrors -m rank --geoip</span> and rechecked the mirrorlist. This time the US mirrors were all that were listed. Retrying the whole process resulted in a (still slow but) progressing installation. Still, I didn't like the long start up time for this UEFI boot and instead did an install with UEFI boot turned off in VirtualBox. This setup is now my current main VirtualBox machine and is functioning extraordinarily.
+	</p>
+
+	<h4>Solus</h4>
+
+	<p>
+		Sticking with my theme of community/individually maintained distributions, I have been wanting to give Solus a shot after following it the past couple of months. The Budgie desktop looks phenomenal but uses 3D acceleration so it likely won't perform well in a VM with 3D acceleration disabled. Indeed, Ikey Doherty himself mentions that Solus is not optimized for running under a VM. But Solus has a great support line, a growing community, and a competent development team. I tried running it under a VM, but even with Mate I felt like I was limiting the potential for how great of a distro Solus is. So I decided to partition off some space on my physical hard drive on my Dell and booted up a Solus LiveCD using the Budgie DE.
+	</p>
+	<p>
+		Coincidentally, the day after I decided to install Solus with the Budgie DE the Solus project released a new snapshot of their Solus distro, complete with Linux Driver Management, Budgie 10.3, clr-boot-manager, a GNOME flavor...seriously, this distro has ALL the goods. I was so thoroughly impressed that I replaced the prior Solus LiveCD with the new snapshot released on April 18, 2017 (today, as of this writing). After finally getting loaded up into the Live environment I was even more impressed; I was right in thinking the VM experience really did not do this distro justice. As is customary when testing my distros, I checked the resource management (my test showed a usage of about 400-450MB after a fresh boot), battery life (not great but we'll get to that later), and a brief assessment on ease of my workflow.
+	</p>
+	<p>
+		I was very satisfied with my results and decided to install on the partition I created earlier. The install procedure recognized my ESP and correctly wrote an entry for Solus next to my existing Windows 10 entry. This is something that would seem so easy and yet I've had so many issues with this on a few other distros. A great example of how Solus keeps things that should be simple, simple. The install process continued to write and copy the necessary OS files to the partition and did so with surprising speed. In fact, Manjaro's LXQt install took 4 times as long to perform the copy despite being almost half the size, though this may have more to do with the fact that I only allowed 1 virtual processor in my VirtualBox setup.
+	</p>
+	<p>
+		When Solus first launched there was a very noticeable lack of software available. I find that this is far from the case anymore. Rarely do I feel the need to load up a terminal and use the <span class="code">eopkg</span> package manager (which is also a great package manager in and of itself) to find and install extra software. Instead, the Solus Software Center provides very intuitive access to software categories. I easily found and installed Steam, Spotify, the GNOME web browser, my VS Code editor, Sublime, and a few other odds and ends packages that I use in my workflow.
+	</p>
+	<p>
+		My only complaints about the system so far revolve around the graphics driver. Its not Solus's fault though; the driver support for NVidia cards is few and far between. As of this most recent snapshot the Linux Driver Management package comes with NVidia Optimus set with the dedicated GPU to always on (to my understanding). While this does not hamper the graphical experience in any way, it does have a tendency to drain the battery rapidly and tends to constantly cause my fans to run. This is certainly a necessary sacrifice to ensure that the Budgie desktop, display server, and intense 3D graphics (gaming) perform as expected. I am anxiously awaiting the arrival of the ability to swap between integrated and dedicated graphics card use though. This, along with the replacement to TLP that the Solus group is working on, should make the battery life of Solus much more useful.
+	</p>
+	<p>
+		If you're looking for a solid Linux system to try out that isn't beholden to corporate interests, or relies on the efforts of an upstream distro to release important updates, I <i>highly</i> recommend Solus.
+	</p>
+</article>

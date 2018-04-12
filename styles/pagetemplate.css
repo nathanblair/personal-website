@@ -1,10 +1,8 @@
 html { height: 100%; }
-/*Clean up the body for full page use and apply default font*/
-html, body { padding: 0; margin: 0; font-family: 'Segoe UI', Verdana, sans-serif; }
+body { min-height: 100%; display: flex; flex-direction: column; margin: 0; }
+html, body { font-family: 'Segoe UI', Verdana, sans-serif; }
 
-body { min-height: 100%; display: flex; flex-direction: column; }
-
-main { padding: 4em 0; flex: 1; }
+main { padding-top: 4em; flex: 1; position: relative; }
 
 .caret { color: lime; }
 
@@ -36,38 +34,29 @@ nav {
 
 #menu-toggle {
 	background-color: rgba(9, 6, 34, 1);
-	background-image: url('_res/icons/menu.png');
+	background-image: url('/_res/icons/menu.png');
 	background-size: 2.2rem;
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 3rem;
-	height: 3rem;
+	width: 4rem;
+	height: 4rem;
 	padding: 0.5rem;
 	z-index: 5;
 	border: 0 solid transparent;
 	transition: border 0.7s, background-size 0.5s linear;
+	cursor: pointer;
 }
 #menu-toggle:hover { background-size: 3rem; }
-#menu-box:checked ~ nav > #menu-toggle { border: 0.25rem solid white; background-image: url('_res/icons/close.png'); }
+#menu-box:checked ~ nav > #menu-toggle { border: 0.25rem solid white; background-image: url('/_res/icons/close.png'); }
 
 #nav-links {
 	position: absolute;
 	top: 0; left: 0;
 	overflow: hidden;
 	opacity: 0;
-	width: 100%;
+	width: 0;
 }
-#menu-box:checked ~ nav > #nav-links { opacity: 1; overflow: visible;}
-
-.name-logo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 4.5rem;
-	color: white;
-	font-size: 2rem;
-	font-family: Courier New, Courier, monospace;
-}
+#menu-box:checked ~ nav > #nav-links { opacity: 1; overflow: visible; width: 100%; }
 
 .inline-type {
 	display: block;
@@ -128,10 +117,7 @@ nav {
 	margin-bottom: 10vh;
 }
 
-#contact > a {
-	padding: 0.1em 1em;
-	max-width: 2em;
-}
+#contact > a { padding: 0.1em 1em; }
 
 #contact > a:hover { background-color: white; color: #0f3066; }
 #contact > a:hover > .contact-icon { fill: #0f3066; }
@@ -163,14 +149,19 @@ nav {
 	cursor: pointer;
 }
 
-#nav-bar-toggle { height: 4rem;	background-color: rgba(2, 7, 60, 1); }
+#nav-bar-toggle { background-color: rgba(2, 7, 60, 1); }
 
-#nav-bar-toggle > .name-logo {
+.name-logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: 4rem;
-	font-size: 3vw;
 	margin: 0 3vw 0 4rem;
-	justify-content: flex-end;
+	color: white;
+	font-size: 3vw;
+	font-family: Courier New, Courier, monospace;
 }
+
 
 #nav-bar-link {
 	font-size: 2rem;

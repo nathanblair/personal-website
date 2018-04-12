@@ -1,393 +1,280 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Nathan Blair - R&eacute;sum&eacute;</title>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta name="author" content="Nathan Blair"/>
-	<meta name="description" content="Nathan Blair's resume: my professional, independent, and educational experience"/>
-	<meta name="keywords" content="Nathan, Blair, personal, engineer, Nate, Blair, resume, news, blog"/>
-	<meta name="robots" content="index, follow"/>
-	<link rel="shortcut icon" href="/favicon.png" type="image/png">
-	<link rel="stylesheet" href="/pagetemplate.css" type="text/css">
-	<link rel="stylesheet" href="style.css" type="text/css">
-	<!--Google Analytics snippet-->
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-75617267-1', 'auto');
-		ga('send', 'pageview');
-	</script>
+	<script src="/scripts/jquery-3.2.1.min.js"></script>
+	<script src="/scripts/page.js"></script>
 </head>
 <body>
-
-
-<!--Navigation Bar-->
-<input type="checkbox" id="menu-box"/>
-<nav>
-	<label id="menu-toggle" for="menu-box"></label>
-	<div id="nav-links">
-		<div class="name-logo"><div><span class="inline-type">$ ls -h1 ~</span></div></div>
-		<div id="pages">
-			<a href="/">
-				<em class="inline-command">cd&nbsp;~/</em>
-				<span>home</span>
-			</a>
-			<a href="/about/">
-				<em class="inline-command">cd&nbsp;~/about/</em>
-				<span>about</span>
-			</a>
-			<a href="/resume/" class="active">
-				<em class="inline-command">cd&nbsp;~/r&eacute;sum&eacute;/</em>
-				<span>r&eacute;sum&eacute;</span>
-			</a>
-			<a href="/blog/">
-				<em class="inline-command">cd&nbsp;~/blog/</em>
-				<span>blog</span>
-			</a>
-		</div>
-		<hr id="nav-divider" />
-		<div id="contact">
-			<a href="https://github.com/nathanblair" target="_blank">
-				<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="contact-icon">
-					<path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8"></path>
-				</svg>
-				<span class="contact-label">GitHub</span>
-			</a>
-			<a href="https://www.linkedin.com/in/engineerblair/" target="_blank">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="contact-icon">
-					<path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path>
-				</svg>
-				<span class="contact-label">LinkedIn</span>
-			</a>
-			<a href="https://www.facebook.com/TheGr8Nate" target="_blank">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 266.893 266.895" class="contact-icon">
-					<path id="f" d="M182.409,262.307v-99.803h33.499l5.016-38.895h-38.515V98.777c0-11.261,3.127-18.935,19.275-18.935
-						l20.596-0.009V45.045c-3.562-0.474-15.788-1.533-30.012-1.533c-29.695,0-50.025,18.126-50.025,51.413v28.684h-33.585v38.895h33.585
-						v99.803H182.409z"></path>
-				</svg>
-				<span class="contact-label">Facebook</span>
-			</a>
-			<a href="https://twitter.com/NateTBlair" target="_blank">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="contact-icon">
-					<path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"></path>
-				</svg>
-				<span class="contact-label">Twitter</span>
-			</a>
-			<a href="mailto:nathan.t.blair@outlook.com" target="_blank">
-				<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="contact-icon">
-					<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-				</svg>
-				<span class="contact-label">Email</span>
-			</a>
-		</div>
-	</div>
-
-	<input type="checkbox" id="nav-bar-box" checked="checked"/>
-	<section id="nav-bar">
-		<a href="mailto:nathan.t.blair@outlook.com?subject=Opportunities (From nateblair.info)&body=
-		I found your site and liked reading about you.%0D%0A
-		Would you be interested in hearing about some opportunities I can offer? Here's my contact information: %0D%0A%0D%0A
-
-		Name: %0D%0A
-		Phone: %0D%0A
-		E-Mail: %0D%0A%0D%0A
-
-		Thanks,%0D%0A%0D%0A" id="nav-bar-link">
-			Ready to hire me? Send me an e-mail!
-		</a>
-		<label id="nav-bar-toggle" for="nav-bar-box">
-			<div class="name-logo"><span>you-are@<i>nathanblair.rocks</i> : ~/r&eacute;sum&eacute;/ $ <span class="caret">&#9608;</span></span></div>
-		</label>
-	</section>
-</nav>
-
-
-<!--Main page content-->
 <main>
-	<section>
-		<h1>Education</h1>
-		<div class="content">
-			<section class="school">
-				<div class="titlebar">
-					<span class="name">Wright State University</span><br/><hr id="titleDivider"/>
-					<span class="detail">College of Engineering and Computer Science</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">2012 - 2015</span>
-				</div>
-				<ul class="degreelist">
-					<li>B.S. Mechanical Engineering</li>
-					<li>B.S. Materials Science and Engineering</li>
-				</ul>
-			</section>
-			<section class="school">
-				<div class="titlebar">
-					<span class="name">University of Cincinnati</span><br/><hr id="titleDivider"/>
-					<span class="detail">College of Engineering and Applied Sciences</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Cincinnati, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">2009 - 2012</span>
-				</div>
-				<ul class="degreelist">
-					<li>N/A Materials Science and Engineering</li>
-				</ul>
-			</section>
-		</div>
-	</section>
-
-	<section>
-		<h1>Professional</h1>
-		<div class="content">
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Universal Technology Coroporation</span><br/><hr id="titleDivider"/>
-					<span class="detail">Project Engineer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">November 2017 - </span>
-				</div>
-				<ul class="workdesc">
-					<li>Coordinated projects for multiple programs within the Education Outreach office at WPAFB including FIRST Lego League, WOW!, and LEGACY</li>
-					<li>Developed Inventory Tracking System web-app using Node.js backend and deployed for multiple program use</li>
-					<li>Assisted technical team for FIRST events at Wright State Nutter Center</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Insight Global</span><br/><hr id="titleDivider"/>
-					<span class="detail">Junior Software Developer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Fairfield, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">October 2017 - November 2017</span>
-				</div>
-				<ul class="workdesc">
-					<li>Spearheaded development on commercial web-app allowing customers to build store-specific signage packaging</li>
-					<li>Supported development of legacy software for retail web-apps</li>
-					<li>Assisted in IT Operations team in managing Windows Server 2012 and AD services</li>
-					<li>Chosen to champion Agile development approach within developer team and integrate Visual Studio TFS Agile tools into development workflow</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Berg Steel Pipe</span><br/><hr id="titleDivider"/>
-					<span class="detail">QA Process Engineer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Panama City, FL</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">August 2015 - April 2016</span>
-				</div>
-				<ul class="workdesc">
-					<li>Overhauled quality reporting procedures to better track production and Quality performance using API's for Minitab, MS Office, and MS SQL Server</li>
-					<li>Advocated integration and accessibility of MS SQL Server and IBM databases to dramatically decrease report generation times</li>
-					<li>Applied multi-disciplinary background to interface with multiple departments and facilitate corporate homogeneity</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Xtek Inc.</span><br/><hr id="titleDivider"/>
-					<span class="detail">Metallurgical Engineer/Systems Engineer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Cincinnati, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">August 2013 - August 2014</span>
-				</div>
-				<ul class="workdesc">
-					<li>Prepared metallurgical samples for microstructure evaluation and NDT failure analysis</li>
-					<li>Participated on work-orders for SAW/MIG weld procedures</li>
-					<li>Developed below-the-hook (mechanical component) design software in VB.NET to automate design and interface with SolidWorks</li>
-				</ul>
-			</section>
-		</div>
-	</section>
-
-	<section>
-		<h1>Independent</h1>
-		<div class="content">
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Substitute Teacher Portal</span><br/><hr id="titleDivider"/>
-					<span class="detail">Developer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">January 2017 - August 2017</span>
-				</div>
-				<ul class="workdesc">
-					<li>Created Python package on a Raspberry Pi that logs into online site and scrapes HTML source</li>
-					<li>Developed SQLite backend database that manages whether jobs retrieved from source are current, new, or inactive</li>
-					<li>Utilized Linux SMTP tool to send a formatted e-mail with details regarding job status</li>
-					<li>Executed scrape and update operation periodically using Linux <i>systemd</i> timers</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">Android Sensor App</span><br/><hr id="titleDivider"/>
-					<span class="detail">Developer</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">May 2015 - December 2017</span>
-				</div>
-				<ul class="workdesc">
-					<li>Created an augmented reality application that utilizes on-board Android MEMS sensors like the Gyroscope and Accelerometer using the C# language</li>
-					<li>Applied knowledge of sensor fusion field to make a fluid, smooth experience</li>
-					<li>Tracked and studied sensor input using MATLAB Mobile Device package (mobiledev) and custom-build MATLAB library</li>
-					<li>Utilized Unity game studio software for graphic development</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">NASA ICED ACRUM</span><br/><hr id="titleDivider"/>
-					<span class="detail">Materials Engineer/Communications Lead</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">August 2014 - May 2015</span>
-				</div>
-				<ul class="workdesc">
-					<li>Organized communications between students at top-tier Universities across US and NASA experts collaborating on project</li>
-					<li>Coordinated project management-level tasks across multiple departments and disciplines</li>
-					<li>Designed procedure for synthesizing glass from asteroid regolith</li>
-				</ul>
-			</section>
-			<section class="job">
-				<div class="titlebar">
-					<span class="name">van der Pauw PR MEMS Sensors</span><br/><hr id="titleDivider"/>
-					<span class="detail">Undergraduate Researcher</span>
-				</div>
-				<div class="detailbar">
-					<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
-					<span class="date">January 2015 - May 2015</span>
-				</div>
-				<ul class="workdesc">
-					<li>Designed van der Pauw piezoresistive devices for MEMS packaging</li>
-					<li>Applied numerical solutions from FEA by using numerical modeling software (ANSYS)</li>
-					<li>Publication submitted with Mechanical Engineering Professor Dr. Ahsan Mian</li>
-				</ul>
-			</section>
-		</div>
-	</section>
-
-	<section>
-		<h1>Coursework</h1>
-		<table id="coursetable">
-			<tr>
-				<th colspan="2">Undergraduate</th>
-				<th>Graduate</th>
-			</tr>
-			<tr>
-				<th>Materials</th>
-				<th>Mechanical</th>
-				<th></th>
-			</tr>
-			<tr>
-				<td>Corrosion</td>
-				<td>Fluid Mechanics</td>
-				<td>Electrical and Optical of Ceramics</td>
-			</tr>
-			<tr>
-				<td>Failure Analysis and Materials Selection</td>
-				<td>Aeronautics</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Mechanical Behavior of Metals</td>
-				<td>Mechanical Vibrations</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Physical Metallurgy</td>
-				<td>Finite Element Analysis</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Ceramics I</td>
-				<td>Mechanical Design I & II</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Polymers I</td>
-				<td>SolidWorks Modeling</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Metallography and Testing</td>
-				<td>Circuit Analysis</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Materials Characterization</td>
-				<td>MATLAB for Engineers</td>
-				<td></td>
-			</tr>
-		</table>
-	</section>
-
-	<section>
-		<h1>Skills</h1>
-		<table id="skilltable">
-			<tr>
-				<th>Techniques and Instruments</th>
-				<th>Programs</th>
-				<th>Languages</th>
-			</tr>
-			<tr>
-				<td>Scanning Electron Microscopy (SEM)</td>
-				<td>SolidWorks</td>
-				<td>C++/Visual C++</td>
-			</tr>
-			<tr>
-				<td>Transmission Electron Microscopy (TEM)</td>
-				<td>MATLAB</td>
-				<td>C#</td>
-			</tr>
-			<tr>
-				<td>Atomic Force Microscopy (AFM)</td>
-				<td>Mathematica</td>
-				<td>VB.NET</td>
-			</tr>
-			<tr>
-				<td>Reactive Ion Etching (RIE)</td>
-				<td>LabVIEW</td>
-				<td>Visual Basic for Applications (VBA)</td>
-			</tr>
-			<tr>
-				<td>Focused Ion Beam (FIB)</td>
-				<td>ANSYS</td>
-				<td>Java</td>
-			</tr>
-			<tr>
-				<td>Nuclear Magnetic Resonance (NMR) Spectroscopy</td>
-				<td>Visual Studio</td>
-				<td>JavaScript</td>
-			</tr>
-			<tr>
-				<td>Wet Chemical Etching</td>
-				<td>GitHub</td>
-				<td>HTML</td>
-			</tr>
-			<tr>
-				<td>Chemical Vapor Deposition (CVD)</td>
-				<td>Minitab</td>
-				<td>CSS</td>
-			</tr>
-		</table>
-	</section>
+<section>
+	<h1>Education</h1>
+	<div class="content">
+		<section class="school">
+			<div class="titlebar">
+				<span class="name">Wright State University</span><br/><hr id="titleDivider"/>
+				<span class="detail">College of Engineering and Computer Science</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">2012 - 2015</span>
+			</div>
+			<ul class="degreelist">
+				<li>B.S. Mechanical Engineering</li>
+				<li>B.S. Materials Science and Engineering</li>
+			</ul>
+		</section>
+		<section class="school">
+			<div class="titlebar">
+				<span class="name">University of Cincinnati</span><br/><hr id="titleDivider"/>
+				<span class="detail">College of Engineering and Applied Sciences</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Cincinnati, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">2009 - 2012</span>
+			</div>
+			<ul class="degreelist">
+				<li>N/A Materials Science and Engineering</li>
+			</ul>
+		</section>
+	</div>
+</section>
+<section>
+	<h1>Professional</h1>
+	<div class="content">
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Universal Technology Coroporation</span><br/><hr id="titleDivider"/>
+				<span class="detail">Project Engineer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">November 2017 - </span>
+			</div>
+			<ul class="workdesc">
+				<li>Coordinated projects for multiple programs within the Education Outreach office at WPAFB including FIRST Lego League, WOW!, and LEGACY</li>
+				<li>Developed Inventory Tracking System web-app using Node.js backend and deployed for multiple program use</li>
+				<li>Assisted technical team for FIRST events at Wright State Nutter Center</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Insight Global</span><br/><hr id="titleDivider"/>
+				<span class="detail">Junior Software Developer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Fairfield, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">October 2017 - November 2017</span>
+			</div>
+			<ul class="workdesc">
+				<li>Spearheaded development on commercial web-app allowing customers to build store-specific signage packaging</li>
+				<li>Supported development of legacy software for retail web-apps</li>
+				<li>Assisted in IT Operations team in managing Windows Server 2012 and AD services</li>
+				<li>Chosen to champion Agile development approach within developer team and integrate Visual Studio TFS Agile tools into development workflow</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Berg Steel Pipe</span><br/><hr id="titleDivider"/>
+				<span class="detail">QA Process Engineer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Panama City, FL</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">August 2015 - April 2016</span>
+			</div>
+			<ul class="workdesc">
+				<li>Overhauled quality reporting procedures to better track production and Quality performance using API's for Minitab, MS Office, and MS SQL Server</li>
+				<li>Advocated integration and accessibility of MS SQL Server and IBM databases to dramatically decrease report generation times</li>
+				<li>Applied multi-disciplinary background to interface with multiple departments and facilitate corporate homogeneity</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Xtek Inc.</span><br/><hr id="titleDivider"/>
+				<span class="detail">Metallurgical Engineer/Systems Engineer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Cincinnati, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">August 2013 - August 2014</span>
+			</div>
+			<ul class="workdesc">
+				<li>Prepared metallurgical samples for microstructure evaluation and NDT failure analysis</li>
+				<li>Participated on work-orders for SAW/MIG weld procedures</li>
+				<li>Developed below-the-hook (mechanical component) design software in VB.NET to automate design and interface with SolidWorks</li>
+			</ul>
+		</section>
+	</div>
+</section>
+<section>
+	<h1>Independent</h1>
+	<div class="content">
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Substitute Teacher Portal</span><br/><hr id="titleDivider"/>
+				<span class="detail">Developer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">January 2017 - August 2017</span>
+			</div>
+			<ul class="workdesc">
+				<li>Created Python package on a Raspberry Pi that logs into online site and scrapes HTML source</li>
+				<li>Developed SQLite backend database that manages whether jobs retrieved from source are current, new, or inactive</li>
+				<li>Utilized Linux SMTP tool to send a formatted e-mail with details regarding job status</li>
+				<li>Executed scrape and update operation periodically using Linux <i>systemd</i> timers</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">Android Sensor App</span><br/><hr id="titleDivider"/>
+				<span class="detail">Developer</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">May 2015 - December 2017</span>
+			</div>
+			<ul class="workdesc">
+				<li>Created an augmented reality application that utilizes on-board Android MEMS sensors like the Gyroscope and Accelerometer using the C# language</li>
+				<li>Applied knowledge of sensor fusion field to make a fluid, smooth experience</li>
+				<li>Tracked and studied sensor input using MATLAB Mobile Device package (mobiledev) and custom-build MATLAB library</li>
+				<li>Utilized Unity game studio software for graphic development</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">NASA ICED ACRUM</span><br/><hr id="titleDivider"/>
+				<span class="detail">Materials Engineer/Communications Lead</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">August 2014 - May 2015</span>
+			</div>
+			<ul class="workdesc">
+				<li>Organized communications between students at top-tier Universities across US and NASA experts collaborating on project</li>
+				<li>Coordinated project management-level tasks across multiple departments and disciplines</li>
+				<li>Designed procedure for synthesizing glass from asteroid regolith</li>
+			</ul>
+		</section>
+		<section class="job">
+			<div class="titlebar">
+				<span class="name">van der Pauw PR MEMS Sensors</span><br/><hr id="titleDivider"/>
+				<span class="detail">Undergraduate Researcher</span>
+			</div>
+			<div class="detailbar">
+				<span class="location">Dayton, OH</span><br id="detailBreak"/><hr id="detailDivider"/>
+				<span class="date">January 2015 - May 2015</span>
+			</div>
+			<ul class="workdesc">
+				<li>Designed van der Pauw piezoresistive devices for MEMS packaging</li>
+				<li>Applied numerical solutions from FEA by using numerical modeling software (ANSYS)</li>
+				<li>Publication submitted with Mechanical Engineering Professor Dr. Ahsan Mian</li>
+			</ul>
+		</section>
+	</div>
+</section>
+<section>
+	<h1>Coursework</h1>
+	<table id="coursetable">
+		<tr>
+			<th colspan="2">Undergraduate</th>
+			<th>Graduate</th>
+		</tr>
+		<tr>
+			<th>Materials</th>
+			<th>Mechanical</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td>Corrosion</td>
+			<td>Fluid Mechanics</td>
+			<td>Electrical and Optical of Ceramics</td>
+		</tr>
+		<tr>
+			<td>Failure Analysis and Materials Selection</td>
+			<td>Aeronautics</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Mechanical Behavior of Metals</td>
+			<td>Mechanical Vibrations</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Physical Metallurgy</td>
+			<td>Finite Element Analysis</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Ceramics I</td>
+			<td>Mechanical Design I & II</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Polymers I</td>
+			<td>SolidWorks Modeling</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Metallography and Testing</td>
+			<td>Circuit Analysis</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Materials Characterization</td>
+			<td>MATLAB for Engineers</td>
+			<td></td>
+		</tr>
+	</table>
+</section>
+<section>
+	<h1>Skills</h1>
+	<table id="skilltable">
+		<tr>
+			<th>Techniques and Instruments</th>
+			<th>Programs</th>
+			<th>Languages</th>
+		</tr>
+		<tr>
+			<td>Scanning Electron Microscopy (SEM)</td>
+			<td>SolidWorks</td>
+			<td>C++/Visual C++</td>
+		</tr>
+		<tr>
+			<td>Transmission Electron Microscopy (TEM)</td>
+			<td>MATLAB</td>
+			<td>C#</td>
+		</tr>
+		<tr>
+			<td>Atomic Force Microscopy (AFM)</td>
+			<td>Mathematica</td>
+			<td>VB.NET</td>
+		</tr>
+		<tr>
+			<td>Reactive Ion Etching (RIE)</td>
+			<td>LabVIEW</td>
+			<td>Visual Basic for Applications (VBA)</td>
+		</tr>
+		<tr>
+			<td>Focused Ion Beam (FIB)</td>
+			<td>ANSYS</td>
+			<td>Java</td>
+		</tr>
+		<tr>
+			<td>Nuclear Magnetic Resonance (NMR) Spectroscopy</td>
+			<td>Visual Studio</td>
+			<td>JavaScript</td>
+		</tr>
+		<tr>
+			<td>Wet Chemical Etching</td>
+			<td>GitHub</td>
+			<td>HTML</td>
+		</tr>
+		<tr>
+			<td>Chemical Vapor Deposition (CVD)</td>
+			<td>Minitab</td>
+			<td>CSS</td>
+		</tr>
+	</table>
+</section>
 </main>
 
-
-<!--Page footer-->
-<footer>
-	Copyright &copy; 2018 <b>Nathan Blair</b>
-</footer>
-
-</body>
-</html>
+<footer></footer></body></html>

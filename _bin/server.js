@@ -29,6 +29,7 @@ function deliverURI(uri, res) {
 				deliverURI(uri, res);
 			}
 		} else {
+			let mimeType = ''
 			res.statusCode = 200;
 			res.end(contents);
 		}
@@ -38,7 +39,7 @@ function deliverURI(uri, res) {
 // Callback that handles the request and serves the response
 const requestHandler = (req, res) => {
 	var fullURI = '.' + req.url;
-	console.log(`Request was made for ${fullURI}`)
+	// console.log(`Request was made for ${fullURI}`)
 
 	deliverURI(fullURI, res);
 }

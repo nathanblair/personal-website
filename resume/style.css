@@ -26,6 +26,8 @@ h1 {
 .degreelist {
 	padding: 0;
 	list-style: none;
+}
+.degreelist > li {
 	text-align: center;
 }
 
@@ -45,6 +47,9 @@ h1 {
 .school, .job {
 	padding: 4% 0;
 }
+
+.workdesc { margin-left: 2em; }
+.workdesc > li { padding: 4px 0; }
 
 #titleDivider {display: none;}
 #detailDivider {display: none;}
@@ -89,10 +94,6 @@ h1 {
 		display: block;
 		text-align: right;
 		font-weight: normal;
-	}
-
-	.degreelist {
-		text-align: left;
 	}
 
 	.location {
