@@ -1,32 +1,32 @@
 .landingText {
-	position: absolute;
-	font-size: 3vmin;
-	bottom: 0;
-	right: 0;
+    position: absolute;
+    font-size: 3vmin;
+    bottom: 0;
+    right: 0;
 }
 
 .landingText h1, .landingText h4 {
-	font-weight: normal;
-	color: white;
-	text-align: right;
-	line-height: 1em;
-	margin: 2.5rem;
+    font-weight: normal;
+    color: white;
+    text-align: right;
+    line-height: 1em;
+    margin: 2.5rem;
 }
 
 .background-cover {
-	background-image: url('_res/landingPic.jpeg');
-	background-attachment: fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
+    background-image: url('_res/landingPic.jpeg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
-	position: absolute;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 
-	filter: blur(2px) brightness(60%);
-	z-index: -5;
+    filter: blur(2px) brightness(60%);
+    z-index: -5;
 }

@@ -1,12 +1,12 @@
 main p {
-	padding: 1% 10%;
-	margin: 0;
-	font-size: 1.3em;
-	line-height: 2.0;
+    padding: 1% 10%;
+    margin: 0;
+    font-size: 1.3em;
+    line-height: 2.0;
 }
 
 .infoBlock { padding: 3% 0; }
 
 @media screen and (min-width: 950px) {
-	.infoBlock { padding: 0; }
+    .infoBlock { padding: 0; }
 }
