@@ -3,7 +3,7 @@
 </script>
 
 <footer>
-  <span><b>{author}</b> © {new Date().getFullYear()}</span>
+  <span>© <b>{author}</b> {new Date().getFullYear()}</span>
 </footer>
 
 <style>

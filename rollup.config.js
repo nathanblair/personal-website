@@ -2,15 +2,18 @@ import dynamicImportVars from "@rollup/plugin-dynamic-import-vars"
 import resolve from "@rollup/plugin-node-resolve"
 import autoPrefixer from "autoprefixer"
 import del from "rollup-plugin-delete"
+import livereload from "rollup-plugin-livereload"
 import scss from "rollup-plugin-scss"
 import svelte from "rollup-plugin-svelte"
 import { terser } from "rollup-plugin-terser"
 import sass from "sass"
 import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess"
 
-const production = process.env.PRODUCTION === "true"
+const production =
+  process.env.PRODUCTION === "true" || !process.env.ROLLUP_WATCH
 
-const outputDir = "app/build"
+const publicDir = "app"
+const outputDir = `${publicDir}/build`
 
 export default {
   input: "src/main.js",
@@ -55,6 +58,10 @@ export default {
       browser: true,
       dedupe: ["svelte"],
     }),
+
+    // Watch the `public` directory and refresh the
+    // browser on changes when not in production
+    !production && livereload(publicDir),
 
     production && terser(),
 
