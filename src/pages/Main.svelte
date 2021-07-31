@@ -1,4 +1,5 @@
 <script>
+  document.title = document.title + " | Home"
 </script>
 
 <div id="header-background">

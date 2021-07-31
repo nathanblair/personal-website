@@ -2,24 +2,25 @@
   import Bar from "./components/App/Bar.svelte"
   import Drawer from "./components/App/Drawer.svelte"
 
-  import { page_name_store } from "./stores.js"
-
-  /** @type {import("svelte").SvelteComponent}*/
-  let main_page
-
-  /** @param {string} file */
-  async function set_page(file) {
-    main_page = (await import(`./pages/${file}.svelte`)).default
+  async function import_component_file() {
+    return import(
+      `./pages/${
+        window.location.pathname === "/"
+          ? "Main"
+          : window.location.pathname.slice(1, 2).toLocaleUpperCase() +
+            window.location.pathname.slice(2)
+      }.svelte`
+    )
   }
-
-  page_name_store.subscribe(set_page)
 </script>
 
 <Bar />
 
 <div class="main-layout">
   <main>
-    <svelte:component this={main_page} />
+    {#await import_component_file() then componentFile}
+      <svelte:component this={componentFile.default} />
+    {/await}
   </main>
   <Drawer />
 </div>

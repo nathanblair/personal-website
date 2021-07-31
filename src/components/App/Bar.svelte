@@ -2,29 +2,8 @@
   import IconTray from "../IconTray.svelte"
   import IconLink from "../IconLink.svelte"
   import Toggle from "../Toggle.svelte"
-  import Button from "../Button.svelte"
 
-  import { page_name_store, drawer_toggle_status } from "../../stores.js"
-
-  // FIXME These buttons that navigate should be broken out into a NavButton
-  // Which has a callback to page_name_store.set and the argument can be an
-  // attribute in the element (the aria-label since its required anyway)
-
-  function home_click() {
-    page_name_store.set("Main")
-  }
-
-  function about_click() {
-    page_name_store.set("About")
-  }
-
-  function resume_click() {
-    page_name_store.set("Resume")
-  }
-
-  function blog_click() {
-    page_name_store.set("Blog")
-  }
+  import { drawer_toggle_status } from "../../stores.js"
 
   /** @param {Event} e */
   function menu_toggled_callback(e) {
@@ -35,15 +14,25 @@
 
 <div id="app-bar">
   <IconTray id="app-shortcuts">
-    <Button id="home" src="home" title="Go Home" on:click={home_click} />
-    <Button id="about" src="person" title="About Me" on:click={about_click} />
-    <Button
-      id="resume"
-      src="work"
+    <IconLink link_target="/" title="Go Home" open_in_new_page={false}>
+      <span>home</span>
+    </IconLink>
+
+    <IconLink link_target="/about" title="About Me" open_in_new_page={false}>
+      <span>person</span>
+    </IconLink>
+
+    <IconLink
+      link_target="/resume"
       title="My Qualifications"
-      on:click={resume_click}
-    />
-    <Button id="blog" src="feed" title="My Blog" on:click={blog_click} />
+      open_in_new_page={false}
+    >
+      <span>work</span>
+    </IconLink>
+
+    <IconLink link_target="/blog" title="My Blog" open_in_new_page={false}>
+      <span>feed</span>
+    </IconLink>
   </IconTray>
 
   <IconTray id="right-tray">

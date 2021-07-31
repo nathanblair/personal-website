@@ -30,3 +30,13 @@
 .no-pointer-events {
   pointer-events: none;
 }
+
+/* Code */
+.code {
+  font-family: monospace;
+}
+
+.inline-code {
+  font-family: monospace;
+  background-color: lightgray;
+}

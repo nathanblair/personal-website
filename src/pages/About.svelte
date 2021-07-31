@@ -1,3 +1,7 @@
+<script>
+  document.title = document.title + " | About"
+</script>
+
 <article>
   <section class="infoBlock" id="colleges">
     <h1>My name is Nathan Blair.</h1>

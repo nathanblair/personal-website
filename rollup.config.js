@@ -18,7 +18,8 @@ const outputDir = `${publicDir}/build`
 export default {
   input: "src/main.js",
   output: {
-    sourcemap: !production,
+    // sourcemap: !production,
+    sourcemap: true,
     format: "es",
     file: `${outputDir}/main.js`,
     inlineDynamicImports: true,

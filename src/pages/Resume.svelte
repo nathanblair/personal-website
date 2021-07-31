@@ -1,225 +1,142 @@
-<section class="section">
+<script>
+  import School from "../components/resume/School.svelte"
+  import Job from "../components/resume/Job.svelte"
+  import Contribution from "../components/resume/Contribution.svelte"
+
+  document.title = document.title + " | Resumé"
+</script>
+
+<section>
   <h1>Education</h1>
   <div class="content">
-    <section class="school">
-      <div class="titlebar">
-        <span class="name">Wright State University</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">College of Engineering and Computer Science</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Dayton, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date">2012 - 2015</span>
-      </div>
-      <ul class="degreelist">
-        <li>B.S. Mechanical Engineering</li>
-        <li>B.S. Materials Science and Engineering</li>
-      </ul>
-    </section>
-    <section class="school">
-      <div class="titlebar">
-        <span class="name">University of Cincinnati</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">College of Engineering and Applied Sciences</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Cincinnati, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date">2009 - 2012</span>
-      </div>
-      <ul class="degreelist">
-        <li>N/A Materials Science and Engineering</li>
-      </ul>
-    </section>
+    <School
+      universityName="Wright State University"
+      collegeName="College of Engineering and Computer Science"
+      location="Dayton, OH"
+      from="2012"
+      to="2015"
+      degreeList={[
+        "B.S. Mechanical Engineering",
+        "B.S. Materials Science and Engineering",
+      ]}
+    />
+
+    <School
+      universityName="University of Cincinnati"
+      collegeName="College of Engineering and Applied Sciences"
+      location="Cincinnati, OH"
+      from="2009"
+      to="2012"
+      degreeList={["N/A Materials Science and Engineering"]}
+    />
   </div>
 </section>
-<section class="section">
+
+<section>
   <h1>Professional</h1>
   <div class="content">
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">Genetesis</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">DevOps Engineer</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Mason, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date"
-          ><span class="month">November</span> 2020 - Present</span
-        >
-      </div>
-      <ul class="workdesc">
-        <li>
-          Developed installer programs for desktop apps using <span
-            class="inline-code">go</span
-          >
-        </li>
-        <li>
-          Created and managed all company's CI/CD pipelines and automation
-        </li>
-        <li>
-          Automated bare-metal machine image generation and deployment to
-          embedded devices
-        </li>
-        <li>
-          Migrated AWS EKS instances running company’s microservices from manual
-          provisioning to automated provisioning using <span class="inline-code"
-            >terraform</span
-          >
-        </li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">Ascendum</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">DevOps Engineer</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Blue Ash, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date"
-          ><span class="month">May</span> 2019 -
-          <span class="month">November</span> 2020</span
-        >
-      </div>
-      <ul class="workdesc">
-        <li>
-          Created and managed automation pipelines for iOS (including
-          codesigning) and Android apps
-        </li>
-        <li>
-          Employed Google Firebase and Google Cloud Platform for provisioning
-          mobile application resources like notification services and cloud
-          databases
-        </li>
-        <li>
-          Assisted clients in setting up AWS resources like AWS Lambda,
-          DynamoDB, AWS RDS (MySQL), various EC2 and other container and virtual
-          hosts
-        </li>
-        <li>
-          Utilized Azure and Azure DevOps to host wide array of apps developed
-          across the company
-        </li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">BlueQuartz</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">Junior Computer Programmer III</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Springboro, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date"
-          ><span class="month">Decemeber</span> 2018 -
-          <span class="month">May</span> 2019</span
-        >
-      </div>
-      <ul class="workdesc">
-        <li>Created data/image Grayscale filter and unit test</li>
-        <li>
-          Developed filter to register images, un-distort them using
-          amoeba/least square regression algorithm
-        </li>
-        <li>
-          Worked in open-source, cross-platform C++ environment using tools
-          including Qt and CMake
-        </li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">iTSpeeX (Contract)</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">QA Department Head</span>
-      </div>
-      <div class="detailbar">
-        <span class="location">Mason, OH</span><br class="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date"
-          ><span class="month">June</span> 2018 -
-          <span class="month">December</span> 2018</span
-        >
-      </div>
-      <ul class="workdesc">
-        <li>
-          Created the QA Department and assigned internal AGILE procedures
-        </li>
-        <li>
-          Brought on and set up JIRA, Bitbucket, and Bamboo Server Editions
-        </li>
-        <li>Set up automated build and testing server using Bamboo</li>
-        <li>Developed C# Core architecture using SOLID principles</li>
-        <li>
-          Lead the integration of <span class="inline-code">git</span> version control
-          and gitflow methodologies to be adopted by the development team
-        </li>
-      </ul>
-    </section>
+    <Job
+      employerName="Genetesis"
+      jobTitle="DevOps Engineer"
+      location="Mason, OH"
+      monthFrom="November"
+      monthTo=""
+      yearFrom="2020"
+      yearTo="Present"
+      jobHighlights={[
+        "Developed installer programs for desktop apps using <span class='inline-code'>go</span>",
+        "Created and managed all company's CI/CD pipelines and automation",
+        "Automated bare-metal machine image generation and deployment to embedded devices",
+        "Migrated AWS EKS instances running company’s microservices from manual provisioning to automated provisioning using <span class='inline-code'>terraform</span>",
+      ]}
+    />
+
+    <Job
+      employerName="Ascendum"
+      jobTitle="DevOps Engineer"
+      location="Blue Ash, OH"
+      monthFrom="May"
+      monthTo="November"
+      yearFrom="2019"
+      yearTo="2020"
+      jobHighlights={[
+        "Created and managed automation pipelines for iOS (including codesigning) and Android apps",
+        "Employed Google Firebase and Google Cloud Platform for provisioning mobile application resources like notification services and cloud databases",
+        "Assisted clients in setting up AWS resources like AWS Lambda, DynamoDB, AWS RDS (MySQL), various EC2 and other container and virtual hosts",
+        "Utilized Azure and Azure DevOps to host wide array of apps developed across the company",
+      ]}
+    />
+
+    <Job
+      employerName="BlueQuartz Software"
+      jobTitle="Junior Computer Programmer III"
+      location="Springboro, OH"
+      monthFrom="December"
+      monthTo="May"
+      yearFrom="2018"
+      yearTo="2019"
+      jobHighlights={[
+        "Created data/image Grayscale filter and unit test",
+        "Developed filter to register images, un-distort them using amoeba/least square regression algorithm",
+        "Assisted clients in setting up AWS resources like AWS Lambda, DynamoDB, AWS RDS (MySQL), various EC2 and other container and virtual hosts",
+        "Worked in open-source, cross-platform C++ environment using tools including Qt and CMake",
+      ]}
+    />
+
+    <Job
+      employerName="iTSpeeX (Contract)"
+      jobTitle="QA Department Head"
+      location="Mason, OH"
+      monthFrom="June"
+      monthTo="December"
+      yearFrom="2018"
+      yearTo="2018"
+      jobHighlights={[
+        "Created the QA Department and assigned internal AGILE procedures",
+        "Brought on and set up JIRA, Bitbucket, and Bamboo Server Editions",
+        "Set up automated build and testing server using Bamboo",
+        "Lead the integration of <span class='inline-code'>git</span> version control and gitflow methodologies to be adopted by the development team",
+      ]}
+    />
   </div>
 </section>
-<section class="section">
+
+<section>
   <h1>Open Source</h1>
   <div class="content">
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">NodeJS</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">Contributor</span>
-      </div>
-      <ul class="workdesc">
-        <li>
-          Modifications to configure script to allow compilation using any
-          arbitrary <span class="inline-code">clang</span> vendor (fixes
-          <span class="inline-code">clang</span> compilation on Alpine and Void Linux)
-        </li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">Alpine Linux</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">Contributor</span>
-      </div>
-      <ul class="workdesc">
-        <li>
-          Issue reporting, debugging, and fixing for various pacakges including
-          <span class="inlide-code">nodejs</span> and
-          <span class="inline-code">xkeyboard-config</span>
-        </li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">Void Linux</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">Contributor</span>
-      </div>
-      <ul class="workdesc">
-        <li>Packager for static NodeJS early version 14</li>
-      </ul>
-    </section>
-    <section class="job">
-      <div class="titlebar">
-        <span class="name">Jester NPM Package</span><br />
-        <hr id="titleDivider" />
-        <span class="detail">Developer</span>
-      </div>
-      <ul class="workdesc">
-        <li>
-          <span class="inline-code">jester</span> is an npm package that simplifies
-          javascript unit testing
-        </li>
-      </ul>
-    </section>
+    <Contribution
+      projectName="NodeJS"
+      role="Contributor"
+      contributionList={[
+        "Modifications to configure script to allow compilation using any arbitrary <span class='inline-code'>clang</span> vendor (fixes <span class='inline-code'>clang</span> compilation on Alpine and Void Linux)",
+      ]}
+    />
+
+    <Contribution
+      projectName="Alpine Linux"
+      role="Contributor"
+      contributionList={[
+        "Issue reporting, debugging, and fixing for various pacakges including <span class='inlide-code'>nodejs</span> and <span class='inline-code'>xkeyboard-config</span>",
+      ]}
+    />
+
+    <Contribution
+      projectName="Void Linux"
+      role="Contributor"
+      contributionList={["Packager for static NodeJS early version 14"]}
+    />
+
+    <Contribution
+      projectName="Jester NPM Package"
+      role="Developer"
+      contributionList={[
+        "<span class='inline-code'>jester</span> is an npm package that simplifies javascript unit testing",
+      ]}
+    />
   </div>
 </section>
-<section class="section">
+
+<section>
   <h1>Skills</h1>
   <table id="skill-table">
     <tr>
@@ -274,7 +191,8 @@
     </tr>
   </table>
 </section>
-<section class="section">
+
+<section>
   <h1>Technologies</h1>
   <table id="technologies-table">
     <tr>
@@ -284,7 +202,8 @@
     </tr>
   </table>
 </section>
-<section class="section">
+
+<section>
   <h1>Coursework</h1>
   <table id="course-table">
     <tr>
@@ -347,71 +266,12 @@
     font-weight: normal;
   }
 
-  .section {
+  section {
     padding-bottom: 3%;
   }
 
   .content {
     padding: 0 3vw;
-  }
-
-  .titlebar {
-    text-align: center;
-    border-bottom: 1px solid #00001e;
-    padding-bottom: 0.5em;
-  }
-
-  .detailbar {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .degreelist {
-    padding: 0;
-    list-style: none;
-  }
-  .degreelist > li {
-    text-align: center;
-  }
-
-  .location {
-    font-weight: bold;
-  }
-
-  .month {
-    display: none;
-  }
-
-  .name {
-    font-weight: bold;
-  }
-
-  .detail {
-    font-style: italic;
-  }
-
-  .school,
-  .job {
-    padding: 4% 0;
-  }
-
-  .workdesc {
-    margin-left: 2em;
-  }
-  .workdesc > li {
-    padding: 4px 0;
-  }
-
-  #titleDivider {
-    display: none;
-  }
-
-  #detailDivider {
-    display: none;
-  }
-
-  .detailBreak {
-    display: none;
   }
 
   table {
@@ -436,33 +296,7 @@
     border-bottom: 1px solid;
   }
 
-  .code {
-    font-family: monospace;
-  }
-
-  .inline-code {
-    font-family: monospace;
-    background-color: lightgray;
-  }
-
   @media screen and (min-width: 950px) {
-    .detailbar {
-      text-align: right;
-      font-weight: normal;
-    }
-
-    .month {
-      display: inline;
-    }
-
-    .school {
-      padding: 0;
-    }
-
-    .job {
-      padding: 1% 0;
-    }
-
     table th {
       background-color: transparent;
       color: unset;
