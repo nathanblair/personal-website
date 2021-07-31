@@ -1,4 +1,4 @@
-<section>
+<section class="section">
   <h1>Education</h1>
   <div class="content">
     <section class="school">
@@ -34,7 +34,7 @@
     </section>
   </div>
 </section>
-<section>
+<section class="section">
   <h1>Professional</h1>
   <div class="content">
     <section class="job">
@@ -163,7 +163,7 @@
     </section>
   </div>
 </section>
-<section>
+<section class="section">
   <h1>Open Source</h1>
   <div class="content">
     <section class="job">
@@ -189,7 +189,7 @@
       <ul class="workdesc">
         <li>
           Issue reporting, debugging, and fixing for various pacakges including
-          <span class="inclide-code">nodejs</span> and
+          <span class="inlide-code">nodejs</span> and
           <span class="inline-code">xkeyboard-config</span>
         </li>
       </ul>
@@ -219,7 +219,7 @@
     </section>
   </div>
 </section>
-<section>
+<section class="section">
   <h1>Skills</h1>
   <table id="skill-table">
     <tr>
@@ -273,6 +273,8 @@
       <td />
     </tr>
   </table>
+</section>
+<section class="section">
   <h1>Technologies</h1>
   <table id="technologies-table">
     <tr>
@@ -282,7 +284,7 @@
     </tr>
   </table>
 </section>
-<section>
+<section class="section">
   <h1>Coursework</h1>
   <table id="course-table">
     <tr>
@@ -339,12 +341,14 @@
 
 <style>
   h1 {
-    padding: 1% 0;
     margin: 0;
     text-align: center;
-    font-size: 2.5em;
-    font-weight: 600;
-    border: solid 1px white;
+    font-size: 2em;
+    font-weight: normal;
+  }
+
+  .section {
+    padding-bottom: 3%;
   }
 
   .content {

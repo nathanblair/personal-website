@@ -11,5 +11,7 @@
     padding: 10px;
     text-align: center;
     background-color: var(--background-ui-primary);
+    position: sticky;
+    bottom: 0;
   }
 </style>

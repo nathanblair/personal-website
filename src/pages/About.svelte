@@ -1,6 +1,6 @@
 <article>
-  <section class="infoBlock" id="Colleges">
-    <p>My name is Nathan Blair.</p>
+  <section class="infoBlock" id="colleges">
+    <h1>My name is Nathan Blair.</h1>
     <p>
       I'm a proud millennial, tech enthusiast, and lifelong learner. I hold two
       Bachelor's degrees in Mechanical Engineering and Materials Science and
@@ -9,7 +9,7 @@
       three years of college and will always consider myself a Bearcat at heart.
     </p>
   </section>
-  <section class="infoBlock" id="Professional">
+  <section class="infoBlock" id="professional">
     <p>
       My areas of professional experience include steelmaking, failure analysis,
       MEMS, electronic device characterization and fabrication, software
@@ -19,7 +19,7 @@
       challenging problems and a never-ending desire to learn.
     </p>
   </section>
-  <section class="infoBlock" id="Personal">
+  <section class="infoBlock" id="personal">
     <p>
       Outside of my professional life I am an avid motorcyclist and musician.
       When I'm not getting my wind therapy, I can be found jamming on drum sets,
@@ -30,7 +30,7 @@
       life less fortunate than I.
     </p>
   </section>
-  <section class="infoBlock" id="Closing">
+  <section class="infoBlock" id="closing">
     <p>
       I'm interested in talking with people that share my commitment to
       continuous education, a sustainable world, and open-mindedness. I see a
@@ -42,13 +42,31 @@
 </article>
 
 <style>
+  h1 {
+    padding: 0 3vh;
+  }
+
   p {
     padding: 3vh;
-    margin: 0;
     line-height: 2;
+  }
+
+  h1,
+  p {
+    margin: 0;
   }
 
   .infoBlock {
     padding: 3% 0;
+  }
+
+  #colleges {
+    padding-top: 0;
+  }
+
+  @media screen and (min-width: 950px) {
+    article {
+      font-size: 2rem;
+    }
   }
 </style>

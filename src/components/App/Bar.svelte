@@ -88,11 +88,12 @@
 
 <style>
   #app-bar {
-    position: relative;
-    margin: 1vw;
+    width: 100%;
+    padding: 0.1vw 1vw;
     display: flex;
     justify-content: space-between;
     font-size: min(8vw, 2rem);
+    max-height: 60px;
   }
 
   :global(#menu-toggle-label) {

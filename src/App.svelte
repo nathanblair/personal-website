@@ -17,7 +17,7 @@
 
 <Bar />
 
-<div class="horizontal-layout">
+<div class="main-layout">
   <main>
     <svelte:component this={main_page} />
   </main>
@@ -31,15 +31,17 @@
   @import "./themes/default_dark";
   @import "./themes/default_light";
 
-  .horizontal-layout {
+  .main-layout {
     position: relative;
-    flex: 1;
     display: flex;
+    flex: 1;
+    height: 0; // Use the layout for flex side-effects (since main overflow is set to scroll)
   }
 
   main {
+    overflow-y: auto;
+    scrollbar-width: none;
     position: relative;
-    margin: 8px;
     flex: 1;
   }
 </style>
