@@ -13,10 +13,10 @@
     <p>
       My areas of professional experience include steelmaking, failure analysis,
       MEMS, electronic device characterization and fabrication, software
-      development, systems administration, and swimming pool maintenance. I'm an
-      extremely diverse individual and have a wide array of interests. It stems
-      from the fact that I have an addiction to solving challenging problems and
-      a never-ending desire to learn.
+      development and automation, systems administration, and swimming pool
+      maintenance. I'm an extremely diverse individual and have a wide array of
+      interests. It stems from the fact that I have an addiction to solving
+      challenging problems and a never-ending desire to learn.
     </p>
   </section>
   <section class="infoBlock" id="Personal">
