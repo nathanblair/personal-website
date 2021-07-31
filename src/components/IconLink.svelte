@@ -19,8 +19,8 @@
   }
 
   a :global(svg) {
-    height: 24px;
-    width: 24px;
+    height: min(6vw, 24px);
+    width: min(6vw, 24px);
   }
 
   a :global(span) {

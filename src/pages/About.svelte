@@ -43,9 +43,8 @@
 
 <style>
   p {
-    padding: 1% 10%;
+    padding: 3vh;
     margin: 0;
-    font-size: 1.3em;
     line-height: 2;
   }
 

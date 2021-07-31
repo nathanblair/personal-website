@@ -89,10 +89,10 @@
 <style>
   #app-bar {
     position: relative;
-    margin: 8px;
+    margin: 1vw;
     display: flex;
     justify-content: space-between;
-    font-size: 2em;
+    font-size: min(8vw, 2rem);
   }
 
   :global(#menu-toggle-label) {

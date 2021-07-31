@@ -8,7 +8,7 @@
         <span class="detail">College of Engineering and Computer Science</span>
       </div>
       <div class="detailbar">
-        <span class="location">Dayton, OH</span><br id="detailBreak" />
+        <span class="location">Dayton, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
         <span class="date">2012 - 2015</span>
       </div>
@@ -24,7 +24,7 @@
         <span class="detail">College of Engineering and Applied Sciences</span>
       </div>
       <div class="detailbar">
-        <span class="location">Cincinnati, OH</span><br id="detailBreak" />
+        <span class="location">Cincinnati, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
         <span class="date">2009 - 2012</span>
       </div>
@@ -44,14 +44,20 @@
         <span class="detail">DevOps Engineer</span>
       </div>
       <div class="detailbar">
-        <span class="location">Mason, OH</span><br id="detailBreak" />
+        <span class="location">Mason, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
-        <span class="date">November 2020 - Present</span>
+        <span class="date"
+          ><span class="month">November</span> 2020 - Present</span
+        >
       </div>
       <ul class="workdesc">
         <li>
-          Developed installer programs for desktop apps using Go and managed
-          their CI/CD automation
+          Developed installer programs for desktop apps using <span
+            class="inline-code">go</span
+          >
+        </li>
+        <li>
+          Created and managed all company's CI/CD pipelines and automation
         </li>
         <li>
           Automated bare-metal machine image generation and deployment to
@@ -59,7 +65,9 @@
         </li>
         <li>
           Migrated AWS EKS instances running company’s microservices from manual
-          provisioning to automated provisioning using Terraform
+          provisioning to automated provisioning using <span class="inline-code"
+            >terraform</span
+          >
         </li>
       </ul>
     </section>
@@ -70,9 +78,12 @@
         <span class="detail">DevOps Engineer</span>
       </div>
       <div class="detailbar">
-        <span class="location">Blue Ash, OH</span><br id="detailBreak" />
+        <span class="location">Blue Ash, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
-        <span class="date">May 2019 - November 2020</span>
+        <span class="date"
+          ><span class="month">May</span> 2019 -
+          <span class="month">November</span> 2020</span
+        >
       </div>
       <ul class="workdesc">
         <li>
@@ -102,9 +113,12 @@
         <span class="detail">Junior Computer Programmer III</span>
       </div>
       <div class="detailbar">
-        <span class="location">Springboro, OH</span><br id="detailBreak" />
+        <span class="location">Springboro, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
-        <span class="date">December 2018 - May 2019</span>
+        <span class="date"
+          ><span class="month">Decemeber</span> 2018 -
+          <span class="month">May</span> 2019</span
+        >
       </div>
       <ul class="workdesc">
         <li>Created data/image Grayscale filter and unit test</li>
@@ -125,9 +139,12 @@
         <span class="detail">QA Department Head</span>
       </div>
       <div class="detailbar">
-        <span class="location">Mason, OH</span><br id="detailBreak" />
+        <span class="location">Mason, OH</span><br class="detailBreak" />
         <hr id="detailDivider" />
-        <span class="date">June 2018 - December 2018</span>
+        <span class="date"
+          ><span class="month">June</span> 2018 -
+          <span class="month">December</span> 2018</span
+        >
       </div>
       <ul class="workdesc">
         <li>
@@ -139,8 +156,8 @@
         <li>Set up automated build and testing server using Bamboo</li>
         <li>Developed C# Core architecture using SOLID principles</li>
         <li>
-          Lead the integration of git version control and gitflow methodologies
-          to be adopted by the development team
+          Lead the integration of <span class="inline-code">git</span> version control
+          and gitflow methodologies to be adopted by the development team
         </li>
       </ul>
     </section>
@@ -155,15 +172,11 @@
         <hr id="titleDivider" />
         <span class="detail">Contributor</span>
       </div>
-      <div class="detailbar">
-        <span class="location" /><br id="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date" />
-      </div>
       <ul class="workdesc">
         <li>
-          Modifications to build script to allow compilation using clang on
-          Alpine Linux
+          Modifications to configure script to allow compilation using any
+          arbitrary <span class="inline-code">clang</span> vendor (fixes
+          <span class="inline-code">clang</span> compilation on Alpine and Void Linux)
         </li>
       </ul>
     </section>
@@ -173,15 +186,11 @@
         <hr id="titleDivider" />
         <span class="detail">Contributor</span>
       </div>
-      <div class="detailbar">
-        <span class="location" /><br id="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date" />
-      </div>
       <ul class="workdesc">
         <li>
           Issue reporting, debugging, and fixing for various pacakges including
-          nodejs and xkeyboard-config
+          <span class="inclide-code">nodejs</span> and
+          <span class="inline-code">xkeyboard-config</span>
         </li>
       </ul>
     </section>
@@ -191,13 +200,8 @@
         <hr id="titleDivider" />
         <span class="detail">Contributor</span>
       </div>
-      <div class="detailbar">
-        <span class="location" /><br id="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date" />
-      </div>
       <ul class="workdesc">
-        <li>Maintainer for NodeJS early version 14</li>
+        <li>Packager for static NodeJS early version 14</li>
       </ul>
     </section>
     <section class="job">
@@ -206,20 +210,18 @@
         <hr id="titleDivider" />
         <span class="detail">Developer</span>
       </div>
-      <div class="detailbar">
-        <span class="location" /><br id="detailBreak" />
-        <hr id="detailDivider" />
-        <span class="date" />
-      </div>
       <ul class="workdesc">
-        <li>Jester is an npm package that simplifies javascript unit testing</li>
+        <li>
+          <span class="inline-code">jester</span> is an npm package that simplifies
+          javascript unit testing
+        </li>
       </ul>
     </section>
   </div>
 </section>
 <section>
   <h1>Skills</h1>
-  <table id="skilltable">
+  <table id="skill-table">
     <tr>
       <th>Languages</th>
       <th>Tools</th>
@@ -227,39 +229,62 @@
     </tr>
     <tr>
       <td>Python</td>
-      <td>docker</td>
+      <td><span class="code">docker</span></td>
       <td>React</td>
     </tr>
     <tr>
       <td>Go</td>
-      <td>kubernetes</td>
+      <td><span class="code">kubernetes</span></td>
       <td>Angular</td>
     </tr>
     <tr>
       <td>Rust</td>
-      <td>terraform</td>
+      <td><span class="code">terraform</span></td>
       <td>Svelte</td>
     </tr>
     <tr>
       <td>C#</td>
-      <td>git</td>
+      <td><span class="code">git</span></td>
       <td>Vue</td>
     </tr>
     <tr>
       <td>C++/Visual C++</td>
-      <td>aws/gcp/azure</td>
+      <td>GitHub</td>
       <td>NodeJS</td>
     </tr>
     <tr>
       <td>JavaScript/TypeScript</td>
-      <td>Unreal Engine/Unity</td>
+      <td>GitHub Actions</td>
       <td />
+    </tr>
+    <tr>
+      <td />
+      <td>Slack Apps</td>
+      <td />
+    </tr>
+    <tr>
+      <td />
+      <td>Unity</td>
+      <td />
+    </tr>
+    <tr>
+      <td />
+      <td>Unreal Engine</td>
+      <td />
+    </tr>
+  </table>
+  <h1>Technologies</h1>
+  <table id="technologies-table">
+    <tr>
+      <th>Amazon Web Services</th>
+      <th>Google Cloud Platform</th>
+      <th>Azure</th>
     </tr>
   </table>
 </section>
 <section>
   <h1>Coursework</h1>
-  <table id="coursetable">
+  <table id="course-table">
     <tr>
       <th colspan="2">Undergraduate</th>
       <th>Graduate</th>
@@ -317,14 +342,13 @@
     padding: 1% 0;
     margin: 0;
     text-align: center;
-    font-size: 3.5em;
+    font-size: 2.5em;
     font-weight: 600;
     border: solid 1px white;
   }
 
   .content {
-    padding: 0 0.5em;
-    font-size: 1.2em;
+    padding: 0 3vw;
   }
 
   .titlebar {
@@ -350,9 +374,12 @@
     font-weight: bold;
   }
 
+  .month {
+    display: none;
+  }
+
   .name {
     font-weight: bold;
-    font-size: 1.25em;
   }
 
   .detail {
@@ -374,95 +401,74 @@
   #titleDivider {
     display: none;
   }
+
   #detailDivider {
     display: none;
   }
-  #detailBreak {
+
+  .detailBreak {
     display: none;
   }
 
-  #coursetable,
-  #skilltable {
-    font-size: 1.1em;
+  table {
     width: 95%;
     margin: 0 auto;
     table-layout: fixed;
     border-collapse: collapse;
   }
 
-  #coursetable th,
-  #skilltable th {
+  table th {
     border-bottom: 1px solid;
     background-color: #00001e;
     color: white;
   }
 
-  #coursetable tr:nth-child(even),
-  #skilltable tr:nth-child(even) {
+  table tr:nth-child(even) {
     background-color: #909090;
   }
 
-  #coursetable tr,
-  #skilltable tr {
+  table > tr {
     text-align: center;
     border-bottom: 1px solid;
   }
 
+  .code {
+    font-family: monospace;
+  }
+
+  .inline-code {
+    font-family: monospace;
+    background-color: lightgray;
+  }
+
   @media screen and (min-width: 950px) {
-    .content {
-      padding: 0 10%;
-    }
-    #titleDivider {
-      display: block;
-    }
-    #detailDivider {
-      display: block;
-    }
-    #detailBreak {
-      display: block;
-    }
-
-    .titlebar {
-      float: left;
-      text-align: left;
-      border-bottom: none;
-    }
-
     .detailbar {
-      display: block;
       text-align: right;
       font-weight: normal;
     }
 
-    .location {
-      font-size: 1.25em;
+    .month {
+      display: inline;
     }
 
     .school {
       padding: 0;
     }
+
     .job {
       padding: 1% 0;
     }
 
-    #coursetable,
-    #skilltable {
-      width: 80%;
-    }
-
-    #coursetable th,
-    #skilltable th {
+    table th {
       background-color: transparent;
       color: unset;
     }
 
-    #coursetable tr:nth-child(even),
-    #skilltable tr:nth-child(even) {
+    table > tr:nth-child(even) {
       background-color: unset;
     }
 
-    #coursetable tr,
-    #skilltable tr {
+    table tr {
       border-bottom: none;
     }
   }
