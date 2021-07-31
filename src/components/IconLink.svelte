@@ -21,6 +21,7 @@
   a :global(svg) {
     height: 24px;
     width: 24px;
+    fill: inherit;
   }
 
   a :global(span) {

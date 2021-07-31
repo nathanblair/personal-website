@@ -32,6 +32,7 @@
 <style>
   #app-drawer {
     position: absolute;
+    right: 0;
     overflow-x: hidden;
     height: 100%;
     width: 0;
