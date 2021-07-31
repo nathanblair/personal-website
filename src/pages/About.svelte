@@ -11,9 +11,9 @@
   </section>
   <section class="infoBlock" id="Professional">
     <p>
-      My areas of professional experience include steelmaking, steel forming,
-      failure analysis, MEMS, electronic device characterization and
-      fabrication, software development, and swimming pool maintenance. I'm an
+      My areas of professional experience include steelmaking, failure analysis,
+      MEMS, electronic device characterization and fabrication, software
+      development, systems administration, and swimming pool maintenance. I'm an
       extremely diverse individual and have a wide array of interests. It stems
       from the fact that I have an addiction to solving challenging problems and
       a never-ending desire to learn.
@@ -22,12 +22,12 @@
   <section class="infoBlock" id="Personal">
     <p>
       Outside of my professional life I am an avid motorcyclist and musician.
-      When I'm not riding my Buell X1 Lightning, I can be found jamming on drum
-      sets, guitar, and occassionally the piano. My personal aspirations are to
-      just be a good person each day, leaving the world a little better than the
-      day before. To accomplish this on a larger scale I am committed to
-      advocating renewable and sustainable energy technology and helping those
-      that live a life less fortunate than I.
+      When I'm not getting my wind therapy, I can be found jamming on drum sets,
+      guitar, and occassionally the piano. My personal aspirations are to just
+      be a good person each day, leaving the world a little better than the day
+      before. To accomplish this on a larger scale I am committed to advocating
+      renewable and sustainable energy technology and helping those that live a
+      life less fortunate than I.
     </p>
   </section>
   <section class="infoBlock" id="Closing">
@@ -52,10 +52,4 @@
   .infoBlock {
     padding: 3% 0;
   }
-
-  /* @media screen and (min-width: 950px) {
-    .infoBlock {
-      padding: 0;
-    }
-  } */
 </style>

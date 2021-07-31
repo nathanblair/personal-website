@@ -10,12 +10,20 @@
   // Which has a callback to page_name_store.set and the argument can be an
   // attribute in the element (the aria-label since its required anyway)
 
-  function settings_click() {
-    page_name_store.set("Settings")
-  }
-
   function home_click() {
     page_name_store.set("Main")
+  }
+
+  function about_click() {
+    page_name_store.set("About")
+  }
+
+  function resume_click() {
+    page_name_store.set("Resume")
+  }
+
+  function blog_click() {
+    page_name_store.set("Blog")
   }
 
   /** @param {Event} e */
@@ -26,15 +34,14 @@
 </script>
 
 <div id="app-bar">
-  <Toggle
-    id="menu-toggle"
-    src_off="menu"
-    src_on="close"
-    title="Menu"
-    on_change_handler={menu_toggled_callback}
-    class_list="block pointer"
-  />
   <IconTray id="app-shortcuts">
+    <Button id="home" src="home" title="Go Home" on:click={home_click} />
+    <Button id="about" src="person" title="About Me" on:click={about_click} />
+    <Button id="resume" src="work" title="My Qualifications" on:click={resume_click} />
+    <Button id="blog" src="feed" title="My Blog" on:click={blog_click} />
+  </IconTray>
+
+  <IconTray id="right-tray">
     <IconLink link_target="https://github.com/nathanblair" title="GitHub">
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -62,14 +69,14 @@
       <span>email</span>
     </IconLink>
 
-    <Button
-      id="settings"
-      src="settings"
-      title="Open App Settings"
-      on:click={settings_click}
+    <Toggle
+      id="menu-toggle"
+      src_off="menu"
+      src_on="close"
+      title="Menu"
+      on_change_handler={menu_toggled_callback}
+      class_list="center-align-flex pointer"
     />
-
-    <Button id="home" src="home" title="Go Home" on:click={home_click} />
   </IconTray>
 </div>
 

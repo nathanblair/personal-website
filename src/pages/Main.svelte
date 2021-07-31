@@ -1,15 +1,13 @@
 <script>
-  // FIXME The activation of the music symbols should work as a toggle
-  // In order to "untoggle" the activation, the user must click on the symbol again
-  // or perhaps come up with some key-shortcut
-
 </script>
 
 <header>
+  <h1>Nathan <b>Blair</b></h1>
+  <h4>I am a tinkerer,</h4>
+  <h4>a thinker,</h4>
+  <h4>a teacher.</h4>
+  <h4>I am an Engineer.</h4>
 </header>
-
-<div class="vertical-layout">
-</div>
 
 <style>
   header {

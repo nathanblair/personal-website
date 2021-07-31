@@ -18,10 +18,10 @@
 <Bar />
 
 <div class="horizontal-layout">
-  <Drawer />
   <main>
     <svelte:component this={main_page} />
   </main>
+  <Drawer />
 </div>
 
 <style lang="scss" global>
