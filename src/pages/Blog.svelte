@@ -2,4 +2,4 @@
   document.title = document.title + " | Blog"
 </script>
 
-Coming soon!
+Coming soon! (TM)
