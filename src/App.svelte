@@ -1,6 +1,6 @@
 <script>
   import Bar from "./components/App/Bar.svelte"
-  import Drawer from "./components/App/Drawer.svelte"
+  import Footer from "./components/Footer.svelte"
 
   async function import_component_file() {
     return import(
@@ -22,8 +22,9 @@
       <svelte:component this={componentFile.default} />
     {/await}
   </main>
-  <Drawer />
 </div>
+
+<Footer />
 
 <style lang="scss" global>
   @import "./styles/app";

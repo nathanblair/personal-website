@@ -1,15 +1,6 @@
 <script>
   import IconTray from "../IconTray.svelte"
   import IconLink from "../IconLink.svelte"
-  import Toggle from "../Toggle.svelte"
-
-  import { drawer_toggle_status } from "../../stores.js"
-
-  /** @param {Event} e */
-  function menu_toggled_callback(e) {
-    // @ts-ignore
-    drawer_toggle_status.set(e.currentTarget?.checked)
-  }
 </script>
 
 <div id="app-bar">
@@ -30,7 +21,11 @@
       <span>work</span>
     </IconLink>
 
-    <IconLink link_target="/blog" title="My Blog" open_in_new_page={false}>
+    <IconLink
+      link_target="nathanblair.rocks/blog"
+      title="My Blog"
+      open_in_new_page={false}
+    >
       <span>feed</span>
     </IconLink>
   </IconTray>
@@ -63,15 +58,6 @@
     <IconLink link_target="mailto:me@nathanblair.rocks" title="Email">
       <span>email</span>
     </IconLink>
-
-    <Toggle
-      id="menu-toggle"
-      src_off="menu"
-      src_on="close"
-      title="Menu"
-      on_change_handler={menu_toggled_callback}
-      class_list="center-align-flex pointer"
-    />
   </IconTray>
 </div>
 
