@@ -10,6 +10,9 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Clean directory
+        run: rm -rf *
+
       - name: Clone public branch
         run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ github.repository }}
 
