@@ -4,7 +4,7 @@
     "build:dev": "rollup -c",
     "build": "rollup -c --environment PRODUCTION",
     "build:css": "npx sass --no-source-map --load-path=node_modules --style=compressed src/styles/_base.scss generated/styles/base.css",
-    "start": "sirv app --no-clear --dev --host"
+    "start": "sirv docs --no-clear --dev --host"
   },
   "devDependencies": {
     "rollup-plugin-livereload": "^2.0.0",

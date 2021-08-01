@@ -12,7 +12,7 @@ import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess"
 const production =
   process.env.PRODUCTION === "true" || !process.env.ROLLUP_WATCH
 
-const publicDir = "app"
+const publicDir = "docs"
 const outputDir = `${publicDir}/build`
 
 export default {

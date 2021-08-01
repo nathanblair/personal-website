@@ -21,11 +21,7 @@
       <span>work</span>
     </IconLink>
 
-    <IconLink
-      link_target="nathanblair.rocks/blog"
-      title="My Blog"
-      open_in_new_page={false}
-    >
+    <IconLink link_target="/blog" title="My Blog" open_in_new_page={false}>
       <span>feed</span>
     </IconLink>
   </IconTray>
