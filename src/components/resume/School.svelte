@@ -33,6 +33,10 @@
 </section>
 
 <style>
+  .school {
+    padding: 20px 0;
+  }
+
   .titlebar {
     text-align: center;
     border-bottom: 1px solid #00001e;
@@ -76,18 +80,10 @@
     font-weight: bold;
   }
 
-  .school {
-    padding: 4% 0;
-  }
-
   @media screen and (min-width: 950px) {
     .detailbar {
       text-align: right;
       font-weight: normal;
-    }
-
-    .school {
-      padding: 0;
     }
   }
 </style>

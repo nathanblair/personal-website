@@ -64,10 +64,6 @@
     padding: 3% 0;
   }
 
-  #colleges {
-    padding-top: 0;
-  }
-
   @media screen and (min-width: 950px) {
     article {
       font-size: 2rem;

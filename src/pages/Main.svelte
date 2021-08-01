@@ -4,11 +4,11 @@
 
 <div id="header-background">
   <header>
-    <h1>Nathan <b>Blair</b></h1>
-    <h4>I am a tinkerer,</h4>
-    <h4>a thinker,</h4>
-    <h4>a teacher.</h4>
-    <h4>I am an Engineer.</h4>
+    <h1>Nathan Blair</h1>
+    <h4>I am a <b>tinkerer</b>,</h4>
+    <h4>a <b>thinker</b>,</h4>
+    <h4>a <b>teacher</b>.</h4>
+    <h4>I am an <em>Engineer</em>.</h4>
   </header>
 </div>
 
