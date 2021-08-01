@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone public branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ env.GITHUB_REPOSITORY }}
+        run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ github.repository }}
 
       - name: Clone PR branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.head_ref }} https://github.com/${{ env.GITHUB_REPOSITORY }}
+        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.head_ref }} https://github.com/${{ github.repository }}
 
       - name: Install npm dependencies
         working-directory: nathanblair.github.io
