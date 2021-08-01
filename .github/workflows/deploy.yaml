@@ -32,4 +32,4 @@ jobs:
 
       - name: Push changes
         working-directory: public
-        run: git push origin
+        run: git push origin public
