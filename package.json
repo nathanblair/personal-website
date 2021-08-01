@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "rollup -c -w",
-    "build:dev": "rollup -c",
+    "dev": "rollup -c --environment PUBLIC:public -w",
+    "build:dev": "rollup -c --environment PUBLIC:public",
     "build": "rollup -c --environment PUBLIC:../public",
     "build:css": "npx sass --no-source-map --load-path=node_modules --style=compressed src/styles/_base.scss generated/styles/base.css",
     "start": "sirv public --no-clear --dev --host"
