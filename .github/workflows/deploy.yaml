@@ -1,0 +1,29 @@
+name: Deploy Website
+
+on:
+  pull_request:
+    branches:
+      - default
+    types:
+      - closed
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    env:
+      PRODUCTION: true
+    steps:
+      - name: Clone public branch
+        run: echo TODO
+
+      - name: Clone site source
+        run: echo TODO
+
+      - name: Install npm dependencies
+        working-directory: nathanblair.github.io
+        run: npm ci
+
+      - name: Build
+        working-directory: nathanblair.github.io
+        run: npm run build

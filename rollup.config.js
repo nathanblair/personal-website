@@ -12,20 +12,19 @@ import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess"
 const production =
   process.env.PRODUCTION === "true" || !process.env.ROLLUP_WATCH
 
-const publicDir = "public"
+const publicDir = process.env.PUBLIC
 const outputDir = `${publicDir}/build`
 
 export default {
   input: "src/main.js",
   output: {
-    // sourcemap: !production,
-    sourcemap: true,
+    sourcemap: !production,
     format: "es",
     file: `${outputDir}/main.js`,
     inlineDynamicImports: true,
   },
   plugins: [
-    del({ targets: outputDir }),
+    del({ targets: outputDir, force: true }),
 
     svelte({
       preprocess: [
