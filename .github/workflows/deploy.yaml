@@ -27,6 +27,12 @@ jobs:
         working-directory: nathanblair.github.io
         run: npm run build
 
+      - name: Configure git
+        working-directory: public
+        run: |
+          git config --global user.email "${{ github.actor }}@nathanblair.rocks"
+          git config --global user.name "${{ github.actor }}"
+
       - name: Commit changes
         working-directory: public
         run: |
