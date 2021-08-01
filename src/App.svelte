@@ -1,6 +1,7 @@
 <script>
   import Bar from "./components/App/Bar.svelte"
   import Footer from "./components/Footer.svelte"
+  // import Drawer from "./components/App/Drawer.svelte"
 
   async function import_component_file() {
     return import(
@@ -20,6 +21,7 @@
 <Bar />
 
 <div class="main-layout">
+  <!-- <Drawer /> -->
   <main>
     {#await import_component_file() then componentFile}
       <svelte:component this={componentFile.default} />

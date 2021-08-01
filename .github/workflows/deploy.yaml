@@ -39,6 +39,7 @@ jobs:
       - name: Commit changes
         working-directory: public
         run: |
+          git status
           git add --all
           git commit -m "merge from branch ${{ github.head_ref }}"
 
