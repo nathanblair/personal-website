@@ -23,7 +23,7 @@
   class={show_drawer ? "app-drawer-visible" : ""}
   bind:this={app_drawer}
 >
-  <IconTray id="contextual-icons">
+  <IconTray id="drawer-tray">
     <!-- TODO -->
   </IconTray>
   <Footer />
