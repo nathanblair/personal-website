@@ -20,6 +20,7 @@
 <style>
   table {
     min-width: 300px;
+    padding-bottom: 20px;
   }
 
   td {

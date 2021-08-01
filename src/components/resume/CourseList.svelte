@@ -20,4 +20,15 @@
 </table>
 
 <style>
+  table {
+    min-width: 300px;
+    padding-bottom: 20px;
+  }
+
+  td {
+    width: 50%;
+    padding: 2px 4px;
+    white-space: nowrap;
+    text-align: center;
+  }
 </style>

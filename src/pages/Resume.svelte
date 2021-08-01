@@ -7,7 +7,6 @@
   import CourseList from "../components/resume/CourseList.svelte"
 
   import FlexGrid from "../components/FlexGrid.svelte"
-  import Grid from "../components/Grid.svelte"
 
   document.title = document.title + " | Resumé"
 </script>
@@ -204,7 +203,7 @@
 <section id="cloud-technologies">
   <h1>Cloud Technologies</h1>
 
-  <Grid>
+  <FlexGrid>
     <SkillList
       skillTitle="Amazon Web Services"
       skill={[
@@ -282,13 +281,13 @@
         { skill: "NPM Package Registry", experience: "1 year" },
       ]}
     />
-  </Grid>
+  </FlexGrid>
 </section>
 
 <section id="courses">
   <h1>Coursework</h1>
 
-  <Grid>
+  <FlexGrid>
     <CourseList
       degree="Undergraduate"
       discipline="Materials"
@@ -324,7 +323,7 @@
       discipline="Materials"
       courses={["Electrical and Optical of Ceramics"]}
     />
-  </Grid>
+  </FlexGrid>
 </section>
 
 <style>

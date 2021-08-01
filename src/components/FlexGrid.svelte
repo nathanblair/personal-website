@@ -2,9 +2,7 @@
 </script>
 
 <div id="container">
-  <slot>
-    <!-- Do we need this here? -->
-  </slot>
+  <slot />
 </div>
 
 <style>
