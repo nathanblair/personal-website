@@ -9,9 +9,9 @@
           ? "Main"
           : window.location.pathname
               .replaceAll(/\//g, "")
-              .slice(1, 2)
+              .slice(0, 1)
               .toLocaleUpperCase() +
-            window.location.pathname.replaceAll(/\//g, "").slice(2)
+            window.location.pathname.replaceAll(/\//g, "").slice(1)
       }.svelte`
     )
   }
