@@ -27,6 +27,11 @@ jobs:
         working-directory: nathanblair.github.io
         run: npm run build
 
+      - name: Copy public folder
+        run: |
+          cp -r nathanblair.github.io/public/* ../public
+          cp -r nathanblair.github.io/public/.* ../public
+
       - name: Configure git
         working-directory: public
         run: |
