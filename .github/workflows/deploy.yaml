@@ -14,7 +14,7 @@ jobs:
         run: rm -rf *
 
       - name: Clone public branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ github.repository }}
+        run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ github.repository }} public
 
       - name: Clone PR branch
         run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.head_ref }} https://github.com/${{ github.repository }}
