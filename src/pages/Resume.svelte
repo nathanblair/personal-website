@@ -138,6 +138,8 @@
         "<span class='inline-code'>jester</span> is an npm package that simplifies javascript unit testing",
       ]}
     />
+
+    <!-- TODO Add packages for unarchiver and unzipper (and maybe arg-parser?) -->
   </div>
 </section>
 
