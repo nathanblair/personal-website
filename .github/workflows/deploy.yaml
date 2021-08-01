@@ -2,23 +2,19 @@ name: Deploy Website
 
 on:
   pull_request:
-    branches:
-      - default
-    types:
-      - closed
+    branches: [default]
+    types: [opened, synchronize, closed]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env:
-      PRODUCTION: true
     steps:
       - name: Clone public branch
-        run: echo TODO
+        run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.token }}@github.com/${{ env.GITHUB_REPOSITORY }}
 
-      - name: Clone site source
-        run: echo TODO
+      - name: Clone PR branch
+        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.head_ref }} https://github.com/${{ env.GITHUB_REPOSITORY }}
 
       - name: Install npm dependencies
         working-directory: nathanblair.github.io
@@ -27,3 +23,13 @@ jobs:
       - name: Build
         working-directory: nathanblair.github.io
         run: npm run build
+
+      - name: Commit changes
+        working-directory: public
+        run: |
+          git add --all
+          git commit -m "merge from branch ${{ github.head_ref }}"
+
+      - name: Push changes
+        working-directory: public
+        run: git push origin
