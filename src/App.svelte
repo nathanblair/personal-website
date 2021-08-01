@@ -7,8 +7,11 @@
       `./pages/${
         window.location.pathname === "/"
           ? "Main"
-          : window.location.pathname.slice(1, 2).toLocaleUpperCase() +
-            window.location.pathname.slice(2)
+          : window.location.pathname
+              .replaceAll(/\//g, "")
+              .slice(1, 2)
+              .toLocaleUpperCase() +
+            window.location.pathname.replaceAll(/\//g, "").slice(2)
       }.svelte`
     )
   }
