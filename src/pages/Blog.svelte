@@ -1,34 +1,28 @@
 <script>
-  // import BlogArticle from "../components/BlogArticle.svelte"
-  import BlogSnippet from "../components/BlogSnippet.svelte"
+  import BlogArticle from "../components/BlogArticle.svelte"
 
-  import { parse_blog_articles } from "../blog.js"
+  import { default_filter, fetch_blog_articles } from "../blog.js"
+  import { onMount } from "svelte"
 
   document.title = document.title + " | Blog"
 
-  // TODO The initial page load loads up a snippet of all blog posts (or a curated list somehow?)
+  // So what may be better is to present each article as a full Blog component
+  // but have the blog component maintain a "collapsed" state.
+  // When the blog is collapsed, it only shows the snippet
+  // When the blog article is clicked, it expands
 
-  // How do we then make it so loading an individual blog article can appropriately
-  // change the url so it can work with SEO?
-
-  // Something like replacing all of the blog articles with a single BlogArticle
-  // whose slot is set to {@html each_article.article}
-
-  // May need to do something like a component property attribute get
-  // in a callback function of the on_click handler of the BlogSnippet
-  // (which requires that special svelte option setting...)
+  // Each blog article also needs to be stored with an "id" and when
+  // the blog is expanded, the window href gets set with the fragment using that
+  // "id"
+  onMount(async () => {
+    for await (const each_article of fetch_blog_articles(default_filter)) {
+      new BlogArticle({
+        target: document.getElementsByTagName("main")[0],
+        props: {
+          blog_file_name: each_article.file_name,
+          date: each_article.date,
+        },
+      })
+    }
+  })
 </script>
-
-{#await parse_blog_articles() then articles}
-  {#each articles as each_article}
-    <BlogSnippet
-      blog_title={each_article.title}
-      blog_date={each_article.date}
-      snippet={each_article.snippet}
-    />
-  {/each}
-{/await}
-
-<!-- <svelte:component this={BlogArticle}>
-  {@html each_article}
-</svelte:component> -->
