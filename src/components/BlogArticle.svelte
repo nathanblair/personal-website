@@ -72,15 +72,11 @@
   })
 </script>
 
-<a
-  href={window.location.href + "#" + id}
-  on:click={toggle_article_expansion}
-  bind:this={article_link}
->
+<a href={"#" + id} on:click={toggle_article_expansion} bind:this={article_link}>
   <article {id}>
     <header>
-      <h1>{parse_blog_file_name()}</h1>
-      <h2>{day} {month} {year}</h2>
+      <h1 class="article-title">{parse_blog_file_name()}</h1>
+      <h2 class="article-date">{day} {month} {year}</h2>
     </header>
     <div class="article-content hidden" bind:this={content_accessor}>
       {@html content}
@@ -102,7 +98,16 @@
   }
 
   header {
-    padding: 10px 10vw;
+    padding: 4vh 4vw;
+  }
+
+  h1,
+  h2 {
+    padding: 1vh 0;
+  }
+
+  .article-date {
+    font-weight: normal;
   }
 
   .snippet {
@@ -127,5 +132,9 @@
   .article-content,
   .snippet {
     padding: 10px 5vw;
+  }
+
+  :global(p) {
+    padding: 2vh 0;
   }
 </style>
