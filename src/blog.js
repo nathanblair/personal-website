@@ -83,6 +83,10 @@ export async function* fetch_blog_articles(filter) {
     return
   }
 
+  if (!Array.isArray(body)) {
+    return
+  }
+
   for (const each_entry of body) {
     switch (each_entry.type) {
       case "dir":
