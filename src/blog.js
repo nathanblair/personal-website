@@ -2,7 +2,7 @@ const github_content_list_endpoint = "https://api.github.com"
 const blog_path = "/repos/nathanblair/blog/contents/"
 
 /** @typedef {Array<{name: string, path: string, download_url: string}>} GitHubPayload */
-/** @typedef {Array<{title: string, date: string, snippet: string}>} BlogSnippet */
+/** @typedef {Array<{title: string, date: string, snippet: string, article: string}>} Blog */
 
 /** @param {string} url */
 export async function download_blog_article(url) {
@@ -56,7 +56,7 @@ async function fetch_blog_articles() {
 export async function parse_blog_articles() {
   // TODO extract the blog title, date, and generate an excerpt
   const article_payload = await fetch_blog_articles()
-  /** @type {BlogSnippet} */
+  /** @type {Blog} */
   const articles = []
 
   const parser = new DOMParser()
@@ -74,6 +74,7 @@ export async function parse_blog_articles() {
       date:
         article_element.querySelector("article > header > h2")?.innerHTML || "",
       snippet: article_element.querySelector("article > p")?.innerHTML || "",
+      article: article_html,
     })
   }
 
