@@ -31,13 +31,6 @@
   const id =
     year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
 
-  // FIXME How can we implement a direct link to page articles using fragments
-  // if the article list is only loaded dynamically?
-  // We would have to put embed the date parameters into the fragment
-  // and then whenever the blog page loads, check the url fragment to see if
-  // the date parameters are in there, and if they are, use those to construct
-  // the filter passed when the page loads
-
   /**
    * Parse the file name to strip out the date and title
    */
