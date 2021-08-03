@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "rollup -c --environment PUBLIC:public -w",
     "build": "rollup -c --environment PUBLIC:public",
+    "build:prod": "rollup -c --environment PUBLIC:public --environment PRODUCTION",
     "start": "sirv public --no-clear --dev --host"
   },
   "devDependencies": {
