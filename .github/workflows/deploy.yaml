@@ -18,18 +18,18 @@ jobs:
         run: git clone -c core.autocrlf=false --depth=1 --branch=public https://${{ github.actor}}:${{ github.token }}@github.com/${{ github.repository }} public
 
       - name: Clone PR branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.base_ref }} https://github.com/${{ github.repository }}
+        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.base_ref }} https://github.com/${{ github.repository }} site
 
       - name: Install npm dependencies
-        working-directory: nathanblair.github.io
+        working-directory: site
         run: npm ci
 
       - name: Build
-        working-directory: nathanblair.github.io
+        working-directory: site
         run: npm run build
 
       - name: Copy public folder
-        run: cp -rT nathanblair.github.io/public public
+        run: cp -rT site/public public
 
       - name: Configure git
         working-directory: public

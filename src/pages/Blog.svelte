@@ -4,8 +4,7 @@
 
   import { default_filter, fetch_blog_articles } from "../blog.js"
   import { onMount } from "svelte"
-
-  document.title = document.title + " | Blog"
+  import { main_id } from "../constants.js"
 
   function extract_filter_from_fragment() {
     return window.location.hash
@@ -21,8 +20,12 @@
     const fragment = extract_filter_from_fragment()
     let filter = fragment === "" ? default_filter : () => fragment
     for await (const each_article of fetch_blog_articles(filter)) {
+      // TODO Need to insert this instance sorted by date into any pre-existing articles
+
+      // There's also not a way to initialize a Component and populate its slot
+      // So this is a poor man's slot
       new BlogArticle({
-        target: document.getElementsByTagName("main")[0],
+        target: root_element,
         props: {
           blog_file_name: each_article.file_name,
           date: each_article.date,
@@ -31,6 +34,9 @@
       })
     }
   })
+
+  const root_element = document.getElementById(main_id) || document.body
+  document.title = document.title + " | Blog"
 </script>
 
 <BlogTimeline />
