@@ -10,6 +10,13 @@
 
   // How do we then make it so loading an individual blog article can appropriately
   // change the url so it can work with SEO?
+
+  // Something like replacing all of the blog articles with a single BlogArticle
+  // whose slot is set to {@html each_article.article}
+
+  // May need to do something like a component property attribute get
+  // in a callback function of the on_click handler of the BlogSnippet
+  // (which requires that special svelte option setting...)
 </script>
 
 {#await parse_blog_articles() then articles}
