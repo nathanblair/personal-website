@@ -1,6 +1,7 @@
 <script>
   import Bar from "./components/App/Bar.svelte"
   import Footer from "./components/Footer.svelte"
+  import { main_id } from "./constants.js"
   // import Drawer from "./components/App/Drawer.svelte"
 
   async function import_component_file() {
@@ -22,7 +23,7 @@
 
 <div class="main-layout">
   <!-- <Drawer /> -->
-  <main>
+  <main id={main_id}>
     {#await import_component_file() then componentFile}
       <svelte:component this={componentFile.default} />
     {/await}
