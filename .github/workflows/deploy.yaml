@@ -31,7 +31,7 @@ jobs:
 
       - name: Build
         working-directory: ${{ env.SRC_DIR }}
-        run: npm run build
+        run: npm run build:prod
 
       - name: Copy public folder
         run: cp -rT ${{ env.SRC_DIR }}/public ${{ env.PUBLIC_DIR }}
