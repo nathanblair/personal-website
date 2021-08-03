@@ -24,7 +24,12 @@
 
   let toggle = true
 
-  let id = blog_file_name.replace(".html", "")
+  const year = date[0]
+  const month = date[1]
+  const day = date[2]
+
+  const id =
+    year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
 
   // FIXME How can we implement a direct link to page articles using fragments
   // if the article list is only loaded dynamically?
@@ -37,8 +42,7 @@
    * Parse the file name to strip out the date and title
    */
   function parse_blog_file_name() {
-    const blog_title = id.replace("-", " ")
-    return blog_title
+    return id.split("-").slice(3).join(" ")
   }
 
   /**
@@ -50,6 +54,9 @@
     if (toggle) {
       snippet_accessor.classList.add("hidden")
       content_accessor.classList.remove("hidden")
+      if (window.location.hash !== "") {
+        e.preventDefault()
+      }
     } else {
       snippet_accessor.classList.remove("hidden")
       content_accessor.classList.add("hidden")
@@ -73,7 +80,7 @@
   <article {id}>
     <header>
       <h1>{parse_blog_file_name()}</h1>
-      <h2>{date[2]} {date[1]} {date[0]}</h2>
+      <h2>{day} {month} {year}</h2>
     </header>
     <div class="article-content hidden" bind:this={content_accessor}>
       {@html content}
