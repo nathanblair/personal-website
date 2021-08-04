@@ -3,7 +3,6 @@
   import BlogTimeline from "../components/BlogTimeline.svelte"
 
   import { default_filter, fetch_blog_articles } from "../blog.js"
-  import { onMount } from "svelte"
   import { main_id } from "../constants.js"
 
   function extract_filter_from_fragment() {
@@ -14,9 +13,7 @@
       .join("/")
   }
 
-  // Its unfortunate we have to use this hacky workaround
-  // But the svelte devs haven't implemented {#each} for asyncGenerator/asyncIterator yet
-  onMount(async () => {
+  async function populate_blogs() {
     const fragment = extract_filter_from_fragment()
     let filter = fragment === "" ? default_filter : () => fragment
     for await (const each_article of fetch_blog_articles(filter)) {
@@ -33,10 +30,13 @@
         },
       })
     }
-  })
+  }
 
   const root_element = document.getElementById(main_id) || document.body
+  // const insert_before_element = root_element.children[0].nextElementSibling
   document.title = document.title + " | Blog"
+
+  populate_blogs()
 </script>
 
 <h2 id="blog-banner">Sorted blogs and blog timeline filter coming toon!™</h2>
