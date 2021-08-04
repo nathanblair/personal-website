@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte"
   import { set_blog_page_default_title } from "../blog.js"
 
   /** @type {string} */
@@ -11,26 +10,11 @@
   /** @type {string} */
   export let content
 
-  /** @type {HTMLDivElement} */
-  let content_accessor
-
-  /** @type {HTMLParagraphElement} */
-  let snippet_accessor
+  /** @type {HTMLElement} */
+  let article_accessor
 
   /** @type {HTMLAnchorElement} */
-  let article_link
-
-  /** @type {string} */
-  let snippet
-
-  let toggle = true
-
-  const year = date[0]
-  const month = date[1]
-  const day = date[2]
-
-  const id =
-    year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
+  let article_anchor_accessor
 
   /**
    * Parse the file name to strip out the date and title
@@ -39,80 +23,76 @@
     return id.split("-").slice(3).join(" ")
   }
 
-  /**
-   * Callback for clicking the article "link"
-   *
-   * @param {Event} e
-   */
-  function toggle_article_expansion(e) {
-    if (toggle) {
-      snippet_accessor.classList.add("hidden")
-      content_accessor.classList.remove("hidden")
+  const year = date[0]
+  const month = date[1]
+  const day = date[2]
 
-      document.title = parse_blog_file_name()
+  const id =
+    year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
 
-      if (window.location.hash !== "") {
-        e.preventDefault()
-      }
-    } else {
-      snippet_accessor.classList.remove("hidden")
-      content_accessor.classList.add("hidden")
+  const article_should_be_expanded =
+    window.location.hash.replace("#", "") === id
 
-      history.replaceState("", "", "/blog")
-      set_blog_page_default_title()
+  const card_class_name = article_should_be_expanded ? "" : "card"
+  const overlay_class_name = "overlay"
+  const snippet_class_name = "snippet"
 
-      e.preventDefault()
-    }
-    toggle = !toggle
-  }
-
-  onMount(() => {
-    snippet = content_accessor.firstElementChild?.innerHTML || ""
-  })
+  document.title = article_should_be_expanded
+    ? parse_blog_file_name()
+    : set_blog_page_default_title()
 </script>
 
-<a href={"#" + id} on:click={toggle_article_expansion} bind:this={article_link}>
-  <article {id}>
-    <header>
-      <h1 class="article-date">{day} {month} {year}</h1>
-      <h2 class="article-title">{parse_blog_file_name()}</h2>
-    </header>
-    <div class="article-content hidden" bind:this={content_accessor}>
+<article {id} class={card_class_name} bind:this={article_accessor}>
+  <header>
+    <h1 class="article-date">{day} {month} {year}</h1>
+    <h2 class="article-title">{parse_blog_file_name()}</h2>
+  </header>
+  {#if article_should_be_expanded}
+    {@html content}
+  {:else}
+    <a
+      href={"#" + id}
+      target="_blank"
+      class="article-anchor article-content {overlay_class_name} {snippet_class_name}"
+      bind:this={article_anchor_accessor}
+    >
       {@html content}
-    </div>
-    <p class="snippet" bind:this={snippet_accessor}>{@html snippet}</p>
-  </article>
-</a>
+    </a>
+  {/if}
+</article>
 
 <style>
   a {
     text-decoration: none;
     color: unset;
+    display: block;
   }
 
   article {
-    border: solid 1px;
-    box-shadow: 0 0 4px;
-    margin: 2vh 2vw;
-  }
-
-  header {
-    padding: 4vh 4vw;
+    padding: 1vh 4vw;
   }
 
   h1,
   h2 {
-    padding: 1vh 0;
+    padding: 2vh 0;
+  }
+
+  .card {
+    border: solid 1px;
+    box-shadow: 0 0 4px;
+    padding: 2vh;
+    margin: 2vh 2vw;
   }
 
   .article-date {
     font-weight: normal;
   }
 
-  .snippet {
+  .article-content {
     position: relative;
   }
-  .snippet::after {
+
+  .overlay::after {
     content: "";
     position: absolute;
     z-index: 1;
@@ -128,9 +108,9 @@
     height: 100%;
   }
 
-  .article-content,
   .snippet {
-    padding: 10px 5vw;
+    max-height: 20vh;
+    overflow: hidden;
   }
 
   :global(p) {

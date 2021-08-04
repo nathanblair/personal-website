@@ -39,7 +39,7 @@ export const DateMap = Object.freeze({
 })
 
 export function set_blog_page_default_title() {
-  document.title = page_default_title + " | Blog"
+  return page_default_title + " | Blog"
 }
 
 export function default_filter() {
