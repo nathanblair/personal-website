@@ -2,7 +2,11 @@
   import BlogArticle from "../components/BlogArticle.svelte"
   import BlogTimeline from "../components/BlogTimeline.svelte"
 
-  import { default_filter, fetch_blog_articles } from "../blog.js"
+  import {
+    default_filter,
+    fetch_blog_articles,
+    set_blog_page_default_title,
+  } from "../blog.js"
   import { main_id } from "../constants.js"
 
   function extract_filter_from_fragment() {
@@ -34,8 +38,8 @@
 
   const root_element = document.getElementById(main_id) || document.body
   // const insert_before_element = root_element.children[0].nextElementSibling
-  document.title = document.title + " | Blog"
 
+  set_blog_page_default_title()
   populate_blogs()
 </script>
 
