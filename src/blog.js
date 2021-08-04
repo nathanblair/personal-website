@@ -1,3 +1,5 @@
+import { page_default_title } from "./constants.js"
+
 const cloud_host_endpoint = "https://api.github.com"
 const blog_path = "/repos/nathanblair/blog/contents/"
 const cloud_host_blog_list_endpoint = `${cloud_host_endpoint}${blog_path}`
@@ -35,6 +37,10 @@ export const DateMap = Object.freeze({
   10: "November",
   11: "December",
 })
+
+export function set_blog_page_default_title() {
+  document.title = page_default_title + " | Blog"
+}
 
 export function default_filter() {
   const date = new Date()

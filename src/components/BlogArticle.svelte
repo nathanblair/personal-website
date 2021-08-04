@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte"
+  import { set_blog_page_default_title } from "../blog.js"
 
   /** @type {string} */
   export let blog_file_name
@@ -47,6 +48,9 @@
     if (toggle) {
       snippet_accessor.classList.add("hidden")
       content_accessor.classList.remove("hidden")
+
+      document.title = parse_blog_file_name()
+
       if (window.location.hash !== "") {
         e.preventDefault()
       }
@@ -55,6 +59,8 @@
       content_accessor.classList.add("hidden")
 
       history.replaceState("", "", "/blog")
+      set_blog_page_default_title()
+
       e.preventDefault()
     }
     toggle = !toggle
