@@ -49,10 +49,10 @@
       yearFrom="2020"
       yearTo="Present"
       jobHighlights={[
-        "Developed installer programs for desktop apps using <span class='inline-code'>go</span>",
+        "Developed installer programs for desktop apps using <code>go</code>",
         "Created and managed all company's CI/CD pipelines and automation",
         "Automated bare-metal machine image generation and deployment to embedded devices",
-        "Migrated AWS EKS instances running company’s microservices from manual provisioning to automated provisioning using <span class='inline-code'>terraform</span>",
+        "Migrated AWS EKS instances running company’s microservices from manual provisioning to automated provisioning using <code>terraform</code>",
       ]}
     />
 
@@ -100,7 +100,7 @@
         "Created the QA Department and assigned internal AGILE procedures",
         "Brought on and set up JIRA, Bitbucket, and Bamboo Server Editions",
         "Set up automated build and testing server using Bamboo",
-        "Lead the integration of <span class='inline-code'>git</span> version control and gitflow methodologies to be adopted by the development team",
+        "Lead the integration of <code>git</code> version control and gitflow methodologies to be adopted by the development team",
       ]}
     />
   </div>
@@ -113,7 +113,7 @@
       projectName="NodeJS"
       role="Contributor"
       contributionList={[
-        "Modifications to configure script to allow compilation using any arbitrary <span class='inline-code'>clang</span> vendor (fixes <span class='inline-code'>clang</span> compilation on Alpine and Void Linux)",
+        "Modifications to configure script to allow compilation using any arbitrary <code>clang</code> vendor (fixes <code>clang</code> compilation on Alpine and Void Linux)",
       ]}
     />
 
@@ -121,7 +121,7 @@
       projectName="Alpine Linux"
       role="Contributor"
       contributionList={[
-        "Issue reporting, debugging, and fixing for various pacakges including <span class='inlide-code'>nodejs</span> and <span class='inline-code'>xkeyboard-config</span>",
+        "Issue reporting, debugging, and fixing for various pacakges including <code>nodejs</code> and <code>xkeyboard-config</code>",
       ]}
     />
 
@@ -135,7 +135,7 @@
       projectName="Jester NPM Package"
       role="Developer"
       contributionList={[
-        "<span class='inline-code'>jester</span> is an npm package that simplifies javascript unit testing",
+        "<code>jester</code> is an npm package that simplifies javascript unit testing",
       ]}
     />
 
@@ -162,16 +162,16 @@
     <SkillList
       skillTitle="Tools"
       skill={[
-        { skill: "<span class='code'>git</span>", experience: "8 years" },
-        { skill: "<span class='code'>docker</span>", experience: "3 years" },
+        { skill: "<code>git</code>", experience: "8 years" },
+        { skill: "<code>docker</code>", experience: "3 years" },
         { skill: "Unity Engine", experience: "3 years" },
         { skill: "Google OAuth", experience: "3 years" },
         {
-          skill: "<span class='code'>kubernetes</span>",
+          skill: "<code>kubernetes</code>",
           experience: "2 years",
         },
         { skill: "Jenkins", experience: "2 years" },
-        { skill: "<span class='code'>terraform</span>", experience: "1 years" },
+        { skill: "<code>terraform</code>", experience: "1 years" },
         { skill: "Slack Apps", experience: "1 year" },
         { skill: "Unreal Engine", experience: "1 year" },
       ]}

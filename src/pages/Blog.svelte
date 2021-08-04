@@ -10,7 +10,7 @@
     return window.location.hash
       .replace(/^#/, "")
       .split("-")
-      .slice(0, 2)
+      .slice(0, 3)
       .join("/")
   }
 
@@ -39,4 +39,13 @@
   document.title = document.title + " | Blog"
 </script>
 
+<h2 id="blog-banner">Sorted blogs and blog timeline filter coming toon!™</h2>
+
 <BlogTimeline />
+
+<style>
+  #blog-banner {
+    padding: 2vh 4vw;
+    text-align: center;
+  }
+</style>
