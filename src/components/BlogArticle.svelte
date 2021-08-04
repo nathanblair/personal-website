@@ -68,13 +68,13 @@
 <a href={"#" + id} on:click={toggle_article_expansion} bind:this={article_link}>
   <article {id}>
     <header>
-      <h1 class="article-title">{parse_blog_file_name()}</h1>
-      <h2 class="article-date">{day} {month} {year}</h2>
+      <h1 class="article-date">{day} {month} {year}</h1>
+      <h2 class="article-title">{parse_blog_file_name()}</h2>
     </header>
     <div class="article-content hidden" bind:this={content_accessor}>
       {@html content}
     </div>
-    <p class="snippet" bind:this={snippet_accessor}>{snippet}</p>
+    <p class="snippet" bind:this={snippet_accessor}>{@html snippet}</p>
   </article>
 </a>
 
