@@ -92,8 +92,6 @@ export async function* fetch_blog_articles(filter) {
       case "dir":
         yield* fetch_blog_articles(() => each_entry.path)
         continue
-      // FIXME This is returning too soon!
-      // Not all blog posts are being yielded
       case "file":
         const date_array = each_entry.path.split("/")
         date_array.pop()
