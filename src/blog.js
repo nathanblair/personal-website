@@ -1,5 +1,8 @@
 import { page_default_title } from "./constants.js"
 
+export const total_days = 31
+export const blog_placeholder_class_name = "blog-placeholder"
+
 const cloud_host_endpoint = "https://api.github.com"
 const blog_path = "/repos/nathanblair/blog/contents/"
 const cloud_host_blog_list_endpoint = `${cloud_host_endpoint}${blog_path}`
@@ -15,13 +18,9 @@ const cloud_host_blog_list_endpoint = `${cloud_host_endpoint}${blog_path}`
 
 /** @typedef {[string, string, string]} ArticleDateArray */
 
-/**
- * @typedef {{
- *  file_name: string,
- *  date: ArticleDateArray,
- *  content: string
- * }} Article
- */
+/** @typedef {{file_name: string, date: ArticleDateArray, content: string}} Article */
+
+/** @typedef {Map<number, Article>} Articles */
 
 export const DateMap = Object.freeze({
   0: "January",
@@ -67,7 +66,7 @@ async function download_blog_article(url) {
  *
  * @param {() => string} filter
  *
- * @returns {AsyncIterable<Article>}
+ * @returns {AsyncGenerator<Article>}
  */
 export async function* fetch_blog_articles(filter) {
   /** @type {Response} */
@@ -101,16 +100,13 @@ export async function* fetch_blog_articles(filter) {
       case "file":
         const date_array = each_entry.path.split("/")
         date_array.pop()
-        /** @type {Article} */
-        let article
         try {
-          article = {
+          yield {
             file_name: each_entry.name,
             // @ts-ignore
             date: date_array,
             content: await download_blog_article(each_entry.download_url),
           }
-          yield article
         } catch (err) {
           console.error(err)
           continue
