@@ -10,7 +10,7 @@
     set_blog_page_default_title,
     total_days,
   } from "../blog.js"
-  import { main_id } from "../constants.js"
+  import { main_id, transition_opacity_class_name } from "../constants.js"
 
   function extract_filter_from_fragment() {
     return window.location.hash
@@ -31,10 +31,11 @@
 
     for await (const each_article of fetch_blog_articles(filter)) {
       const skeleton_id = get_skeleton_id(parseInt(each_article.date[2]))
-      const anchor = document.getElementById(skeleton_id) || document.body
+      const anchor = document.getElementById(skeleton_id)
 
       new BlogArticle({
         target: document.getElementById(main_id) || document.body,
+        // @ts-ignore
         anchor: anchor,
         props: {
           blog_file_name: each_article.file_name,
@@ -42,18 +43,26 @@
           content: each_article.content,
         },
       })
+
+      anchor?.remove()
     }
 
     const placeholders = document.querySelectorAll(
       "." + blog_placeholder_class_name
     )
 
-    for (const each_placeholder of placeholders) {
+    placeholders.forEach(async (each_placeholder, _) => {
+      each_placeholder.classList.add(transition_opacity_class_name)
+      await new Promise((resolve) => setTimeout(resolve, 250))
       each_placeholder.remove()
-    }
+    })
   }
 
-  /** @type {number[]} */
+  /**
+   * For reverse-chronological sorting order
+   *
+   * @type {number[]}
+   * */
   const month_days = Array.from(
     { length: total_days },
     (_, i) => total_days - i
@@ -63,11 +72,13 @@
   populate_blogs()
 </script>
 
-<h2 id="blog-banner">Sorted blogs and blog timeline filter coming toon!™</h2>
+<h2 id="blog-banner">Blog timeline filter coming toon!™</h2>
 
-{#each month_days as each_day, _}
-  <BlogPlaceholder id={get_skeleton_id(each_day)} />
-{/each}
+{#if window.location.hash === ""}
+  {#each month_days as each_day}
+    <BlogPlaceholder id={get_skeleton_id(each_day)} />
+  {/each}
+{/if}
 
 <BlogTimeline />
 

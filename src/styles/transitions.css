@@ -1,0 +1,14 @@
+.transition-opacity {
+  opacity: 0;
+  transition: opacity 250ms;
+}
+
+.transition-flyout {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.transition-flyin {
+  opacity: 0;
+  transition: opacity 200ms;
+}

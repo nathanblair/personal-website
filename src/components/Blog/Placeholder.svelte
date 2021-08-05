@@ -3,12 +3,60 @@
 
   /** @type {string} */
   export let id
+
+  const skeleton_background_color_class_name = "skeleton-background-color"
+  const skeleton_border_class_name = "skeleton-border"
 </script>
 
-<div {id} class="card {blog_placeholder_class_name}" />
+<div {id} class="card {blog_placeholder_class_name} article-skeleton">
+  <header>
+    <div
+      class="h1-skeleton {skeleton_background_color_class_name} {skeleton_border_class_name}"
+    />
+    <div
+      class="h2-skeleton {skeleton_background_color_class_name} {skeleton_border_class_name}"
+    />
+  </header>
+  <p
+    class="{skeleton_background_color_class_name} {skeleton_border_class_name}"
+  />
+  <p
+    class="{skeleton_background_color_class_name} {skeleton_border_class_name}"
+  />
+</div>
 
 <style>
-  div {
+  .skeleton-background-color {
+    background-color: lightgray;
+  }
+
+  .skeleton-border {
+    border-radius: 8px;
+  }
+
+  .article-skeleton {
     height: 35vh;
+    padding: 1vh 4vw;
+    overflow: hidden;
+  }
+
+  .h1-skeleton {
+    width: 40%;
+  }
+
+  .h2-skeleton {
+    width: 60%;
+  }
+
+  .h1-skeleton,
+  .h2-skeleton {
+    padding: 1vh 0;
+    margin: 8px 0;
+    height: 40px;
+  }
+
+  p {
+    height: 40px;
+    margin-top: 5%;
   }
 </style>

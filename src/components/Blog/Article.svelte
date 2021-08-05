@@ -10,6 +10,9 @@
   /** @type {string} */
   export let content
 
+  /** @type {string} */
+  export let article_class_list = ""
+
   /** @type {HTMLElement} */
   let article_accessor
 
@@ -39,7 +42,7 @@
 
 <article
   {id}
-  class="{card_class_name} {snippet_class_name}"
+  class="{card_class_name} {snippet_class_name} {article_class_list}"
   bind:this={article_accessor}
 >
   <header>

@@ -35,6 +35,7 @@
 <style lang="scss" global>
   @import "./styles/app";
   @import "./styles/fonts";
+  @import "./styles/transitions";
   @import "./styles/utilities";
   @import "./themes/default_dark";
   @import "./themes/default_light";
