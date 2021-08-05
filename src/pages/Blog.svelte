@@ -72,7 +72,9 @@
   populate_blogs()
 </script>
 
-<h2 id="blog-banner">Blog timeline filter coming toon!™</h2>
+<h2 id="blog-banner">
+  Blog timeline filter (and possibly search) coming toon!™
+</h2>
 
 {#if window.location.hash === ""}
   {#each month_days as each_day}
