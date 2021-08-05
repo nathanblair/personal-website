@@ -89,14 +89,16 @@
     font-size: 1.1em;
     background-image: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 1) 55%
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 5%,
+      rgba(255, 255, 255, 1) 100%
     );
     width: 100%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding: 1vh 0 3vh 0;
+    padding: 0 0 2vh 0;
   }
 
   .snippet {
