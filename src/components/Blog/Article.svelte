@@ -1,10 +1,10 @@
 <script>
-  import { set_blog_page_default_title } from "../blog.js"
+  import { set_blog_page_default_title } from "../../blog.js"
 
   /** @type {string} */
   export let blog_file_name
 
-  /** @type {import("../blog.js").ArticleDateArray} */
+  /** @type {import("../../blog.js").ArticleDateArray} */
   export let date
 
   /** @type {string} */
@@ -72,13 +72,6 @@
 
   h2 {
     font-style: italic;
-  }
-
-  .card {
-    border: solid 1px;
-    box-shadow: 0 0 4px;
-    padding: 2vh;
-    margin: 2vh 2vw;
   }
 
   .overlay {
