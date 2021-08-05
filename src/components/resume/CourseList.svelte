@@ -21,14 +21,15 @@
 
 <style>
   table {
-    min-width: 300px;
-    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
+  }
+
+  table td {
+    max-width: 200px;
   }
 
   td {
-    width: 50%;
     padding: 2px 4px;
-    white-space: nowrap;
     text-align: center;
   }
 </style>
