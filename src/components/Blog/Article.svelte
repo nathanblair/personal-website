@@ -38,6 +38,11 @@
   document.title = full_article_shown
     ? parse_blog_file_name()
     : set_blog_page_default_title()
+
+  if (full_article_shown) {
+    document.head.innerHTML +=
+      "<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css' rel='stylesheet'/>"
+  }
 </script>
 
 <article
@@ -52,6 +57,13 @@
   {@html content}
   {#if !full_article_shown}
     <a href={"#" + id} target="_blank" class="overlay">Read More</a>
+  {:else}
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.js"></script>
   {/if}
 </article>
 
