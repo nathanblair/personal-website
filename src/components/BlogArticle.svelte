@@ -13,9 +13,6 @@
   /** @type {HTMLElement} */
   let article_accessor
 
-  /** @type {HTMLAnchorElement} */
-  let article_anchor_accessor
-
   /**
    * Parse the file name to strip out the date and title
    */
@@ -30,34 +27,28 @@
   const id =
     year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
 
-  const article_should_be_expanded =
-    window.location.hash.replace("#", "") === id
+  const full_article_shown = window.location.hash.replace("#", "") === id
 
-  const card_class_name = article_should_be_expanded ? "" : "card"
-  const overlay_class_name = "overlay"
-  const snippet_class_name = "snippet"
+  const card_class_name = full_article_shown ? "" : "card"
+  const snippet_class_name = full_article_shown ? "" : "snippet"
 
-  document.title = article_should_be_expanded
+  document.title = full_article_shown
     ? parse_blog_file_name()
     : set_blog_page_default_title()
 </script>
 
-<article {id} class={card_class_name} bind:this={article_accessor}>
+<article
+  {id}
+  class="{card_class_name} {snippet_class_name}"
+  bind:this={article_accessor}
+>
   <header>
     <h1 class="article-date">{day} {month} {year}</h1>
     <h2 class="article-title">{parse_blog_file_name()}</h2>
   </header>
-  {#if article_should_be_expanded}
-    {@html content}
-  {:else}
-    <a
-      href={"#" + id}
-      target="_blank"
-      class="article-anchor article-content {overlay_class_name} {snippet_class_name}"
-      bind:this={article_anchor_accessor}
-    >
-      {@html content}
-    </a>
+  {@html content}
+  {#if !full_article_shown}
+    <a href={"#" + id} target="_blank" class="overlay">Read More</a>
   {/if}
 </article>
 
@@ -70,11 +61,17 @@
 
   article {
     padding: 1vh 4vw;
+    position: relative;
   }
 
   h1,
   h2 {
-    padding: 2vh 0;
+    padding: 1vh 0;
+    font-weight: normal;
+  }
+
+  h2 {
+    font-style: italic;
   }
 
   .card {
@@ -84,36 +81,47 @@
     margin: 2vh 2vw;
   }
 
-  .article-date {
-    font-weight: normal;
-  }
-
-  .article-content {
-    position: relative;
-  }
-
-  .overlay::after {
-    content: "";
+  .overlay {
     position: absolute;
-    z-index: 1;
     bottom: 0;
     left: 0;
-    pointer-events: none;
+    z-index: 1;
+    font-size: 1.1em;
     background-image: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 1) 90%
+      rgba(255, 255, 255, 1) 55%
     );
     width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 1vh 0 3vh 0;
   }
 
   .snippet {
-    max-height: 20vh;
+    max-height: 35vh;
     overflow: hidden;
   }
 
   :global(p) {
+    padding: 2vh 0;
+    line-height: 1.5;
+  }
+
+  :global(ol) {
+    padding: revert;
+  }
+
+  :global(ol > li) {
+    padding: 0.75vh 0;
+  }
+
+  :global(dl, dl dd, dl dt) {
+    padding: 1vh 2vw;
+  }
+
+  :global(h1, h2, h3, h4, h5) {
     padding: 2vh 0;
   }
 </style>
