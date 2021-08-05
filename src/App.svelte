@@ -33,6 +33,7 @@
 <Footer />
 
 <style lang="scss" global>
+  @import "./styles/animations";
   @import "./styles/app";
   @import "./styles/fonts";
   @import "./styles/transitions";
