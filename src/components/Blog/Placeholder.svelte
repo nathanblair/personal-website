@@ -27,7 +27,8 @@
 
 <style>
   .skeleton-background-color {
-    background-color: lightgray;
+    /* background: linear-gradient(to right, #777, #eee, #777); */
+    background: lightgray;
   }
 
   .skeleton-border {
