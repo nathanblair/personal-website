@@ -1,10 +1,10 @@
 <script>
-  import School from "../components/resume/School.svelte"
-  import Job from "../components/resume/Job.svelte"
-  import Contribution from "../components/resume/Contribution.svelte"
+  import School from "../components/Resume/School.svelte"
+  import Job from "../components/Resume/Job.svelte"
+  import Contribution from "../components/Resume/Contribution.svelte"
 
-  import SkillList from "../components/resume/SkillList.svelte"
-  import CourseList from "../components/resume/CourseList.svelte"
+  import SkillList from "../components/Resume/SkillList.svelte"
+  import CourseList from "../components/Resume/CourseList.svelte"
 
   import FlexGrid from "../components/FlexGrid.svelte"
 

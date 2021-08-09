@@ -1,5 +1,6 @@
 <script>
   import { set_blog_page_default_title } from "../../blog.js"
+  import { card_class_name } from "../../constants.js"
 
   /** @type {string} */
   export let blog_file_name
@@ -12,9 +13,6 @@
 
   /** @type {string} */
   export let article_class_list = ""
-
-  /** @type {HTMLElement} */
-  let article_accessor
 
   /**
    * Parse the file name to strip out the date and title
@@ -32,7 +30,7 @@
 
   const full_article_shown = window.location.hash.replace("#", "") === id
 
-  const card_class_name = full_article_shown ? "" : "card"
+  const card_class = full_article_shown ? "" : card_class_name
   const snippet_class_name = full_article_shown ? "" : "snippet"
 
   document.title = full_article_shown
@@ -45,11 +43,7 @@
   }
 </script>
 
-<article
-  {id}
-  class="{card_class_name} {snippet_class_name} {article_class_list}"
-  bind:this={article_accessor}
->
+<article {id} class="{card_class} {snippet_class_name} {article_class_list}">
   <header>
     <h1 class="article-date">{day} {month} {year}</h1>
     <h2 class="article-title">{parse_blog_file_name()}</h2>
