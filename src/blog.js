@@ -49,11 +49,6 @@ export function default_filter() {
   return `${date.getFullYear()}/${month}`
 }
 
-/** @param {string} url */
-async function download_blog_article(url) {
-  return (await fetch(url)).text()
-}
-
 /**
  * Fetch blog articles from the cloud host
  *
@@ -105,7 +100,7 @@ export async function* fetch_blog_articles(filter) {
             file_name: each_entry.name,
             // @ts-ignore
             date: date_array,
-            content: await download_blog_article(each_entry.download_url),
+            content: await (await fetch(each_entry.download_url)).text(),
           }
         } catch (err) {
           console.error(err)

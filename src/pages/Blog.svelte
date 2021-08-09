@@ -53,7 +53,7 @@
 
     placeholders.forEach(async (each_placeholder, _) => {
       each_placeholder.classList.add(transition_opacity_class_name)
-      await new Promise((resolve) => setTimeout(resolve, 250))
+      await new Promise((resolve) => setTimeout(resolve, ux_wait_time))
       each_placeholder.remove()
     })
   }
@@ -67,6 +67,8 @@
     { length: total_days },
     (_, i) => total_days - i
   )
+
+  const ux_wait_time = 250
 
   set_blog_page_default_title()
   populate_blogs()
