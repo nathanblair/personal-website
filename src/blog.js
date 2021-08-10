@@ -9,6 +9,9 @@ const cloud_host_blog_list_endpoint = `${cloud_host_endpoint}${blog_path}`
 
 /**
  * @typedef {Array<{
+ *  body: string,
+ *  body_text: string,
+ *  body_html: string,
  *  name: string,
  *  path: string,
  *  type: "file" | "dir" | "symlink" | "submodule",
@@ -64,11 +67,24 @@ export function default_filter() {
  * @returns {AsyncGenerator<Article>}
  */
 export async function* fetch_blog_articles(filter) {
+  // FIXME Replace all this with just calling the GitHub get trees API
+  // So that we can get all the files in the repository
+  // Then we'll just filter through the file paths locally, and populate a list
+  // of articles locally.
+
+  // Then for each article in the local articles array, we'll call the get contents
+  // API for that article, making sure to pass in the appropriate header for
+  // whether the file is a markdown or html file
+
   /** @type {Response} */
   let response
 
   try {
-    response = await fetch(`${cloud_host_blog_list_endpoint}${filter()}`)
+    response = await fetch(`${cloud_host_blog_list_endpoint}${filter()}`, {
+      headers: new Headers({
+        accept: "application/vnd.github.VERSION.full+json",
+      }),
+    })
   } catch (err) {
     console.error(err)
     return
@@ -88,7 +104,7 @@ export async function* fetch_blog_articles(filter) {
   }
 
   for (const each_entry of body) {
-    switch (each_entry.type) {
+    switch (each_entry.body.type) {
       case "dir":
         yield* fetch_blog_articles(() => each_entry.path)
         continue
@@ -100,7 +116,19 @@ export async function* fetch_blog_articles(filter) {
             file_name: each_entry.name,
             // @ts-ignore
             date: date_array,
-            content: await (await fetch(each_entry.download_url)).text(),
+            content:
+              each_entry.path.split(".").pop() === "md"
+                ? each_entry.body_html
+                : each_entry.body_text,
+            // content: await (
+            //   await fetch(cloud_host_blog_list_endpoint + each_entry.path, {
+            //     headers: new Headers({
+            //       accept: `application/vnd.github.VERSION.${
+            //         each_entry.path.split(".").pop() === "md" ? "html" : "raw"
+            //       }`,
+            //     }),
+            //   })
+            // ).text(),
           }
         } catch (err) {
           console.error(err)
