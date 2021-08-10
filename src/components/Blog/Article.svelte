@@ -26,7 +26,13 @@
   const day = date[2]
 
   const id =
-    year + "-" + month + "-" + day + "-" + blog_file_name.replace(".html", "")
+    year +
+    "-" +
+    month +
+    "-" +
+    day +
+    "-" +
+    blog_file_name.replace(/.html|.md/, "")
 
   const full_article_shown = window.location.hash.replace("#", "") === id
 
@@ -108,12 +114,24 @@
     overflow: hidden;
   }
 
+  :global(blockquote) {
+    border-left: 10px solid #ccc;
+    border-radius: 4px;
+    margin: 20px 0;
+    padding: 0 20px;
+    color: #333;
+  }
+
   :global(p) {
     padding: 2vh 0;
     line-height: 1.5;
   }
 
-  :global(ol) {
+  :global(code) {
+    line-height: 1.5;
+  }
+
+  :global(ol, ul) {
     padding: revert;
   }
 

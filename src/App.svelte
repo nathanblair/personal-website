@@ -33,6 +33,9 @@
 <Footer />
 
 <style lang="scss" global>
+  @import "github-syntax-light/lib/github-light";
+  // @import "@primer/css/dist/markdown";
+
   @import "./styles/animations";
   @import "./styles/app";
   @import "./styles/fonts";

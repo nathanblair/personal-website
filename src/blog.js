@@ -4,8 +4,10 @@ export const total_days = 31
 export const blog_placeholder_class_name = "blog-placeholder"
 
 const cloud_host_endpoint = "https://api.github.com"
-const tree_path = "/repos/nathanblair/blog/git/trees/default/"
+const tree_path = "/repos/nathanblair/blog/git/trees/default"
+const content_path = "/repos/nathanblair/blog/contents/"
 const cloud_host_blog_tree_endpoint = `${cloud_host_endpoint}${tree_path}`
+const cloud_host_blog_content_endpoint = `${cloud_host_endpoint}${content_path}`
 
 /**
  * @typedef {{
@@ -75,7 +77,11 @@ export async function* fetch_blog_articles(filter) {
   let response
 
   try {
-    response = await fetch(`${cloud_host_blog_tree_endpoint}`)
+    response = await fetch(
+      `${cloud_host_blog_tree_endpoint}?${new URLSearchParams({
+        recursive: "true",
+      })}`
+    )
   } catch (err) {
     console.error(err)
     return
@@ -94,35 +100,39 @@ export async function* fetch_blog_articles(filter) {
     return
   }
 
+  const path = filter()
   const articles = body.tree.filter((each_tree) => {
-    each_tree.path.indexOf(filter()) >= 0 && each_tree.type === "blob"
+    return each_tree.path.indexOf(path) >= 0 && each_tree.type === "blob"
   })
 
   for (const each_article of articles) {
+    /** @type {ArticleDateArray} */
+    // @ts-ignore
     const date_array = each_article.path.split("/")
     date_array.pop()
+
+    const file_name = each_article.path.split("/").pop() || each_article.path
+
+    const accept_header = each_article.path.endsWith(".md")
+      ? "application/vnd.github.VERSION.html"
+      : "application/vnd.github.VERSION.raw"
+
+    let article_api_response
     try {
-      yield {
-        file_name: each_article.name,
-        // @ts-ignore
-        date: date_array,
-        content:
-          each_article.path.split(".").pop() === "md"
-            ? each_article.body_html
-            : each_article.body_text,
-        // content: await (
-        //   await fetch(cloud_host_blog_list_endpoint + each_entry.path, {
-        //     headers: new Headers({
-        //       accept: `application/vnd.github.VERSION.${
-        //         each_entry.path.split(".").pop() === "md" ? "html" : "raw"
-        //       }`,
-        //     }),
-        //   })
-        // ).text(),
-      }
-    } catch (err) {
-      console.error(err)
-      continue
+      article_api_response = await fetch(
+        cloud_host_blog_content_endpoint + each_article.path,
+        {
+          headers: new Headers({ accept: accept_header }),
+        }
+      )
+    } catch (error) {}
+
+    const content = (await article_api_response?.text()) || ""
+
+    yield {
+      date: date_array,
+      file_name: file_name,
+      content: content,
     }
   }
   return
