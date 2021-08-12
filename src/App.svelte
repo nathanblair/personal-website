@@ -5,15 +5,12 @@
   // import Drawer from "./components/App/Drawer.svelte"
 
   async function import_component_file() {
+    const page_name = window.location.pathname.split("/")[1]
     return import(
       `./pages/${
         window.location.pathname === "/"
           ? "Main"
-          : window.location.pathname
-              .replaceAll(/\//g, "")
-              .slice(0, 1)
-              .toLocaleUpperCase() +
-            window.location.pathname.replaceAll(/\//g, "").slice(1)
+          : page_name.slice(0, 1).toLocaleUpperCase() + page_name.slice(1)
       }.svelte`
     )
   }

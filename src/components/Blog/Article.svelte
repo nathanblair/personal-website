@@ -34,7 +34,7 @@
     "-" +
     blog_file_name.replace(/.html|.md/, "")
 
-  const full_article_shown = window.location.hash.replace("#", "") === id
+  const full_article_shown = window.location.pathname.split("/")[2] !== ""
 
   const card_class = full_article_shown ? "" : card_class_name
   const snippet_class_name = full_article_shown ? "" : "snippet"
@@ -56,7 +56,7 @@
   </header>
   {@html content}
   {#if !full_article_shown}
-    <a href={"#" + id} target="_blank" class="overlay">Read More</a>
+    <a href={id} target="_blank" class="overlay">Read More</a>
   {:else}
     <script
       defer
