@@ -146,4 +146,12 @@
   :global(h1, h2, h3, h4, h5) {
     padding: 2vh 0;
   }
+
+  :global(h5 > a),
+  :global(h4 > a),
+  :global(h3 > a),
+  :global(h2 > a),
+  :global(h1 > a) {
+    padding: 0 8px 0 0;
+  }
 </style>

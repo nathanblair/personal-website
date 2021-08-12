@@ -5,50 +5,22 @@ on:
     branches: [default]
     types: [closed]
 
-env:
-  SRC_DIR: site
-  PUBLIC_DIR: public
-  PUBLIC_BRANCH: public
-
 jobs:
   deploy:
     name: Deploy
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Clean directory
-        run: rm -rf *
-
-      - name: Clone public branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ env.PUBLIC_BRANCH }} https://${{ github.actor}}:${{ github.token }}@github.com/${{ github.repository }} ${{ env.PUBLIC_DIR }}
-
       - name: Clone PR branch
-        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.base_ref }} https://github.com/${{ github.repository }} ${{ env.SRC_DIR }}
+        run: git clone -c core.autocrlf=false --depth=1 --branch=${{ github.base_ref }} https://github.com/${{ github.repository }}
 
       - name: Install npm dependencies
-        working-directory: ${{ env.SRC_DIR }}
         run: npm ci
 
       - name: Build
-        working-directory: ${{ env.SRC_DIR }}
         run: npm run build:prod
 
-      - name: Copy public folder
-        run: cp -rT ${{ env.SRC_DIR }}/public ${{ env.PUBLIC_DIR }}
-
-      - name: Configure git
-        working-directory: ${{ env.PUBLIC_DIR }}
-        run: |
-          git config --global user.email "${{ github.actor }}@nathanblair.rocks"
-          git config --global user.name "${{ github.actor }}"
-
-      - name: Commit changes
-        working-directory: ${{ env.PUBLIC_DIR }}
-        run: |
-          git status
-          git add --all
-          git commit -m "merge from branch ${{ github.head_ref }}"
-
-      - name: Push changes
-        working-directory: ${{ env.PUBLIC_DIR }}
-        run: git push origin ${{ env.PUBLIC_BRANCH }}
+      - name: Deploy to live Firebase Hosting
+        run: npx firebase-tools deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
