@@ -12,22 +12,18 @@
   } from "../blog.js"
   import { main_id, transition_opacity_class_name } from "../constants.js"
 
-  function extract_filter_from_fragment() {
-    return window.location.hash
-      .replace(/^#/, "")
-      .split("-")
-      .slice(0, 3)
-      .join("/")
-  }
-
   /** @param {number} index */
   function get_skeleton_id(index) {
     return "day-" + index
   }
 
   async function populate_blogs() {
-    const fragment = extract_filter_from_fragment()
-    let filter = fragment === "" ? default_filter : () => fragment
+    const url_filter = window.location.pathname
+      .split("/")[2]
+      .split("-")
+      .slice(0, 3)
+      .join("/")
+    let filter = url_filter === "" ? default_filter : () => url_filter
 
     for await (const each_article of fetch_blog_articles(filter)) {
       const skeleton_id = get_skeleton_id(parseInt(each_article.date[2]))
