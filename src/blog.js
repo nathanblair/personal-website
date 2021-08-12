@@ -128,11 +128,12 @@ export async function* fetch_blog_articles(filter) {
     } catch (error) {}
 
     const content = (await article_api_response?.text()) || ""
+    const sanitized_content = content.replaceAll(/ id="user-content-/g, ' id="')
 
     yield {
       date: date_array,
       file_name: file_name,
-      content: content,
+      content: sanitized_content,
     }
   }
   return
