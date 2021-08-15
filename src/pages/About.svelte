@@ -46,6 +46,10 @@
 </article>
 
 <style>
+  article {
+    padding-top: 3%;
+  }
+
   h1 {
     padding: 0 3vh;
   }
@@ -60,13 +64,9 @@
     margin: 0;
   }
 
-  .infoBlock {
-    padding: 3% 0;
-  }
-
   @media screen and (min-width: 950px) {
     article {
-      font-size: 2rem;
+      font-size: 1rem;
     }
   }
 </style>

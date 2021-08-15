@@ -52,6 +52,8 @@
       await new Promise((resolve) => setTimeout(resolve, ux_wait_time))
       each_placeholder.remove()
     })
+
+    document.getElementById(location.hash.replace(/^#/, ""))?.scrollIntoView()
   }
 
   /**
