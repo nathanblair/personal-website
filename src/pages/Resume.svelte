@@ -9,6 +9,8 @@
   import FlexGrid from "../components/FlexGrid.svelte"
 
   document.title = document.title + " | Resumé"
+
+  const current_year = new Date().getFullYear()
 </script>
 
 <section id="education">
@@ -150,53 +152,62 @@
     <SkillList
       skillTitle="Languages"
       skill={[
-        { skill: "Python", experience: "8 years" },
-        { skill: "C++", experience: "5 years" },
-        { skill: "Javascript", experience: "5 years" },
-        { skill: "C#", experience: "3 years" },
-        { skill: "Go", experience: "1 year" },
-        { skill: "Rust", experience: "1 year" },
+        { skill: "Python", experience: `${current_year - 2014} years` },
+        { skill: "C++", experience: `5 years` },
+        { skill: "Javascript", experience: `${current_year - 2016} years` },
+        { skill: "C#", experience: `4 years` },
+        { skill: "Rust", experience: `${current_year - 2019} years` },
+        { skill: "Go", experience: `${current_year - 2020} years` },
       ]}
     />
 
     <SkillList
       skillTitle="Tools"
       skill={[
-        { skill: "<code>git</code>", experience: "8 years" },
-        { skill: "<code>docker</code>", experience: "3 years" },
-        { skill: "Unity Engine", experience: "3 years" },
-        { skill: "Google OAuth", experience: "3 years" },
+        {
+          skill: "<code>git</code>",
+          experience: `${current_year - 2013} years`,
+        },
+        {
+          skill: "<code>docker</code>",
+          experience: `${current_year - 2018} years`,
+        },
+        { skill: "Google OAuth", experience: `${current_year - 2018} years` },
+        { skill: "Unity Engine", experience: `3 years` },
         {
           skill: "<code>kubernetes</code>",
-          experience: "2 years",
+          experience: `${current_year - 2019} years`,
         },
-        { skill: "Jenkins", experience: "2 years" },
-        { skill: "<code>terraform</code>", experience: "1 years" },
-        { skill: "Slack Apps", experience: "1 year" },
-        { skill: "Unreal Engine", experience: "1 year" },
+        { skill: "Jenkins", experience: `2 years` },
+        {
+          skill: "<code>terraform</code>",
+          experience: `${current_year - 2019} years`,
+        },
+        { skill: "Slack Apps", experience: `${current_year - 2019} years` },
+        { skill: "Unreal Engine", experience: `1 years` },
       ]}
     />
 
     <SkillList
       skillTitle="Frameworks"
       skill={[
-        { skill: "NodeJS", experience: "4 years" },
-        { skill: "Typescript", experience: "2 years" },
-        { skill: "React Native", experience: "1 year" },
-        { skill: "Angular", experience: "1 year" },
-        { skill: "Svelte", experience: "1 year" },
-        { skill: "Vue", experience: "1 year" },
+        { skill: "NodeJS", experience: `${current_year - 2016} years` },
+        { skill: "Typescript", experience: `2 years` },
+        { skill: "React Native", experience: `1 years` },
+        { skill: "Angular", experience: `1 years` },
+        { skill: "Svelte", experience: `${current_year - 2020} years` },
+        { skill: "Vue", experience: `1 years` },
       ]}
     />
 
     <SkillList
       skillTitle="Databases"
       skill={[
-        { skill: "Microsoft SQL Server", experience: "4 years" },
-        { skill: "SQLite", experience: "3 years" },
-        { skill: "NoSQL", experience: "2 years" },
-        { skill: "MySQL", experience: "1 year" },
-        { skill: "Redis", experience: "1 year" },
+        { skill: "Microsoft SQL Server", experience: `5 years` },
+        { skill: "SQLite", experience: `4 years` },
+        { skill: "NoSQL", experience: `3 years` },
+        { skill: "MySQL", experience: `2 years` },
+        { skill: "Redis", experience: `${current_year - 2019} years` },
       ]}
     />
   </FlexGrid>
@@ -209,78 +220,90 @@
     <SkillList
       skillTitle="Amazon Web Services"
       skill={[
-        { skill: "EKS", experience: "2 years" },
-        { skill: "VPC", experience: "2 years" },
-        { skill: "EC2", experience: "2 years" },
-        { skill: "S3", experience: "2 years" },
-        { skill: "ELB", experience: "1 year" },
-        { skill: "Route53", experience: "1 year" },
-        { skill: "RDS", experience: "1 year" },
-        { skill: "DocumentDB", experience: "1 year" },
-        { skill: "DynamoDB", experience: "1 year" },
-        { skill: "Elasticsearch", experience: "1 year" },
-        { skill: "Prometheus", experience: "1 year" },
-        { skill: "Grafana", experience: "1 year" },
-        { skill: "Lambda", experience: "1 year" },
-        { skill: "KMS", experience: "1 year" },
+        { skill: "EC2", experience: `${current_year - 2019} years` },
+        { skill: "S3", experience: `${current_year - 2019} years` },
+        { skill: "VPC", experience: `${current_year - 2019} years` },
+        { skill: "Lambda", experience: `2 years` },
+        { skill: "DynamoDB", experience: `${current_year - 2019} years` },
+        { skill: "Route53", experience: `${current_year - 2019} years` },
+        { skill: "RDS", experience: `1 years` },
+        { skill: "DocumentDB", experience: `1 years` },
+        { skill: "Elasticsearch", experience: `1 years` },
+        { skill: "EKS", experience: `${current_year - 2020} years` },
+        { skill: "ELB", experience: `${current_year - 2020} years` },
+        { skill: "Prometheus", experience: `${current_year - 2020} years` },
+        { skill: "Grafana", experience: `${current_year - 2020} years` },
+        { skill: "KMS", experience: `${current_year - 2020} years` },
       ]}
     />
 
     <SkillList
       skillTitle="Google Firebase"
       skill={[
-        { skill: "Authentication", experience: "3 years" },
-        { skill: "Firestore", experience: "2 years" },
-        { skill: "Hosting", experience: "2 years" },
-        { skill: "Functions", experience: "2 years" },
-        { skill: "App Distribution", experience: "2 years" },
-        { skill: "Crashlytics", experience: "1 year" },
-        { skill: "Storage", experience: "1 year" },
+        { skill: "Authentication", experience: `${current_year - 2018} years` },
+        { skill: "Firestore", experience: `${current_year - 2018} years` },
+        { skill: "Hosting", experience: `${current_year - 2018} years` },
+        { skill: "Functions", experience: `${current_year - 2018} years` },
+        { skill: "Storage", experience: `${current_year - 2019} years` },
+        {
+          skill: "App Distribution",
+          experience: `${current_year - 2019} years`,
+        },
+        { skill: "Crashlytics", experience: `1 years` },
       ]}
     />
 
     <SkillList
       skillTitle="Google Cloud Platform"
       skill={[
-        { skill: "Compute Engine", experience: "1 year" },
-        { skill: "Kubernetes Engine", experience: "1 year" },
-        { skill: "Cloud Build", experience: "1 year" },
-        { skill: "Container Registry", experience: "1 year" },
-        { skill: "Cloud Run", experience: "1 year" },
-        { skill: "Cloud Functions", experience: "1 year" },
+        { skill: "Compute Engine", experience: `2 years` },
+        { skill: "Cloud Functions", experience: `2 years` },
+        { skill: "Kubernetes Engine", experience: `1 years` },
+        { skill: "Cloud Build", experience: `1 years` },
+        { skill: "Container Registry", experience: `1 years` },
+        { skill: "Cloud Run", experience: `1 years` },
       ]}
     />
 
     <SkillList
       skillTitle="Azure"
       skill={[
-        { skill: "DevOps", experience: "1 year" },
-        { skill: "Virtual Machines", experience: "1 year" },
-        { skill: "AKS", experience: "1 year" },
-        { skill: "App Service", experience: "1 year" },
-        { skill: "Functions", experience: "1 year" },
-        { skill: "SQL Database", experience: "1 year" },
-        { skill: "Cosmos", experience: "1 year" },
-        { skill: "Pipelines", experience: "1 year" },
-        { skill: "Artifacts", experience: "1 year" },
-        { skill: "Service Bus", experience: "1 year" },
-        { skill: "Virtual Network", experience: "1 year" },
-        { skill: "Load Balancer", experience: "1 year" },
-        { skill: "Application Gateway", experience: "1 year" },
-        { skill: "DNS", experience: "1 year" },
-        { skill: "Web Apps", experience: "1 year" },
-        { skill: "Static Web Apps", experience: "1 year" },
-        { skill: "Virtual Desktop", experience: "1 year" },
+        { skill: "DevOps", experience: `2 years` },
+        { skill: "Pipelines", experience: `2 years` },
+        { skill: "Functions", experience: `2 years` },
+        { skill: "Artifacts", experience: `2 years` },
+        { skill: "Service Bus", experience: `1 years` },
+        { skill: "Virtual Machines", experience: `1 years` },
+        { skill: "AKS", experience: `1 years` },
+        { skill: "App Service", experience: `1 years` },
+        { skill: "SQL Database", experience: `1 years` },
+        { skill: "Cosmos", experience: `1 years` },
+        { skill: "Virtual Network", experience: `1 years` },
+        { skill: "Load Balancer", experience: `1 years` },
+        { skill: "Application Gateway", experience: `1 years` },
+        { skill: "DNS", experience: `1 years` },
+        { skill: "Web Apps", experience: `1 years` },
+        { skill: "Static Web Apps", experience: `1 years` },
+        { skill: "Virtual Desktop", experience: `1 years` },
       ]}
     />
 
     <SkillList
       skillTitle="GitHub"
       skill={[
-        { skill: "Code Repository", experience: "7 years" },
-        { skill: "Actions", experience: "3 years" },
-        { skill: "Container Registry", experience: "1 year" },
-        { skill: "NPM Package Registry", experience: "1 year" },
+        {
+          skill: "Code Repository",
+          experience: `${current_year - 2014} years`,
+        },
+        { skill: "Actions", experience: `${current_year - 2018} years` },
+        {
+          skill: "Container Registry",
+          experience: `${current_year - 2020} years`,
+        },
+        {
+          skill: "NPM Package Registry",
+          experience: `${current_year - 2020} years`,
+        },
       ]}
     />
   </FlexGrid>

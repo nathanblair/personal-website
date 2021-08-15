@@ -55,7 +55,7 @@
   }
 
   p {
-    padding: 3vh;
+    padding: 10px 3vw;
     line-height: 2;
   }
 
