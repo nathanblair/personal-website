@@ -75,8 +75,8 @@
     position: relative;
   }
 
-  h1,
-  h2 {
+  article > header > h1,
+  article > header > h2 {
     padding: 1vh 0;
     font-weight: normal;
   }
@@ -144,7 +144,24 @@
   }
 
   :global(h1, h2, h3, h4, h5) {
+    text-align: center;
     padding: 2vh 0;
+  }
+
+  :global(h5) {
+    font-size: 1.1rem;
+  }
+  :global(h4) {
+    font-size: 1.25rem;
+  }
+  :global(h3) {
+    font-size: 1.5rem;
+  }
+  :global(h2) {
+    font-size: 1.75rem;
+  }
+  :global(h1) {
+    font-size: 2rem;
   }
 
   :global(h5 > a),
@@ -161,19 +178,25 @@
     overflow-x: scroll;
   }
 
-  :global(h5 > a.anchor),
-  :global(h4 > a.anchor),
-  :global(h3 > a.anchor),
-  :global(h2 > a.anchor),
-  :global(h1 > a.anchor) {
-    visibility: hidden;
-  }
+  @media screen and (min-width: 950px) {
+    :global(h1, h2, h3, h4, h5) {
+      text-align: left;
+    }
 
-  :global(h5:hover > a.anchor),
-  :global(h4:hover > a.anchor),
-  :global(h3:hover > a.anchor),
-  :global(h2:hover > a.anchor),
-  :global(h1:hover > a.anchor) {
-    visibility: visible;
+    :global(h5 > a.anchor),
+    :global(h4 > a.anchor),
+    :global(h3 > a.anchor),
+    :global(h2 > a.anchor),
+    :global(h1 > a.anchor) {
+      visibility: hidden;
+    }
+
+    :global(h5:hover > a.anchor),
+    :global(h4:hover > a.anchor),
+    :global(h3:hover > a.anchor),
+    :global(h2:hover > a.anchor),
+    :global(h1:hover > a.anchor) {
+      visibility: visible;
+    }
   }
 </style>
