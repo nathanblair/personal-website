@@ -14,13 +14,6 @@
   /** @type {string} */
   export let article_class_list = ""
 
-  /**
-   * Parse the file name to strip out the date and title
-   */
-  function parse_blog_file_name() {
-    return id.split("-").slice(3).join(" ")
-  }
-
   const year = date[0]
   const month = date[1]
   const day = date[2]
@@ -38,9 +31,10 @@
 
   const card_class = full_article_shown ? "" : card_class_name
   const snippet_class_name = full_article_shown ? "" : "snippet"
+  const blog_page_title = id.split("-").slice(3).join(" ")
 
   document.title = full_article_shown
-    ? parse_blog_file_name()
+    ? blog_page_title
     : set_blog_page_default_title()
 
   if (full_article_shown) {
@@ -52,9 +46,11 @@
 <article {id} class="{card_class} {snippet_class_name} {article_class_list}">
   <header>
     <h1 class="article-date">{day} {month} {year}</h1>
-    <h2 class="article-title">{parse_blog_file_name()}</h2>
+    <h2 class="article-title">{blog_page_title}</h2>
   </header>
-  {@html content}
+  <div class={full_article_shown ? "" : "no-pointer-events"}>
+    {@html content}
+  </div>
   {#if !full_article_shown}
     <a href={id} target="_blank" class="overlay">Read More</a>
   {:else}
@@ -115,15 +111,19 @@
   }
 
   :global(blockquote) {
-    border-left: 10px solid #ccc;
+    border-left: 5px solid #ddd;
     border-radius: 4px;
     margin: 20px 0;
     padding: 0 20px;
-    color: #333;
+    color: #888;
+  }
+
+  :global(blockquote > p) {
+    padding: 8px 0;
   }
 
   :global(p) {
-    padding: 2vh 0;
+    padding: 1vh 0;
     line-height: 1.5;
   }
 
@@ -153,5 +153,27 @@
   :global(h2 > a),
   :global(h1 > a) {
     padding: 0 8px 0 0;
+  }
+
+  :global(.highlight > pre) {
+    background-color: rgba(246, 248, 250);
+    padding: 10px;
+    overflow-x: scroll;
+  }
+
+  :global(h5 > a.anchor),
+  :global(h4 > a.anchor),
+  :global(h3 > a.anchor),
+  :global(h2 > a.anchor),
+  :global(h1 > a.anchor) {
+    visibility: hidden;
+  }
+
+  :global(h5:hover > a.anchor),
+  :global(h4:hover > a.anchor),
+  :global(h3:hover > a.anchor),
+  :global(h2:hover > a.anchor),
+  :global(h1:hover > a.anchor) {
+    visibility: visible;
   }
 </style>

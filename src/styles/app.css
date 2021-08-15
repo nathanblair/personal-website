@@ -14,7 +14,8 @@ body {
 }
 html,
 body {
-  font-family: "Segoe UI", Verdana, sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Verdana,
+    Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* This will fall back fine for any non-webkit browsers */
