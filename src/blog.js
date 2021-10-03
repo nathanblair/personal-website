@@ -16,14 +16,16 @@ const cloud_host_blog_content_endpoint = `${cloud_host_endpoint}${content_path}`
  * type: "tree" | "blob",
  * sha: string,
  * url: string,
- * }} Tree
+ * }} Entry
  */
+
+/** @typedef {Array<Entry>} Tree */
 
 /**
  * @typedef {{
  *  sha: string,
  *  url: string,
- *  tree: Array<Tree>,
+ *  tree: Tree,
  * }} Payload
  */
 
@@ -58,21 +60,7 @@ export function default_filter() {
   return `${date.getFullYear()}/${month}`
 }
 
-/**
- * Fetch blog articles from the cloud host
- *
- * A filter can narrow results to a single year, a single month, or a single day
- * and should return them in a form of `${year}/${month}/${day}, omitting
- * whichever parameters are not needed
- *
- * To return articles for a time range, call this function appropriately over
- * the necessary range
- *
- * @param {() => string} filter
- *
- * @returns {AsyncGenerator<Article>}
- */
-export async function* fetch_blog_articles(filter) {
+export async function update_blog_timeline() {
   /** @type {Response} */
   let response
 
@@ -84,7 +72,7 @@ export async function* fetch_blog_articles(filter) {
     )
   } catch (err) {
     console.error(err)
-    return
+    return []
   }
 
   /** @type {Payload} */
@@ -93,15 +81,30 @@ export async function* fetch_blog_articles(filter) {
     body = await response.json()
   } catch (err) {
     console.error(err)
-    return
+    return []
   }
 
-  if (!Array.isArray(body.tree)) {
-    return
-  }
+  return Array.isArray(body.tree) ? body.tree : []
+}
 
+/**
+ * Fetch blog articles from the cloud host
+ *
+ * A filter can narrow results to a single year, a single month, or a single day
+ * and should return them in a form of `${year}/${month}/${day}, omitting
+ * whichever parameters are not needed
+ *
+ * To return articles for a time range, call this function appropriately over
+ * the necessary range
+ *
+ * @param {Tree} tree
+ * @param {() => string} filter
+ *
+ * @returns {AsyncGenerator<Article>}
+ */
+export async function* fetch_blog_articles(tree, filter) {
   const path = filter()
-  const articles = body.tree.filter((each_tree) => {
+  const articles = tree.filter((each_tree) => {
     return each_tree.path.indexOf(path) >= 0 && each_tree.type === "blob"
   })
 
