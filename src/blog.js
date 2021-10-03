@@ -1,6 +1,5 @@
 import { page_default_title } from "./constants.js"
 
-export const total_days = 31
 export const blog_placeholder_class_name = "blog-placeholder"
 
 const cloud_host_endpoint = "https://api.github.com"
@@ -33,6 +32,13 @@ const cloud_host_blog_content_endpoint = `${cloud_host_endpoint}${content_path}`
 
 /** @typedef {{file_name: string, date: ArticleDateArray, content: string}} Article */
 
+/** @param {Entry} each_entry */
+function is_valid_article(each_entry) {
+  return (
+    !isNaN(parseInt(each_entry.path.slice(0, 4))) && each_entry.type === "blob"
+  )
+}
+
 export const DateMap = Object.freeze({
   0: "January",
   1: "February",
@@ -60,7 +66,7 @@ export function default_filter() {
   return `${date.getFullYear()}/${month}`
 }
 
-export async function update_blog_timeline() {
+export async function fetch_blog_tree() {
   /** @type {Response} */
   let response
 
@@ -84,7 +90,9 @@ export async function update_blog_timeline() {
     return []
   }
 
-  return Array.isArray(body.tree) ? body.tree : []
+  if (!Array.isArray(body.tree)) return []
+
+  return body.tree.filter(is_valid_article)
 }
 
 /**
@@ -102,10 +110,9 @@ export async function update_blog_timeline() {
  *
  * @returns {AsyncGenerator<Article>}
  */
-export async function* fetch_blog_articles(tree, filter) {
-  const path = filter()
+export async function* fetch_blog_article_content(tree, filter) {
   const articles = tree.filter((each_tree) => {
-    return each_tree.path.indexOf(path) >= 0 && each_tree.type === "blob"
+    return each_tree.path.indexOf(filter()) >= 0
   })
 
   for (const each_article of articles) {
