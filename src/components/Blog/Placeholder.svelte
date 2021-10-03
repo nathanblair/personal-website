@@ -2,17 +2,11 @@
   import { blog_placeholder_class_name } from "../../blog.js"
   import { card_class_name } from "../../constants.js"
 
-  /** @type {string} */
-  export let id
-
   const skeleton_background_color_class_name = "skeleton-background-color"
   const skeleton_border_class_name = "skeleton-border"
 </script>
 
-<div
-  {id}
-  class="{card_class_name} {blog_placeholder_class_name} article-skeleton"
->
+<div class="{card_class_name} {blog_placeholder_class_name} article-skeleton">
   <header>
     <div
       class="h1-skeleton {skeleton_background_color_class_name} {skeleton_border_class_name}"

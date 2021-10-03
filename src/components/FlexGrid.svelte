@@ -1,12 +1,12 @@
 <script>
 </script>
 
-<div id="container">
+<div class="flex-grid">
   <slot />
 </div>
 
 <style>
-  #container {
+  .flex-grid {
     display: flex;
     align-items: start;
     justify-content: space-evenly;
