@@ -20,14 +20,15 @@
 
   /**
    * @param {import("../blog.js").Tree} tree
+   * @param {() => string} timeline_filter
    */
-  async function populate_blogs(tree) {
+  async function populate_blogs(tree, timeline_filter = default_filter) {
     const url_filter = window.location.pathname
       .split("/")[2]
       .split("-")
       .slice(0, 3)
       .join("/")
-    let filter = url_filter === "" ? default_filter : () => url_filter
+    let filter = url_filter === "" ? timeline_filter : () => url_filter
 
     for await (const each_article of fetch_blog_articles(tree, filter)) {
       const skeleton_id = get_skeleton_id(parseInt(each_article.date[2]))
@@ -76,7 +77,7 @@
 </script>
 
 {#await update_blog_timeline() then tree}
-  <BlogTimeline {tree} />
+  <BlogTimeline {tree} selection_applied_callback={populate_blogs} />
 {/await}
 
 <!-- <h2 id="blog-banner" /> -->
