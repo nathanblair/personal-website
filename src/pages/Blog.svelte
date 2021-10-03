@@ -6,6 +6,7 @@
   import {
     blog_placeholder_class_name,
     default_filter,
+    update_blog_timeline,
     fetch_blog_articles,
     set_blog_page_default_title,
     total_days,
@@ -17,7 +18,10 @@
     return "day-" + index
   }
 
-  async function populate_blogs() {
+  /**
+   * @param {import("../blog.js").Tree} tree
+   */
+  async function populate_blogs(tree) {
     const url_filter = window.location.pathname
       .split("/")[2]
       .split("-")
@@ -25,7 +29,7 @@
       .join("/")
     let filter = url_filter === "" ? default_filter : () => url_filter
 
-    for await (const each_article of fetch_blog_articles(filter)) {
+    for await (const each_article of fetch_blog_articles(tree, filter)) {
       const skeleton_id = get_skeleton_id(parseInt(each_article.date[2]))
       const anchor = document.getElementById(skeleton_id)
 
@@ -43,15 +47,13 @@
       anchor?.remove()
     }
 
-    const placeholders = document.querySelectorAll(
-      "." + blog_placeholder_class_name
-    )
-
-    placeholders.forEach(async (each_placeholder, _) => {
-      each_placeholder.classList.add(transition_opacity_class_name)
-      await new Promise((resolve) => setTimeout(resolve, ux_wait_time))
-      each_placeholder.remove()
-    })
+    document
+      .querySelectorAll("." + blog_placeholder_class_name)
+      .forEach(async (each_placeholder, _) => {
+        each_placeholder.classList.add(transition_opacity_class_name)
+        await new Promise((resolve) => setTimeout(resolve, ux_wait_time))
+        each_placeholder.remove()
+      })
 
     document.getElementById(location.hash.replace(/^#/, ""))?.scrollIntoView()
   }
@@ -69,12 +71,15 @@
   const ux_wait_time = 250
 
   set_blog_page_default_title()
-  populate_blogs()
+  // FIXME Populating the blogs needs to happen as a callback to a timeline selection being applied
+  // populate_blogs(tree)
 </script>
 
-<h2 id="blog-banner">
-  Blog timeline filter (and possibly search) coming toon!™
-</h2>
+{#await update_blog_timeline() then tree}
+  <BlogTimeline {tree} />
+{/await}
+
+<!-- <h2 id="blog-banner" /> -->
 
 {#if window.location.hash === ""}
   {#each month_days as each_day}
@@ -82,11 +87,9 @@
   {/each}
 {/if}
 
-<BlogTimeline />
-
 <style>
-  #blog-banner {
+  /* #blog-banner {
     padding: 2vh 4vw;
     text-align: center;
-  }
+  } */
 </style>
