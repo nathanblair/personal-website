@@ -19,7 +19,7 @@
 
   const line_stroke_width = 1
 
-  const entry_spacing = 15
+  const entry_spacing = 25
   const entry_stroke_width = 0.5
   const entry_width = 5
   const entry_height = 10
@@ -51,12 +51,12 @@
       <!-- TODO Along svg line element, insert clickable svg box elements -->
       <!-- for each blog entry -->
       <!-- Show the date of each blog entry above the clicable svg box elements -->
-      <!-- rx="2" -->
       <rect
         x={entry_spacing * each_index + entry_stroke_width / 2}
         y={entry_stroke_width}
         width={entry_width}
         height={entry_height}
+        rx="2"
         fill-opacity="0"
         stroke-width={entry_stroke_width}
         stroke="black"
@@ -75,6 +75,8 @@
     position: relative;
     /* max-width: 20%; */
     width: 100%;
+    padding: 0 2vw;
+    /* overflow-x: scroll; */
   }
 
   .timeline-graphic {
