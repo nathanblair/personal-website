@@ -1,18 +1,18 @@
 <script>
-  import HorizontalLayout from "../components/Layout_Horizontal.svelte"
+  import VerticalLayout from "../components/Layout_Vertical.svelte"
 
   import BlogArticle from "../components/Blog/Article.svelte"
   import BlogPlaceholder from "../components/Blog/Placeholder.svelte"
   import BlogTimeline from "../components/Blog/Timeline.svelte"
 
   import {
-    blog_placeholder_class_name,
     default_filter,
     fetch_blog_tree,
     fetch_blog_article_content,
     set_blog_page_default_title,
+    blog_placeholder_id,
   } from "../blog.js"
-  import { main_id, transition_opacity_class_name } from "../constants.js"
+  import { main_id } from "../constants.js"
 
   /**
    * @param {import("../blog.js").Tree} tree
@@ -25,11 +25,13 @@
       .slice(0, 3)
       .join("/")
     let filter = url_filter === "" ? timeline_filter : () => url_filter
+    const placeholder = document.getElementById(blog_placeholder_id)
 
     for await (const each_article of fetch_blog_article_content(tree, filter)) {
       new BlogArticle({
         target: document.getElementById(main_id) || document.body,
-        // anchor: anchor,
+        // @ts-ignore
+        anchor: placeholder,
         props: {
           blog_file_name: each_article.file_name,
           date: each_article.date,
@@ -38,21 +40,11 @@
       })
     }
 
-    document
-      .querySelectorAll("." + blog_placeholder_class_name)
-      .forEach(async (each_placeholder, _) => {
-        each_placeholder.classList.add(transition_opacity_class_name)
-        await new Promise((resolve) => setTimeout(resolve, ux_wait_time))
-        each_placeholder.remove()
-      })
-
-    document.getElementById(location.hash.replace(/^#/, ""))?.scrollIntoView()
+    placeholder?.remove()
   }
 
-  const max_placeholder_articles = 10
-  const ux_wait_time = 250
-
   set_blog_page_default_title()
+  document.getElementById(location.hash.replace(/^#/, ""))?.scrollIntoView()
 </script>
 
 <h2 id="blog-banner">
@@ -60,26 +52,18 @@
 </h2>
 
 {#if window.location.hash === ""}
-  <HorizontalLayout>
+  <VerticalLayout>
     {#await fetch_blog_tree() then tree}
       <BlogTimeline {tree} selection_applied_callback={populate_blogs} />
     {/await}
 
-    <div class="blog-list">
-      {#each Array.from({ length: max_placeholder_articles }) as _}
-        <BlogPlaceholder />
-      {/each}
-    </div>
-  </HorizontalLayout>
+    <BlogPlaceholder />
+  </VerticalLayout>
 {/if}
 
 <style>
-  /* #blog-banner {
+  #blog-banner {
     padding: 2vh 4vw;
     text-align: center;
-  } */
-  .blog-list {
-    margin: auto;
-    width: 100%;
   }
 </style>
