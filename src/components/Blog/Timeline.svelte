@@ -16,26 +16,71 @@
 
     selection_applied_callback(tree, filter)
   }
+
+  const line_stroke_width = 1
+
+  const entry_spacing = 15
+  const entry_stroke_width = 0.5
+  const entry_width = 5
+  const entry_height = 10
+
+  const timeline_viewbox_width = 100
+  const timeline_viewbox_height = entry_height + entry_stroke_width * 2
+
+  // on:click={apply_timeline_filter}
 </script>
 
-<div class="timeline-button">
+<div class="timeline-collapser-toggle">
   <!--  -->
 </div>
 
 <div class="timeline">
-  {#each tree as each_entry}
-    <div on:click={apply_timeline_filter}>{each_entry.path}</div>
-  {/each}
+  <svg
+    viewBox={`0 0 ${timeline_viewbox_width} ${timeline_viewbox_height}`}
+    class="timeline-graphic"
+  >
+    <line
+      x1="0"
+      y1={timeline_viewbox_height / 2}
+      x2="100"
+      y2={timeline_viewbox_height / 2}
+      stroke="black"
+      stroke-width={line_stroke_width}
+    />
+    {#each tree as _each_entry, each_index}
+      <!-- TODO Along svg line element, insert clickable svg box elements -->
+      <!-- for each blog entry -->
+      <!-- Show the date of each blog entry above the clicable svg box elements -->
+      <!-- rx="2" -->
+      <rect
+        x={entry_spacing * each_index + entry_stroke_width / 2}
+        y={entry_stroke_width}
+        width={entry_width}
+        height={entry_height}
+        fill-opacity="0"
+        stroke-width={entry_stroke_width}
+        stroke="black"
+      />
+      <!-- <text x={entry_spacing * each_index}>{each_entry.path}</text> -->
+    {/each}
+  </svg>
 </div>
 
 <style>
-  @media only screen and (min-width: 600px) {
-    .timeline-button {
-      position: absolute;
-    }
+  /* .timeline-collapser-toggle {
+    position: absolute;
+  } */
 
-    .timeline {
-      max-width: 20%;
-    }
+  .timeline {
+    position: relative;
+    /* max-width: 20%; */
+    width: 100%;
+  }
+
+  .timeline-graphic {
+    display: block;
+  }
+
+  @media only screen and (min-width: 600px) {
   }
 </style>

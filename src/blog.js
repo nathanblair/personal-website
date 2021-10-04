@@ -1,6 +1,7 @@
 import { page_default_title } from "./constants.js"
 
 export const blog_placeholder_class_name = "blog-placeholder"
+export const blog_placeholder_id = "blog-placeholder"
 
 const cloud_host_endpoint = "https://api.github.com"
 const tree_path = "/repos/nathanblair/blog/git/trees/default"
