@@ -24,7 +24,8 @@
   const entry_width = 5
   const entry_height = 10
 
-  const timeline_viewbox_width = 100
+  const timeline_viewbox_width =
+    tree.length * (entry_width + entry_spacing) - entry_spacing
   const timeline_viewbox_height = entry_height + entry_stroke_width * 2
 
   // on:click={apply_timeline_filter}
