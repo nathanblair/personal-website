@@ -21,11 +21,11 @@
 
   const entry_spacing = 25
   const entry_stroke_width = 0.5
-  const entry_width = 5
-  const entry_height = 10
+  const entry_width = 2
+  const entry_height = 5
 
   const timeline_viewbox_width =
-    tree.length * (entry_width + entry_spacing) - entry_spacing
+    tree.length * entry_width + (tree.length - 1) * entry_spacing
   const timeline_viewbox_height = entry_height + entry_stroke_width * 2
 
   // on:click={apply_timeline_filter}
@@ -38,12 +38,15 @@
 <div class="timeline">
   <svg
     viewBox={`0 0 ${timeline_viewbox_width} ${timeline_viewbox_height}`}
+    width={`${
+      timeline_viewbox_width * (document.documentElement.clientWidth / 100)
+    }px`}
     class="timeline-graphic"
   >
     <line
       x1="0"
       y1={timeline_viewbox_height / 2}
-      x2="100"
+      x2={timeline_viewbox_width}
       y2={timeline_viewbox_height / 2}
       stroke="black"
       stroke-width={line_stroke_width}
@@ -73,11 +76,10 @@
   } */
 
   .timeline {
-    position: relative;
-    /* max-width: 20%; */
-    width: 100%;
-    padding: 0 2vw;
-    /* overflow-x: scroll; */
+    /* position: relative; */
+    /* width: 100%; */
+    margin: 0 2vw;
+    overflow-x: scroll;
   }
 
   .timeline-graphic {
