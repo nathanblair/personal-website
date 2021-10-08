@@ -34,14 +34,14 @@
   const timeline_max_height = 300
 
   const entry_spacing = 25
-  const entry_stroke_width = 0.5
-  const entry_width = 2
-  const entry_height = 5
-  const text_padding = 1
+  const entry_stroke_width = 0
+  const entry_radius = 1.5
+  const horizontal_text_padding = 0
+  const vertical_text_padding = 0.25
 
   const timeline_viewbox_width =
-    (tree.length - 1) * entry_spacing + entry_width + entry_stroke_width
-  const timeline_viewbox_height = entry_height + entry_stroke_width * 2
+    (tree.length - 1) * entry_spacing + 2 * entry_radius + entry_stroke_width
+  const timeline_viewbox_height = entry_radius + entry_stroke_width * 2
 
   // on:click={apply_timeline_filter}
 </script>
@@ -68,29 +68,29 @@
       stroke-width={line_stroke_width}
     />
     {#each tree as each_entry, each_index}
-      <rect
-        x={entry_spacing * each_index + entry_stroke_width / 2}
-        y={entry_stroke_width}
-        width={entry_width}
-        height={entry_height}
-        rx="2"
-        fill-opacity="0"
+      <circle
+        cx={each_index * entry_spacing + entry_radius}
+        cy={timeline_viewbox_height / 2}
+        r={entry_radius}
         stroke-width={entry_stroke_width}
-        stroke="black"
-      />
-      <text
-        x={entry_spacing * each_index}
-        y={text_padding + entry_stroke_width / 2}
-        transform={`rotate(${label_rotation}, ${
-          each_index * entry_spacing
-        }, ${text_padding})`}
         fill="black"
-      >
-        <tspan x={entry_spacing * each_index} class="timeline-date"
-          >{extract_date(each_entry.path)}</tspan
+      />
+      <!-- transform={`rotate(${label_rotation}, ${
+        each_index * entry_spacing + entry_radius
+      }, ${timeline_viewbox_height / 2 - text_vertical_padding})`} -->
+      <text y={vertical_text_padding} fill="black">
+        <tspan
+          x={each_index * entry_spacing +
+            2 * entry_radius +
+            horizontal_text_padding}
+          class="timeline-date">{extract_date(each_entry.path)}</tspan
         >
-        <tspan x={entry_spacing * each_index} dy="1.3em" class="timeline-title"
-          >{extract_title(each_entry.path)}</tspan
+        <tspan
+          x={each_index * entry_spacing +
+            2 * entry_radius +
+            horizontal_text_padding}
+          dy="1.3em"
+          class="timeline-title">{extract_title(each_entry.path)}</tspan
         >
       </text>
     {/each}
