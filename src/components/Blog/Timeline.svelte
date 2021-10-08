@@ -27,6 +27,8 @@
     return tree_path.split("/")[3].split("-").join(" ").split(".").slice(0, -1)
   }
 
+  const label_rotation = -60
+
   const line_stroke_width = 1
 
   const timeline_max_height = 300
@@ -66,9 +68,6 @@
       stroke-width={line_stroke_width}
     />
     {#each tree as each_entry, each_index}
-      <!-- TODO Along svg line element, insert clickable svg box elements -->
-      <!-- for each blog entry -->
-      <!-- Show the date of each blog entry above the clicable svg box elements -->
       <rect
         x={entry_spacing * each_index + entry_stroke_width / 2}
         y={entry_stroke_width}
@@ -82,11 +81,17 @@
       <text
         x={entry_spacing * each_index}
         y={text_padding + entry_stroke_width / 2}
-        transform={`rotate(-5, ${entry_spacing * each_index}, ${text_padding})`}
+        transform={`rotate(${label_rotation}, ${
+          each_index * entry_spacing
+        }, ${text_padding})`}
         fill="black"
       >
-        <tspan>{extract_date(each_entry.path)}</tspan>
-        <tspan>{extract_title(each_entry.path)}</tspan>
+        <tspan x={entry_spacing * each_index} class="timeline-date"
+          >{extract_date(each_entry.path)}</tspan
+        >
+        <tspan x={entry_spacing * each_index} dy="1.3em" class="timeline-title"
+          >{extract_title(each_entry.path)}</tspan
+        >
       </text>
     {/each}
   </svg>
@@ -98,8 +103,6 @@
   } */
 
   .timeline {
-    /* position: relative; */
-    /* width: 100%; */
     margin: 0 2vw;
     overflow-x: scroll;
   }
