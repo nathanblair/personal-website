@@ -107,13 +107,13 @@ export async function fetch_blog_tree() {
  * the necessary range
  *
  * @param {Tree} tree
- * @param {() => string} filter
+ * @param {string} filter
  *
  * @returns {AsyncGenerator<Article>}
  */
 export async function* fetch_blog_article_content(tree, filter) {
   const articles = tree.filter((each_tree) => {
-    return each_tree.path.indexOf(filter()) >= 0
+    return each_tree.path.indexOf(filter) >= 0
   })
 
   for (const each_article of articles) {

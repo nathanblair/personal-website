@@ -1,6 +1,7 @@
 export const page_default_title = "Nathan Blair"
 export const main_id = "main"
 
+export const pointer_class_name = "pointer"
 export const card_class_name = "card"
 export const animation_gradient_class_name = "animation-background-gradient"
 

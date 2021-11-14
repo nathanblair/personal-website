@@ -16,15 +16,15 @@
 
   /**
    * @param {import("../blog.js").Tree} tree
-   * @param {() => string} timeline_filter
+   * @param {string} timeline_filter
    */
-  async function populate_blogs(tree, timeline_filter = default_filter) {
+  async function populate_blogs(tree, timeline_filter = default_filter()) {
     const url_filter = location.pathname
       .split("/")[2]
       .split("-")
       .slice(0, 3)
       .join("/")
-    let filter = url_filter === "" ? timeline_filter : () => url_filter
+    let filter = url_filter === "" ? timeline_filter : url_filter
     const placeholder = document.getElementById(blog_placeholder_id)
 
     for await (const each_article of fetch_blog_article_content(tree, filter)) {
@@ -43,21 +43,22 @@
     placeholder?.remove()
   }
 
-  set_blog_page_default_title()
-  document.getElementById(location.hash.replace(/^#/, ""))?.scrollIntoView()
+  document.title = set_blog_page_default_title()
+  const hash = location.hash.replace(/^#/, "")
+  if (hash != "" && hash != null && hash != undefined)
+    document.getElementById(hash)?.scrollIntoView()
 </script>
 
 <h2 id="blog-banner">
   <!--  -->
 </h2>
 
+<!-- <BlogPlaceholder /> -->
 {#if window.location.hash === ""}
   <VerticalLayout>
     {#await fetch_blog_tree() then tree}
       <BlogTimeline {tree} selection_applied_callback={populate_blogs} />
     {/await}
-
-    <BlogPlaceholder />
   </VerticalLayout>
 {/if}
 

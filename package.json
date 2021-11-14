@@ -3,7 +3,7 @@
     "dev": "rollup -c --environment PUBLIC:public -w",
     "build": "rollup -c --environment PUBLIC:public",
     "build:prod": "rollup -c --environment PUBLIC:public --environment PRODUCTION",
-    "start": "npx firebase-tools emulators:start"
+    "start": "npx -y firebase-tools emulators:start"
   },
   "devDependencies": {
     "@rollup/plugin-dynamic-import-vars": "^1.1.1",

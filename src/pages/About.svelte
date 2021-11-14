@@ -1,5 +1,7 @@
 <script>
-  document.title = document.title + " | About"
+  import { page_default_title } from "../constants.js"
+
+  document.title = page_default_title + " | About"
 </script>
 
 <article>
