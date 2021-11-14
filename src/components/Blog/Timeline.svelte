@@ -1,20 +1,25 @@
 <script>
+  import { pointer_class_name } from "../../constants.js"
+
   /** @type {import("../../blog.js").Tree}*/
   export let tree
 
-  /** @type {(tree: import("../../blog.js").Tree, filter: () => string) => Promise<void>}*/
+  /** @type {(tree: import("../../blog.js").Tree, filter: string) => Promise<void>}*/
   export let selection_applied_callback
 
   /**
    * @param {MouseEvent} e
    */
   function apply_timeline_filter(e) {
-    console.log(e)
-    // FIXME Use the context of the click action to get the string to pass as the filter
-    // and also consider removing that the filter is a function?
-    const filter = () => ""
+    /** @type {HTMLElement} */
+    // @ts-ignore
+    const text_element = e.currentTarget
+    const date =
+      text_element.getElementsByClassName(timeline_date_name)[0].textContent
+    const title =
+      text_element.getElementsByClassName(timeline_title_name)[0].textContent
 
-    selection_applied_callback(tree, filter)
+    selection_applied_callback(tree, date || "")
   }
 
   /** @param {string} tree_path */
@@ -39,11 +44,12 @@
   // FIXME Implement the spacing calculation
   // And set up the viewBox, width, and height dynamically using the child element sizes
 
-  const label_rotation = -60
+  const timeline_date_name = "timeline-date"
+  const timeline_title_name = "timeline-title"
 
   const line_stroke_width = 1
 
-  const timeline_max_height = 100
+  const timeline_max_height = "100"
 
   const entry_spacing = 25
   const entry_stroke_width = 0
@@ -53,17 +59,11 @@
   const text_line_spacing_factor = 2.5
 
   const timeline_viewbox_width =
-    (tree.length - 1) * entry_spacing + 2 * entry_radius + entry_stroke_width
+    tree.length * entry_spacing + 2 * entry_radius + entry_stroke_width
   const timeline_viewbox_height = entry_radius + entry_stroke_width * 2
 
   const line_y = timeline_viewbox_height
-
-  // on:click={apply_timeline_filter}
 </script>
-
-<div class="timeline-collapser-toggle">
-  <!--  -->
-</div>
 
 <div class="timeline">
   <svg
@@ -90,22 +90,24 @@
         stroke-width={entry_stroke_width}
         fill="black"
       />
-      <!-- transform={`rotate(${label_rotation}, ${
-        each_index * entry_spacing + entry_radius
-      }, 0)`} -->
-      <text y={line_y - vertical_text_padding} fill="black">
+      <text
+        y={line_y - vertical_text_padding}
+        fill="black"
+        class={pointer_class_name}
+        on:click={apply_timeline_filter}
+      >
         <tspan
           x={each_index * entry_spacing +
             2 * entry_radius +
             horizontal_text_padding}
-          class="timeline-date">{extract_date(each_entry.path)}</tspan
+          class={timeline_date_name}>{extract_date(each_entry.path)}</tspan
         >
         <tspan
           x={each_index * entry_spacing +
             2 * entry_radius +
             horizontal_text_padding}
           dy={text_line_spacing_factor}
-          class="timeline-title">{extract_title(each_entry.path)}</tspan
+          class={timeline_title_name}>{extract_title(each_entry.path)}</tspan
         >
       </text>
     {/each}

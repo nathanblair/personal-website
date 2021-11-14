@@ -7,8 +7,9 @@
   import CourseList from "../components/Resume/CourseList.svelte"
 
   import FlexGrid from "../components/FlexGrid.svelte"
+  import { page_default_title } from "../constants.js"
 
-  document.title = document.title + " | Resumé"
+  document.title = page_default_title + " | Resumé"
 
   const current_year = new Date().getFullYear()
 </script>
