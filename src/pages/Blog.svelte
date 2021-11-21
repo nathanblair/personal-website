@@ -3,6 +3,7 @@
   import BlogTimeline from "../components/Blog/Timeline.svelte"
 
   import { fetch_blog_tree, set_blog_page_default_title } from "../blog.js"
+  import { onMount } from "svelte"
 
   /**
    * @param {string} path
@@ -20,10 +21,13 @@
     })
   }
 
+  onMount(() => {
+    const hash = location.hash.replace(/^#/, "")
+    if (hash != "" && hash != null && hash != undefined)
+      document.getElementById(hash)?.scrollIntoView()
+  })
+
   document.title = set_blog_page_default_title()
-  const hash = location.hash.replace(/^#/, "")
-  if (hash != "" && hash != null && hash != undefined)
-    document.getElementById(hash)?.scrollIntoView()
   const article_id = location.pathname.slice("/blog/".length)
 </script>
 
