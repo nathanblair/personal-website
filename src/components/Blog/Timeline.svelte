@@ -1,35 +1,20 @@
 <script>
+  import { extract_date, extract_title } from "../../blog.js"
+
   import { pointer_class_name } from "../../constants.js"
 
   /** @type {import("../../blog.js").Tree}*/
   export let tree
 
-  /** @type {(tree: import("../../blog.js").Tree, filter: string) => Promise<void>}*/
+  /** @type {(path: string) => Promise<void>}*/
   export let selection_applied_callback
 
   /**
    * @param {MouseEvent} e
    */
-  function apply_timeline_filter(e) {
-    /** @type {HTMLElement} */
+  function timeline_entry_clicked(e) {
     // @ts-ignore
-    const text_element = e.currentTarget
-    const date =
-      text_element.getElementsByClassName(timeline_date_name)[0].textContent
-    const title =
-      text_element.getElementsByClassName(timeline_title_name)[0].textContent
-
-    selection_applied_callback(tree, date || "")
-  }
-
-  /** @param {string} tree_path */
-  function extract_date(tree_path) {
-    return tree_path.split("/", 3).join("/")
-  }
-
-  /** @param {string} tree_path */
-  function extract_title(tree_path) {
-    return tree_path.split("/")[3].split("-").join(" ").split(".").slice(0, -1)
+    selection_applied_callback(e.currentTarget?.id)
   }
 
   /**
@@ -91,10 +76,11 @@
         fill="black"
       />
       <text
+        id={each_entry.path}
         y={line_y - vertical_text_padding}
         fill="black"
         class={pointer_class_name}
-        on:click={apply_timeline_filter}
+        on:click={timeline_entry_clicked}
       >
         <tspan
           x={each_index * entry_spacing +
@@ -117,7 +103,8 @@
 <style>
   .timeline {
     margin: 0 2vw;
-    overflow: auto;
+    overflow-x: auto;
+    flex-shrink: 0;
   }
 
   .timeline-graphic {

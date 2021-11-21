@@ -1,56 +1,50 @@
 <script>
-  import { set_blog_page_default_title } from "../../blog.js"
+  import {
+    extract_date,
+    extract_title,
+    fetch_blog_article_content,
+    set_blog_page_default_title,
+  } from "../../blog.js"
   import { card_class_name } from "../../constants.js"
 
   /** @type {string} */
-  export let blog_file_name
-
-  /** @type {import("../../blog.js").ArticleDateArray} */
-  export let date
-
-  /** @type {string} */
-  export let content
+  export let id
 
   /** @type {string} */
   export let article_class_list = ""
 
-  const year = date[0]
-  const month = date[1]
-  const day = date[2]
+  /** @type {HTMLDivElement} */
+  let content_area
 
-  const id =
-    year +
-    "-" +
-    month +
-    "-" +
-    day +
-    "-" +
-    blog_file_name.replace(/.html|.md/, "")
+  const title = extract_title(id)
+  const date = extract_date(id)
 
-  const full_article_shown = window.location.pathname.split("/")[2] !== ""
+  const full_article_shown = location.pathname.split("/")[2] !== ""
 
   const card_class = full_article_shown ? "" : card_class_name
   const snippet_class_name = full_article_shown ? "" : "snippet"
-  const blog_page_title = id.split("-").slice(3).join(" ")
 
-  document.title = full_article_shown
-    ? blog_page_title
-    : set_blog_page_default_title()
+  document.title = full_article_shown ? title : set_blog_page_default_title()
 
   if (full_article_shown) {
     document.head.innerHTML +=
       "<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css' rel='stylesheet'/>"
   }
+
+  fetch_blog_article_content(id).then((article) => {
+    content_area.innerHTML = article.content
+  })
 </script>
 
 <article {id} class="{card_class} {snippet_class_name} {article_class_list}">
   <header>
-    <h1 class="article-date">{day} {month} {year}</h1>
-    <h2 class="article-title">{blog_page_title}</h2>
+    <h1 class="article-date">{date}</h1>
+    <h2 class="article-title">{title}</h2>
   </header>
-  <div class={full_article_shown ? "" : "no-pointer-events"}>
-    {@html content}
-  </div>
+  <div
+    bind:this={content_area}
+    class={full_article_shown ? "" : "no-pointer-events"}
+  />
   {#if !full_article_shown}
     <a href={id} target="_blank" class="overlay">Read More</a>
   {:else}
@@ -106,7 +100,6 @@
   }
 
   .snippet {
-    max-height: 35vh;
     overflow: hidden;
   }
 

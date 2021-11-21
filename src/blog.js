@@ -1,8 +1,5 @@
 import { page_default_title } from "./constants.js"
 
-export const blog_placeholder_class_name = "blog-placeholder"
-export const blog_placeholder_id = "blog-placeholder"
-
 const cloud_host_endpoint = "https://api.github.com"
 const tree_path = "/repos/nathanblair/blog/git/trees/default"
 const content_path = "/repos/nathanblair/blog/contents/"
@@ -29,9 +26,7 @@ const cloud_host_blog_content_endpoint = `${cloud_host_endpoint}${content_path}`
  * }} Payload
  */
 
-/** @typedef {[string, string, string]} ArticleDateArray */
-
-/** @typedef {{file_name: string, date: ArticleDateArray, content: string}} Article */
+/** @typedef {{title: string, date: Array<string>, content: string}} Article */
 
 /** @param {Entry} each_entry */
 function is_valid_article(each_entry) {
@@ -59,12 +54,14 @@ export function set_blog_page_default_title() {
   return page_default_title + " | Blog"
 }
 
-export function default_filter() {
-  const date = new Date()
-  // @ts-ignore
-  const month = DateMap[date.getMonth()]
+/** @param {string} tree_path */
+export function extract_date(tree_path) {
+  return tree_path.split("/", 3).join("/")
+}
 
-  return `${date.getFullYear()}/${month}`
+/** @param {string} tree_path */
+export function extract_title(tree_path) {
+  return tree_path.split("/")[3].split("-").join(" ").split(".").slice(0, -1)[0]
 }
 
 export async function fetch_blog_tree() {
@@ -106,46 +103,31 @@ export async function fetch_blog_tree() {
  * To return articles for a time range, call this function appropriately over
  * the necessary range
  *
- * @param {Tree} tree
- * @param {string} filter
+ * @param {string} path
  *
- * @returns {AsyncGenerator<Article>}
+ * @returns {Promise<Article>}
  */
-export async function* fetch_blog_article_content(tree, filter) {
-  const articles = tree.filter((each_tree) => {
-    return each_tree.path.indexOf(filter) >= 0
-  })
+export async function fetch_blog_article_content(path) {
+  const accept_header = path.endsWith(".md")
+    ? "application/vnd.github.VERSION.html"
+    : "application/vnd.github.VERSION.raw"
 
-  for (const each_article of articles) {
-    /** @type {ArticleDateArray} */
-    // @ts-ignore
-    const date_array = each_article.path.split("/")
-    date_array.pop()
+  let article_api_response
+  try {
+    article_api_response = await fetch(
+      `${cloud_host_blog_content_endpoint}${path}`,
+      {
+        headers: new Headers({ accept: accept_header }),
+      }
+    )
+  } catch (error) { }
 
-    const file_name = each_article.path.split("/").pop() || each_article.path
+  const content = (await article_api_response?.text()) || ""
+  const sanitized_content = content.replaceAll(/ id="user-content-/g, ' id="')
 
-    const accept_header = each_article.path.endsWith(".md")
-      ? "application/vnd.github.VERSION.html"
-      : "application/vnd.github.VERSION.raw"
-
-    let article_api_response
-    try {
-      article_api_response = await fetch(
-        cloud_host_blog_content_endpoint + each_article.path,
-        {
-          headers: new Headers({ accept: accept_header }),
-        }
-      )
-    } catch (error) {}
-
-    const content = (await article_api_response?.text()) || ""
-    const sanitized_content = content.replaceAll(/ id="user-content-/g, ' id="')
-
-    yield {
-      date: date_array,
-      file_name: file_name,
-      content: sanitized_content,
-    }
+  return {
+    date: path.split("/").slice(0, 2),
+    title: path.split("/").pop()?.split("-").slice(3).join(" ") || path,
+    content: sanitized_content,
   }
-  return
 }
