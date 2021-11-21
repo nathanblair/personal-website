@@ -1,5 +1,5 @@
 <script>
-  import { extract_date, extract_title } from "../../blog.js"
+  import { DateMap, extract_date, extract_title } from "../../blog.js"
 
   import { pointer_class_name } from "../../constants.js"
 
@@ -24,6 +24,37 @@
    */
   function calculate_spacing(index, spacing, radius) {
     return index * spacing + radius
+  }
+
+  /**
+   * @param {import("../../blog.js").Entry} a
+   * @param {import("../../blog.js").Entry} b
+   */
+  function reverse_chronological_compare(a, b) {
+    const a_date = a.path.split("/", 3)
+    const b_date = b.path.split("/", 3)
+
+    const a_new_date = new Date(
+      parseInt(a_date[0]),
+      // @ts-ignore
+      DateMap[a_date[1]],
+      parseInt(a_date[2])
+    )
+    const b_new_date = new Date(
+      parseInt(b_date[0]),
+      // @ts-ignore
+      DateMap[b_date[1]],
+      parseInt(b_date[2])
+    )
+
+    switch (true) {
+      case a_new_date < b_new_date:
+        return 1
+      case a_new_date > b_new_date:
+        return -1
+      default:
+        return 0
+    }
   }
 
   // FIXME Implement the spacing calculation
@@ -67,7 +98,7 @@
       stroke="black"
       stroke-width={line_stroke_width}
     />
-    {#each tree as each_entry, each_index}
+    {#each tree.sort(reverse_chronological_compare) as each_entry, each_index}
       <circle
         cx={calculate_spacing(each_index, entry_spacing, entry_radius)}
         cy={line_y}
