@@ -24,18 +24,19 @@
   const hash = location.hash.replace(/^#/, "")
   if (hash != "" && hash != null && hash != undefined)
     document.getElementById(hash)?.scrollIntoView()
+  const article_id = location.pathname.slice("/blog/".length)
 </script>
 
 <h2 id="blog-banner">
   <!--  -->
 </h2>
 
-{#if location.pathname === "/blog/"}
+{#if article_id === ""}
   {#await fetch_blog_tree() then tree}
     <BlogTimeline {tree} selection_applied_callback={preview_blog} />
   {/await}
 {:else}
-  <BlogArticle id={location.pathname} />
+  <BlogArticle id={article_id} />
 {/if}
 
 <style>
