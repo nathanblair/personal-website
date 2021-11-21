@@ -33,6 +33,9 @@
 
   fetch_blog_article_content(id).then((article) => {
     content_area.innerHTML = article.content
+    const hash = location.hash.replace(/^#/, "")
+    if (hash != "" && hash != null && hash != undefined)
+      document.getElementById(hash)?.scrollIntoView()
   })
 </script>
 
