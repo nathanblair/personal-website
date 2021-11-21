@@ -1,46 +1,23 @@
 <script>
-  import VerticalLayout from "../components/Layout_Vertical.svelte"
-
   import BlogArticle from "../components/Blog/Article.svelte"
-  import BlogPlaceholder from "../components/Blog/Placeholder.svelte"
   import BlogTimeline from "../components/Blog/Timeline.svelte"
 
-  import {
-    default_filter,
-    fetch_blog_tree,
-    fetch_blog_article_content,
-    set_blog_page_default_title,
-    blog_placeholder_id,
-  } from "../blog.js"
-  import { main_id } from "../constants.js"
+  import { fetch_blog_tree, set_blog_page_default_title } from "../blog.js"
 
   /**
-   * @param {import("../blog.js").Tree} tree
-   * @param {string} timeline_filter
+   * @param {string} path
    */
-  async function populate_blogs(tree, timeline_filter = default_filter()) {
-    const url_filter = location.pathname
-      .split("/")[2]
-      .split("-")
-      .slice(0, 3)
-      .join("/")
-    let filter = url_filter === "" ? timeline_filter : url_filter
-    const placeholder = document.getElementById(blog_placeholder_id)
-
-    for await (const each_article of fetch_blog_article_content(tree, filter)) {
-      new BlogArticle({
-        target: document.getElementById(main_id) || document.body,
-        // @ts-ignore
-        anchor: placeholder,
-        props: {
-          blog_file_name: each_article.file_name,
-          date: each_article.date,
-          content: each_article.content,
-        },
-      })
+  async function preview_blog(path) {
+    for (const each_article of document.getElementsByTagName("article")) {
+      each_article.remove()
     }
 
-    placeholder?.remove()
+    new BlogArticle({
+      target: document.getElementById("main") || document.body,
+      props: {
+        id: path,
+      },
+    })
   }
 
   document.title = set_blog_page_default_title()
@@ -53,13 +30,12 @@
   <!--  -->
 </h2>
 
-<!-- <BlogPlaceholder /> -->
-{#if window.location.hash === ""}
-  <VerticalLayout>
-    {#await fetch_blog_tree() then tree}
-      <BlogTimeline {tree} selection_applied_callback={populate_blogs} />
-    {/await}
-  </VerticalLayout>
+{#if location.pathname === "/blog/"}
+  {#await fetch_blog_tree() then tree}
+    <BlogTimeline {tree} selection_applied_callback={preview_blog} />
+  {/await}
+{:else}
+  <BlogArticle id={location.pathname} />
 {/if}
 
 <style>
