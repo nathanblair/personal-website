@@ -1,5 +1,5 @@
 name = "personal-website"
-pages_build_output_dir = "public"
+pages_build_output_dir = ".svelte-kit/cloudflare"
 compatibility_date = "2023-08-20"
 
 [env]
