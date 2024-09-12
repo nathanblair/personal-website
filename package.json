@@ -1,27 +1,24 @@
 {
-  "scripts": {
-    "dev": "rollup -c --environment PUBLIC:public -w",
-    "build": "rollup -c --environment PUBLIC:public",
-    "build:prod": "rollup -c --environment PUBLIC:public --environment PRODUCTION",
-    "start": "npx -y firebase-tools emulators:start"
-  },
-  "devDependencies": {
-    "@rollup/plugin-dynamic-import-vars": "^1.1.1",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@types/node": "^14.14.37",
-    "autoprefixer": "^10.2.5",
-    "github-syntax-light": "^0.5.0",
-    "postcss": "^8.2.10",
-    "rollup": "^2.40.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-scss": "^3.0.0-rc1",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "sass": "^1.32.8",
-    "sirv-cli": "^1.0.0",
-    "svelte": "^3.35.0",
-    "svelte-preprocess": "^4.6.9",
-    "uuid": "^8.3.2"
-  }
+	"name": "website",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+		"lint": "prettier --check .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-cloudflare": "^4.7.2",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"svelte": "^5.0.0-next.1",
+		"svelte-check": "^4.0.0",
+		"vite": "^5.0.3"
+	},
+	"type": "module"
 }

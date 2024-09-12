@@ -1,0 +1,15 @@
+.display-flex {
+  display: flex !important;
+}
+
+.display-inline-flex {
+  display: inline-flex !important;
+}
+
+.flex-justify-center {
+  justify-content: center !important;
+}
+
+.flex-align-center {
+  align-items: center !important;
+}
