@@ -5,13 +5,18 @@
   --light-text-background: #000;
   --dark-text-background: #fff;
 
-  --text-foreground: var(--light-text-foreground);
+  --text-foreground: var(--dark-text-foreground);
   --text-background: var(--light-text-background);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-foreground: var(--dark-text-foreground);
+    --text-foreground: var(--light-text-foreground);
     --text-background: var(--light-text-background);
   }
+}
+
+* {
+  color: var(--text-foreground);
+  background-color: var(--text-background);
 }

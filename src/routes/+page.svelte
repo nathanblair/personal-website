@@ -4,17 +4,25 @@
 
 <header>
 	<h1>{name}</h1>
+
+	<p>I am a <strong>tinkerer</strong>,</p>
+
+	<p>a <strong>thinker</strong>,</p>
+
+	<p>a <strong>teacher</strong>,</p>
+
+	<p>I am an <em>engineer</em>.</p>
 </header>
 
-<p>I am a <strong>tinkerer</strong>,</p>
-
-<p>a <strong>thinker</strong>,</p>
-
-<p>a <strong>teacher</strong>,</p>
-
-<p>I am an <em>engineer</em>.</p>
-
 <style>
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+
 	h1 {
 		font-size: 2em;
 		padding: 20px 0;

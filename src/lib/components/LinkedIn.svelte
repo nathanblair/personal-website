@@ -19,7 +19,7 @@
 	}
 
 	.background {
-		fill: var(--text-background);
+		fill: transparent;
 	}
 
 	.foreground {

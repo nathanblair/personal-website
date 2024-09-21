@@ -16,9 +16,7 @@
 		</h3>
 	</section>
 
-	<h4 id="objective">
-		Systems and Containerization enthusiast seeking position in Software Development
-	</h4>
+	<h4 id="objective">Jack of all trades; Master of some.</h4>
 </header>
 
 <aside>
@@ -32,41 +30,6 @@
 		</h5>
 		<h4>B.S. Materials Science and Engineering</h4>
 		<h4>B.S. Mechanical Engineering</h4>
-	</article>
-
-	<article id="skills">
-		<h1>Technical Skills</h1>
-		<h2>Languages</h2>
-		<div>
-			<code class="dotted">Go</code>
-			<code class="dotted">Rust</code>
-			<code class="dotted">Python</code>
-			<code class="dotted">JavaScript/TypeScript</code>
-		</div>
-		<h2>Frameworks</h2>
-		<div>
-			<code class="dotted">NodeJS</code>
-			<code class="dotted">Svelte/Kit</code>
-			<code class="dotted">ReactJS/Native</code>
-		</div>
-		<h2>Tools</h2>
-		<div>
-			<code class="dotted">docker</code>
-			<code class="dotted">kubernetes</code>
-			<code class="dotted">ansible</code>
-			<code class="dotted">terraform</code>
-		</div>
-		<h2>Platforms</h2>
-		<div>
-			<code class="dotted">AWS</code>
-			<code class="dotted">Azure</code>
-			<code class="dotted">Embedded (Raspberry Pi)</code>
-		</div>
-		<h2>Programs/Apps</h2>
-		<div>
-			<code class="dotted">GitHub</code>
-			<code class="dotted">Azure DevOps</code>
-		</div>
 	</article>
 </aside>
 
@@ -83,9 +46,92 @@
 		</h4>
 		<ul>
 			<li>
-				Provisioned entire company Azure presence with
-				<code>Terraform</code>
+				Provisioned Azure cloud resources to back customer portal (including Azure App Services,
+				Container Apps, Azure SQL Managed Instances, et al.)
 			</li>
+			<li>
+				Guided technical team on cloud architecture fundamentals and leveraging Azure resources to
+				minimize developer work
+			</li>
+			<li>
+				Facilitated onboarding of 4 new companies and their IT/Operations teams into existing tech
+				team under direction of CTO
+			</li>
+		</ul>
+	</section>
+
+	<section class="workplace">
+		<h2 class="workplace-name piped">Siemens (EDA)</h2>
+		<h3 class="title piped">Principal Infrastructure Engineer</h3>
+		<h4>
+			<span class="start-date dashed">June 2023</span>
+			<span class="end-date dashed piped">September 2023</span>
+			<span class="location piped">Wilsonville, OR</span>
+			<span class="site">Remote</span>
+		</h4>
+		<ul>
+			<li>Maintained and improved legacy pet-based VMs through AWS AMIs</li>
+			<li>Mentored other developers on tools and AWS cloud and security practices</li>
+			<li>Developed new customer infrastructure using Terragrunt</li>
+		</ul>
+	</section>
+
+	<section class="workplace">
+		<h2 class="workplace-name piped">Nant Games</h2>
+		<h3 class="title piped">DevOps Engineer</h3>
+		<h4>
+			<span class="start-date dashed">September 2022</span>
+			<span class="end-date dashed piped">June 2023</span>
+			<span class="location piped">San Diego, CA</span>
+			<span class="site">Remote</span>
+		</h4>
+		<ul>
+			<li>
+				Managed dedicated virtual machine pets for internal company metrics (Bl/analytics team)
+			</li>
+			<li>
+				Utilized Azure platform to create, manage, and deploy multiple managed-Kubernetes game
+				servers
+			</li>
+			<li>Managed helm charts and releases for game server clusters</li>
+		</ul>
+	</section>
+
+	<section class="workplace">
+		<h2 class="workplace-name piped">Genetesis</h2>
+		<h3 class="title piped">Software Engineering Manager</h3>
+		<h4>
+			<span class="start-date dashed">July 2022</span>
+			<span class="end-date dashed piped">September 2022</span>
+			<span class="location piped">Mason, OH</span>
+			<span class="site">Hybrid</span>
+		</h4>
+		<ul>
+			<li>Wrote specifications for Disaster Recovery Plans and other Runbooks</li>
+			<li>
+				Managed packaging and deployment of internal Python packages based on numpy, scipi, et al.
+			</li>
+			<li>Managed deployment of Python back-end applications</li>
+		</ul>
+	</section>
+
+	<section class="workplace">
+		<h2 class="workplace-name piped">Genetesis</h2>
+		<h3 class="title piped">DevOps Engineer</h3>
+		<h4>
+			<span class="start-date dashed">November 2020</span>
+			<span class="end-date dashed piped">July 2022</span>
+			<span class="location piped">Mason, OH</span>
+			<span class="site">Hybrid</span>
+		</h4>
+		<ul>
+			<li>
+				Developed installer programs for desktop apps using Go and managed their CI/CD automation
+			</li>
+			<li>
+				Managed packaging and deployment of internal Python packages based on numpy, scipi, et al.
+			</li>
+			<li>Managed deployment of Python back-end applications</li>
 		</ul>
 	</section>
 
@@ -138,7 +184,7 @@
 	</section>
 </article>
 
-<article>
+<article id="open-source">
 	<h1>Open Source Contributions</h1>
 	<section class="organization">
 		<h2 class="organization-name">Sonic Original Software</h2>
@@ -194,33 +240,65 @@
 
 	<section class="organization">
 		<h2 class="organization-name">Other</h2>
+		<h3 class="title">
+			<a href="https://github.com/nodejs/node" target="_blank" rel="noopener noreferrer">
+				<code>Node.js</code>
+			</a>
+		</h3>
 		<ul>
 			<li>
-				<h3 class="title">
-					<a href="https://github.com/nodejs/node" target="_blank" rel="noopener noreferrer">
-						<code>Node.js</code>
-					</a>
-				</h3>
-				Code and build script modifications to permit node to compile and run on<code>alpine</code> systems
+				Code and build script modifications to permit node to compile and run on <code>alpine</code>
+				systems
 			</li>
+			<h3 class="title">
+				<a href="https://github.com/sveltejs/kit" target="_blank" rel="noopener noreferrer">
+					<code><code>SvelteKit</code></code>
+				</a>/
+				<a href="https://github.com/nextauthjs/next-auth" target="_blank" rel="noopener noreferrer">
+					<code>Auth.js</code>
+				</a>
+			</h3>
 			<li>
-				<h3 class="title">
-					<a href="https://github.com/sveltejs/kit" target="_blank" rel="noopener noreferrer">
-						<code><code>SvelteKit</code></code>
-					</a>/
-					<a
-						href="https://github.com/nextauthjs/next-auth"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<code>Auth.js</code>
-					</a>
-				</h3>
 				Determined source of an issue preventing attaching
 				<code>auth.js</code> system with <code>Svelte.js</code> and Cloudflare <code>D1</code>.
 			</li>
 		</ul>
 	</section>
+</article>
+
+<article id="skills">
+	<h1>Technical Skills</h1>
+	<h2>Languages</h2>
+	<div>
+		<code class="dotted">Go</code>
+		<code class="dotted">Rust</code>
+		<code class="dotted">Python</code>
+		<code class="dotted">JavaScript/TypeScript</code>
+	</div>
+	<h2>Frameworks</h2>
+	<div>
+		<code class="dotted">NodeJS</code>
+		<code class="dotted">Svelte/Kit</code>
+		<code class="dotted">ReactJS/Native</code>
+	</div>
+	<h2>Tools</h2>
+	<div>
+		<code class="dotted">docker</code>
+		<code class="dotted">kubernetes</code>
+		<code class="dotted">ansible</code>
+		<code class="dotted">terraform</code>
+	</div>
+	<h2>Platforms</h2>
+	<div>
+		<code class="dotted">AWS</code>
+		<code class="dotted">Azure</code>
+		<code class="dotted">Embedded (Raspberry Pi)</code>
+	</div>
+	<h2>Programs/Apps</h2>
+	<div>
+		<code class="dotted">GitHub</code>
+		<code class="dotted">Azure DevOps</code>
+	</div>
 </article>
 
 <style>
@@ -268,15 +346,14 @@
 		}
 
 		#objective {
-			margin: 2% 0 1% 0;
+			margin: 2% 4% 1% 4%;
 			font-weight: normal;
 			font-style: italic;
+			text-align: center;
 		}
 
 		#contact-info {
-			* {
-				margin: 4px !important;
-			}
+			text-align: center;
 
 			a {
 				color: unset;
@@ -308,8 +385,12 @@
 					content: ') ';
 				}
 
-				.prefix + .line-number::before {
-					content: '-';
+				.prefix {
+					margin: 0 4px 0 0;
+				}
+
+				.line-number::before {
+					content: '- ';
 				}
 			}
 		}
@@ -346,10 +427,12 @@
 		text-align: center;
 	}
 
+	#skills {
+		margin: 0 0 2% 0;
+	}
+
 	#professional {
-		flex: 1;
-		/* width: 70%; */
-		line-height: 1.4;
+		line-height: 1.6;
 
 		h4 {
 			font-weight: normal;
@@ -375,6 +458,14 @@
 		}
 
 		.workplace {
+			margin: 2% 2% 2% 6%;
+		}
+	}
+
+	#open-source {
+		line-height: 1.6;
+
+		.organization {
 			margin: 2% 2% 2% 6%;
 		}
 	}
