@@ -31,7 +31,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0px 16px;
+		background-color: var(--background-color);
 	}
 
 	nav {
