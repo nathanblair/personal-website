@@ -18,3 +18,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
+code {
+  font-family: monospace;
+}

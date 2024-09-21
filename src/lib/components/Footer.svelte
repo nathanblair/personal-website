@@ -10,10 +10,10 @@
 
 <style>
 	footer {
+		position: sticky;
+		bottom: 0;
 		text-align: center;
-		padding: 12px 0;
-		/* position: fixed; */
+		padding: 24px 0;
 		width: 100%;
-		/* bottom: 0; */
 	}
 </style>
