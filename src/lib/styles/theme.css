@@ -6,7 +6,7 @@
   --dark-text-background: #fff;
 
   --text-foreground: var(--dark-text-foreground);
-  --text-background: var(--light-text-background);
+  --text-background: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
