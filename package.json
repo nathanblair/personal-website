@@ -4,13 +4,16 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"build-watch": "vite build --watch",
 		"preview": "vite preview",
+		"wrangle": "npx wrangler pages dev --live-reload",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"lint": "prettier --check .",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20240919.0",
 		"@sveltejs/adapter-cloudflare": "^4.7.2",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",

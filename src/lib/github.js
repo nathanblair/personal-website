@@ -1,5 +1,44 @@
 import { App } from 'octokit'
 
+/** @param {App.Platform_Env} env */
+export async function parse_platform_env(env) {
+  /** @type {string?} */
+  let app_id
+  try {
+    app_id = await env.github_blog_app.get('GITHUB_APP_CLIENT_ID')
+  } catch (/** @type {any} */err) {
+    throw new Error(`GitHub app ID not found: ${err}`)
+  }
+
+  /** @type {string?} */
+  let private_key
+  try {
+    private_key = env.GITHUB_APP_SECRET
+  } catch (/** @type {any} */err) {
+    throw new Error(`GitHub app private key not found: ${err}`)
+  }
+
+  /** @type {string?} */
+  let install_id
+  try {
+    install_id = await env.github_blog_app.get('GITHUB_APP_INSTALL_ID')
+  } catch (/** @type {any} */err) {
+    throw new Error(`GitHub app installation ID not found: ${err}`)
+  }
+
+  if (app_id === null) {
+    throw new Error("GitHub app ID not found")
+  } else if (private_key === undefined) {
+    throw new Error("GitHub app private key not found")
+  } else if (install_id === null) {
+    throw new Error("GitHub app or installation ID not found")
+  }
+
+  const installation_id = parseInt(install_id)
+
+  return { app_id, private_key, installation_id }
+}
+
 /**
  * @param {string} appId
  * @param {string} privateKey
@@ -31,26 +70,14 @@ export async function get_github_repo(github_app) {
 
 /**
  * @param {string} path Path of the requested document
- * @param {{GITHUB_APP_CLIENT_ID: string, GITHUB_APP_SECRET: string, GITHUB_APP_INSTALL_ID: number}} platform_env The Plaform's environment variables
+ * @param {string} app_id GitHub App ID
+ * @param {string} private_key GitHub App private key
+ * @param {number} install_id GitHub App installation ID
  */
-export async function get_repo_path(path, platform_env) {
-  const app_id = platform_env.GITHUB_APP_CLIENT_ID
-  const private_key = platform_env.GITHUB_APP_SECRET
-  const install_id = platform_env.GITHUB_APP_INSTALL_ID
-
-  if (app_id === undefined) {
-    throw new Error("GitHub app ID not found")
-  } else if (private_key === undefined) {
-    throw new Error("GitHub app private key not found")
-  } else if (install_id === undefined) {
-    throw new Error("GitHub app or installation ID not found")
-  }
-
+export async function get_repo_path(path, app_id, private_key, install_id) {
   const github_app = await get_github_app(app_id, private_key)
   const octokit = await get_github_installation_octokit(github_app, install_id)
   const { repository_owner, repository_name } = await get_github_repo(github_app)
-
-  console.log(`Fetching: ${path}`)
 
   return await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
     owner: repository_owner,
@@ -61,21 +88,11 @@ export async function get_repo_path(path, platform_env) {
 
 /**
  * @param {string} markdown markdown of the requested transcription
- * @param {{GITHUB_APP_CLIENT_ID: string, GITHUB_APP_SECRET: string, GITHUB_APP_INSTALL_ID: number}} platform_env The Plaform's environment variables
+ * @param {string} app_id GitHub App ID
+ * @param {string} private_key GitHub App private key
+ * @param {number} install_id GitHub App installation ID
  */
-export async function transcribe_markdown(markdown, platform_env) {
-  const app_id = platform_env.GITHUB_APP_CLIENT_ID
-  const private_key = platform_env.GITHUB_APP_SECRET
-  const install_id = platform_env.GITHUB_APP_INSTALL_ID
-
-  if (app_id === undefined) {
-    throw new Error("GitHub app ID not found")
-  } else if (private_key === undefined) {
-    throw new Error("GitHub app private key not found")
-  } else if (install_id === undefined) {
-    throw new Error("GitHub app or installation ID not found")
-  }
-
+export async function transcribe_markdown(markdown, app_id, private_key, install_id) {
   const github_app = await get_github_app(app_id, private_key)
   const octokit = await get_github_installation_octokit(github_app, install_id)
 

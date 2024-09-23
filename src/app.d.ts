@@ -1,17 +1,16 @@
+import { KVNamespace } from "@cloudflare/workers-types"
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
+		interface Platform_Env {
+			github_blog_app: KVNamespace
+			GITHUB_APP_SECRET: string
+		}
 		interface Platform {
-			env: {
-				GITHUB_APP_CLIENT_ID: string
-				GITHUB_APP_SECRET: string
-				GITHUB_APP_INSTALL_ID: number
-			}
+			caches: { default: object }
+			env: Platform_Env
 		}
 	}
 }

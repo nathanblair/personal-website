@@ -1,4 +1,4 @@
-import { get_repo_path, transcribe_markdown } from "$lib/server/github.js"
+import { get_repo_path, parse_platform_env, transcribe_markdown } from "$lib/github.js"
 import { error } from "@sveltejs/kit"
 
 /** @param {{request: any, platform: App.Platform}} params */
@@ -6,21 +6,28 @@ export async function GET({ request, platform }) {
   const path = request.url.split('/').pop()
   if (path === undefined) error(404, "Blog path not found")
 
+  let app_id, private_key, installation_id
+  try {
+    ({ app_id, private_key, installation_id } = await parse_platform_env(platform.env))
+  } catch (/** @type {any} */err) {
+    return error(500, err)
+  }
+
   let file_content
   try {
-    file_content = await get_repo_path(path, platform.env)
+    file_content = await get_repo_path(path, app_id, private_key, installation_id)
   } catch (/** @type {any} */err) {
     return error(500, err)
   }
 
   // @ts-ignore
-  const file_type = file_content.data.name.split('.').pop()
-  // @ts-ignore
-  let blog = Buffer.from(file_content.data.content, file_content.data.encoding).toString()
+  let blog = atob(file_content.data.content)
 
+  // @ts-ignore
+  const file_type = file_content.data.name.split('.').pop()
   if (file_type === "md") {
     try {
-      blog = await transcribe_markdown(blog, platform.env)
+      blog = await transcribe_markdown(blog, app_id, private_key, installation_id)
     } catch (/** @type {any} */err) {
       return error(500, err)
     }
