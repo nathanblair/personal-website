@@ -1,8 +1,15 @@
+import { env } from '$env/dynamic/private'
 import { get_repo_path } from "$lib/server/github.js"
 import { error, json } from "@sveltejs/kit"
 
-/** @param {{request: any, platform: App.Platform}} params */
+/**
+ @param {{request: any, platform: App.Platform}} params
+ @returns {Promise<Response>}
+ */
 export async function GET({ platform }) {
+  console.log(platform)
+  console.log(env)
+
   let blog_result
   try {
     blog_result = await get_repo_path('', platform.env)
