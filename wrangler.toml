@@ -2,9 +2,9 @@ name = "personal-website"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 compatibility_date = "2023-08-20"
 
+kv_namespaces = [{ binding = "github_blog_app", id = "local" }]
+
+[env.production]
 kv_namespaces = [
   { binding = "github_blog_app", id = "b8c7e0e0174e4eb3b3126489c50eda63" },
 ]
-
-[env]
-production = {}
