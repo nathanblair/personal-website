@@ -6,8 +6,15 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
-		// interface Platform {}
+		interface Platform {
+			env: {
+				GITHUB_APP_CLIENT_ID: string
+				GITHUB_APP_SECRET: string
+				GITHUB_APP_INSTALL_ID: number
+			}
+		}
 	}
 }
 
-export {};
+export { }
+
