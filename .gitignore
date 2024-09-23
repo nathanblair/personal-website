@@ -1,5 +1,8 @@
 node_modules
 
+# Secrets
+**secrets**
+
 # Output
 .output
 .vercel

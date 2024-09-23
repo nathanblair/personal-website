@@ -37,5 +37,7 @@ export async function GET({ platform }) {
     })
   }
 
+  blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
   return json(blogs)
 }
