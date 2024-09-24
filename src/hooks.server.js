@@ -1,16 +1,16 @@
-import { browser } from '$app/environment'
-import { init, initialized } from '$lib/github.js'
-import { error } from '@sveltejs/kit'
+import { init } from '$lib/github.js'
+
+let initialized = false
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-  if (!browser && !initialized) {
-    if (event.platform === undefined) error(500, "Platform not found")
-    if (event.platform.env === undefined) error(500, "Platform env not found")
-    if (!initialized) {
-      console.log("Initializing GitHub app...")
-      await init(event.platform.env)
+  if (!initialized && event.platform !== undefined) {
+    try {
+      initialized = await init(event.platform.env)
+    } catch (/** @type {any} */err) {
+      console.error(`Failed to initialize from request to ${event.request.url}: ${err}`)
     }
+    if (initialized) console.log("Initialized")
   }
 
   return await resolve(event)

@@ -1,8 +1,6 @@
 import { env as dynamic_env } from "$env/dynamic/private"
 import { App } from 'octokit'
 
-export let initialized = false
-
 /** @type {import('octokit').App} */
 let github_app
 /** @type {import('octokit').Octokit} */
@@ -29,7 +27,7 @@ export async function init(env) {
     repository_name = each.repository.full_name.split('/')[1]
   })
 
-  initialized = true
+  return true
 }
 
 /** @param {App.Platform_Env} env */
