@@ -1,43 +1,25 @@
-import { get_repo_path, parse_platform_env } from "$lib/github.js"
+import { fetch_blogs } from "$lib/github.js"
 import { error, json } from "@sveltejs/kit"
 
 /**
- @param {{platform: App.Platform}} params
- @returns {Promise<Response>}
+ @param {{request: Request, platform: App.Platform}} params
+ @returns {Promise<import('@cloudflare/workers-types').Response>}
  */
-export async function GET({ platform }) {
-  let app_id, private_key, installation_id
+export async function GET({ request, platform }) {
+  /** @type {Blog[]} */
+  let blogs
   try {
-    ({ app_id, private_key, installation_id } = await parse_platform_env(platform.env))
-  } catch (/** @type {any} */err) {
-    return error(500, err)
+    // @ts-ignore
+    blogs = await fetch_blogs(new URL(request.url).pathname, platform.caches.default, platform.context)
+  } catch (/** @type {any} */ err) {
+    error(500, err)
   }
 
-  let blog_result
-  try {
-    blog_result = await get_repo_path('', app_id, private_key, installation_id)
-  } catch (/** @type {any} */err) {
-    return error(500, err)
-  }
-  const contents = blog_result.data
-
-  const blogs = []
-
+  /** @type {import('@cloudflare/workers-types').Response} */
   // @ts-ignore
-  for (const each_content of contents) {
-    const each_blog = each_content
-    const blog_parse = each_blog.name.split(';')
-    const blog_date = new Date(blog_parse[0])
-    const blog_title = blog_parse[1].split('.').slice(0, -1).join('')
-
-    blogs.push({
-      title: blog_title,
-      url: `/blog/${encodeURIComponent(each_blog.name)}`,
-      date: blog_date.toDateString()
-    })
-  }
+  const resp = json(blogs)
 
   blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  return json(blogs)
+  return resp
 }
