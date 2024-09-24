@@ -9,8 +9,9 @@ export async function GET({ request, platform }) {
   let blogs
   try {
     // @ts-ignore
-    blogs = await fetch_blogs(new URL(request.url).pathname, platform.caches.default, platform.context)
+    blogs = await fetch_blogs(new URL(request.url), platform.caches.default, platform.context)
   } catch (/** @type {any} */ err) {
+    console.error(err)
     error(500, err)
   }
 

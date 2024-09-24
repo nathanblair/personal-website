@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			routes: {
-				include: ['/api'],
+				include: ['/*'],
 				exclude: ['<all>']
 			},
 			platformProxy: {

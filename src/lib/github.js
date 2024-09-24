@@ -72,30 +72,30 @@ export async function parse_platform_env(env) {
 /**
  *
  * @param {string} path Path of the requested document
- * @param {string} cache_key
+ * @param {URL} url
  * @param {Cache} cache
  * @param {*} context
  *
  * @returns {Promise<Response>}
  */
-export async function get_repo_path(path, cache_key, cache, context) {
+export async function get_repo_path(path, url, cache, context) {
   /** @type {Response | undefined} */
   let cached
   try {
-    cached = await cache.match(cache_key)
+    cached = await cache.match(url)
   } catch (/** @type {any} */err) {
     console.error(err)
   }
 
   if (cached !== undefined) {
-    console.log(`Cache hit: ${cache_key}`)
+    console.log(`Cache hit: ${url}`)
     return cached
   }
-  console.log(`Cache miss: ${cache_key}`)
+  console.log(`Cache miss: ${url}`)
 
+  let octo_response
   try {
-    // @ts-ignore
-    cached = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    octo_response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
       owner: repository_owner,
       repo: repository_name,
       path: decodeURIComponent(path),
@@ -105,9 +105,21 @@ export async function get_repo_path(path, cache_key, cache, context) {
     return err
   }
 
+  /** @type {HeadersInit} */
+  const headers = []
+  for (const [key, value] of Object.entries(octo_response.headers)) {
+    if (value === undefined || value === null) continue
+    headers.push([key, value.toString()])
+  }
+
+  cached = new Response(JSON.stringify(octo_response.data), {
+    status: octo_response.status,
+    headers: headers,
+  })
+
   if (cached === undefined) throw new Error(`Error fetching ${path}`)
 
-  context.waitUntil(cache.put(cache_key, cached))
+  context.waitUntil(cache.put(url, cached.clone()))
   return cached
 }
 
@@ -123,15 +135,15 @@ export async function transcribe_markdown(markdown) {
 
 /**
  *
- * @param {string} cache_key
+ * @param {URL} url
  * @param {Cache} cache
  * @param {*} context
  * @returns
  */
-export async function fetch_blogs(cache_key, cache, context) {
+export async function fetch_blogs(url, cache, context) {
   let blog_response
   try {
-    blog_response = await get_repo_path('', cache_key, cache, context)
+    blog_response = await get_repo_path('', url, cache, context)
   } catch (/** @type {any} */err) {
     throw new Error(`Error fetching blog content: ${err}`)
   }
@@ -139,8 +151,7 @@ export async function fetch_blogs(cache_key, cache, context) {
   /** @type {Blog[]} */
   const blogs = []
 
-  // @ts-ignore
-  for (const each_content of blog_response.data) {
+  for (const each_content of await blog_response.json()) {
     const each_blog = each_content
     const blog_parse = each_blog.name.split(';')
     const blog_date = new Date(blog_parse[0])
