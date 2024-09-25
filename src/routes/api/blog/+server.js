@@ -19,7 +19,7 @@ export async function GET({ request, platform }) {
 
   if (cached !== undefined) return cached
 
-  let /** @type {Blog[]} */ blogs, /** @type {number} */ status, /** @type {object} */ headers
+  let /** @type {import("$lib/blog.js").Blog[]} */ blogs, /** @type {number} */ status, /** @type {object} */ headers
   try {
     [blogs, status, headers] = await fetch_blogs(url)
   } catch (/** @type {any} */ err) {

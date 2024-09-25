@@ -1,4 +1,5 @@
 import { env as dynamic_env } from "$env/dynamic/private"
+import { parse } from "$lib/blog.js"
 import { App } from 'octokit'
 
 /** @type {import('octokit').App} */
@@ -79,7 +80,7 @@ export async function transcribe_markdown(markdown) {
  *
  * @param {URL} url
  *
- * @returns {Promise<[Blog[], number, object]>}
+ * @returns {Promise<[import('$lib/blog.js').Blog[], number, object]>}
  */
 export async function fetch_blogs(url) {
   let octo_response
@@ -91,19 +92,16 @@ export async function fetch_blogs(url) {
 
   const blog_json = octo_response.data
 
-  /** @type {Blog[]} */
+  /** @type {import('$lib/blog.js').Blog[]} */
   const blogs = []
 
   // @ts-ignore
   for (const each_content of blog_json) {
-    const each_blog = each_content
-    const blog_parse = each_blog.name.split(';')
-    const blog_date = new Date(blog_parse[0])
-    const blog_title = blog_parse[1].split('.').slice(0, -1).join('')
+    const [blog_date, blog_title] = parse(each_content.name)
 
     blogs.push({
       title: blog_title,
-      url: `/blog/${encodeURIComponent(each_blog.name)}`,
+      url: `/blog/${encodeURIComponent(each_content.name)}`,
       date: blog_date.toDateString()
     })
   }

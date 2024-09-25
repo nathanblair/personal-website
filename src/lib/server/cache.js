@@ -20,10 +20,10 @@ export async function retrieve(url) {
 
   if (cached === undefined) {
     console.log(`Cache not found for '${url}'`)
-    return cached
+  } else {
+    console.log(`Cache hit for '${url}'`)
   }
 
-  console.log(`Cache hit for '${url}'`)
   return cached
 }
 
