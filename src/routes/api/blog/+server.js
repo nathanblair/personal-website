@@ -1,43 +1,40 @@
-import { get_repo_path, parse_platform_env } from "$lib/github.js"
+import { retrieve, store } from "$lib/server/cache.js"
+import { fetch_blogs } from "$lib/server/github.js"
 import { error, json } from "@sveltejs/kit"
 
 /**
- @param {{platform: App.Platform}} params
- @returns {Promise<Response>}
+ @param {{request: Request, platform: App.Platform}} params
  */
-export async function GET({ platform }) {
-  let app_id, private_key, installation_id
+export async function GET({ request, platform }) {
+  const url = new URL(request.url)
+
+  /** @type {Response | import('@cloudflare/workers-types').Response | undefined} */
+  let cached
   try {
-    ({ app_id, private_key, installation_id } = await parse_platform_env(platform.env))
-  } catch (/** @type {any} */err) {
-    return error(500, err)
+    cached = await retrieve(url)
+  } catch (/** @type {any} */ err) {
+    console.error(err)
+    return err
   }
 
-  let blog_result
+  if (cached !== undefined) return cached
+
+  let /** @type {import("$lib/blog.js").Blog[]} */ blogs, /** @type {number} */ status, /** @type {object} */ headers
   try {
-    blog_result = await get_repo_path('', app_id, private_key, installation_id)
-  } catch (/** @type {any} */err) {
+    [blogs, status, headers] = await fetch_blogs(url)
+  } catch (/** @type {any} */ err) {
+    console.error(err)
     return error(500, err)
-  }
-  const contents = blog_result.data
-
-  const blogs = []
-
-  // @ts-ignore
-  for (const each_content of contents) {
-    const each_blog = each_content
-    const blog_parse = each_blog.name.split(';')
-    const blog_date = new Date(blog_parse[0])
-    const blog_title = blog_parse[1].split('.').slice(0, -1).join('')
-
-    blogs.push({
-      title: blog_title,
-      url: `/blog/${encodeURIComponent(each_blog.name)}`,
-      date: blog_date.toDateString()
-    })
   }
 
   blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+  try {
+    cached = await store(url, JSON.stringify(blogs), status, headers, platform.context)
+  } catch (/** @type {any} */ err) {
+    console.error(err)
+    return err
+  }
 
   return json(blogs)
 }
