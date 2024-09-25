@@ -10,8 +10,8 @@
 
 html,
 body {
-  height: 100dvh;
-  width: 100dvw;
+  min-height: 100dvh;
+  min-width: 100dvw;
 }
 
 body {
