@@ -12,10 +12,10 @@
 				"mainEntity": {
 					"@type": "Person",
 					"name": "${name}",
-					description: 'Jack of all trades. Master of some.'
+					"description": "Jack of all trades. Master of some."
 				},
 			}
-		}
+		</script>
 	`}
 </svelte:head>
 

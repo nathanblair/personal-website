@@ -14,13 +14,13 @@
 				"@context": "https://schema.org",
 				"@type": "BlogPosting",
 				"author": {
-					"@type": "Person,
+					"@type": "Person",
 					"name": "${name}"
 				},
 				"datePublished": "${$page.data.date}",
 				"headline": "${$page.data.title}"
 			}
-		}
+		</script>
 	`}
 </svelte:head>
 
