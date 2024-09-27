@@ -11,7 +11,8 @@
 				"mainEntity": {
 					"@type": "Person",
 					"name": "${name}",
-					"description": "Jack of all trades. Master of some."
+					"description": "Jack of all trades. Master of some.",
+					"url": "https://nathanblair.rocks/about"
 				}
 			}
 		</script>

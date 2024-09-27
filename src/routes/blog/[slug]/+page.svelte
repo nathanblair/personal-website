@@ -15,7 +15,8 @@
 				"@type": "BlogPosting",
 				"author": {
 					"@type": "Person",
-					"name": "${name}"
+					"name": "${name}",
+					"url": "https://nathanblair.rocks/about"
 				},
 				"datePublished": "${$page.data.date}",
 				"headline": "${$page.data.title}"

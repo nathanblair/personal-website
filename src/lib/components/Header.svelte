@@ -5,23 +5,24 @@
 
 <div id="app-bar">
 	<nav>
-		<a href="/" class="material-symbols">home</a>
-		<a href="/about" class="material-symbols">person</a>
-		<a href="/resume" class="material-symbols">work</a>
-		<a href="/blog" class="material-symbols">news</a>
+		<a href="/" title="Home" class="material-symbols">home</a>
+		<a href="/about" title="About" class="material-symbols">person</a>
+		<a href="/resume" title="Resumé" class="material-symbols">work</a>
+		<a href="/blog" title="Blog" class="material-symbols">news</a>
 	</nav>
 
 	<a
 		href="https://github.com/nathanblair"
 		target="_blank"
+		title="GitHub"
 		class="display-inline-flex flex-justify-center flex-align-center"
 	>
 		<GitHub />
 	</a>
-	<a href="https://linkedin.com/in/engineerblair" target="_blank" class="">
+	<a href="https://linkedin.com/in/engineerblair" target="_blank" title="LinkedIn" class="">
 		<LinkedIn />
 	</a>
-	<a href="mailto:me@nathanblair.rocks" class="material-symbols">email</a>
+	<a href="mailto:me@nathanblair.rocks" title="E-Mail" class="material-symbols">email</a>
 </div>
 
 <style>
