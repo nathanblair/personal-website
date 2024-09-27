@@ -1,14 +1,23 @@
 <script>
-	import {
-		contact_info,
-		education,
-		first_name,
-		last_name,
-		open_source,
-		professional,
-		skills
-	} from '$lib/constants.js'
+	import { first_name, last_name, name } from '$lib/constants.js'
+	import { contact_info, education, open_source, professional, skills } from '$lib/resume.js'
 </script>
+
+<svelte:head>
+	{@html `
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "ProfilePage",
+				"mainEntity": {
+					"@type": "Person",
+					"name": "${name}",
+					description: 'Jack of all trades. Master of some.'
+				},
+			}
+		}
+	`}
+</svelte:head>
 
 <header>
 	<h1>
@@ -32,8 +41,6 @@
 			</a>
 		</h3>
 	</section>
-
-	<h4 id="objective">Jack of all trades. Master of some.</h4>
 </header>
 
 <aside>
@@ -156,13 +163,6 @@
 
 		.last-name {
 			font-weight: 700;
-		}
-
-		#objective {
-			margin: 2% 4% 1% 4%;
-			font-weight: normal;
-			font-style: italic;
-			text-align: center;
 		}
 
 		#contact-info {

@@ -1,10 +1,28 @@
 <script>
 	import { page } from '$app/stores'
+	import { name } from '$lib/constants.js'
 
 	async function get_blog() {
 		return await (await fetch(`/api/blog/${$page.params.slug}`)).text()
 	}
 </script>
+
+<svelte:head>
+	{@html `
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "BlogPosting",
+				"author": {
+					"@type": "Person,
+					"name": "${name}"
+				},
+				"datePublished": "${$page.data.date}",
+				"headline": "${$page.data.title}"
+			}
+		}
+	`}
+</svelte:head>
 
 {#await get_blog()}
 	<p>Fetching blog...</p>

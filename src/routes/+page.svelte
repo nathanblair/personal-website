@@ -2,6 +2,22 @@
 	import { name } from '$lib/constants.js'
 </script>
 
+<svelte:head>
+	{@html `
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "ProfilePage",
+				"mainEntity": {
+					"@type": "Person",
+					"name": "${name}",
+					description: 'Jack of all trades. Master of some.'
+				},
+			}
+		}
+	`}
+</svelte:head>
+
 <header>
 	<h1>{name}</h1>
 
