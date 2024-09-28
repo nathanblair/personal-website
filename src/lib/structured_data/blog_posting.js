@@ -21,7 +21,7 @@ export class BlogPosting {
       "@context": this._.context,
       "@type": this._.type,
       "author": this.author.structured_data,
-      "datePublished": this.date_published.toLocaleDateString(),
+      "datePublished": this.date_published.toISOString(),
       "headline": this.headline
     }
   }
