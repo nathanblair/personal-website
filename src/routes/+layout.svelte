@@ -11,8 +11,11 @@
 <Header />
 
 <svelte:head>
-	<meta name="description" content={$page.data.description} />
 	<title>{name} | {$page.data.title}</title>
+	<meta name="description" content={$page.data.description} />
+	{#if $page.data.structured_data}
+		{@html `<script type="application/ld+json">${JSON.stringify($page.data.structured_data)}</script>`}
+	{/if}
 </svelte:head>
 
 <main>

@@ -1,13 +1,6 @@
 <script>
-	import {
-		contact_info,
-		education,
-		first_name,
-		last_name,
-		open_source,
-		professional,
-		skills
-	} from '$lib/constants.js'
+	import { first_name, last_name } from '$lib/constants.js'
+	import { contact_info, education, open_source, professional, skills } from '$lib/resume.js'
 </script>
 
 <header>
@@ -32,8 +25,6 @@
 			</a>
 		</h3>
 	</section>
-
-	<h4 id="objective">Jack of all trades. Master of some.</h4>
 </header>
 
 <aside>
@@ -156,13 +147,6 @@
 
 		.last-name {
 			font-weight: 700;
-		}
-
-		#objective {
-			margin: 2% 4% 1% 4%;
-			font-weight: normal;
-			font-style: italic;
-			text-align: center;
 		}
 
 		#contact-info {
