@@ -1,24 +1,7 @@
 <script>
-	import { first_name, last_name, name } from '$lib/constants.js'
+	import { first_name, last_name } from '$lib/constants.js'
 	import { contact_info, education, open_source, professional, skills } from '$lib/resume.js'
 </script>
-
-<svelte:head>
-	{@html `
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "ProfilePage",
-				"mainEntity": {
-					"@type": "Person",
-					"name": "${name}",
-					"description": "Jack of all trades. Master of some.",
-					"url": "https://nathanblair.rocks/about"
-				},
-			}
-		</script>
-	`}
-</svelte:head>
 
 <header>
 	<h1>
