@@ -6,6 +6,10 @@ compatibility_date = "2023-08-20"
 id = "92c4e2797f014610a850a2a141ea37d2"
 binding = "github_blog_app"
 
+[[r2_buckets]]
+bucket_name = "blogs"
+binding = "blogs"
+
 [[env.production.kv_namespaces]]
 id = "b8c7e0e0174e4eb3b3126489c50eda63"
 binding = "github_blog_app"

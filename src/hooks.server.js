@@ -1,13 +1,24 @@
 import { building } from '$app/environment'
+import { init as init_blog_api } from '$lib/server/blog/r2.js'
 import { init as init_cache_api } from '$lib/server/cache.js'
-import { init as init_blog_api } from '$lib/server/github.js'
+import { init as init_github_api } from '$lib/server/github.js'
 
+let github_api_initialized = false
 let blog_api_initialized = false
 let cache_api_initialized = false
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
   if (!building) {
+    if (!github_api_initialized && event.platform !== undefined) {
+      try {
+        github_api_initialized = await init_github_api(event.platform.env)
+      } catch (/** @type {any} */err) {
+        console.error(err)
+      }
+      if (github_api_initialized) console.log("GitHub API Initialized")
+    }
+
     if (!blog_api_initialized && event.platform !== undefined) {
       try {
         blog_api_initialized = await init_blog_api(event.platform.env)

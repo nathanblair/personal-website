@@ -1,5 +1,6 @@
-import { retrieve, store } from "$lib/server/cache.js"
-import { fetch_blogs } from "$lib/server/github.js"
+import { list } from "$lib/server/blog/r2.js"
+import { retrieve as retrieve_from_cache, store as store_to_cache } from "$lib/server/cache.js"
+// import { fetch_blogs } from "$lib/server/github.js"
 import { error, json } from "@sveltejs/kit"
 
 /**
@@ -11,7 +12,7 @@ export async function GET({ request, platform }) {
   /** @type {Response | import('@cloudflare/workers-types').Response | undefined} */
   let cached
   try {
-    cached = await retrieve(url)
+    cached = await retrieve_from_cache(url)
   } catch (/** @type {any} */ err) {
     console.error(err)
     return err
@@ -19,22 +20,29 @@ export async function GET({ request, platform }) {
 
   if (cached !== undefined) return cached
 
-  let /** @type {import("$lib/blog.js").Blog[]} */ blogs, /** @type {number} */ status, /** @type {object} */ headers
+  /** @type {import("$lib/server/blog/r2.js").BlogListResponse} */
+  let blog_list_response
   try {
-    [blogs, status, headers] = await fetch_blogs(url)
+    blog_list_response = await list()
   } catch (/** @type {any} */ err) {
     console.error(err)
     return error(500, err)
   }
 
-  blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  blog_list_response.blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   try {
-    cached = await store(url, JSON.stringify(blogs), status, headers, platform.context)
+    cached = await store_to_cache(
+      url,
+      JSON.stringify(blog_list_response.blogs),
+      blog_list_response.status,
+      blog_list_response.headers,
+      platform.context
+    )
   } catch (/** @type {any} */ err) {
     console.error(err)
     return err
   }
 
-  return json(blogs)
+  return json(blog_list_response.blogs)
 }

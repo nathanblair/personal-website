@@ -1,6 +1,12 @@
 <script>
 	import { first_name, last_name } from '$lib/constants.js'
-	import { contact_info, education, open_source, professional, skills } from '$lib/resume.js'
+	import {
+		contact_info,
+		education,
+		open_source,
+		professional,
+		skills
+	} from '$lib/resume.js'
 </script>
 
 <header>
@@ -10,13 +16,15 @@
 	</h1>
 
 	<section id="contact-info">
-		<a href={contact_info.website.link} target="_blank">{contact_info.website.name}</a>
+		<a href={contact_info.website.link} target="_blank"
+			>{contact_info.website.name}</a
+		>
 
 		<h3>
 			<a
 				class="telephone"
-				href="tel:{contact_info.telephone.area_code}-{contact_info.telephone.prefix}-{contact_info
-					.telephone.line_number}"
+				href="tel:{contact_info.telephone.area_code}-{contact_info.telephone
+					.prefix}-{contact_info.telephone.line_number}"
 			>
 				<span class="country-code">{contact_info.telephone.country_code}</span>
 				<span class="area-code">{contact_info.telephone.area_code}</span>
@@ -36,7 +44,9 @@
 			<h3>{school.college}</h3>
 			<h5>
 				<span class="dashed">{school.dates.end}</span>
-				<span class="dashed">{school.location.city}, {school.location.state}</span>
+				<span class="dashed"
+					>{school.location.city}, {school.location.state}</span
+				>
 			</h5>
 			{#each school.degrees as degree}
 				<h4>{degree}</h4>

@@ -1,16 +1,16 @@
 import { env as dynamic_env } from "$env/dynamic/private"
-import { parse } from "$lib/blog.js"
 import { App } from 'octokit'
 
 /** @type {import('octokit').App} */
 let github_app
 /** @type {import('octokit').Octokit} */
-let octokit
+export let octokit
 
 /** @type {string} */
-let owner
+export let owner
+
 /** @type {string} */
-let repo
+export let repo
 
 /** @param {App.Platform_Env} env */
 export async function parse_platform_env(env) {
@@ -74,72 +74,4 @@ export async function init(env) {
 export async function transcribe_markdown(markdown) {
   const md = await octokit.request('POST /markdown', { text: markdown, })
   return md.data
-}
-
-/**
- *
- * @param {URL} url
- *
- * @returns {Promise<[import('$lib/blog.js').Blog[], number, object]>}
- */
-export async function fetch_blogs(url) {
-  let octo_response
-  try {
-    octo_response = await octokit.rest.repos.getContent({ owner, repo, path: '' })
-  } catch (/** @type {any} */err) {
-    throw new Error(`Error fetching blog content: ${err}`)
-  }
-
-  const blog_json = octo_response.data
-
-  /** @type {import('$lib/blog.js').Blog[]} */
-  const blogs = []
-
-  // @ts-ignore
-  for (const each_content of blog_json) {
-    const [blog_date, blog_title] = parse(each_content.name)
-
-    blogs.push({
-      title: blog_title,
-      url: `/blog/${encodeURIComponent(each_content.name)}`,
-      date: blog_date.toDateString()
-    })
-  }
-
-  return [blogs, octo_response.status, octo_response.headers]
-}
-
-/**
- *
- * @param {URL} url
- *
- * @returns {Promise<[string, number, object]>}
- */
-export async function fetch_blog(url) {
-  let path = url.pathname.split('/').pop()
-  if (path === undefined) throw new Error(`Blog '${path}' not found`)
-  path = decodeURIComponent(path)
-
-  let octo_response
-  try {
-    octo_response = await octokit.rest.repos.getContent({ owner, repo, path })
-  } catch (/** @type {any} */err) {
-    throw new Error(`Error fetching blog content: ${err}`)
-  }
-
-  const file = octo_response.data
-  // @ts-ignore
-  let blog = atob(file.content)
-
-  // @ts-ignore
-  const file_type = file.name.split('.').pop()
-  if (file_type === "md") {
-    try {
-      blog = await transcribe_markdown(blog)
-    } catch (/** @type {any} */err) {
-      throw new Error(`Error transcribing markdown: ${err}`)
-    }
-  }
-
-  return [blog, octo_response.status, octo_response.headers]
 }

@@ -1,6 +1,9 @@
 <script>
+	/** @returns {Promise<import('$lib/blog.js').Blog[]>}*/
 	async function list_blogs() {
-		return await (await fetch('/api/blog')).json()
+		const blog_response = await fetch('/api/blog')
+		const blogs = await blog_response.json()
+		return blogs
 	}
 </script>
 
@@ -13,6 +16,3 @@
 {:catch error}
 	<p>{error}</p>
 {/await}
-
-<style>
-</style>

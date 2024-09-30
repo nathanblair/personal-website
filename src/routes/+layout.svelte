@@ -3,7 +3,6 @@
 
 	import Footer from '$lib/components/Footer.svelte'
 	import Header from '$lib/components/Header.svelte'
-	import { name } from '$lib/constants.js'
 
 	let { children } = $props()
 </script>
@@ -11,7 +10,7 @@
 <Header />
 
 <svelte:head>
-	<title>{name} | {$page.data.title}</title>
+	<title>{$page.data.title}</title>
 	<meta name="description" content={$page.data.description} />
 	{#if $page.data.structured_data}
 		{@html `<script type="application/ld+json">${JSON.stringify($page.data.structured_data)}</script>`}
@@ -34,5 +33,6 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
 	}
 </style>

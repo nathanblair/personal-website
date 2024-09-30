@@ -10,6 +10,9 @@ node_modules
 /.svelte-kit
 /build
 
+# Test Data
+/test/blogs
+
 # OS
 .DS_Store
 Thumbs.db
