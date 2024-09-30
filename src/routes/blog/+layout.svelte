@@ -3,6 +3,8 @@
 
 	let { children } = $props()
 
+	$inspect($page.route)
+
 	/** * @param {SubmitEvent} event */
 	async function confirm_submission(event) {
 		console.log(event.submitter)
@@ -15,21 +17,20 @@
 	}
 </script>
 
-<!-- FIXME Don't show edit/delete buttons unless on the blog/[slug] route -->
 <div id="blog-actions">
 	<form method="post" onsubmit={confirm_submission}>
 		<button
 			id="delete"
 			name="delete"
 			formaction="?/remove"
-			disabled={$page.params.slug === undefined}
+			disabled={$page.route.id !== '/blog/[slug]'}
 			type="submit"><span class="material-symbols">delete_forever</span></button
 		>
 		<button
 			id="edit"
 			name="edit"
 			formaction="?/edit"
-			disabled={$page.params.slug === undefined}
+			disabled={$page.route.id !== '/blog/[slug]'}
 			type="submit"><span class="material-symbols">edit</span></button
 		>
 	</form>
