@@ -15,6 +15,7 @@
 	}
 </script>
 
+<!-- FIXME Don't show edit/delete buttons unless on the blog/[slug] route -->
 <div id="blog-actions">
 	<form method="post" onsubmit={confirm_submission}>
 		<button

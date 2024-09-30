@@ -1,11 +1,11 @@
 import { create, get } from '$lib/server/blog/r2.js'
 import { error, redirect } from '@sveltejs/kit'
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ params }) {
-  const title = `Edit Blog Post`
-  const description = `Edit a blog post`
-
+/**
+ * @param {import('./$types').RouteParams} params
+ * @param {App.Platform} platform
+ */
+async function fetch_blog(params, platform) {
   /** @type {{blog_title?: string, date?: string, content?: string, status?: number, headers?: Headers}} */
   let { blog_title, date, content, status, headers } = {}
   try {
@@ -22,7 +22,17 @@ export async function load({ params }) {
   const blog_day = new String(blog_day_number).padStart(2, '0')
   date = `${blog_year}-${blog_month}-${blog_day}`
 
-  return { title, description, blog_title, date, content, content_type: headers?.get("Content-Type") }
+  return { blog_title, date, content, content_type: headers?.get("Content-Type") }
+}
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ params, platform }) {
+  const title = `Edit Blog Post`
+  const description = `Edit a blog post`
+
+  if (platform === undefined) throw new Error(`Platform was not found`)
+
+  return { title, description, blog_fetch: fetch_blog(params, platform) }
 }
 
 /** @type {import('./$types').Actions} */

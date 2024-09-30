@@ -1,12 +1,13 @@
-import { list } from "$lib/server/blog/r2.js"
-import { retrieve as retrieve_from_cache, store as store_to_cache } from "$lib/server/cache.js"
-// import { fetch_blogs } from "$lib/server/github.js"
-import { error, json } from "@sveltejs/kit"
+import { name } from '$lib/constants.js'
+import { list } from '$lib/server/blog/r2.js'
+import { retrieve as retrieve_from_cache, store as store_to_cache } from '$lib/server/cache.js'
+import { error } from '@sveltejs/kit'
 
 /**
- @param {{request: Request, platform: App.Platform}} params
+ * @param {Request | import('@cloudflare/workers-types').Request} request
+ * @param {App.Platform} platform
  */
-export async function GET({ request, platform }) {
+async function fetch_blogs(request, platform) {
   const url = new URL(request.url)
 
   /** @type {Response | import('@cloudflare/workers-types').Response | undefined} */
@@ -37,12 +38,22 @@ export async function GET({ request, platform }) {
       JSON.stringify(blog_list_response.blogs),
       blog_list_response.status,
       blog_list_response.headers,
-      platform.context
+      platform?.context
     )
   } catch (/** @type {any} */ err) {
     console.error(err)
     return err
   }
 
-  return json(blog_list_response.blogs)
+  return blog_list_response.blogs
+}
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ request, platform }) {
+  const title = `Blog`
+  const description = `The blog of ${name}`
+
+  if (platform === undefined) throw new Error(`Platform was not found`)
+
+  return { title, description, blogs_fetch: fetch_blogs(request, platform) }
 }

@@ -5,22 +5,32 @@ import { error, redirect } from '@sveltejs/kit'
 
 /** @typedef {{ date: Date, content: string} & PageOutput} BlogPageOutput */
 
-/** @type {import('./$types').PageServerLoad<BlogPageOutput>} */
-export async function load({ params }) {
-  /** @type {{title?: string, date?: string, content?: string, rest?: any}} */
-  let { title, date, content, rest } = {}
+/**
+ * @param {import('./$types').RouteParams} params
+ * @param {App.Platform} platform
+ */
+async function fetch_blog(params, platform) {
+  /** @type {{title?: string, date?: string, content?: string, status?: number, headers?: Headers}} */
+  let { title, date, content, status, headers } = {}
   try {
-    ({ title, date, content, ...rest } = await get(params.slug))
+    ({ title, date, content, status, headers } = await get(params.slug))
   } catch (/** @type {any} */ err) {
     return error(404, err.message)
   }
 
-  const description = ""
-
   const blog_date = new Date(date)
   const structured_data = new BlogPosting(blog_date, title, my_person).structured_data
 
-  return { title, description, content, date: blog_date, structured_data }
+  return { title, date, content, content_type: headers?.get("Content-Type"), structured_data }
+}
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ params, platform }) {
+  const description = ""
+
+  if (platform === undefined) throw new Error(`Platform was not found`)
+
+  return { description, blog_fetch: fetch_blog(params, platform) }
 }
 
 /** @type {import('./$types').Actions} */

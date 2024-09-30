@@ -1,13 +1,8 @@
 <script>
-	/** @returns {Promise<import('$lib/blog.js').Blog[]>}*/
-	async function list_blogs() {
-		const blog_response = await fetch('/api/blog')
-		const blogs = await blog_response.json()
-		return blogs
-	}
+	import { page } from '$app/stores'
 </script>
 
-{#await list_blogs()}
+{#await $page.data.blogs_fetch}
 	<p>Fetching blogs...</p>
 {:then blogs}
 	{#each blogs as blog}
