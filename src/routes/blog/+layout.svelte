@@ -14,28 +14,31 @@
 	}
 </script>
 
-<div id="blog-actions">
-	<form method="post" onsubmit={confirm_submission}>
-		<button
-			id="delete"
-			name="delete"
-			formaction="?/remove"
-			disabled={$page.route.id !== '/blog/[slug]'}
-			type="submit"><span class="material-symbols">delete_forever</span></button
-		>
-		<button
-			id="edit"
-			name="edit"
-			formaction="?/edit"
-			disabled={$page.route.id !== '/blog/[slug]'}
-			type="submit"><span class="material-symbols">edit</span></button
-		>
-	</form>
+{#if $page.data.is_admin}
+	<div id="blog-actions">
+		<form method="post" onsubmit={confirm_submission}>
+			<button
+				id="delete"
+				name="delete"
+				formaction="?/remove"
+				disabled={$page.route.id !== '/blog/[slug]'}
+				type="submit"
+				><span class="material-symbols">delete_forever</span></button
+			>
+			<button
+				id="edit"
+				name="edit"
+				formaction="?/edit"
+				disabled={$page.route.id !== '/blog/[slug]'}
+				type="submit"><span class="material-symbols">edit</span></button
+			>
+		</form>
 
-	<a href="/blog/create" id="create" aria-label="create"
-		><span class="material-symbols">note_stack_add</span></a
-	>
-</div>
+		<a href="/blog/create" id="create" aria-label="create"
+			><span class="material-symbols">note_stack_add</span></a
+		>
+	</div>
+{/if}
 
 <div id="blog-main">
 	{@render children()}

@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores'
+
 	import GitHub from './GitHub.svelte'
 	import LinkedIn from './LinkedIn.svelte'
 </script>
@@ -19,10 +21,43 @@
 	>
 		<GitHub />
 	</a>
-	<a href="https://linkedin.com/in/engineerblair" target="_blank" title="LinkedIn" class="">
+	<a
+		href="https://linkedin.com/in/engineerblair"
+		target="_blank"
+		title="LinkedIn"
+		class=""
+	>
 		<LinkedIn />
 	</a>
-	<a href="mailto:me@nathanblair.rocks" title="E-Mail" class="material-symbols">email</a>
+	<a href="mailto:me@nathanblair.rocks" title="E-Mail" class="material-symbols"
+		>email</a
+	>
+
+	{#if $page.data.is_authenticated_route && !$page.data.session}
+		<form method="POST" action="/login">
+			<button type="submit" title="Log In" class="material-symbols"
+				>login</button
+			>
+		</form>
+	{:else if $page.data.is_authenticated_route && $page.data.session?.user}
+		<form method="POST" action="/logout">
+			<div id="user-info-container">
+				<img
+					class="icon-size"
+					src={$page.data.session.user.image}
+					alt="user"
+					referrerpolicy="no-referrer"
+				/>
+				<div id="user-info">
+					<span>{$page.data.session.user.name}</span>
+					<span>{$page.data.session.user.email}</span>
+				</div>
+				<button type="submit" title="Log Out" class="material-symbols"
+					>logout</button
+				>
+			</div>
+		</form>
+	{/if}
 </div>
 
 <style>
@@ -45,5 +80,27 @@
 		padding: 8px 12px;
 		color: inherit;
 		text-decoration: none;
+	}
+
+	#user-info-container {
+		display: flex;
+		justify-content: center;
+	}
+
+	#user-info {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	button {
+		padding: 8px 12px;
+		border: none;
+		border-radius: 6px;
+	}
+
+	img {
+		max-height: 40px;
+		max-width: 48px;
 	}
 </style>

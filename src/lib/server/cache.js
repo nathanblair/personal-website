@@ -3,9 +3,10 @@ let cache
 
 /**
  *
- * @param {Cache} c
+ * @param {Cache | import('@cloudflare/workers-types').Cache} c
  */
 export async function init(c) {
+  // @ts-ignore
   if (!cache) cache = c
   return true
 }
@@ -46,9 +47,11 @@ export async function store(url, body, status, headers, context) {
   }
 
   const cached = new Response(body, { status: status, headers: new Headers(h) })
+  /** @type {Response} */
+  const cloned = cached.clone()
 
   console.log(`Caching response to '${url}'...`)
-  context.waitUntil(cache.put(url, cached.clone()))
+  context.waitUntil(cache.put(url, cloned))
 
   return cached
 }

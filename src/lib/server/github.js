@@ -14,13 +14,7 @@ export let repo
 
 /** @param {App.Platform_Env} env */
 export async function parse_platform_env(env) {
-  /** @type {string?} */
-  let app_id
-  try {
-    app_id = await env.github_blog_app.get('GITHUB_APP_CLIENT_ID') || dynamic_env.GITHUB_APP_CLIENT_ID
-  } catch (/** @type {any} */err) {
-    throw new Error(`GitHub app ID not found: ${err}`)
-  }
+  const app_id = await env.config.get('GITHUB_APP_CLIENT_ID') || dynamic_env.GITHUB_APP_CLIENT_ID
 
   /** @type {string?} */
   let private_key
@@ -33,7 +27,7 @@ export async function parse_platform_env(env) {
   /** @type {string?} */
   let install_id
   try {
-    install_id = await env.github_blog_app.get('GITHUB_APP_INSTALL_ID') || dynamic_env.GITHUB_APP_INSTALL_ID
+    install_id = await env.config.get('GITHUB_APP_INSTALL_ID') || dynamic_env.GITHUB_APP_INSTALL_ID
   } catch (/** @type {any} */err) {
     throw new Error(`GitHub app installation ID not found: ${err}`)
   }

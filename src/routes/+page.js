@@ -1,5 +1,4 @@
 export const ssr = false
-export const prerender = true
 
 import { name } from "$lib/constants.js"
 import { my_profile } from "$lib/structured_data/profile_page.js"
