@@ -3,14 +3,11 @@
 
 	let { children } = $props()
 
-	$inspect($page.route)
-
 	/** * @param {SubmitEvent} event */
 	async function confirm_submission(event) {
 		console.log(event.submitter)
 		const confirmed = confirm(
-			// @ts-ignore
-			`Are you sure you want to ${event?.submitter?.name} this blog post?`
+			`Are you sure you want to ${event?.submitter?.id} this blog post?`
 		)
 
 		if (!confirmed) event.preventDefault()

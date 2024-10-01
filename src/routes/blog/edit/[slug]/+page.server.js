@@ -9,7 +9,7 @@ async function fetch_blog(params, platform) {
   /** @type {{blog_title?: string, date?: string, content?: string, status?: number, headers?: Headers}} */
   let { blog_title, date, content, status, headers } = {}
   try {
-    ({ title: blog_title, date, content, status, headers } = await get(params.slug))
+    ({ title: blog_title, date, content, status, headers } = await get(params.slug, false))
   } catch (/** @type {any} */ err) {
     return error(404, err.message)
   }

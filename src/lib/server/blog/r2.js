@@ -71,10 +71,11 @@ export async function list() {
 /**
  *
  * @param {string} key
+ * @param {boolean} [raw=true]
  *
  * @returns {Promise<BlogObject>}
  */
-export async function get(key) {
+export async function get(key, raw = true) {
   let blog = await r2_blogs_bucket.get(key, {})
 
   if (blog === null) {
@@ -83,7 +84,7 @@ export async function get(key) {
 
   let content = await blog.text()
 
-  if (blog.httpMetadata?.contentType === 'text/markdown') {
+  if (raw && blog.httpMetadata?.contentType === 'text/markdown') {
     content = await transcribe_markdown(content)
   }
 
