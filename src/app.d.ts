@@ -1,11 +1,10 @@
-import { CacheStorage, D1Database, KVNamespace, R2Bucket } from "@cloudflare/workers-types"
+import { CacheStorage, KVNamespace, R2Bucket } from "@cloudflare/workers-types"
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
 	namespace App {
 		interface Platform_Env {
-			auth: D1Database
 			config: KVNamespace
 			blogs: R2Bucket
 			GITHUB_APP_CLIENT_ID: string
