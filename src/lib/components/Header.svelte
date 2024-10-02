@@ -48,10 +48,7 @@
 					alt="user"
 					referrerpolicy="no-referrer"
 				/>
-				<div id="user-info">
-					<span>{$page.data.session.user.name}</span>
-					<span>{$page.data.session.user.email}</span>
-				</div>
+				<span>{$page.data.session.user.name}</span>
 				<button type="submit" title="Log Out" class="material-symbols"
 					>logout</button
 				>
@@ -85,12 +82,7 @@
 	#user-info-container {
 		display: flex;
 		justify-content: center;
-	}
-
-	#user-info {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
+		align-items: center;
 	}
 
 	button {
@@ -100,7 +92,11 @@
 	}
 
 	img {
-		max-height: 40px;
-		max-width: 48px;
+		max-height: 45px;
+		padding: 8px;
+	}
+
+	span {
+		padding: 0 0 0 4px;
 	}
 </style>
