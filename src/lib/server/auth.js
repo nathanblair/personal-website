@@ -14,7 +14,7 @@ export async function init(config) {
 
 const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
   const github_client_id = await event.platform?.env.config.get("GITHUB_APP_CLIENT_ID") || dynamic_env.GITHUB_APP_CLIENT_ID
-  const github_secret = await event.platform?.env.config.get("GITHUB_APP_CLIENT_SECRET") || dynamic_env.GITHUB_APP_CLIENT_SECRET
+  const github_secret = dynamic_env.GITHUB_APP_CLIENT_SECRET
   return {
     providers: [
       GitHub({
