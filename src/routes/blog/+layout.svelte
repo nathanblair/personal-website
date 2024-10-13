@@ -1,6 +1,10 @@
 <script>
 	import { page } from '$app/stores'
 
+	import Edit from 'svelte-lucide/FilePen.svelte'
+	import Create from 'svelte-lucide/FilePlus.svelte'
+	import Trash from 'svelte-lucide/Trash.svelte'
+
 	let { children } = $props()
 
 	/** * @param {SubmitEvent} event */
@@ -15,60 +19,37 @@
 </script>
 
 {#if $page.data.is_admin}
-	<div id="blog-actions">
-		<form method="post" onsubmit={confirm_submission}>
+	<div id="blog-actions" class="flex">
+		<form method="post" onsubmit={confirm_submission} class="flex">
 			<button
+				class="btn-icon m-2 p-0"
 				id="delete"
 				name="delete"
 				formaction="?/remove"
 				disabled={$page.route.id !== '/blog/[slug]'}
 				type="submit"
-				><span class="material-symbols">delete_forever</span></button
+				title="Delete the blog post"><Trash /></button
 			>
 			<button
+				class="btn-icon m-2 p-0"
 				id="edit"
 				name="edit"
 				formaction="?/edit"
 				disabled={$page.route.id !== '/blog/[slug]'}
-				type="submit"><span class="material-symbols">edit</span></button
+				type="submit"
+				title="Edit the blog post"><Edit /></button
 			>
 		</form>
-
-		<a href="/blog/create" id="create" aria-label="create"
-			><span class="material-symbols">note_stack_add</span></a
+		<a
+			class="btn-icon m-2 p-0"
+			href="/blog/create"
+			id="create"
+			aria-label="create"
+			title="Create a new blog post"><Create /></a
 		>
 	</div>
 {/if}
 
-<div id="blog-main">
+<div id="blog-main" class="flex flex-1 flex-col">
 	{@render children()}
 </div>
-
-<style>
-	#blog-actions {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	#blog-main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-	}
-
-	a {
-		display: block;
-		text-decoration: none;
-	}
-
-	a,
-	button {
-		padding: 8px 12px;
-	}
-
-	button:disabled {
-		cursor: default;
-		opacity: 0.5;
-	}
-</style>
