@@ -1,13 +1,11 @@
 <script>
 	import { page } from '$app/stores'
 
+	import AppBar from '$lib/components/AppBar.svelte'
 	import Footer from '$lib/components/Footer.svelte'
-	import Header from '$lib/components/Header.svelte'
 
 	let { children } = $props()
 </script>
-
-<Header />
 
 <svelte:head>
 	<title>{$page.data.title}</title>
@@ -17,22 +15,19 @@
 	{/if}
 </svelte:head>
 
-<main>
+<AppBar></AppBar>
+
+<main
+	class="flex flex-1 flex-col justify-center dark:bg-surface-contrast-100 dark:text-surface-contrast-900"
+>
 	{@render children()}
 </main>
 
-<Footer />
+<Footer></Footer>
 
 <style>
 	@import '$lib/styles/global.css';
-	@import '$lib/styles/helpers.css';
-	@import '$lib/styles/material-symbols.css';
-	@import '$lib/styles/theme.css';
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
+	@import 'tailwindcss/base';
+	@import 'tailwindcss/components';
+	@import 'tailwindcss/utilities';
 </style>
