@@ -36,7 +36,7 @@
 </header>
 
 <aside>
-	<h1 class="text-center text-4xl">Education</h1>
+	<h1 class="mx-2 text-center text-4xl">Education</h1>
 
 	{#each education as school}
 		<article
@@ -44,7 +44,7 @@
 		>
 			<h2 class="text-xl font-bold">{school.name}</h2>
 			<h3 class="text-xl">{school.college}</h3>
-			<h5>
+			<h5 class="text-surface-500">
 				<span>{school.dates.end}</span> -
 				<span>{school.location.city}, {school.location.state}</span>
 			</h5>
@@ -56,7 +56,7 @@
 </aside>
 
 <article id="professional">
-	<h1 class="text-center text-4xl">Professional Experience</h1>
+	<h1 class="mx-2 text-center text-4xl">Professional Experience</h1>
 
 	{#each professional as workplace}
 		<section
@@ -66,7 +66,7 @@
 				<h2 class="inline font-extrabold">{workplace.company}</h2>
 				<h3 class="float-end ml-2 inline font-light">{workplace.position}</h3>
 			</div>
-			<h4>
+			<h4 class="text-surface-500">
 				<span>{workplace.start_date}</span> -
 				<span>{workplace.end_date}</span>
 				<span class="float-end block italic sm:inline"
@@ -84,13 +84,13 @@
 </article>
 
 <article id="open-source">
-	<h1 class="text-center text-4xl">Open Source Contributions</h1>
+	<h1 class="mx-2 text-center text-4xl">Open Source Contributions</h1>
 
 	{#each open_source as os}
 		<section
 			class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900"
 		>
-			<h2>{os.name}</h2>
+			<h2 class="font-bold">{os.name}</h2>
 
 			<hr class="hr my-4 border-t-2" />
 
@@ -117,22 +117,26 @@
 </article>
 
 <article id="skills" class="mb-4">
-	<h1 class="text-center text-4xl">Technical Skills</h1>
+	<h1 class="mx-2 text-center text-4xl">Technical Skills</h1>
 
-	{#each skills as skill}
-		<div class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900">
-			<h2>{skill.name}</h2>
+	<div class="flex flex-col flex-wrap justify-between sm:flex-row">
+		{#each skills as skill}
+			<div
+				class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900"
+			>
+				<h2 class="text-center">{skill.name}</h2>
 
-			<hr class="hr my-4 border-t-2" />
+				<hr class="hr my-4 border-t-2" />
 
-			<span class="block text-center">
-				{#each skill.items as item, index}
-					{item}
-					{#if index < skill.items.length - 1}
-						<span> ·&nbsp;</span>
-					{/if}
-				{/each}
-			</span>
-		</div>
-	{/each}
+				<span class="block text-center">
+					{#each skill.items as item, index}
+						{item}
+						{#if index < skill.items.length - 1}
+							<span> ·&nbsp;</span>
+						{/if}
+					{/each}
+				</span>
+			</div>
+		{/each}
+	</div>
 </article>
