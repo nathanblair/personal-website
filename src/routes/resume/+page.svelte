@@ -62,14 +62,16 @@
 		<section
 			class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900"
 		>
-			<h2 class="inline font-extrabold">{workplace.company}</h2>
-			|
-			<h3 class="inline font-light">{workplace.position}</h3>
+			<div class="overflow-x-scroll">
+				<h2 class="inline font-extrabold">{workplace.company}</h2>
+				<h3 class="float-end ml-2 inline font-light">{workplace.position}</h3>
+			</div>
 			<h4>
 				<span>{workplace.start_date}</span> -
-				<span>{workplace.end_date}</span> |
-				<span class="italic">{workplace.location}</span>
-				<span>({workplace.site})</span>
+				<span>{workplace.end_date}</span>
+				<span class="float-end block italic sm:inline"
+					>{workplace.location} ({workplace.site})</span
+				>
 			</h4>
 			<hr class="hr my-4 border-t-2" />
 			<ul class="l mx-8 my-3 list-disc">
@@ -123,7 +125,7 @@
 
 			<hr class="hr my-4 border-t-2" />
 
-			<span>
+			<span class="block text-center">
 				{#each skill.items as item, index}
 					{item}
 					{#if index < skill.items.length - 1}
