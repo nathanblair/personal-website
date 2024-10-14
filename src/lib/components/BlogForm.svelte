@@ -11,7 +11,7 @@
 	let { title, date, content, content_type, operation } = $props()
 </script>
 
-<form method="post" onsubmit={confirm_operation}>
+<form method="post" onsubmit={confirm_operation} class="h-full">
 	<div id="create-header">
 		<input
 			class="input"

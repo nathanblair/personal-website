@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores'
 
-	import AppBar from '$lib/components/AppBar.svelte'
 	import Footer from '$lib/components/Footer.svelte'
+	import Header from '$lib/components/Header.svelte'
 
 	let { children } = $props()
 </script>
@@ -15,10 +15,10 @@
 	{/if}
 </svelte:head>
 
-<AppBar></AppBar>
+<Header></Header>
 
 <main
-	class="flex flex-1 flex-col justify-center dark:bg-surface-contrast-100 dark:text-surface-contrast-900"
+	class="flex flex-1 flex-col text-surface-950-50 dark:bg-surface-contrast-100"
 >
 	{@render children()}
 </main>

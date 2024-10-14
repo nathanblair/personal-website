@@ -10,12 +10,12 @@
 </script>
 
 <header>
-	<h1>
-		<span class="first-name">{first_name}</span>
-		<span class="last-name">{last_name}</span>
+	<h1 class="m-4">
+		<span class="text-6xl">{first_name}</span>
+		<span class="text-6xl font-bold">{last_name}</span>
 	</h1>
 
-	<section id="contact-info">
+	<section id="contact-info" class="mb-3 text-center">
 		<a href={contact_info.website.link} target="_blank"
 			>{contact_info.website.name}</a
 		>
@@ -35,11 +35,13 @@
 	</section>
 </header>
 
-<aside>
+<aside class="">
 	<h1>Education</h1>
 
 	{#each education as school}
-		<article id="education">
+		<article
+			class="z-5 card m-4 rounded-lg p-2 text-center drop-shadow-md bg-surface-100-900"
+		>
 			<h2>{school.name}</h2>
 			<h3>{school.college}</h3>
 			<h5>
@@ -59,13 +61,15 @@
 	<h1>Professional Experience</h1>
 
 	{#each professional as workplace}
-		<section class="workplace">
-			<h2 class="workplace-name piped">{workplace.company}</h2>
-			<h3 class="title piped">{workplace.position}</h3>
+		<section
+			class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900"
+		>
+			<h2 class="piped inline">{workplace.company}</h2>
+			<h3 class="piped inline">{workplace.position}</h3>
 			<h4>
 				<span class="start-date dashed">{workplace.start_date}</span>
 				<span class="end-date dashed piped">{workplace.end_date}</span>
-				<span class="location piped">{workplace.location}</span>
+				<span class="piped italic">{workplace.location}</span>
 				<span class="site">{workplace.site}</span>
 			</h4>
 			<ul>
@@ -81,11 +85,13 @@
 	<h1>Open Source Contributions</h1>
 
 	{#each open_source as os}
-		<section class="organization">
+		<section
+			class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900"
+		>
 			<h2 class="organization-name">{os.name}</h2>
 
 			{#each os.contributions as contribution}
-				<h3 class="title">
+				<h3 class="inline">
 					{#each contribution.projects as project}
 						<a href={project.link} target="_blank" rel="noopener noreferrer">
 							<span>{project.name}</span>
@@ -104,32 +110,42 @@
 	{/each}
 </article>
 
-<article id="skills">
+<article id="skills" class="mb-4 text-center">
 	<h1>Technical Skills</h1>
 
 	{#each skills as skill}
-		<h2>{skill.name}</h2>
-		{#each skill.items as item}
-			<span class="dotted">{item}</span>
-		{/each}
+		<div class="z-5 card m-4 rounded-lg p-4 drop-shadow-md bg-surface-100-900">
+			<h2>{skill.name}</h2>
+			{#each skill.items as item}
+				<span class="dotted">{item}</span>
+			{/each}
+		</div>
 	{/each}
 </article>
 
 <style>
 	h1 {
 		font-size: x-large !important;
-		font-weight: 500;
-		margin: 12px 0;
+		text-align: center;
 	}
 
 	h2 {
 		font-size: larger;
-		margin: 8px 0;
+		font-weight: normal;
+		text-decoration: underline;
 	}
 
 	h3 {
 		font-size: large;
-		margin: 6px 0;
+	}
+
+	h4,
+	h5 {
+		font-weight: normal;
+	}
+
+	h5 {
+		font-style: italic;
 	}
 
 	.dotted + .dotted::before {
@@ -150,124 +166,43 @@
 		content: ' - ';
 	}
 
-	header {
-		.first-name {
-			font-weight: 200;
-		}
-
-		.last-name {
-			font-weight: 700;
-		}
-
-		#contact-info {
-			text-align: center;
-
-			a {
-				color: unset;
-				font-weight: normal;
-			}
-
-			.telephone {
-				font-size: 0;
-
-				span {
-					font-size: large;
-				}
-
-				.country-code::before {
-					content: '+';
-				}
-
-				.country-code::after {
-					content: ' ';
-				}
-
-				.area-code::before {
-					content: '(';
-				}
-
-				.area-code::after {
-					content: ') ';
-				}
-
-				.prefix {
-					margin: 0 4px 0 0;
-				}
-
-				.line-number::before {
-					content: '- ';
-				}
-			}
-		}
-
-		h1 {
-			cursor: pointer;
-		}
-
-		h1 > span {
-			font-size: 36px;
-		}
+	.country-code::before {
+		content: '+';
 	}
 
-	h1 {
-		text-align: center;
+	.country-code::after {
+		content: ' ';
 	}
 
-	h2 {
-		font-weight: normal;
-		text-decoration: underline;
+	.area-code::before {
+		content: '(';
 	}
 
-	h4,
-	h5 {
-		font-weight: normal;
+	.area-code::after {
+		content: ') ';
 	}
 
-	h5 {
-		font-style: italic;
+	.prefix {
+		margin: 0 4px 0 0;
 	}
 
-	#education,
-	#skills {
-		text-align: center;
+	.line-number::before {
+		content: '- ';
+	}
+
+	.site::before {
+		content: '(';
+	}
+
+	.site::after {
+		content: ')';
 	}
 
 	#professional {
-		line-height: 1.6;
-
 		h4 {
 			font-weight: normal;
 			text-align: center;
 			margin: 1% 0;
-		}
-
-		.workplace-name,
-		.title {
-			display: inline;
-		}
-
-		.location {
-			font-style: italic;
-		}
-
-		.site::before {
-			content: '(';
-		}
-
-		.site::after {
-			content: ')';
-		}
-
-		.workplace {
-			margin: 2% 2% 2% 6%;
-		}
-	}
-
-	#open-source {
-		line-height: 1.6;
-
-		.organization {
-			margin: 2% 2% 2% 6%;
 		}
 	}
 </style>

@@ -5,7 +5,7 @@
 </script>
 
 <footer
-	class="sticky bottom-0 py-2 text-center opacity-95 bg-surface-100-900 dark:text-surface-300"
+	class="sticky bottom-0 py-2 text-center opacity-95 bg-surface-100-900 text-surface-600-400"
 >
 	&copy; {year} <strong>{name}</strong>
 </footer>
