@@ -27,7 +27,7 @@
 	setContext('iconCtx', { size: '18' })
 </script>
 
-<header
+<nav
 	class="sticky top-0 z-10 flex justify-between overflow-x-scroll opacity-95 drop-shadow-md text-primary-800-200 bg-surface-100-900"
 >
 	<div class="ml-1 flex">
@@ -82,4 +82,4 @@
 
 		<DarkModeSwitch />
 	</div>
-</header>
+</nav>

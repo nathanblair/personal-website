@@ -48,7 +48,7 @@ export const skills = [
   },
   {
     name: 'Programs',
-    items: ['GitHub', 'Azure DevOps']
+    items: ['GitHub', 'Azure DevOps', 'GitLab']
   }
 ]
 
