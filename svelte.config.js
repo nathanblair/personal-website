@@ -10,7 +10,7 @@ const config = {
 			},
 			platformProxy: {
 				configPath: 'wrangler.toml',
-				persist: false
+				persist: true
 			}
 		})
 	}

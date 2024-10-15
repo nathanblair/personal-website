@@ -37,11 +37,12 @@
 		</select>
 	</div>
 	<textarea
-		class="textarea"
+		class="textarea overflow-y-scroll"
 		name="content"
 		id="content"
 		placeholder="Enter blog content here"
 		value={content}
+		rows="10"
 		required
 	></textarea>
 	<div id="operations">
