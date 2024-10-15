@@ -1,9 +1,8 @@
 <script>
-	import { name } from '$lib/constants.js'
 </script>
 
-<header>
-	<h1>{name}</h1>
+<header class="m-auto text-4xl leading-loose">
+	<!-- <h1>{name}</h1> -->
 
 	<p>I am a <strong>tinkerer</strong>,</p>
 
@@ -15,25 +14,4 @@
 </header>
 
 <style>
-	header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	h1 {
-		font-size: 2em;
-		padding: 20px 0;
-		font-weight: normal;
-	}
-
-	p {
-		font-size: 1.5em;
-		margin: 0;
-		padding: 20px 0;
-	}
-
-	strong {
-		font-weight: bolder;
-	}
 </style>
