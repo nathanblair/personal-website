@@ -30,4 +30,5 @@
 	@import 'tailwindcss/base';
 	@import 'tailwindcss/components';
 	@import 'tailwindcss/utilities';
+	@import 'github-markdown-css/github-markdown.css';
 </style>

@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores'
+
 	import BlogPlaceholder from '$lib/components/BlogPlaceholder.svelte'
 </script>
 
@@ -17,13 +18,13 @@
 	<p>Fetching blog...</p>
 	<BlogPlaceholder />
 {:then blog}
-	<header class="text-center sm:mx-44 sm:my-4">
+	<header class="my-4 text-center sm:mx-44 sm:my-0">
 		<h1 class="mb-2 text-2xl">{blog.title}</h1>
 		<h2 class="text-xl text-surface-500">{blog.date}</h2>
 	</header>
 
 	<div
-		class="mx-8 mb-8 mt-2 overflow-x-scroll text-surface-900-100 sm:mx-36 sm:mt-10"
+		class="markdown-body mx-8 !mb-8 mt-2 overflow-x-scroll !bg-surface-900 p-8 !text-surface-100 sm:mx-36 sm:mt-10"
 	>
 		{@html blog.content}
 	</div>
