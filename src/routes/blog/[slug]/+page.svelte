@@ -1,7 +1,5 @@
 <script>
 	import { page } from '$app/stores'
-
-	import BlogPlaceholder from '$lib/components/BlogPlaceholder.svelte'
 </script>
 
 <svelte:head>
@@ -15,8 +13,26 @@
 </svelte:head>
 
 {#await $page.data.blog_fetch}
-	<p>Fetching blog...</p>
-	<BlogPlaceholder />
+	<div class="w-full space-y-4">
+		<div class="flex items-center justify-between">
+			<div class="flex items-center justify-center space-x-4">
+				<div class="placeholder-circle size-16 animate-pulse"></div>
+				<div class="placeholder-circle size-14 animate-pulse"></div>
+				<div class="placeholder-circle size-10 animate-pulse"></div>
+			</div>
+		</div>
+		<div class="space-y-4">
+			<div class="placeholder animate-pulse"></div>
+			<div class="grid grid-cols-4 gap-4">
+				<div class="placeholder animate-pulse"></div>
+				<div class="placeholder animate-pulse"></div>
+				<div class="placeholder animate-pulse"></div>
+				<div class="placeholder animate-pulse"></div>
+			</div>
+			<div class="placeholder animate-pulse"></div>
+			<div class="placeholder animate-pulse"></div>
+		</div>
+	</div>
 {:then blog}
 	<header class="my-4 text-center sm:mx-44 sm:my-0">
 		<h1 class="mb-2 text-2xl">{blog.title}</h1>

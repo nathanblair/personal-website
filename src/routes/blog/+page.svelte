@@ -1,14 +1,19 @@
 <script>
 	import { page } from '$app/stores'
-	import BlogPlaceholder from '$lib/components/BlogPlaceholder.svelte'
 </script>
 
 <div
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#await $page.data.blogs_fetch}
-		<p>Fetching blogs...</p>
-		<BlogPlaceholder />
+		{#each Array(16) as _}
+			<div
+				class="card placeholder block animate-pulse rounded-md border-surface-contrast-900 p-6 drop-shadow-md bg-surface-100-900 text-surface-900-100"
+			>
+				<div class="placeholder animate-pulse text-xl font-bold"></div>
+				<div class="placeholder animate-pulse text-surface-500"></div>
+			</div>
+		{/each}
 	{:then blogs}
 		{#each blogs as blog}
 			<a
