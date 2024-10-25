@@ -10,10 +10,10 @@ import { error, redirect } from '@sveltejs/kit'
  * @param {App.Platform} platform
  */
 async function fetch_blog(params, platform) {
-  /** @type {{title?: string, date?: string, content?: string, status?: number, headers?: Headers}} */
-  let { title, date, content, status, headers } = {}
+  // @ts-ignore
+  let { title, date, content, comments_enabled, headers } = {}
   try {
-    ({ title, date, content, status, headers } = await get(params.slug))
+    ({ title, date, content, comments_enabled, headers } = await get(params.slug))
   } catch (/** @type {any} */ err) {
     return error(404, err.message)
   }
@@ -21,7 +21,14 @@ async function fetch_blog(params, platform) {
   const blog_date = new Date(date)
   const structured_data = new BlogPosting(blog_date, title, my_person).structured_data
 
-  return { title, date, content, content_type: headers?.get("Content-Type"), structured_data }
+  return {
+    title,
+    date,
+    content,
+    comments_enabled,
+    content_type: headers?.get("Content-Type"),
+    structured_data
+  }
 }
 
 /** @type {import('./$types').PageServerLoad} */

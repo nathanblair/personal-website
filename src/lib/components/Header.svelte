@@ -30,13 +30,13 @@
 <nav
 	class="sticky top-0 z-10 flex justify-between overflow-x-scroll opacity-95 drop-shadow-md text-primary-800-200 bg-surface-100-900"
 >
-	<div class="ml-1 flex">
+	<div class="ml-1 mr-3 flex">
 		<NavTile label="Home" href="/"><Home /></NavTile>
 		<NavTile label="About" href="/about"><About /></NavTile>
 		<NavTile label="Resumé" href="/resume"><Resume /></NavTile>
 		<NavTile label="Blog" href="/blog"><Blog /></NavTile>
 	</div>
-	<div class="mr-1 flex items-center">
+	<div class="ml-3 mr-1 flex items-center">
 		<NavTile href="https://github.com/nathanblair" target="_blank"
 			><GitHub size="24" /></NavTile
 		>

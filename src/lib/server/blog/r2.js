@@ -15,16 +15,18 @@ export async function init(env) {
  * @param {string} key
  * @param {string} title
  * @param {string} date
+ * @param {boolean} comments
  * @param {string} content
  * @param {string} content_type
  */
-export async function create(key, title, date, content, content_type) {
+export async function create(key, title, date, comments, content, content_type) {
+  const comments_enabled = comments.toString()
   return await r2_blogs_bucket.put(
     key,
     content,
     {
       httpMetadata: { contentType: content_type, },
-      customMetadata: { title, date, }
+      customMetadata: { title, date, comments_enabled }
     }
   )
 }
@@ -34,11 +36,22 @@ export async function remove(key) {
   return await r2_blogs_bucket.delete(key)
 }
 
-/** @typedef {{blogs: import('$lib/blog.js').Blog[], status: number, headers: Headers}} BlogListResponse */
-/** @typedef {{title: string, date: string, content: string, status: number, headers: Headers}} BlogObject */
+/** @typedef {{
+ * blogs: import('$lib/blog.js').Blog[],
+ * status: number,
+ * headers: Headers
+ * }} BlogListResponse */
+
+/** @typedef {{
+ * title: string,
+ * date: string,
+ * content: string,
+ * status: number,
+ * headers: Headers,
+ * comments_enabled: boolean
+ * }} BlogObject */
 
 /**
- *
  * @returns {Promise<BlogListResponse>}
  */
 export async function list() {
@@ -49,9 +62,7 @@ export async function list() {
     console.error(err)
   }
 
-  if (r2_blogs === undefined) {
-    throw new Error("Failed to fetch blogs")
-  }
+  if (r2_blogs === undefined) throw new Error("Failed to fetch blogs")
 
   /** @type {import('$lib/blog.js').Blog[]} */
   const blogs = []
@@ -69,7 +80,6 @@ export async function list() {
 }
 
 /**
- *
  * @param {string} key
  * @param {boolean} [raw=true]
  *
@@ -78,9 +88,7 @@ export async function list() {
 export async function get(key, raw = true) {
   let blog = await r2_blogs_bucket.get(key, {})
 
-  if (blog === null) {
-    throw new Error(`Blog '${key}' not found`)
-  }
+  if (blog === null) throw new Error(`Blog '${key}' not found`)
 
   let content = await blog.text()
 
@@ -91,15 +99,14 @@ export async function get(key, raw = true) {
   let blog_head = await r2_blogs_bucket.head(key)
 
   const title = blog_head?.customMetadata?.title || key
+  const comments_enabled = blog_head?.customMetadata?.comments_enabled === 'true'
   const date = blog_head?.customMetadata?.date
-  if (!date) {
-    throw new Error(`Blog '${key}' does not have a date`)
-  }
+  if (!date) throw new Error(`Blog '${key}' does not have a date`)
 
   const headers = new Headers({
     'Content-Type': blog.httpMetadata?.contentType || 'text/plain',
     'Cache-Control': blog.httpMetadata?.cacheControl || 'no-cache',
   })
 
-  return { title, date, content, status: 200, headers }
+  return { title, date, content, status: 200, comments_enabled, headers }
 }

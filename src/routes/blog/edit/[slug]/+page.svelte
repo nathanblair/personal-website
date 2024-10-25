@@ -12,6 +12,7 @@
 		date={blog.date}
 		content_type={blog.content_type}
 		content={blog.content}
+		comments_enabled={blog.comments_enabled}
 		operation="Update"
 	/>
 {:catch error}

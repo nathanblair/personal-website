@@ -14,7 +14,13 @@ export async function load() {
   const blog_day = new String(blog_day_number).padStart(2, '0')
   const date = `${blog_year}-${blog_month}-${blog_day}`
 
-  return { title, description, blog_title: null, date, content: null, content_type: "text/markdown" }
+  return {
+    title,
+    description,
+    blog_title: null,
+    date, content: null,
+    content_type: "text/markdown"
+  }
 }
 
 /** @type {import('./$types').Actions} */
@@ -29,6 +35,8 @@ export const actions = {
     if (date === undefined) throw new Error("Blog date not found")
     const blog_date = new Date(`${date}T00:00`).toDateString()
 
+    const comments_enabled = Boolean(form_data.get("comments"))
+
     const blog_content = form_data.get("content")?.toString()
     if (blog_content === undefined) throw new Error("Blog content not found")
 
@@ -38,7 +46,7 @@ export const actions = {
     const formatted_title = blog_title.replace(/ /g, '-')
     const key = `${formatted_title.toLowerCase()}-${Date.now().toString(36)}`
 
-    await create(key, blog_title, blog_date, blog_content, blog_content_type)
+    await create(key, blog_title, blog_date, comments_enabled, blog_content, blog_content_type)
 
     redirect(303, "/blog")
   },

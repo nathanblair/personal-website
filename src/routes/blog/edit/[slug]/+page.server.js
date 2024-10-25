@@ -6,10 +6,10 @@ import { error, redirect } from '@sveltejs/kit'
  * @param {App.Platform} platform
  */
 async function fetch_blog(params, platform) {
-  /** @type {{blog_title?: string, date?: string, content?: string, status?: number, headers?: Headers}} */
-  let { blog_title, date, content, status, headers } = {}
+  // @ts-ignore
+  let { blog_title, date, content, comments_enabled, headers } = {}
   try {
-    ({ title: blog_title, date, content, status, headers } = await get(params.slug, false))
+    ({ title: blog_title, date, content, comments_enabled, headers } = await get(params.slug, false))
   } catch (/** @type {any} */ err) {
     return error(404, err.message)
   }
@@ -22,7 +22,13 @@ async function fetch_blog(params, platform) {
   const blog_day = new String(blog_day_number).padStart(2, '0')
   date = `${blog_year}-${blog_month}-${blog_day}`
 
-  return { blog_title, date, content, content_type: headers?.get("Content-Type") }
+  return {
+    blog_title,
+    date,
+    content,
+    comments_enabled,
+    content_type: headers?.get("Content-Type")
+  }
 }
 
 /** @type {import('./$types').PageServerLoad} */
@@ -39,6 +45,7 @@ export async function load({ params, platform }) {
 export const actions = {
   update: async ({ request, params }) => {
     const form_data = await request.formData()
+    const form_entries = form_data.keys()
 
     const blog_title = form_data.get("title")?.toString()
     if (blog_title === undefined) throw new Error("Blog title not found")
@@ -47,13 +54,15 @@ export const actions = {
     if (date === undefined) throw new Error("Blog date not found")
     const blog_date = new Date(`${date}T00:00`).toDateString()
 
+    const comments_enabled = Boolean(form_data.get("comments"))
+
     const blog_content = form_data.get("content")?.toString()
     if (blog_content === undefined) throw new Error("Blog content not found")
 
     const blog_content_type = form_data.get("format")?.toString()
     if (blog_content_type === undefined) throw new Error("Blog content type not found")
 
-    await create(params.slug, blog_title, blog_date, blog_content, blog_content_type)
+    await create(params.slug, blog_title, blog_date, comments_enabled, blog_content, blog_content_type)
 
     redirect(303, "/blog")
   },
