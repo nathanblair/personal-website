@@ -40,7 +40,7 @@
 	</header>
 
 	<div
-		class="markdown-body mx-8 !mb-8 mt-2 overflow-x-scroll !bg-surface-900 p-8 !text-surface-100 sm:mx-36 sm:mt-10"
+		class="markdown-body mx-8 !mb-8 mt-2 overflow-x-scroll !bg-surface-100 p-8 !text-surface-900 sm:mx-36 sm:mt-10 dark:!bg-surface-900 dark:!text-surface-100"
 	>
 		{@html blog.content}
 	</div>
