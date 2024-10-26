@@ -66,8 +66,7 @@
 			/>
 			<label
 				for="comments"
-				class="label inline-block w-auto py-4 pl-2 pr-2 peer-focus-within:ring-1
-				peer-focus-within:ring-primary-500"
+				class="btn-icon label inline-block cursor-pointer peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
 			>
 				{#if comments}
 					<Comments />
@@ -86,7 +85,7 @@
 		rows="10"
 		required
 	></textarea>
-	<div class="flex">
+	<div class="mx-2 flex">
 		<button
 			class="btn my-2 mr-1 flex-1 rounded-md preset-filled"
 			id="cancel"
