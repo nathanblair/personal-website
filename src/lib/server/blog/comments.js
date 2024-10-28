@@ -1,13 +1,13 @@
 export async function create() {
-  return {}
+	return {}
 }
 
 export async function remove() {
-  return {}
+	return {}
 }
 
 export async function update() {
-  return {}
+	return {}
 }
 
 /**
@@ -15,7 +15,7 @@ export async function update() {
  * @param {string} post_slug
  */
 export async function retrieve(db, post_slug) {
-  // const statement = db.prepare("").bind(post_slug)
-  // const comments_result = await statement.all()
-  return {}
+	// const statement = db.prepare("").bind(post_slug)
+	// const comments_result = await statement.all()
+	return {}
 }

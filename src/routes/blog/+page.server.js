@@ -7,26 +7,28 @@ import { error } from '@sveltejs/kit'
  * @param {App.Platform} platform
  */
 async function fetch_blogs(request, platform) {
-  /** @type {import("$lib/server/blog/api.js").BlogListResponse} */
-  let blog_list_response
-  try {
-    blog_list_response = await list(platform.env.blogs)
-  } catch (/** @type {any} */ err) {
-    console.error(err)
-    return error(500, err)
-  }
+	/** @type {import("$lib/server/blog/api.js").BlogListResponse} */
+	let blog_list_response
+	try {
+		blog_list_response = await list(platform.env.blogs)
+	} catch (/** @type {any} */ err) {
+		console.error(err)
+		return error(500, err)
+	}
 
-  blog_list_response.blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+	blog_list_response.blogs.sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	)
 
-  return blog_list_response.blogs
+	return blog_list_response.blogs
 }
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ request, platform }) {
-  const title = `Blog`
-  const description = `The blog of ${name}`
+	const title = `Blog`
+	const description = `The blog of ${name}`
 
-  if (platform === undefined) throw new Error(`Platform was not found`)
+	if (platform === undefined) throw new Error(`Platform was not found`)
 
-  return { title, description, blogs_fetch: fetch_blogs(request, platform) }
+	return { title, description, blogs_fetch: fetch_blogs(request, platform) }
 }

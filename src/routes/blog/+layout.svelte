@@ -12,7 +12,7 @@
 	async function confirm_submission(event) {
 		console.log(event.submitter)
 		const confirmed = confirm(
-			`Are you sure you want to ${event?.submitter?.id} this blog post?`
+			`Are you sure you want to ${event?.submitter?.id} this blog post?`,
 		)
 
 		if (!confirmed) event.preventDefault()
