@@ -1,4 +1,4 @@
-import { create } from '$lib/server/blog/r2.js'
+import { create } from '$lib/server/blog/api.js'
 import { redirect } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageServerLoad} */

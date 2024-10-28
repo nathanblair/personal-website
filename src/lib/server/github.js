@@ -1,71 +1,25 @@
 import { env as dynamic_env } from "$env/dynamic/private"
 import { App } from 'octokit'
 
-/** @type {import('octokit').App} */
-let github_app
-/** @type {import('octokit').Octokit} */
-export let octokit
+const appId = dynamic_env.GITHUB_APP_CLIENT_ID
+const privateKey = dynamic_env.GITHUB_APP_SECRET
+const installationId = dynamic_env.GITHUB_APP_INSTALL_ID
+const installId = parseInt(installationId)
 
-/** @type {string} */
-export let owner
+const app = new App({ appId, privateKey })
+const octokit = await app.getInstallationOctokit(installId)
 
-/** @type {string} */
-export let repo
-
-/** @param {App.Platform_Env} env */
-export async function parse_platform_env(env) {
-  const app_id = await env.config.get('GITHUB_APP_CLIENT_ID') || dynamic_env.GITHUB_APP_CLIENT_ID
-
-  /** @type {string?} */
-  let private_key
-  try {
-    private_key = dynamic_env.GITHUB_APP_SECRET
-  } catch (/** @type {any} */err) {
-    throw new Error(`GitHub app private key not found: ${err}`)
-  }
-
-  /** @type {string?} */
-  let install_id
-  try {
-    install_id = await env.config.get('GITHUB_APP_INSTALL_ID') || dynamic_env.GITHUB_APP_INSTALL_ID
-  } catch (/** @type {any} */err) {
-    throw new Error(`GitHub app installation ID not found: ${err}`)
-  }
-
-  if (app_id === null || app_id === undefined) {
-    throw new Error("GitHub app ID not found")
-  } else if (private_key === undefined) {
-    throw new Error("GitHub app private key not found")
-  } else if (install_id === null || install_id === undefined) {
-    throw new Error("GitHub app or installation ID not found")
-  }
-
-  const installation_id = parseInt(install_id)
-
-  return { app_id, private_key, installation_id }
-}
-
-/** @param {App.Platform_Env} env */
-export async function init(env) {
-  let { app_id, private_key, installation_id } = await parse_platform_env(env)
-
-  if (!github_app) {
-    github_app = new App({ appId: app_id, privateKey: private_key })
-  }
-  if (!octokit) {
-    octokit = await github_app.getInstallationOctokit(installation_id)
-  }
-
-  await github_app.eachRepository(each => {
-    owner = each.repository.full_name.split('/')[0]
-    repo = each.repository.full_name.split('/')[1]
-  })
-
-  return true
-}
-
-/** @param {string} markdown markdown of the requested transcription */
+/**
+ * @param {string} markdown markdown of the requested transcription
+ */
 export async function transcribe_markdown(markdown) {
-  const md = await octokit.request('POST /markdown', { text: markdown, })
-  return md.data
+  /** @type {import('@octokit/types').OctokitResponse<string, 200>} */
+  let md_response
+  try {
+    md_response = await octokit.request('POST /markdown', { text: markdown, })
+  } catch (/** @type {any} */err) {
+    console.error(err)
+    throw err
+  }
+  return md_response.data
 }

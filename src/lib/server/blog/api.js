@@ -1,17 +1,7 @@
 import { transcribe_markdown } from '../github.js'
 
-/** @type {import('@cloudflare/workers-types').R2Bucket} */
-let r2_blogs_bucket
-
-/** @param {App.Platform_Env} env */
-export async function init(env) {
-  if (!r2_blogs_bucket) {
-    r2_blogs_bucket = env.blogs
-  }
-  return true
-}
-
 /**
+ * @param {import('@cloudflare/workers-types').R2Bucket} bucket
  * @param {string} key
  * @param {string} title
  * @param {string} date
@@ -19,9 +9,9 @@ export async function init(env) {
  * @param {string} content
  * @param {string} content_type
  */
-export async function create(key, title, date, comments, content, content_type) {
+export async function create(bucket, key, title, date, comments, content, content_type) {
   const comments_enabled = comments.toString()
-  return await r2_blogs_bucket.put(
+  return await bucket.put(
     key,
     content,
     {
@@ -31,9 +21,12 @@ export async function create(key, title, date, comments, content, content_type) 
   )
 }
 
-/** @param {string} key */
-export async function remove(key) {
-  return await r2_blogs_bucket.delete(key)
+/**
+ * @param {import('@cloudflare/workers-types').R2Bucket} bucket
+ * @param {string} key
+ */
+export async function remove(bucket, key) {
+  return await bucket.delete(key)
 }
 
 /** @typedef {{
@@ -52,12 +45,14 @@ export async function remove(key) {
  * }} BlogObject */
 
 /**
+ * @param {import('@cloudflare/workers-types').R2Bucket} bucket
+ *
  * @returns {Promise<BlogListResponse>}
  */
-export async function list() {
+export async function list(bucket) {
   let r2_blogs
   try {
-    r2_blogs = await r2_blogs_bucket.list({})
+    r2_blogs = await bucket.list({})
   } catch (/** @type {any} */ err) {
     console.error(err)
   }
@@ -69,7 +64,7 @@ export async function list() {
 
   let each_blog_head, title, date
   for (const each_blog of r2_blogs.objects) {
-    each_blog_head = await r2_blogs_bucket.head(each_blog.key)
+    each_blog_head = await bucket.head(each_blog.key)
     title = each_blog_head?.customMetadata?.title || each_blog.key
     date = each_blog_head?.customMetadata?.date || "Unknown"
 
@@ -80,13 +75,14 @@ export async function list() {
 }
 
 /**
+ * @param {import('@cloudflare/workers-types').R2Bucket} bucket
  * @param {string} key
  * @param {boolean} [raw=true]
  *
  * @returns {Promise<BlogObject>}
  */
-export async function get(key, raw = true) {
-  let blog = await r2_blogs_bucket.get(key, {})
+export async function get(bucket, key, raw = true) {
+  let blog = await bucket.get(key, {})
 
   if (blog === null) throw new Error(`Blog '${key}' not found`)
 
@@ -96,7 +92,13 @@ export async function get(key, raw = true) {
     content = await transcribe_markdown(content)
   }
 
-  let blog_head = await r2_blogs_bucket.head(key)
+  let blog_head
+  try {
+    blog_head = await bucket.head(key)
+  } catch (/** @type {any} */ err) {
+    console.error(err)
+    throw err
+  }
 
   const title = blog_head?.customMetadata?.title || key
   const comments_enabled = blog_head?.customMetadata?.comments_enabled === 'true'

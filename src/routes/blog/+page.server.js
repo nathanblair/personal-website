@@ -1,5 +1,5 @@
 import { name } from '$lib/constants.js'
-import { list } from '$lib/server/blog/r2.js'
+import { list } from '$lib/server/blog/api.js'
 import { error } from '@sveltejs/kit'
 
 /**
@@ -7,10 +7,10 @@ import { error } from '@sveltejs/kit'
  * @param {App.Platform} platform
  */
 async function fetch_blogs(request, platform) {
-  /** @type {import("$lib/server/blog/r2.js").BlogListResponse} */
+  /** @type {import("$lib/server/blog/api.js").BlogListResponse} */
   let blog_list_response
   try {
-    blog_list_response = await list()
+    blog_list_response = await list(platform.env.blogs)
   } catch (/** @type {any} */ err) {
     console.error(err)
     return error(500, err)

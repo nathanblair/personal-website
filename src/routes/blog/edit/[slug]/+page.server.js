@@ -1,4 +1,4 @@
-import { create, get } from '$lib/server/blog/r2.js'
+import { create, get } from '$lib/server/blog/api.js'
 import { error, redirect } from '@sveltejs/kit'
 
 /**
@@ -9,7 +9,7 @@ async function fetch_blog(params, platform) {
   // @ts-ignore
   let { blog_title, date, content, comments_enabled, headers } = {}
   try {
-    ({ title: blog_title, date, content, comments_enabled, headers } = await get(params.slug, false))
+    ({ title: blog_title, date, content, comments_enabled, headers } = await get(platform.env.blogs, params.slug, false))
   } catch (/** @type {any} */ err) {
     return error(404, err.message)
   }
@@ -43,9 +43,10 @@ export async function load({ params, platform }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-  update: async ({ request, params }) => {
+  update: async ({ request, params, platform }) => {
+    if (platform === undefined) throw new Error(`Platform was not found`)
+
     const form_data = await request.formData()
-    const form_entries = form_data.keys()
 
     const blog_title = form_data.get("title")?.toString()
     if (blog_title === undefined) throw new Error("Blog title not found")
@@ -62,7 +63,7 @@ export const actions = {
     const blog_content_type = form_data.get("format")?.toString()
     if (blog_content_type === undefined) throw new Error("Blog content type not found")
 
-    await create(params.slug, blog_title, blog_date, comments_enabled, blog_content, blog_content_type)
+    await create(platform?.env.blogs, params.slug, blog_title, blog_date, comments_enabled, blog_content, blog_content_type)
 
     redirect(303, "/blog")
   },
