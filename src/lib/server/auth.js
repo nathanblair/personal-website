@@ -8,34 +8,31 @@ const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 			GitHub({
 				clientId: dynamic_env.GITHUB_APP_CLIENT_ID,
 				clientSecret: dynamic_env.GITHUB_APP_CLIENT_SECRET,
-				async profile(profile) {
-					const config_admins =
-						(await event.platform?.env.config.get('ADMINS')) ||
-						dynamic_env.ADMINS
-					const admins = JSON.parse(config_admins)
-
-					const p = {
-						...profile,
-						id: `${profile.id}`,
-						image: profile.avatar_url,
-						role: admins.includes(profile.id) ? 'admin' : 'user',
-					}
-					return p
-				},
 			}),
 		],
 		session: { strategy: 'jwt' },
 		trustHost: true,
 		callbacks: {
-			jwt: async ({ token, user }) => {
-				if (user) {
-					// @ts-ignore
-					token.role = user.role
+			jwt: async ({ token, profile }) => {
+				// Will only be populated on 'signIn' trigger
+				if (profile) {
+					const config_admins =
+						(await event.platform?.env.config.get('ADMINS')) ||
+						dynamic_env.ADMINS
+					const admins = JSON.parse(config_admins)
+					token.admin = admins.includes(profile.id)
+					token.sub = profile.id || undefined
 				}
+
 				return token
 			},
-			session: ({ session, token }) => {
-				return { ...session, ...token }
+
+			session: async ({ session, token }) => {
+				// @ts-ignore
+				session.user.admin = token.admin
+				session.user.id = token.sub || ''
+				console.log(session.user)
+				return session
 			},
 		},
 	}

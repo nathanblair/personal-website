@@ -1,6 +1,6 @@
 <script>
-	import CommentsOff from 'svelte-lucide/MessageSquareOff.svelte'
-	import Comments from 'svelte-lucide/MessagesSquare.svelte'
+	import Comments from 'lucide-svelte/icons/message-square'
+	import CommentsOff from 'lucide-svelte/icons/message-square-off'
 
 	/** * @param {SubmitEvent} event */
 	async function confirm_operation(event) {

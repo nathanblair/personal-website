@@ -72,7 +72,6 @@
 		</div>
 	{/each}
 {:then comments}
-	<!-- {#each comments as comment}{/each} -->
 	{#each comments as comment}{/each}
 	{#each Array(5) as _}
 		<div>A comment</div>

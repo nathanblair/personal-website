@@ -1,5 +1,5 @@
 import { get, remove } from '$lib/server/blog/api.js'
-import { retrieve } from '$lib/server/blog/comments.js'
+import { retrieve } from '$lib/server/comments/api.js'
 import { BlogPosting } from '$lib/structured_data/blog_posting.js'
 import { my_person } from '$lib/structured_data/person.js'
 import { error, redirect } from '@sveltejs/kit'
@@ -41,14 +41,15 @@ async function fetch_blog(params, platform) {
  * @param {App.Platform} platform
  */
 async function fetch_comments(params, platform) {
-	let {} = {}
+	/** @type {[]} */
+	let comments
 	try {
-		;({} = await retrieve(platform.env.comments, params.slug))
+		comments = await retrieve(platform.env.comments, params.slug)
 	} catch (/** @type {any} */ err) {
 		return error(404, err.message)
 	}
 
-	return {}
+	return comments
 }
 
 /** @type {import('./$types').PageServerLoad} */

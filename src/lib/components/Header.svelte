@@ -1,30 +1,28 @@
 <script lang="ts">
-	import { page } from '$app/stores'
 	import { localStore } from '$lib/storage/local.svelte.js'
 
-	import { Avatar } from '@skeletonlabs/skeleton-svelte'
-	import { setContext } from 'svelte'
+	import Resume from 'lucide-svelte/icons/building-2'
+	import Home from 'lucide-svelte/icons/house'
+	import LogIn from 'lucide-svelte/icons/log-in'
+	import LogOut from 'lucide-svelte/icons/log-out'
+	import Blog from 'lucide-svelte/icons/rss'
+	import Mail from 'lucide-svelte/icons/send'
+	import Admin from 'lucide-svelte/icons/shield-ellipsis'
+	import About from 'lucide-svelte/icons/user'
 
-	import Resume from 'svelte-lucide/Building.svelte'
 	import GitHub from 'svelte-lucide/Github.svelte'
-	import Home from 'svelte-lucide/House.svelte'
 	import LinkedIn from 'svelte-lucide/Linkedin.svelte'
-	import LogIn from 'svelte-lucide/LogIn.svelte'
-	import LogOut from 'svelte-lucide/LogOut.svelte'
-	import Blog from 'svelte-lucide/Rss.svelte'
-	import Mail from 'svelte-lucide/Send.svelte'
-	import About from 'svelte-lucide/User.svelte'
 
 	import DarkModeSwitch from './DarkModeSwitch.svelte'
 	import NavTile from './NavTile.svelte'
 
 	let dark_mode = localStore('dark_mode', true)
 
+	let { session } = $props()
+
 	$effect(() => {
 		document.body.classList.toggle('dark', dark_mode.value)
 	})
-
-	setContext('iconCtx', { size: '18' })
 </script>
 
 <nav
@@ -35,6 +33,39 @@
 		<NavTile label="About" href="/about"><About /></NavTile>
 		<NavTile label="Resumé" href="/resume"><Resume /></NavTile>
 		<NavTile label="Blog" href="/blog"><Blog /></NavTile>
+		{#if !session}
+			<form method="POST" action="/login" class="flex items-center">
+				<button
+					type="submit"
+					title="Log In"
+					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
+				>
+					<LogIn />
+				</button>
+			</form>
+		{:else if session.user}
+			{#if session.user.admin}
+				<NavTile label="Admin" href="/admin"><Admin /></NavTile>
+			{/if}
+
+			<form method="POST" action="/logout" class="flex items-center">
+				<img
+					class="mx-2 size-10 rounded-full border"
+					src={session.user.image}
+					alt={session.user.name}
+				/>
+				<span class="pointer-events-none m-1 w-max text-surface-800-200"
+					>{session.user.name}</span
+				>
+				<button
+					type="submit"
+					title="Log Out"
+					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
+				>
+					<LogOut />
+				</button>
+			</form>
+		{/if}
 	</div>
 	<div class="ml-3 mr-1 flex items-center">
 		<NavTile href="https://github.com/nathanblair" target="_blank"
@@ -47,38 +78,6 @@
 		<NavTile href="mailto:me@nathanblair.rocks" target="_blank"
 			><Mail /></NavTile
 		>
-
-		{#if $page.data.is_authenticated_route && !$page.data.session}
-			<form method="POST" action="/login" class="flex items-center">
-				<button
-					type="submit"
-					title="Log In"
-					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
-				>
-					<LogIn />
-				</button>
-			</form>
-		{:else if $page.data.is_authenticated_route && $page.data.session?.user}
-			<form method="POST" action="/logout" class="flex items-center">
-				<Avatar
-					size="size-10"
-					rounded="rounded-full"
-					border="mx-2"
-					src={$page.data.session.user.image || undefined}
-					name={''}
-				/>
-				<span class="pointer-events-none m-1 w-max text-surface-800-200"
-					>{$page.data.session.user.name}</span
-				>
-				<button
-					type="submit"
-					title="Log Out"
-					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
-				>
-					<LogOut />
-				</button>
-			</form>
-		{/if}
 
 		<DarkModeSwitch />
 	</div>

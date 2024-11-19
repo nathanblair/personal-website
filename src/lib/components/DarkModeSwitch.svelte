@@ -1,8 +1,8 @@
 <script>
 	import { localStore } from '$lib/storage/local.svelte.js'
 
-	import Moon from 'svelte-lucide/Moon.svelte'
-	import Sun from 'svelte-lucide/Sun.svelte'
+	import Moon from 'lucide-svelte/icons/moon'
+	import Sun from 'lucide-svelte/icons/sun'
 
 	let dark_mode = localStore('dark_mode', true)
 

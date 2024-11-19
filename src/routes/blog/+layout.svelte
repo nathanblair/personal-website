@@ -1,12 +1,12 @@
 <script>
 	import { page } from '$app/stores'
 
-	import Back from 'svelte-lucide/ArrowLeft.svelte'
-	import Edit from 'svelte-lucide/FilePen.svelte'
-	import Create from 'svelte-lucide/FilePlus.svelte'
-	import Trash from 'svelte-lucide/Trash.svelte'
+	import Back from 'lucide-svelte/icons/arrow-left'
+	import Edit from 'lucide-svelte/icons/file-pen'
+	import Create from 'lucide-svelte/icons/file-plus'
+	import Trash from 'lucide-svelte/icons/trash'
 
-	let { children } = $props()
+	let { children, data } = $props()
 
 	/** * @param {SubmitEvent} event */
 	async function confirm_submission(event) {
@@ -29,7 +29,7 @@
 			><Back /></button
 		>
 	{/if}
-	{#if $page.data.is_admin}
+	{#if data?.session?.user?.admin}
 		<div id="blog-actions" class="float-right flex">
 			<form method="post" onsubmit={confirm_submission} class="flex">
 				<button

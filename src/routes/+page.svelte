@@ -2,8 +2,6 @@
 </script>
 
 <header class="m-auto text-4xl leading-loose">
-	<!-- <h1>{name}</h1> -->
-
 	<p>I am a <strong>tinkerer</strong>,</p>
 
 	<p>a <strong>thinker</strong>,</p>
