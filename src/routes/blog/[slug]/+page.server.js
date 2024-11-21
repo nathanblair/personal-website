@@ -1,5 +1,5 @@
 import { get, remove } from '$lib/server/blog/api.js'
-import { retrieve } from '$lib/server/comments/api.js'
+import { has, retrieve } from '$lib/server/comments/api.js'
 import { BlogPosting } from '$lib/structured_data/blog_posting.js'
 import { my_person } from '$lib/structured_data/person.js'
 import { error, redirect } from '@sveltejs/kit'
@@ -36,32 +36,22 @@ async function fetch_blog(params, platform) {
 	}
 }
 
-/**
- * @param {import('./$types').RouteParams} params
- * @param {App.Platform} platform
- */
-async function fetch_comments(params, platform) {
-	/** @type {[]} */
-	let comments
-	try {
-		comments = await retrieve(platform.env.comments, params.slug)
-	} catch (/** @type {any} */ err) {
-		return error(404, err.message)
-	}
-
-	return comments
-}
-
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, platform }) {
-	const description = ''
+	const initialized = platform?.env.comments
+		? await has(platform?.env.comments, params.slug)
+		: Promise.resolve(false)
 
 	if (platform === undefined) throw new Error(`Platform was not found`)
 
 	return {
-		description,
+		description: '',
 		blog_fetch: fetch_blog(params, platform),
-		comments_fetch: fetch_comments(params, platform),
+		initialized,
+		comments:
+			platform?.env.comments && initialized
+				? retrieve(platform?.env.comments, 'test')
+				: Promise.resolve({ results: [] }),
 	}
 }
 

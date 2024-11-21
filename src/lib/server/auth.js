@@ -31,7 +31,6 @@ const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 				// @ts-ignore
 				session.user.admin = token.admin
 				session.user.id = token.sub || ''
-				console.log(session.user)
 				return session
 			},
 		},

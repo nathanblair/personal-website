@@ -25,10 +25,11 @@ async function fetch_blogs(request, platform) {
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ request, platform }) {
-	const title = `Blog`
-	const description = `The blog of ${name}`
-
 	if (platform === undefined) throw new Error(`Platform was not found`)
 
-	return { title, description, blogs_fetch: fetch_blogs(request, platform) }
+	return {
+		title: 'Blog',
+		description: `The blog of ${name}`,
+		blogs_fetch: fetch_blogs(request, platform),
+	}
 }

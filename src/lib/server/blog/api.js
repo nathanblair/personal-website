@@ -5,7 +5,8 @@ import { transcribe_markdown } from '../github.js'
  * @param {string} key
  * @param {string} title
  * @param {string} date
- * @param {boolean} comments
+ * @param {boolean} comments_enabled
+ * @param {number} rocks
  * @param {string} content
  * @param {string} content_type
  */
@@ -14,14 +15,19 @@ export async function create(
 	key,
 	title,
 	date,
-	comments,
+	comments_enabled,
+	rocks,
 	content,
 	content_type,
 ) {
-	const comments_enabled = comments.toString()
 	return await bucket.put(key, content, {
 		httpMetadata: { contentType: content_type },
-		customMetadata: { title, date, comments_enabled },
+		customMetadata: {
+			title,
+			date,
+			comments_enabled: comments_enabled.toString(),
+			rocks: rocks.toString(),
+		},
 	})
 }
 
