@@ -66,7 +66,7 @@
 			/>
 			<label
 				for="comments"
-				class="btn-icon label inline-block cursor-pointer peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
+				class="btn-icon label label-text inline-block cursor-pointer peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
 			>
 				{#if comments}
 					<Comments />

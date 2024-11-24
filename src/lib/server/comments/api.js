@@ -1,7 +1,16 @@
-import knex from 'knex'
+import {
+	DummyDriver,
+	Kysely,
+	SqliteAdapter,
+	SqliteIntrospector,
+	SqliteQueryCompiler,
+} from 'kysely'
+
+/** @typedef {{ date_edited?: string?, body: string }} EditComment */
 
 /** @typedef {{
-	date: string
+	date_posted: string,
+	date_edited?: string?,
   user_id: string,
   user_name: string,
   user_email?: string?,
@@ -11,19 +20,23 @@ import knex from 'knex'
 
 /** @typedef {{
   id: string,
-	date: string
+	date_posted: string,
+	date_edited: string?,
 	user_id: string,
   user_name: string,
   user_email?: string?,
   user_image?: string?,
   rocks: number,
-  body: string
+  body: string,
 }} Comment */
 
-const k = knex({
-	client: 'sqlite3',
-	dialect: 'sqlite3',
-	useNullAsDefault: true,
+const k = new Kysely({
+	dialect: {
+		createAdapter: () => new SqliteAdapter(),
+		createDriver: () => new DummyDriver(),
+		createIntrospector: (db) => new SqliteIntrospector(db),
+		createQueryCompiler: () => new SqliteQueryCompiler(),
+	},
 })
 
 /**
@@ -32,11 +45,15 @@ const k = knex({
  */
 export async function has(db, post_slug) {
 	const query = k
-		.raw("SELECT * FROM sqlite_master WHERE type='table' AND name=:post_slug", {
-			post_slug,
-		})
-		.toQuery()
-	const result = await db.prepare(query).all()
+		.selectFrom('sqlite_master')
+		.select('name')
+		.where('type', '=', 'table')
+		.where('name', '=', post_slug)
+		.compile()
+	const result = await db
+		.prepare(query.sql)
+		.bind(...query.parameters)
+		.all()
 	return result.results.length > 0
 }
 
@@ -45,8 +62,12 @@ export async function has(db, post_slug) {
  * @param {string} post_slug
  */
 export async function clean(db, post_slug) {
-	const query = k.schema.dropTableIfExists(post_slug).toQuery()
-	console.log(query)
+	const tableExists = await has(db, post_slug)
+	if (!tableExists) {
+		console.log(`Table ${post_slug} does not exist.`)
+		return Promise.resolve()
+	}
+	const query = k.schema.dropTable(post_slug).compile().sql
 	return db.prepare(query).all()
 }
 
@@ -55,25 +76,33 @@ export async function clean(db, post_slug) {
  * @param {string} post_slug
  */
 export async function init(db, post_slug) {
-	const query = k.schema
-		.createTable(post_slug, (table) => {
-			table.increments('id').primary()
-			table.string('user_id').notNullable()
-			table.string('user_name').notNullable()
-			table.string('user_email')
-			table.string('user_image')
-			table.integer('rocks').defaultTo(0).notNullable()
-			table.text('body').notNullable()
-			table.datetime('date').notNullable()
-		})
-		.toQuery()
-	console.log(query)
+	const table = k.schema.createTable(post_slug)
+	const query = table
+		.addColumn('id', 'integer', (col) => col.autoIncrement().primaryKey())
+		.addColumn('user_id', 'integer', (col) => col.notNull())
+		.addColumn('user_name', 'text', (col) => col.notNull())
+		.addColumn('user_email', 'text')
+		.addColumn('user_image', 'text')
+		.addColumn('body', 'text', (col) => col.notNull())
+		.addColumn('rocks', 'integer', (col) => col.notNull().defaultTo(0))
+		.addColumn('date_posted', 'datetime', (col) => col.notNull())
+		.addColumn('date_edited', 'datetime')
+		.compile().sql
 
 	return db.prepare(query).all()
 }
 
-export async function remove() {
-	return {}
+/**
+ * @param {import('@cloudflare/workers-types').D1Database} db
+ * @param {string} post_slug
+ * @param {number} comment_id
+ */
+export async function remove(db, post_slug, comment_id) {
+	const query = k.deleteFrom(post_slug).where('id', '=', comment_id).compile()
+	return db
+		.prepare(query.sql)
+		.bind(...query.parameters)
+		.all()
 }
 
 /**
@@ -82,22 +111,29 @@ export async function remove() {
  * @param {NewComment} comment
  */
 export async function add(db, post_slug, comment) {
-	const query = k.insert(comment).into(post_slug).toQuery()
-	console.log(query)
-	return db.prepare(query).all()
+	const query = k.insertInto(post_slug).values(comment).compile()
+	return db
+		.prepare(query.sql)
+		.bind(...query.parameters)
+		.all()
 }
 
 /**
  * @param {import('@cloudflare/workers-types').D1Database} db
  * @param {string} post_slug
- * @param {string} id
- * @param {NewComment} comment
+ * @param {number} id
+ * @param {EditComment} comment
  */
 export function edit(db, post_slug, id, comment) {
-	const query = k.where({ id }).update(comment).into(post_slug).toQuery()
-	console.log(query)
-
-	return {}
+	const query = k
+		.updateTable(post_slug)
+		.set(comment)
+		.where('id', '=', id)
+		.compile()
+	return db
+		.prepare(query.sql)
+		.bind(...query.parameters)
+		.all()
 }
 
 /**
@@ -107,7 +143,6 @@ export function edit(db, post_slug, id, comment) {
  * @returns {Promise<import('@cloudflare/workers-types').D1Result<Comment>>}
  */
 export function retrieve(db, post_slug) {
-	const query = k.select().from(post_slug).toQuery()
-	console.log(query)
+	const query = k.selectFrom(post_slug).selectAll().compile().sql
 	return db.prepare(query).all()
 }
