@@ -60,18 +60,20 @@ export const actions = {
 		const id = url.searchParams.get('id')
 		console.log('Rock', id)
 	},
-	'clean-test-slug': async ({ platform }) => {
-		if (!platform?.env.comments) {
-			error(500, 'Comments not initialized')
-		}
-		await clean(platform?.env.comments, 'test')
+	clean: async ({ platform, url }) => {
+		if (!platform?.env.comments) error(500, 'Comments not initialized')
+		const slug = url.searchParams.get('slug')
+		if (!slug) error(500, 'Slug not found')
+
+		await clean(platform?.env.comments, slug)
 		return
 	},
-	'init-test-slug': async ({ platform }) => {
-		if (!platform?.env.comments) {
-			error(500, 'Comments not initialized')
-		}
-		await init(platform?.env.comments, 'test')
+	init: async ({ platform, url }) => {
+		if (!platform?.env.comments) error(500, 'Comments not initialized')
+		const slug = url.searchParams.get('slug')
+		if (!slug) error(500, 'Slug not found')
+
+		await init(platform?.env.comments, slug)
 		return
 	},
 }

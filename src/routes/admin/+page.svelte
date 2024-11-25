@@ -9,7 +9,7 @@
 		<form method="POST" use:enhance class="mx-2 my-2">
 			<button
 				class="btn w-full preset-tonal lg:w-auto"
-				formaction="?/clean-test-slug">Clean Test Slug</button
+				formaction="/comment/?/clean&slug=test">Clean Slug</button
 			>
 		</form>
 
@@ -76,8 +76,8 @@
 		{/await}
 	{:else}
 		<form method="POST" use:enhance class="m-2">
-			<button class="btn preset-tonal" formaction="?/init-test-slug"
-				>Initialize Test Slug</button
+			<button class="btn preset-tonal" formaction="/comment/?/init&slug=test"
+				>Initialize Slug</button
 			>
 		</form>
 	{/if}
