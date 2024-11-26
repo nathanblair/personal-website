@@ -18,6 +18,9 @@
 	let comment_body = $state(comment.body)
 	let original_comment = comment.body
 
+	const locale = Intl.DateTimeFormat().resolvedOptions().locale
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
 	async function handle_input() {
 		show_submit = comment_body !== original_comment
 	}
@@ -86,7 +89,7 @@
 		{#if show_submit}
 			<div class="flex flex-col">
 				<button
-					formaction="/comment/?/edit&id={comment.id}"
+					formaction="/comment/?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}"
 					class="btn btn-icon m-2 preset-filled-primary-500"
 				>
 					<Check />

@@ -2,6 +2,9 @@
 	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
 	import Comment from '$lib/components/Comment.svelte'
+
+	const locale = Intl.DateTimeFormat().resolvedOptions().locale
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 </script>
 
 {#await $page.data.initialized then initialized}
@@ -24,7 +27,8 @@
 			<button
 				type="submit"
 				class="btn my-3 w-full preset-tonal-primary lg:w-auto"
-				formaction="/comment/?/submit">Submit</button
+				formaction="/comment/?/submit&locale={locale}&timeZone={timeZone}"
+				>Submit</button
 			>
 		</form>
 

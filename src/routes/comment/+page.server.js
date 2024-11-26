@@ -5,7 +5,7 @@ export const ssr = true
 export const prerender = false
 
 export const actions = {
-	submit: async ({ platform, locals, request }) => {
+	submit: async ({ platform, locals, request, url }) => {
 		if (!platform?.env.comments) error(500, 'Comments not initialized')
 
 		const session = await locals.auth()
@@ -22,12 +22,20 @@ export const actions = {
 		const comment = form.get('comment')?.toString()
 		if (!comment) throw new Error('Comment not found')
 
+		const locale = url.searchParams.get('locale')
+		if (!locale) throw new Error('Locale not found')
+		const timeZone = url.searchParams.get('timeZone')
+		if (!timeZone) throw new Error('Timezone not found')
+
+		const date_posted = new Date().toLocaleString(locale, { timeZone })
+		console.log(date_posted)
+
 		return add(platform?.env.comments, 'test', {
 			user_id,
 			user_name,
 			user_image,
 			user_email,
-			date_posted: new Date().toLocaleString(),
+			date_posted,
 			body: comment,
 		})
 	},
@@ -49,11 +57,17 @@ export const actions = {
 		const id = url.searchParams.get('id')?.toString()
 		if (!id) error(500, 'Comment ID not found')
 
-		console.log('Edit', id, body)
+		const locale = url.searchParams.get('locale')
+		if (!locale) throw new Error('Locale not found')
+		const timeZone = url.searchParams.get('timeZone')
+		if (!timeZone) throw new Error('Timezone not found')
+
+		const date_edited = new Date().toLocaleString(locale, { timeZone })
+		console.log('Edit', id, body, date_edited)
 
 		return edit(platform?.env.comments, 'test', parseInt(id, 10), {
 			body,
-			date_edited: new Date().toLocaleString(),
+			date_edited,
 		})
 	},
 	rock: async ({ platform, url }) => {
