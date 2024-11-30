@@ -11,9 +11,9 @@ bucket_name = "blogs"
 binding = "blogs"
 
 [[d1_databases]]
-binding = "comments"
-database_name = "comments"
-database_id = "dc0cc45d-3e92-451e-8d64-82cf1f9c5198"
+binding = "db"
+database_name = "personal-website"
+database_id = "80b42eeb-f38f-48b1-b936-3683be4a8096"
 
 [[env.production.kv_namespaces]]
 id = "0449bf9d3df946749c2add69a02c7407"
@@ -24,6 +24,6 @@ bucket_name = "blogs"
 binding = "blogs"
 
 [[env.production.d1_databases]]
-binding = "comments"
-database_name = "comments"
-database_id = "dc0cc45d-3e92-451e-8d64-82cf1f9c5198"
+binding = "db"
+database_name = "personal-website"
+database_id = "80b42eeb-f38f-48b1-b936-3683be4a8096"

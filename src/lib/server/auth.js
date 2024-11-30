@@ -26,7 +26,6 @@ const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 
 				return token
 			},
-
 			session: async ({ session, token }) => {
 				// @ts-ignore
 				session.user.admin = token.admin

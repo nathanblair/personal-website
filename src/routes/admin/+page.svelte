@@ -1,18 +1,20 @@
 <script>
 	import { enhance } from '$app/forms'
-	import { page } from '$app/stores'
 	import Comment from '$lib/components/Comment.svelte'
 
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+	const slug = 'admin'
+	let { data } = $props()
 </script>
 
-{#await $page.data.initialized then initialized}
+{#await data.initialized then initialized}
 	{#if initialized}
 		<form method="POST" use:enhance class="mx-2 my-2">
 			<button
 				class="btn w-full preset-tonal lg:w-auto"
-				formaction="/comment/?/clean&slug=test">Clean Slug</button
+				formaction="/comment/{slug}/?/clean">Clean Slug</button
 			>
 		</form>
 
@@ -27,12 +29,12 @@
 			<button
 				type="submit"
 				class="btn my-3 w-full preset-tonal-primary lg:w-auto"
-				formaction="/comment/?/submit&locale={locale}&timeZone={timeZone}"
+				formaction="/comment/{slug}/?/submit&locale={locale}&timeZone={timeZone}"
 				>Submit</button
 			>
 		</form>
 
-		{#await $page.data.comments}
+		{#await data.comments}
 			{#each Array(5) as _}
 				<div
 					class="card placeholder block animate-pulse rounded-md
@@ -45,34 +47,25 @@
 			{/each}
 		{:then comments}
 			<Comment
+				index={0}
+				current_user_id={data.session?.user?.id || ''}
+				admin={data.session?.user?.admin || false}
 				comment={{
-					rocks: 3,
 					user_id: '0',
+					slug: 'admin',
 					user_name: 'Admin',
 					id: '0',
 					body: 'This is a test comment',
 					date_edited: null,
 					date_posted: new Date().toLocaleTimeString(),
 				}}
-				date_posted={new Date()}
-				date_edited={null}
-				index={1}
-				user_id={''}
-				admin={$page.data.session?.user?.admin || false}
 			/>
-
 			{#each comments.results as comment, index}
-				{@const date_posted = new Date(comment.date_posted)}
-				{@const date_edited = comment.date_edited
-					? new Date(comment.date_edited)
-					: null}
 				<Comment
-					{comment}
-					{date_posted}
-					{date_edited}
 					{index}
-					user_id={$page.data.session?.user?.id || ''}
-					admin={$page.data.session?.user?.admin || false}
+					current_user_id={data.session?.user?.id || ''}
+					admin={data.session?.user?.admin || false}
+					{comment}
 				/>
 			{/each}
 		{:catch error}
@@ -80,12 +73,9 @@
 		{/await}
 	{:else}
 		<form method="POST" use:enhance class="m-2">
-			<button class="btn preset-tonal" formaction="/comment/?/init&slug=test"
+			<button class="btn preset-tonal" formaction="/comment/{slug}/?/init"
 				>Initialize Slug</button
 			>
 		</form>
 	{/if}
 {/await}
-
-<style>
-</style>

@@ -7,7 +7,7 @@ declare global {
 		interface Platform_Env {
 			config: KVNamespace
 			blogs: R2Bucket
-			comments: D1Database
+			db: D1Database
 			GITHUB_APP_CLIENT_ID: string
 			GITHUB_APP_CLIENT_SECRET: string
 			GITHUB_APP_SECRET: string

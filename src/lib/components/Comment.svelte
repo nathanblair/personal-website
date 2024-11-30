@@ -6,28 +6,28 @@
 	/** @type {{
 	 comment: import('$lib/server/comments/api.js').Comment,
 	 index: number,
-	 date_posted: Date,
-	 date_edited: Date?,
 	 admin: boolean,
-	 user_id: string,
+	 current_user_id: string,
 	}}*/
-	let { comment, date_posted, date_edited, index, user_id, admin } = $props()
+	let { comment, index, current_user_id, admin } = $props()
 
-	let readonly = $state(user_id !== comment.user_id)
 	let show_submit = $state(false)
 	let comment_body = $state(comment.body)
-	let original_comment = comment.body
+	let rocked_by_user = $state(false)
 
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
+	/** @type {HTMLFormElement}*/
+	let rock_form
+
 	async function handle_input() {
-		show_submit = comment_body !== original_comment
+		show_submit = comment_body !== comment.body
 	}
 
 	async function handle_cancel() {
 		show_submit = false
-		comment_body = original_comment
+		comment_body = comment.body
 	}
 </script>
 
@@ -43,8 +43,8 @@
 		/>
 		<div class="flex flex-col">
 			<span
-				>{date_posted
-					.toLocaleTimeString(undefined, {
+				>{new Date(comment.date_posted)
+					.toLocaleTimeString(locale, {
 						timeZoneName: 'short',
 						day: 'numeric',
 						month: 'numeric',
@@ -56,10 +56,10 @@
 					})
 					.replaceAll(',', '')}</span
 			>
-			{#if date_edited}
+			{#if comment.date_edited}
 				<span class="text-surface-500"
-					>Edited: {date_edited
-						.toLocaleTimeString(undefined, {
+					>Edited: {new Date(comment.date_edited)
+						.toLocaleTimeString(locale, {
 							timeZoneName: 'short',
 							day: 'numeric',
 							month: 'numeric',
@@ -80,7 +80,7 @@
 			name="body"
 			id="body"
 			rows="3"
-			{readonly}
+			readonly={current_user_id !== comment.user_id}
 			class="form-textarea textarea my-2 resize-none p-2 read-only:pointer-events-none"
 			bind:value={comment_body}
 			required
@@ -89,7 +89,7 @@
 		{#if show_submit}
 			<div class="flex flex-col">
 				<button
-					formaction="/comment/?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}"
+					formaction="/comment/{comment.slug}/?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}&user_id={current_user_id}"
 					class="btn btn-icon m-2 preset-filled-primary-500"
 				>
 					<Check />
@@ -105,19 +105,36 @@
 		{/if}
 	</form>
 	<div class="m-2 flex flex-wrap justify-end justify-items-center">
-		<form method="post" class="flex" use:enhance={() => () => {}}>
-			<button
-				formaction="/comment/?/rock&id={comment.id}"
-				class="badge btn mr-1 preset-filled-tertiary-50-950"
+		<form
+			method="post"
+			class="flex"
+			action="/comment/{comment.slug}/?/rock&id={comment.id}&rocked={rocked_by_user}&user_id={current_user_id}"
+			bind:this={rock_form}
+			use:enhance={() => () => {}}
+		>
+			<input
+				type="checkbox"
+				id="rocked-{comment.id}"
+				name="rocked"
+				onchange={() => rock_form.requestSubmit()}
+				class="peer checkbox sr-only"
+				tabindex="0"
+				value={rocked_by_user}
+				bind:checked={rocked_by_user}
+			/>
+			<label
+				for="rocked-{comment.id}"
+				class="badge btn label label-text mr-1 flex cursor-pointer preset-filled-tertiary-50-950 peer-checked:preset-filled-tertiary-300-700 peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
 			>
 				<Heart size={16} />
-				<span class="">{comment.rocks}</span>
-			</button>
+				<!-- <span class="!m-0 block">{comment.rocks}</span> -->
+				<span class="!m-0 block">{0}</span>
+			</label>
 		</form>
 		<form method="post" class="flex" use:enhance>
 			{#if admin}
 				<button
-					formaction="/comment/?/delete&id={comment.id}"
+					formaction="/comment/{comment.slug}/?/delete&id={comment.id}&user_id={current_user_id}"
 					class="btn ml-1 preset-filled-error-500">Delete</button
 				>
 			{/if}
