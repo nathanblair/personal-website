@@ -173,24 +173,23 @@ export function edit(db, id, comment) {
 
 /**
  * @param {import('@cloudflare/workers-types').D1Database} db
+ * @param {string} slug
  * @param {number} [id]
  *
  * @returns {Promise<import('@cloudflare/workers-types').D1Result<Comment>>}
  */
-export function retrieve(db, id) {
-	let query
-	if (id) {
-		query = k
-			.selectFrom(comments_table_name)
-			.selectAll()
-			.where('id', '=', id)
-			.compile()
-	} else {
-		query = k.selectFrom(comments_table_name).selectAll().compile()
-	}
+export function retrieve(db, slug, id) {
+	let query = k
+		.selectFrom(comments_table_name)
+		.selectAll()
+		.where('slug', '=', slug)
+
+	if (id) query = query.where('id', '=', id)
+	const q = query.compile()
+	console.log(q)
 
 	return db
-		.prepare(query.sql)
-		.bind(...query.parameters)
+		.prepare(q.sql)
+		.bind(...q.parameters)
 		.all()
 }

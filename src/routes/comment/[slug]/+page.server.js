@@ -90,7 +90,7 @@ export const actions = {
 			date_edited: new Date().toLocaleString(locale, { timeZone }),
 		})
 	},
-	rock: async ({ platform, url }) => {
+	rock: async ({ platform, url, params }) => {
 		if (!platform?.env.db) error(500, 'Database not initialized')
 
 		const id = url.searchParams.get('id')
@@ -102,7 +102,11 @@ export const actions = {
 		const rocked = url.searchParams.get('rocked')
 		if (!rocked) error(500, 'Could not determine rock status')
 
-		const current_comment = await retrieve(platform?.env.db, parseInt(id))
+		const current_comment = await retrieve(
+			platform?.env.db,
+			params.slug,
+			parseInt(id),
+		)
 
 		const is_rocked = rocked === 'true'
 		// const current_rocks = current_comment.results[0].rocks

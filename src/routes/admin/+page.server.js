@@ -21,7 +21,7 @@ export async function load({ platform }) {
 		initialized,
 		comments:
 			platform?.env.db && initialized
-				? retrieve(platform?.env.db)
+				? retrieve(platform?.env.db, 'admin')
 				: Promise.resolve({ results: [] }),
 	}
 }
