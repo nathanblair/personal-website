@@ -1,11 +1,5 @@
-import {
-	add,
-	clean,
-	edit,
-	init,
-	remove,
-	retrieve,
-} from '$lib/server/comments/api.js'
+import { comments_table_name } from '$lib/constants.js'
+import { create, drop, init, remove, update } from '$lib/server/d1.js'
 import { error } from '@sveltejs/kit'
 
 export const ssr = true
@@ -35,7 +29,7 @@ export const actions = {
 
 		const date_posted = new Date().toLocaleString(locale, { timeZone })
 
-		return add(platform?.env.db, {
+		return create(platform?.env.db, comments_table_name, {
 			slug: params.slug,
 			user_id,
 			user_name,
@@ -60,7 +54,7 @@ export const actions = {
 		const id = url.searchParams.get('id')
 		if (!id) error(500, 'Comment id invalid')
 
-		return remove(platform?.env.db, parseInt(id, 10))
+		return remove(platform?.env.db, comments_table_name, parseInt(id, 10))
 	},
 	edit: async ({ platform, request, url, locals }) => {
 		if (!platform?.env.db) error(500, 'Database not initialized')
@@ -85,37 +79,10 @@ export const actions = {
 		const timeZone = url.searchParams.get('timeZone')
 		if (!timeZone) throw new Error('Timezone not found')
 
-		return edit(platform?.env.db, parseInt(id, 10), {
+		return update(platform?.env.db, comments_table_name, parseInt(id, 10), {
 			body,
 			date_edited: new Date().toLocaleString(locale, { timeZone }),
 		})
-	},
-	rock: async ({ platform, url, params }) => {
-		if (!platform?.env.db) error(500, 'Database not initialized')
-
-		const id = url.searchParams.get('id')
-		if (!id) error(500, 'Comment ID not found')
-
-		const user_id = url.searchParams.get('user_id')
-		if (!user_id) error(500, 'User ID not found')
-
-		const rocked = url.searchParams.get('rocked')
-		if (!rocked) error(500, 'Could not determine rock status')
-
-		const current_comment = await retrieve(
-			platform?.env.db,
-			params.slug,
-			parseInt(id),
-		)
-
-		const is_rocked = rocked === 'true'
-		// const current_rocks = current_comment.results[0].rocks
-		const current_rocks = 0
-		const rocks = is_rocked ? current_rocks + 1 : current_rocks - 1
-
-		console.log('Rock', id, user_id, rocked, rocks)
-
-		// return edit(platform?.env.comments, 'test', parseInt(id, 10), { rocks })
 	},
 	clean: async ({ platform, locals }) => {
 		if (!platform?.env.db) error(500, 'Database not initialized')
@@ -126,8 +93,7 @@ export const actions = {
 
 		if (!session.user?.admin) error(403, 'Unauthorized')
 
-		await clean(platform?.env.db)
-		return
+		return drop(platform?.env.db, comments_table_name)
 	},
 	init: async ({ platform, locals }) => {
 		if (!platform?.env.db) error(500, 'Database not initialized')
@@ -138,7 +104,17 @@ export const actions = {
 
 		if (!session.user?.admin) error(403, 'Unauthorized')
 
-		await init(platform?.env.db)
-		return
+		/** @type {Map<string, {data_type: import('kysely').ColumnDataType, nullable: boolean}>} */
+		const fields = new Map([
+			['slug', { data_type: 'text', nullable: false }],
+			['user_id', { data_type: 'integer', nullable: false }],
+			['user_name', { data_type: 'text', nullable: false }],
+			['user_image', { data_type: 'text', nullable: true }],
+			['body', { data_type: 'text', nullable: false }],
+			['date_posted', { data_type: 'datetime', nullable: false }],
+			['date_edited', { data_type: 'datetime', nullable: true }],
+		])
+
+		return init(platform?.env.db, comments_table_name, fields)
 	},
 }

@@ -4,7 +4,7 @@
 	import { slide } from 'svelte/transition'
 
 	/** @type {{
-	 comment: import('$lib/server/comments/api.js').Comment,
+	 comment: BlogComment,
 	 index: number,
 	 admin: boolean,
 	 current_user_id: string,
@@ -13,7 +13,8 @@
 
 	let show_submit = $state(false)
 	let comment_body = $state(comment.body)
-	let rocked_by_user = $state(false)
+	let rocked_by_user = $state(comment.rocked_by_user)
+	$inspect(comment.rocked_by_user)
 
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -89,7 +90,7 @@
 		{#if show_submit}
 			<div class="flex flex-col">
 				<button
-					formaction="/comment/{comment.slug}/?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}&user_id={current_user_id}"
+					formaction="/comment/{comment.slug}?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}&user_id={current_user_id}"
 					class="btn btn-icon m-2 preset-filled-primary-500"
 				>
 					<Check />
@@ -108,7 +109,7 @@
 		<form
 			method="post"
 			class="flex"
-			action="/comment/{comment.slug}/?/rock&id={comment.id}&rocked={rocked_by_user}&user_id={current_user_id}"
+			action="/rock/{comment.slug}?/rock&id={comment.id}&rocked={rocked_by_user}&user_id={current_user_id}"
 			bind:this={rock_form}
 			use:enhance={() => () => {}}
 		>
@@ -127,14 +128,13 @@
 				class="badge btn label label-text mr-1 flex cursor-pointer preset-filled-tertiary-50-950 peer-checked:preset-filled-tertiary-300-700 peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
 			>
 				<Heart size={16} />
-				<!-- <span class="!m-0 block">{comment.rocks}</span> -->
-				<span class="!m-0 block">{0}</span>
+				<span class="!m-0 block">{comment.rock_count}</span>
 			</label>
 		</form>
 		<form method="post" class="flex" use:enhance>
 			{#if admin}
 				<button
-					formaction="/comment/{comment.slug}/?/delete&id={comment.id}&user_id={current_user_id}"
+					formaction="/comment/{comment.slug}?/delete&id={comment.id}&user_id={current_user_id}"
 					class="btn ml-1 preset-filled-error-500">Delete</button
 				>
 			{/if}
