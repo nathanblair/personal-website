@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms'
 	import Comment from '$lib/components/Comment.svelte'
 
@@ -8,18 +8,6 @@
 	const slug = 'admin'
 	let { data } = $props()
 </script>
-
-{#snippet comment(
-	/** @type {number} */ index,
-	/** @type {BlogComment} */ comment,
-)}
-	<Comment
-		{index}
-		current_user_id={data.session?.user?.id || ''}
-		admin={data.session?.user?.admin || false}
-		{comment}
-	/>
-{/snippet}
 
 {#snippet placeholder()}
 	<div
@@ -33,18 +21,21 @@ text-surface-900-100"
 {/snippet}
 
 <form method="POST" use:enhance class="mx-2 my-2">
-	{#if data.comments_initialized}
-		<button
-			class="btn w-full preset-tonal lg:w-auto"
-			formaction="/comment/{slug}?/clean">Remove Comments Table</button
-		>
-	{/if}
-	{#if data.rocks_initialized}
-		<button
-			class="btn w-full preset-tonal lg:w-auto"
-			formaction="/rock/{slug}?/clean">Remove Rocks Table</button
-		>
-	{/if}
+	<button
+		class="btn my-2 w-full preset-tonal lg:w-auto"
+		formaction="/comment/{slug}?/{data.comments_initialized ? 'clean' : 'init'}"
+	>
+		{data.comments_initialized
+			? 'Remove Comments Table'
+			: 'Initialize Comments'}</button
+	>
+	<button
+		class="btn my-2 w-full preset-tonal lg:w-auto"
+		formaction="/rock/{slug}?/{data.rocks_initialized ? 'clean' : 'init'}"
+		>{data.rocks_initialized
+			? 'Remove Rocks Table'
+			: 'Initialize Rocks'}</button
+	>
 </form>
 
 {#if data.comments_initialized && data.rocks_initialized}
@@ -68,21 +59,8 @@ text-surface-900-100"
 			{@render placeholder()}
 		{/each}
 	{:then comment_response}
-		{#each comment_response as c, i}{@render comment(i, c)}{/each}
+		{#each comment_response as comment, index}
+			<Comment {comment} {index} />
+		{/each}
 	{/await}
-{/if}
-
-{#if !data.comments_initialized}
-	<form method="POST" use:enhance class="m-2">
-		<button class="btn preset-tonal" formaction="/comment/{slug}?/init"
-			>Initialize Comments</button
-		>
-	</form>
-{/if}
-{#if !data.rocks_initialized}
-	<form method="POST" use:enhance class="m-2">
-		<button class="btn preset-tonal" formaction="/rock/{slug}?/init"
-			>Initialize Rocks</button
-		>
-	</form>
 {/if}

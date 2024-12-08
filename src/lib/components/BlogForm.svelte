@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
 	import Comments from 'lucide-svelte/icons/message-square'
 	import CommentsOff from 'lucide-svelte/icons/message-square-off'
 
-	/** * @param {SubmitEvent} event */
-	async function confirm_operation(event) {
+	async function confirm_operation(event: SubmitEvent) {
 		const op = event?.submitter?.innerHTML.toLocaleLowerCase()
 		if (!confirm(`Are you sure you want to ${op} this blog post?`)) {
 			event.preventDefault()
@@ -11,16 +10,21 @@
 	}
 
 	// FIXME comments_enabled needs to be bound to the state of comments
-	/** @type {{
-	 * title?: string,
-	 * date?: string,
-	 * content?: string,
-	 * content_type?: string,
-	 * comments_enabled?: boolean,
-	 * operation: string
-	 * }}*/
-	let { title, date, content, content_type, comments_enabled, operation } =
-		$props()
+	let {
+		title,
+		date,
+		content,
+		content_type,
+		comments_enabled,
+		operation,
+	}: {
+		title?: string
+		date?: string
+		content?: string
+		content_type?: string
+		comments_enabled?: boolean
+		operation: string
+	} = $props()
 
 	let comments = $state(comments_enabled)
 </script>

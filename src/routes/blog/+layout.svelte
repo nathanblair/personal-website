@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores'
 
 	import Back from 'lucide-svelte/icons/arrow-left'
@@ -8,8 +8,7 @@
 
 	let { children, data } = $props()
 
-	/** * @param {SubmitEvent} event */
-	async function confirm_submission(event) {
+	async function confirm_submission(event: SubmitEvent) {
 		console.log(event.submitter)
 		const confirmed = confirm(
 			`Are you sure you want to ${event?.submitter?.id} this blog post?`,

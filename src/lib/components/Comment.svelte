@@ -1,30 +1,23 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms'
-	import { Ban, Check, Heart } from 'lucide-svelte'
+	import { page } from '$app/stores'
+	import type { Session } from '$lib/types'
+	import { Ban, Check } from 'lucide-svelte'
 	import { slide } from 'svelte/transition'
+	import Rock from './Rock.svelte'
 
-	/** @type {{
-	 comment: BlogComment,
-	 index: number,
-	 admin: boolean,
-	 current_user_id: string,
-	}}*/
-	let { comment, index, current_user_id, admin } = $props()
+	let {
+		comment,
+		index,
+	}: { comment: import('$lib/types').Comment; index: number } = $props()
 
 	let show_submit = $state(false)
 	let comment_body = $state(comment.body)
-	let rocked_by_user = $state(comment.rocked_by_user)
-	$inspect(comment.rocked_by_user)
+	let session = $page.data.session as Session
+	let current_user_id = parseInt(session.user?.id ?? '0', 10)
 
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-
-	/** @type {HTMLFormElement}*/
-	let rock_form
-
-	async function handle_input() {
-		show_submit = comment_body !== comment.body
-	}
 
 	async function handle_cancel() {
 		show_submit = false
@@ -81,16 +74,16 @@
 			name="body"
 			id="body"
 			rows="3"
-			readonly={current_user_id !== comment.user_id}
+			readonly={comment.user_id !== current_user_id}
 			class="form-textarea textarea my-2 resize-none p-2 read-only:pointer-events-none"
 			bind:value={comment_body}
 			required
-			oninput={handle_input}
+			oninput={() => (show_submit = comment_body !== comment.body)}
 		></textarea>
 		{#if show_submit}
 			<div class="flex flex-col">
 				<button
-					formaction="/comment/{comment.slug}?/edit&id={comment.id}&locale={locale}&timeZone={timeZone}&user_id={current_user_id}"
+					formaction="/comment/{comment.slug}/{comment.id}?/edit&locale={locale}&timeZone={timeZone}"
 					class="btn btn-icon m-2 preset-filled-primary-500"
 				>
 					<Check />
@@ -106,35 +99,11 @@
 		{/if}
 	</form>
 	<div class="m-2 flex flex-wrap justify-end justify-items-center">
-		<form
-			method="post"
-			class="flex"
-			action="/rock/{comment.slug}?/rock&id={comment.id}&rocked={rocked_by_user}&user_id={current_user_id}"
-			bind:this={rock_form}
-			use:enhance={() => () => {}}
-		>
-			<input
-				type="checkbox"
-				id="rocked-{comment.id}"
-				name="rocked"
-				onchange={() => rock_form.requestSubmit()}
-				class="peer checkbox sr-only"
-				tabindex="0"
-				value={rocked_by_user}
-				bind:checked={rocked_by_user}
-			/>
-			<label
-				for="rocked-{comment.id}"
-				class="badge btn label label-text mr-1 flex cursor-pointer preset-filled-tertiary-50-950 peer-checked:preset-filled-tertiary-300-700 peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
-			>
-				<Heart size={16} />
-				<span class="!m-0 block">{comment.rock_count}</span>
-			</label>
-		</form>
+		<Rock {comment} />
 		<form method="post" class="flex" use:enhance>
-			{#if admin}
+			{#if session.user?.admin}
 				<button
-					formaction="/comment/{comment.slug}?/delete&id={comment.id}&user_id={current_user_id}"
+					formaction="/comment/{comment.slug}/{comment.id}?/delete"
 					class="btn ml-1 preset-filled-error-500">Delete</button
 				>
 			{/if}

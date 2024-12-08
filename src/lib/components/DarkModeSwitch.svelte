@@ -1,5 +1,5 @@
-<script>
-	import { localStore } from '$lib/storage/local.svelte.js'
+<script lang="ts">
+	import { localStore } from '$lib/storage/local.svelte'
 
 	import Moon from 'lucide-svelte/icons/moon'
 	import Sun from 'lucide-svelte/icons/sun'
@@ -24,7 +24,7 @@
 			: 'preset-filled-surface-200-800'}"
 	>
 		<span
-			class="translate-x-{dark_mode.value
+			class="!translate-x-{dark_mode.value
 				? '4'
 				: '0'} rounded-full bg-surface-50 p-0.5 transition duration-200 ease-in-out"
 		>

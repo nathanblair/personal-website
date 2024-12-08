@@ -1,21 +1,21 @@
-<script>
+<script lang="ts">
 	import {
 		contact_info,
 		education,
 		open_source,
 		professional,
-		skills
-	} from '$lib/resume.js'
+		skills,
+	} from '$lib/resume'
 </script>
 
 <h1 class="mt-4 text-center text-4xl">Education</h1>
 <section
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
 		2,
-		education.length
+		education.length,
 	)} md:grid-cols-{Math.min(3, education.length)} lg:grid-cols-{Math.min(
 		4,
-		education.length
+		education.length,
 	)}"
 >
 	{#each education as school}
@@ -40,7 +40,7 @@
 	id="professional"
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
 		2,
-		professional.length
+		professional.length,
 	)}"
 >
 	{#each professional as workplace}
@@ -71,7 +71,7 @@
 	<div
 		class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
 			2,
-			professional.length
+			professional.length,
 		)}"
 	>
 		{#each open_source as os}

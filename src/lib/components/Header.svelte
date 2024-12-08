@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { localStore } from '$lib/storage/local.svelte.js'
+	import { localStore } from '$lib/storage/local.svelte'
 
 	import Resume from 'lucide-svelte/icons/building-2'
 	import Home from 'lucide-svelte/icons/house'
@@ -9,16 +9,16 @@
 	import Mail from 'lucide-svelte/icons/send'
 	import Admin from 'lucide-svelte/icons/shield-ellipsis'
 	import About from 'lucide-svelte/icons/user'
-
 	import GitHub from 'svelte-lucide/Github.svelte'
 	import LinkedIn from 'svelte-lucide/Linkedin.svelte'
-
 	import DarkModeSwitch from './DarkModeSwitch.svelte'
 	import NavTile from './NavTile.svelte'
 
+	import type { Session } from '$lib/types'
+
 	let dark_mode = localStore('dark_mode', true)
 
-	let { session } = $props()
+	let { session }: { session?: Promise<Session | null> } = $props()
 
 	$effect(() => {
 		document.body.classList.toggle('dark', dark_mode.value)
@@ -33,39 +33,41 @@
 		<NavTile label="About" href="/about"><About /></NavTile>
 		<NavTile label="Resumé" href="/resume"><Resume /></NavTile>
 		<NavTile label="Blog" href="/blog"><Blog /></NavTile>
-		{#if !session}
-			<form method="POST" action="/login" class="flex items-center">
-				<button
-					type="submit"
-					title="Log In"
-					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
-				>
-					<LogIn />
-				</button>
-			</form>
-		{:else if session.user}
-			{#if session.user.admin}
-				<NavTile label="Admin" href="/admin"><Admin /></NavTile>
-			{/if}
+		{#await session then s}
+			{#if !s}
+				<form method="POST" action="/login" class="flex items-center">
+					<button
+						type="submit"
+						title="Log In"
+						class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
+					>
+						<LogIn />
+					</button>
+				</form>
+			{:else if s.user}
+				{#if s.user.admin}
+					<NavTile label="Admin" href="/admin"><Admin /></NavTile>
+				{/if}
 
-			<form method="POST" action="/logout" class="flex items-center">
-				<img
-					class="mx-2 size-10 rounded-full border"
-					src={session.user.image}
-					alt={session.user.name}
-				/>
-				<span class="pointer-events-none m-1 w-max text-surface-800-200"
-					>{session.user.name}</span
-				>
-				<button
-					type="submit"
-					title="Log Out"
-					class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
-				>
-					<LogOut />
-				</button>
-			</form>
-		{/if}
+				<form method="POST" action="/logout" class="flex items-center">
+					<img
+						class="mx-2 size-10 rounded-full border"
+						src={s.user.image}
+						alt={s.user.name}
+					/>
+					<span class="pointer-events-none m-1 w-max text-surface-800-200"
+						>{s.user.name}</span
+					>
+					<button
+						type="submit"
+						title="Log Out"
+						class="btn-icon hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
+					>
+						<LogOut />
+					</button>
+				</form>
+			{/if}
+		{/await}
 	</div>
 	<div class="ml-3 mr-1 flex items-center">
 		<NavTile href="https://github.com/nathanblair" target="_blank"

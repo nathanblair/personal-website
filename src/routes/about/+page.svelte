@@ -1,5 +1,5 @@
-<script>
-	import { name } from '$lib/constants.js'
+<script lang="ts">
+	import { name } from '$lib/constants'
 </script>
 
 <header>

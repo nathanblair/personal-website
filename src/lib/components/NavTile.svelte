@@ -1,6 +1,17 @@
-<script>
-	/** @type {{label?: string, tooltip?: string, href: string, target?: string, children: any}} */
-	let { label, href, target = '', tooltip, children } = $props()
+<script lang="ts">
+	let {
+		label,
+		href,
+		target = '',
+		tooltip,
+		children,
+	}: {
+		label?: string
+		href: string
+		target?: string
+		tooltip?: string
+		children: any
+	} = $props()
 </script>
 
 <a
