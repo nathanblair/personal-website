@@ -1,11 +1,21 @@
-import { create, get, type BlogObject, type BlogResponse } from '$lib/server/blog/api'
+import {
+	create,
+	get,
+	type BlogObject,
+	type BlogResponse,
+} from '$lib/server/blog/api'
+import type { Session } from '$lib/types'
+import type { R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
-async function fetch_blog(params: import('./$types').RouteParams, platform: App.Platform) {
+async function fetch_blog(
+	params: import('./$types').RouteParams,
+	blogs: R2Bucket,
+) {
 	let blog_response: BlogResponse
 	try {
-		blog_response = await get(platform.env.blogs, params.slug, false)
+		blog_response = await get(blogs, params.slug, false)
 	} catch (err: any) {
 		return error(404, err.message)
 	}
@@ -30,17 +40,20 @@ async function fetch_blog(params: import('./$types').RouteParams, platform: App.
 	}
 }
 
-export const load: PageServerLoad = ({ params, platform }) => {
+export const load: PageServerLoad = ({ params, locals }) => {
 	const title = `Edit Blog Post`
 	const description = `Edit a blog post`
 
-	if (platform === undefined) throw new Error(`Platform was not found`)
-
-	return { title, description, blog_fetch: fetch_blog(params, platform) }
+	return { title, description, blog_fetch: fetch_blog(params, locals.blogs) }
 }
 
 export const actions: Actions = {
 	update: async ({ request, params, locals }) => {
+		const session = (await locals.auth()) as Session
+		if (!session) error(404, 'Not signed in')
+
+		if (!session.user?.admin) error(403, 'Unauthorized')
+
 		const form_data = await request.formData()
 
 		const blog_title = form_data.get('title')?.toString()
@@ -56,9 +69,15 @@ export const actions: Actions = {
 		if (blog_content === undefined) throw new Error('Blog content not found')
 
 		const content_type = form_data.get('format')?.toString()
-		if (content_type === undefined) throw new Error('Blog content type not found')
+		if (content_type === undefined)
+			throw new Error('Blog content type not found')
 
-		const blog: BlogObject = { title: blog_title, date: blog_date, content: blog_content, comments_enabled }
+		const blog: BlogObject = {
+			title: blog_title,
+			date: blog_date,
+			content: blog_content,
+			comments_enabled,
+		}
 
 		await create(locals.blogs, params.slug, content_type, blog)
 

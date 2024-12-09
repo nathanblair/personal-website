@@ -38,29 +38,28 @@ text-surface-900-100"
 	>
 </form>
 
-{#if data.comments_initialized && data.rocks_initialized}
-	<form method="POST" use:enhance class="mx-2 my-1">
-		<textarea
-			class="form-textarea textarea"
-			name="comment"
-			id="comment"
-			required
-			placeholder="Enter a comment"
-		></textarea>
-		<button
-			type="submit"
-			class="btn my-3 w-full preset-tonal-primary lg:w-auto"
-			formaction="/comment/{slug}?/submit&locale={locale}&timeZone={timeZone}"
-			>Submit</button
-		>
-	</form>
-	{#await data.comments}
-		{#each Array(5) as _}
-			{@render placeholder()}
-		{/each}
-	{:then comment_response}
-		{#each comment_response as comment, index}
-			<Comment {comment} {index} />
-		{/each}
-	{/await}
-{/if}
+<form method="POST" use:enhance class="mx-2 my-1">
+	<textarea
+		class="form-textarea textarea"
+		name="comment"
+		id="comment"
+		required
+		placeholder="Enter a comment"
+	></textarea>
+	<button
+		type="submit"
+		class="btn my-3 w-full preset-tonal-primary lg:w-auto"
+		formaction="/comment/{slug}?/submit&locale={locale}&timeZone={timeZone}"
+		>Submit</button
+	>
+</form>
+
+{#await data.comments}
+	{#each Array(5) as _}
+		{@render placeholder()}
+	{/each}
+{:then comment_response}
+	{#each comment_response as comment, index}
+		<Comment {comment} {index} />
+	{/each}
+{/await}

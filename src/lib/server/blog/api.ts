@@ -1,14 +1,21 @@
 import { transcribe_markdown } from '../github'
 
-
-type Blog = { title: string, date: string, comments_enabled: boolean }
+type Blog = { title: string; date: string; comments_enabled: boolean }
 
 type BlogHead = Blog & { url: string }
 type BlogContent = Blog & { content: string }
 
 export type BlogObject = Blog & { content: string }
-export type BlogListResponse = { blogs: BlogHead[], status: number, headers: Headers }
-export type BlogResponse = { blog: BlogContent, status: number, headers: Headers }
+export type BlogListResponse = {
+	blogs: BlogHead[]
+	status: number
+	headers: Headers
+}
+export type BlogResponse = {
+	blog: BlogContent
+	status: number
+	headers: Headers
+}
 
 export function create(
 	bucket: import('@cloudflare/workers-types').R2Bucket,
@@ -26,11 +33,16 @@ export function create(
 	})
 }
 
-export async function remove(bucket: import('@cloudflare/workers-types').R2Bucket, key: string) {
+export async function remove(
+	bucket: import('@cloudflare/workers-types').R2Bucket,
+	key: string,
+) {
 	return await bucket.delete(key)
 }
 
-export async function list(bucket: import('@cloudflare/workers-types').R2Bucket): Promise<BlogListResponse> {
+export async function list(
+	bucket: import('@cloudflare/workers-types').R2Bucket,
+): Promise<BlogListResponse> {
 	let r2_blogs
 	try {
 		r2_blogs = await bucket.list({})
@@ -47,7 +59,8 @@ export async function list(bucket: import('@cloudflare/workers-types').R2Bucket)
 		each_blog_head = await bucket.head(each_blog.key)
 		title = each_blog_head?.customMetadata?.title || each_blog.key
 		date = each_blog_head?.customMetadata?.date || 'Unknown'
-		comments_enabled = each_blog_head?.customMetadata?.comments_enabled === 'true'
+		comments_enabled =
+			each_blog_head?.customMetadata?.comments_enabled === 'true'
 
 		blogs.push({ title, url: `/blog/${each_blog.key}`, date, comments_enabled })
 	}
@@ -58,7 +71,7 @@ export async function list(bucket: import('@cloudflare/workers-types').R2Bucket)
 export async function get(
 	bucket: import('@cloudflare/workers-types').R2Bucket,
 	key: string,
-	raw: boolean = true
+	raw: boolean = true,
 ): Promise<BlogResponse> {
 	let blog = await bucket.get(key)
 
@@ -81,12 +94,17 @@ export async function get(
 	const date = blog_head?.customMetadata?.date
 	if (!date) throw new Error(`Blog '${key}' does not have a date`)
 	const title = blog_head?.customMetadata?.title || key
-	const comments_enabled = blog_head?.customMetadata?.comments_enabled === 'true'
+	const comments_enabled =
+		blog_head?.customMetadata?.comments_enabled === 'true'
 
 	const headers = new Headers({
 		'Content-Type': blog.httpMetadata?.contentType || 'text/plain',
 		'Cache-Control': blog.httpMetadata?.cacheControl || 'no-cache',
 	})
 
-	return { blog: { title, date, content, comments_enabled }, status: 200, headers }
+	return {
+		blog: { title, date, content, comments_enabled },
+		status: 200,
+		headers,
+	}
 }
