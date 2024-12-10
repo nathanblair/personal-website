@@ -57,12 +57,13 @@
 
 {#await data.blog_fetch then blog}
 	{#if blog.comments_enabled}
-		<form method="POST" use:enhance class="mx-2 my-1">
+		<form method="POST" use:enhance class="mx-4 my-1 sm:mx-36">
 			<textarea
-				class="form-textarea textarea"
+				class="form-textarea textarea resize-none"
 				name="comment"
 				id="comment"
 				required
+				rows="4"
 				placeholder="Enter a comment"
 			></textarea>
 			<button

@@ -27,7 +27,7 @@
 
 <div
 	in:slide|global={{ duration: 100, delay: index * 100 }}
-	class="card m-2 border p-2 drop-shadow-md bg-surface-100-900"
+	class="card mx-4 my-3 border p-2 drop-shadow-md bg-surface-100-900 sm:mx-36"
 >
 	<div class="flex items-center">
 		<img
@@ -98,13 +98,13 @@
 			</div>
 		{/if}
 	</form>
-	<div class="m-2 flex flex-wrap justify-end justify-items-center">
+	<div class="m-2 flex items-center justify-end">
 		<Rock {comment} />
-		<form method="post" class="flex" use:enhance>
+		<form method="post" use:enhance>
 			{#if session.user?.admin}
 				<button
 					formaction="/comment/{comment.slug}/{comment.id}?/delete"
-					class="btn ml-1 preset-filled-error-500">Delete</button
+					class="btn preset-filled-error-500">Delete</button
 				>
 			{/if}
 		</form>
