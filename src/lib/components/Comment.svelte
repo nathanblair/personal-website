@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
-	import type { Session } from '$lib/types'
+	import { comments_table_name } from '$lib/constants.ts'
+	import type { Comment, Session } from '$lib/types'
 	import { Ban, Check } from 'lucide-svelte'
 	import { slide } from 'svelte/transition'
 	import Rock from './Rock.svelte'
 
-	let {
-		comment,
-		index,
-	}: { comment: import('$lib/types').Comment; index: number } = $props()
+	let { comment, index }: { comment: Comment; index: number } = $props()
 
 	let show_submit = $state(false)
 	let comment_body = $state(comment.body)
@@ -19,9 +17,25 @@
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
 	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
-	async function handle_cancel() {
+	function cancel() {
 		show_submit = false
 		comment_body = comment.body
+	}
+
+	async function edit() {
+		const uri = new URL(
+			`/api/${comments_table_name}/${comment.slug}/${comment.id}`,
+			window.location.origin,
+		)
+		uri.searchParams.append('locale', locale)
+		uri.searchParams.append('timeZone', timeZone)
+		const cr = await fetch(uri, {
+			method: 'PATCH',
+			body: JSON.stringify({ content: comment_body }),
+		})
+
+		comment = await cr.json()
+		show_submit = false
 	}
 </script>
 
@@ -69,11 +83,10 @@
 			<span>{comment.user_name}</span>
 		</div>
 	</div>
-	<form method="post" class="flex items-center" use:enhance>
+	<div class="flex">
 		<textarea
-			name="body"
-			id="body"
 			rows="3"
+			name="body"
 			readonly={comment.user_id !== current_user_id}
 			class="form-textarea textarea my-2 resize-none p-2 read-only:pointer-events-none"
 			bind:value={comment_body}
@@ -81,15 +94,18 @@
 			oninput={() => (show_submit = comment_body !== comment.body)}
 		></textarea>
 		{#if show_submit}
-			<div class="flex flex-col">
+			<div
+				class="flex flex-col"
+				transition:slide={{ duration: 500, axis: 'x' }}
+			>
 				<button
-					formaction="/comment/{comment.slug}/{comment.id}?/edit&locale={locale}&timeZone={timeZone}"
+					onclick={edit}
 					class="btn btn-icon m-2 preset-filled-primary-500"
 				>
 					<Check />
 				</button>
 				<button
-					onclick={handle_cancel}
+					onclick={cancel}
 					onsubmit={() => {}}
 					class="btn btn-icon m-2 preset-filled-error-500"
 				>
@@ -97,11 +113,11 @@
 				</button>
 			</div>
 		{/if}
-	</form>
+	</div>
 	<div class="m-2 flex items-center justify-end">
 		<Rock {comment} />
 		<form method="post" use:enhance>
-			{#if session.user?.admin}
+			{#if session.user?.id === comment.user_id}
 				<button
 					formaction="/comment/{comment.slug}/{comment.id}?/delete"
 					class="btn preset-filled-error-500">Delete</button

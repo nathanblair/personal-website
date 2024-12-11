@@ -1,21 +1,47 @@
 import { comments_table_name } from '$lib/constants'
 import { k, remove } from '$lib/server/d1'
 import type { Session } from '$lib/types'
+import type { D1Database } from '@cloudflare/workers-types'
 import { error, json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
+async function get(id: number, db: D1Database) {
+	const query = k
+		.selectFrom(comments_table_name)
+		.selectAll()
+		.where('id', '=', id)
+		.compile()
+
+	return await db
+		.prepare(query.sql)
+		.bind(...query.parameters)
+		.first()
+}
+
+export const GET: RequestHandler = async ({ locals, params }) => {
+	const session = await locals.auth()
+	if (!session) error(404, 'Not signed in')
+
+	const id = parseInt(params.id, 10)
+	const result = await get(id, locals.db)
+
+	return json(result)
+}
+
 export const DELETE: RequestHandler = async ({ params, locals }) => {
-	const session = await locals.auth() as Session
+	const session = (await locals.auth()) as Session
 	if (!session) error(404, 'Not signed in')
 
 	const id = parseInt(params.id, 10)
 
-	const comment_query = k.selectFrom(comments_table_name).
-		selectAll()
+	const comment_query = k
+		.selectFrom(comments_table_name)
+		.selectAll()
 		.where('id', '=', id)
 		.compile()
 
-	const comment = await locals.db.prepare(comment_query.sql)
+	const comment = await locals.db
+		.prepare(comment_query.sql)
 		.bind(...comment_query.parameters)
 		.first()
 	if (!comment) error(404, 'Comment not found')
@@ -29,18 +55,25 @@ export const DELETE: RequestHandler = async ({ params, locals }) => {
 	return json(results)
 }
 
-export const PATCH: RequestHandler = async ({ request, params, locals, url }) => {
-	const session = await locals.auth() as Session
+export const PATCH: RequestHandler = async ({
+	request,
+	params,
+	locals,
+	url,
+}) => {
+	const session = (await locals.auth()) as Session
 	if (!session) error(404, 'Not signed in')
 
 	const id = parseInt(params.id, 10)
 
-	const comment_query = k.selectFrom(comments_table_name)
+	const comment_query = k
+		.selectFrom(comments_table_name)
 		.selectAll()
 		.where('id', '=', id)
 		.compile()
 
-	const comment = await locals.db.prepare(comment_query.sql)
+	const comment = await locals.db
+		.prepare(comment_query.sql)
 		.bind(...comment_query.parameters)
 		.first()
 	if (!comment) error(404, 'Comment not found')
@@ -57,16 +90,19 @@ export const PATCH: RequestHandler = async ({ request, params, locals, url }) =>
 	const j = await request.json()
 	const record = { body: j.content, date_edited }
 
-	const query = k.updateTable('comments')
+	const query = k
+		.updateTable('comments')
 		.set(record)
 		.where('id', '=', id)
 		.compile()
 
-	const results = await locals.db.prepare(query.sql)
+	const results = await locals.db
+		.prepare(query.sql)
 		.bind(...query.parameters)
 		.all()
 
 	if (results.error) return error(500, results.error)
 
-	return json(results.results)
+	const result = await get(id, locals.db)
+	return json(result)
 }

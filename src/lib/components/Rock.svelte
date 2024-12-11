@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores'
+	import { rocks_table_name } from '$lib/constants.ts'
 	import type { Session } from '$lib/types'
 	import Rock from 'lucide-svelte/icons/hand-metal'
 	import { onMount } from 'svelte'
@@ -15,9 +16,12 @@
 	onMount(rock)
 
 	async function rock(method: 'GET' | 'PATCH' = 'GET') {
-		const rr = await fetch(`/api/rock/${comment.slug}/${comment.id}`, {
-			method,
-		})
+		const rr = await fetch(
+			`/api/${rocks_table_name}/${comment.slug}/${comment.id}`,
+			{
+				method,
+			},
+		)
 		const rocks = await rr.json()
 
 		rocks.forEach((rock: any) => {

@@ -4,7 +4,7 @@ import type { D1Database } from '@cloudflare/workers-types'
 import { error, json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
-async function get_rocks(comment_id: number, db: D1Database) {
+async function get(comment_id: number, db: D1Database) {
 	const query = k
 		.selectFrom(rocks_table_name)
 		.selectAll()
@@ -19,7 +19,7 @@ async function get_rocks(comment_id: number, db: D1Database) {
 
 export const GET: RequestHandler = async ({ params, locals }) => {
 	const comment_id = parseInt(params.id, 10)
-	const results = await get_rocks(comment_id, locals.db)
+	const results = await get(comment_id, locals.db)
 	if (results.error) return error(500, results.error)
 
 	return json(results.results)
@@ -63,6 +63,6 @@ export const PATCH: RequestHandler = async ({ params, locals }) => {
 		if (results.error) return error(500, results.error)
 	}
 
-	const results = await get_rocks(comment_id, locals.db)
+	const results = await get(comment_id, locals.db)
 	return json(results.results)
 }

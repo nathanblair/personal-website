@@ -9,7 +9,6 @@
 	let { children, data } = $props()
 
 	async function confirm_submission(event: SubmitEvent) {
-		console.log(event.submitter)
 		const confirmed = confirm(
 			`Are you sure you want to ${event?.submitter?.id} this blog post?`,
 		)

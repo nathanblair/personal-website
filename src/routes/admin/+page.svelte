@@ -1,65 +1,41 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
-	import Comment from '$lib/components/Comment.svelte'
+	import { comments_table_name, rocks_table_name } from '$lib/constants.js'
+	import { onMount } from 'svelte'
 
-	const locale = Intl.DateTimeFormat().resolvedOptions().locale
-	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+	let comments_initialized = $state(false)
+	let rocks_initialized = $state(false)
+	// $inspect(comments_initialized, rocks_initialized)
 
-	const slug = 'admin'
-	let { data } = $props()
+	onMount(() => {
+		comments()
+		rocks()
+	})
+
+	async function comments(method: 'GET' | 'DELETE' | 'PUT' = 'GET') {
+		const uri = new URL(`/api/${comments_table_name}`, window.location.origin)
+		const r = await fetch(uri, { method })
+		comments_initialized = await r.json()
+		console.log('Comments:', comments_initialized)
+	}
+
+	async function rocks(method: 'GET' | 'DELETE' | 'PUT' = 'GET') {
+		const uri = new URL(`/api/${rocks_table_name}`, window.location.origin)
+		const r = await fetch(uri, { method })
+		rocks_initialized = await r.json()
+		console.log('Rocks:', rocks_initialized)
+	}
 </script>
 
-{#snippet placeholder()}
-	<div
-		class="card placeholder block animate-pulse rounded-md
-border-surface-contrast-900 p-6 drop-shadow-md bg-surface-100-900
-text-surface-900-100"
-	>
-		<div class="placeholder animate-pulse text-xl font-bold"></div>
-		<div class="placeholder animate-pulse text-surface-500"></div>
-	</div>
-{/snippet}
-
-<form method="POST" use:enhance class="mx-2 my-2">
-	<button
-		class="btn my-2 w-full preset-tonal lg:w-auto"
-		formaction="/comment/{slug}?/{data.comments_initialized ? 'clean' : 'init'}"
-	>
-		{data.comments_initialized
-			? 'Remove Comments Table'
-			: 'Initialize Comments'}</button
-	>
-	<button
-		class="btn my-2 w-full preset-tonal lg:w-auto"
-		formaction="/rock/{slug}?/{data.rocks_initialized ? 'clean' : 'init'}"
-		>{data.rocks_initialized
-			? 'Remove Rocks Table'
-			: 'Initialize Rocks'}</button
-	>
-</form>
-
-<form method="POST" use:enhance class="mx-2 my-1">
-	<textarea
-		class="form-textarea textarea"
-		name="comment"
-		id="comment"
-		required
-		placeholder="Enter a comment"
-	></textarea>
-	<button
-		type="submit"
-		class="btn my-3 w-full preset-tonal-primary lg:w-auto"
-		formaction="/comment/{slug}?/submit&locale={locale}&timeZone={timeZone}"
-		>Submit</button
-	>
-</form>
-
-{#await data.comments}
-	{#each Array(5) as _}
-		{@render placeholder()}
-	{/each}
-{:then comment_response}
-	{#each comment_response as comment, index}
-		<Comment {comment} {index} />
-	{/each}
-{/await}
+<button
+	class="btn my-2 w-full preset-tonal lg:w-auto"
+	onclick={() => comments(comments_initialized ? 'DELETE' : 'PUT')}
+>
+	{comments_initialized
+		? 'Remove Comments Table'
+		: 'Initialize Comments'}</button
+>
+<button
+	class="btn my-2 w-full preset-tonal lg:w-auto"
+	onclick={() => rocks(rocks_initialized ? 'DELETE' : 'PUT')}
+	>{rocks_initialized ? 'Remove Rocks Table' : 'Initialize Rocks'}</button
+>

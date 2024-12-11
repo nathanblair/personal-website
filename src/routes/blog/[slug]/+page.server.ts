@@ -1,10 +1,11 @@
+import { comments_table_name } from '$lib/constants.ts'
 import { get, remove, type BlogResponse } from '$lib/server/blog/api'
 import { BlogPosting } from '$lib/structured_data/blog_posting'
 import { my_person } from '$lib/structured_data/person'
 import type { Session } from '$lib/types'
 import type { R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
-import type { PageServerLoad } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 
 async function fetch_comments(
 	fetch: {
@@ -16,7 +17,7 @@ async function fetch_comments(
 	},
 	slug: string,
 ) {
-	const comments_request = await fetch(`/api/comment/${slug}`)
+	const comments_request = await fetch(`/api/${comments_table_name}/${slug}`)
 	const comments = await comments_request.json()
 	return comments
 }
@@ -53,7 +54,7 @@ export const load: PageServerLoad = async ({ params, locals, fetch }) => {
 	}
 }
 
-export const actions: import('./$types').Actions = {
+export const actions: Actions = {
 	remove: async ({ params, locals }) => {
 		const session = (await locals.auth()) as Session
 		if (!session) error(404, 'Not signed in')
