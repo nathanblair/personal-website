@@ -1,14 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/stores'
+	import { enhance } from '$app/forms'
+	import Blog from '$lib/components/Blog.svelte'
 
-	import BlogForm from '$lib/components/BlogForm.svelte'
+	const locale = Intl.DateTimeFormat().resolvedOptions().locale
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 </script>
 
-<BlogForm
-	title={$page.data.blog_title}
-	date={$page.data.date}
-	content_type={$page.data.content_type}
-	content={$page.data.content}
-	comments_enabled={$page.data.comments_enabled}
-	operation="Create"
-/>
+<form method="post" use:enhance>
+	<Blog
+		slug="create"
+		title={''}
+		date={new Date().toISOString()}
+		content_type={'text/markdown'}
+		content={''}
+		comments_enabled={false}
+	/>
+	<input type="hidden" name="locale" value={locale} />
+	<input type="hidden" name="timeZone" value={timeZone} />
+	<button type="submit">Submit</button>
+</form>

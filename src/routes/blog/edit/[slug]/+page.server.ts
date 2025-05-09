@@ -1,18 +1,10 @@
-import {
-	create,
-	get,
-	type BlogObject,
-	type BlogResponse,
-} from '$lib/server/blog/api'
-import type { Session } from '$lib/types'
+import { create, get } from '$lib/server/r2'
+import type { BlogObject, BlogResponse, Session } from '$lib/types'
 import type { R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
-import type { Actions, PageServerLoad } from './$types'
+import type { Actions, PageServerLoad, RouteParams } from './$types'
 
-async function fetch_blog(
-	params: import('./$types').RouteParams,
-	blogs: R2Bucket,
-) {
+async function fetch_blog(params: RouteParams, blogs: R2Bucket) {
 	let blog_response: BlogResponse
 	try {
 		blog_response = await get(blogs, params.slug, false)
@@ -33,7 +25,7 @@ async function fetch_blog(
 
 	return {
 		blog_title: blog.title,
-		date,
+		date: blog.date,
 		content: blog.content,
 		comments_enabled: blog.comments_enabled,
 		content_type: headers?.get('Content-Type'),
@@ -56,34 +48,46 @@ export const actions: Actions = {
 
 		const form_data = await request.formData()
 
-		const blog_title = form_data.get('title')?.toString()
-		if (blog_title === undefined) throw new Error('Blog title not found')
+		const title = form_data.get('title')
+		if (!title) throw new Error('Blog title not found')
 
-		const date = form_data.get('date')?.toString()
-		if (date === undefined) throw new Error('Blog date not found')
-		const blog_date = new Date(`${date}T00:00`).toDateString()
+		const locale = form_data.get('locale')
+		if (!locale) throw new Error('Locale not found')
+		const timeZone = form_data.get('timeZone')
+		if (!timeZone) throw new Error('Time Zone not found')
 
-		const comments_enabled = Boolean(form_data.get('comments'))
+		const form_date = form_data.get('date')
+		if (!form_date) throw new Error('Blog date not found')
 
-		const blog_content = form_data.get('content')?.toString()
-		if (blog_content === undefined) throw new Error('Blog content not found')
+		// const blog_date = new Date(`${date}T00:00`).toDateString()
+		const date = new Date(form_date.toString()).toLocaleString(
+			locale.toString(),
+			{
+				timeZone: timeZone.toString(),
+			},
+		)
+
+		const comments_enabled = form_data.get('comments_enabled')
+		if (!comments_enabled) throw new Error('Time Zone not found')
+
+		const content = form_data.get('content')
+		if (!content) throw new Error('Blog content not found')
 
 		const content_type = form_data.get('format')?.toString()
-		if (content_type === undefined)
-			throw new Error('Blog content type not found')
+		if (!content_type) throw new Error('Blog content type not found')
 
 		const blog: BlogObject = {
-			title: blog_title,
-			date: blog_date,
-			content: blog_content,
-			comments_enabled,
+			title: title.toString(),
+			content: content.toString(),
+			date,
+			comments_enabled: Boolean(comments_enabled),
 		}
 
 		await create(locals.blogs, params.slug, content_type, blog)
 
 		redirect(303, '/blog')
 	},
-	cancel: async () => {
-		redirect(303, '/blog')
+	cancel: async ({ params }) => {
+		redirect(303, `/blog/${params.slug}`)
 	},
 }

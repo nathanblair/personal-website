@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import { rocks_table_name } from '$lib/constants.ts'
 	import type { Session } from '$lib/types'
-	import Rock from 'lucide-svelte/icons/hand-metal'
+	import Rock from '@lucide/svelte/icons/hand-metal'
 	import { onMount } from 'svelte'
 
 	let { comment } = $props()
 
-	let session = $page.data.session as Session
+	let session = page.data.session as Session
 	let rocked = $state(false)
 	let rock_count = $state(0)
 
@@ -41,11 +41,11 @@
 />
 <label
 	for="rocked-{comment.id}"
-	class="badge-icon mr-4 flex w-auto cursor-pointer peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
+	class="badge-icon peer-focus-within:ring-primary-500 mr-4 flex w-auto cursor-pointer peer-focus-within:ring-1"
 >
 	<Rock
 		size={24}
-		class="mx-1 stroke-primary-300 {rocked ? 'fill-primary-300' : ''}"
+		class="stroke-primary-300 mx-1 {rocked ? 'fill-primary-300' : ''}"
 		strokeWidth={rocked ? 0 : 1.5}
 	/>
 	<span class="!m-0 block">{rock_count}</span>

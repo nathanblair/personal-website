@@ -5,6 +5,6 @@ import type { LayoutServerLoad } from './$types'
 export const load: LayoutServerLoad = async (event) => {
 	if (building) return { session: null }
 
-	const session: Session | null = (await event.locals.auth()) as Session
+	const session = (await event.locals.auth()) as Session
 	return { session }
 }

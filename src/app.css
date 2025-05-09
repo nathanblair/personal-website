@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton/optional/presets';
+@import '@skeletonlabs/skeleton/themes/rocket';
+
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+
+@layer base {
+	* {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+html,
+body {
+	min-height: 100dvh;
+	min-width: 100dvw;
+
+	/* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+	/* box-sizing: border-box; */
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+code {
+	font-family: monospace;
+}
+
+:root {
+	--icon-dimension: 24px;
+}
+
+.icon {
+	width: var(--icon-dimension);
+	height: var(--icon-dimension);
+}

@@ -1,8 +1,8 @@
 import { comments_table_name } from '$lib/constants.ts'
-import { get, remove, type BlogResponse } from '$lib/server/blog/api'
+import { get, remove } from '$lib/server/r2'
 import { BlogPosting } from '$lib/structured_data/blog_posting'
 import { my_person } from '$lib/structured_data/person'
-import type { Session } from '$lib/types'
+import type { BlogResponse, Session } from '$lib/types'
 import type { R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
@@ -38,10 +38,10 @@ async function fetch_blog(slug: string, blogs: R2Bucket) {
 
 	return {
 		title: blog.title,
-		date: blog.date,
+		date: blog_date.toISOString(),
 		content: blog.content,
 		comments_enabled: blog.comments_enabled,
-		content_type: headers?.get('Content-Type'),
+		content_type: headers?.get('Content-Type') || 'text/plain',
 		structured_data,
 	}
 }

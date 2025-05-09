@@ -1,5 +1,13 @@
 import { StructuredData } from './_'
 
+export type PersonStructuredData = {
+	// '@context': string
+	'@type': string
+	name: string
+	description: string
+	url: string
+}
+
 export class Person {
 	_: StructuredData
 	name: string
@@ -13,7 +21,7 @@ export class Person {
 		this.url = url
 	}
 
-	get structured_data() {
+	get structured_data(): PersonStructuredData {
 		return {
 			// "@context": this._.context,
 			'@type': this._.type,

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Comments from 'lucide-svelte/icons/message-square'
-	import CommentsOff from 'lucide-svelte/icons/message-square-off'
+	import Comments from '@lucide/svelte/icons/message-square'
+	import CommentsOff from '@lucide/svelte/icons/message-square-off'
 
 	async function confirm_operation(event: SubmitEvent) {
 		const op = event?.submitter?.innerHTML.toLocaleLowerCase()
@@ -70,7 +70,7 @@
 			/>
 			<label
 				for="comments"
-				class="btn-icon label label-text inline-block cursor-pointer peer-focus-within:ring-1 peer-focus-within:ring-primary-500"
+				class="btn-icon label label-text peer-focus-within:ring-primary-500 inline-block cursor-pointer peer-focus-within:ring-1"
 			>
 				{#if comments}
 					<Comments />
@@ -91,14 +91,14 @@
 	></textarea>
 	<div class="mx-2 flex">
 		<button
-			class="btn my-2 mr-1 flex-1 rounded-md preset-filled"
+			class="btn preset-filled my-2 mr-1 flex-1 rounded-md"
 			id="cancel"
 			formaction="?/cancel"
 			type="submit"
 			formnovalidate>Cancel</button
 		>
 		<button
-			class="btn my-2 ml-1 flex-1 rounded-md preset-filled-primary-700-300"
+			class="btn preset-filled-primary-700-300 my-2 ml-1 flex-1 rounded-md"
 			id="submit"
 			formaction="?/{operation.toLocaleLowerCase()}"
 			type="submit">{operation}</button

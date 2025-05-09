@@ -1,4 +1,5 @@
 import type { Database, Tables } from '$lib/types'
+import type { D1Database } from '@cloudflare/workers-types'
 import type { Insertable } from 'kysely'
 import {
 	DummyDriver,
@@ -17,10 +18,7 @@ export const k = new Kysely<Database>({
 	},
 })
 
-export async function has(
-	db: import('@cloudflare/workers-types').D1Database,
-	table: string,
-) {
+export async function has(db: D1Database, table: string) {
 	const query = k
 		.selectFrom('sqlite_master')
 		.select('name')
@@ -34,10 +32,7 @@ export async function has(
 	return result.results.length > 0
 }
 
-export async function drop(
-	db: import('@cloudflare/workers-types').D1Database,
-	table: string,
-) {
+export async function drop(db: D1Database, table: string) {
 	if (!(await has(db, table))) return false
 
 	const query = k.schema.dropTable(table).compile().sql
@@ -49,11 +44,7 @@ export async function drop(
 	return false
 }
 
-export function remove(
-	db: import('@cloudflare/workers-types').D1Database,
-	table: Tables,
-	id: number,
-) {
+export function remove(db: D1Database, table: Tables, id: number) {
 	const query = k.deleteFrom(table).where('id', '=', id).compile()
 	return db
 		.prepare(query.sql)
@@ -62,7 +53,7 @@ export function remove(
 }
 
 export function create(
-	db: import('@cloudflare/workers-types').D1Database,
+	db: D1Database,
 	table: Tables,
 	records: Insertable<Database[Tables]>,
 ) {

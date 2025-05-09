@@ -4,7 +4,6 @@
 
 	let comments_initialized = $state(false)
 	let rocks_initialized = $state(false)
-	// $inspect(comments_initialized, rocks_initialized)
 
 	onMount(() => {
 		comments()
@@ -15,14 +14,12 @@
 		const uri = new URL(`/api/${comments_table_name}`, window.location.origin)
 		const r = await fetch(uri, { method })
 		comments_initialized = await r.json()
-		console.log('Comments:', comments_initialized)
 	}
 
 	async function rocks(method: 'GET' | 'DELETE' | 'PUT' = 'GET') {
 		const uri = new URL(`/api/${rocks_table_name}`, window.location.origin)
 		const r = await fetch(uri, { method })
 		rocks_initialized = await r.json()
-		console.log('Rocks:', rocks_initialized)
 	}
 </script>
 

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import { comments_table_name } from '$lib/constants.ts'
 	import type { Comment, Session } from '$lib/types'
-	import { Ban, Check } from 'lucide-svelte'
+	import { Ban, Check } from '@lucide/svelte'
 	import { slide } from 'svelte/transition'
 	import Rock from './Rock.svelte'
 
@@ -11,7 +11,7 @@
 
 	let show_submit = $state(false)
 	let comment_body = $state(comment.body)
-	let session = $page.data.session as Session
+	let session = page.data.session as Session
 	let current_user_id = parseInt(session.user?.id ?? '0', 10)
 
 	const locale = Intl.DateTimeFormat().resolvedOptions().locale
@@ -41,7 +41,7 @@
 
 <div
 	in:slide|global={{ duration: 100, delay: index * 100 }}
-	class="card mx-4 my-3 border p-2 drop-shadow-md bg-surface-100-900 sm:mx-36"
+	class="card bg-surface-100-900 mx-4 my-3 border p-2 drop-shadow-md sm:mx-36"
 >
 	<div class="flex items-center">
 		<img
@@ -100,14 +100,14 @@
 			>
 				<button
 					onclick={edit}
-					class="btn btn-icon m-2 preset-filled-primary-500"
+					class="btn btn-icon preset-filled-primary-500 m-2"
 				>
 					<Check />
 				</button>
 				<button
 					onclick={cancel}
 					onsubmit={() => {}}
-					class="btn btn-icon m-2 preset-filled-error-500"
+					class="btn btn-icon preset-filled-error-500 m-2"
 				>
 					<Ban />
 				</button>
