@@ -2,77 +2,55 @@
 	import Comments from '@lucide/svelte/icons/message-square'
 	import CommentsOff from '@lucide/svelte/icons/message-square-off'
 
-	async function confirm_operation(event: SubmitEvent) {
-		const op = event?.submitter?.innerHTML.toLocaleLowerCase()
-		if (!confirm(`Are you sure you want to ${op} this blog post?`)) {
-			event.preventDefault()
-		}
-	}
+	import { locale, timeZone } from '$lib/datatime.ts'
 
-	// FIXME comments_enabled needs to be bound to the state of comments
-	let {
-		title,
-		date,
-		content,
-		content_type,
-		comments_enabled,
-		operation,
-	}: {
-		title?: string
-		date?: string
-		content?: string
-		content_type?: string
-		comments_enabled?: boolean
-		operation: string
-	} = $props()
-
-	let comments = $state(comments_enabled)
+	let commentsEnabled = $state(false)
 </script>
 
-<form method="post" onsubmit={confirm_operation} class="flex flex-1 flex-col">
-	<input
-		class="input m-2 w-auto"
-		type="text"
-		id="title"
-		name="title"
-		required
-		placeholder="Enter blog title here"
-		value={title}
-	/>
+<form method="POST" class="flex flex-1 flex-col">
+	<input type="hidden" name="locale" value={locale} />
+	<input type="hidden" name="timeZone" value={timeZone} />
+
 	<div class="m-2 flex">
 		<input
+			class="input w-auto flex-1"
+			type="text"
+			id="title"
+			name="title"
+			required
+			placeholder="Enter blog title here"
+		/>
+
+		<!-- <input
 			class="input"
 			type="date"
 			name="date"
 			id="date"
-			value={date}
 			required
-		/>
-		<select
-			class="select w-auto"
-			name="format"
-			id="format"
-			value={content_type}
-		>
+			value={new Date().toISOString().split('T')[0]}
+		/> -->
+
+		<select class="select ml-2 w-auto" name="format" id="format">
 			<option value="text/markdown">Markdown</option>
 			<option value="text/html">HTML</option>
 			<option value="text/plain">Plain Text</option>
 		</select>
+
 		<div class="flex items-center">
 			<input
-				type="checkbox"
-				id="comments"
-				name="comments"
 				class="peer checkbox sr-only"
+				type="checkbox"
+				id="commentsEnabled"
+				name="commentsEnabled"
 				tabindex="0"
-				value={comments}
-				bind:checked={comments}
+				value={commentsEnabled}
+				bind:checked={commentsEnabled}
 			/>
 			<label
-				for="comments"
-				class="btn-icon label label-text peer-focus-within:ring-primary-500 inline-block cursor-pointer peer-focus-within:ring-1"
+				class="peer-focus-within:ring-primary-500 cursor-pointer p-2 peer-focus-within:ring-1"
+				for="commentsEnabled"
 			>
-				{#if comments}
+				{#if commentsEnabled}
 					<Comments />
 				{:else}
 					<CommentsOff />
@@ -80,12 +58,12 @@
 			</label>
 		</div>
 	</div>
+
 	<textarea
 		class="textarea m-2 w-auto flex-1 resize-none overflow-y-scroll"
 		name="content"
 		id="content"
 		placeholder="Enter blog content here"
-		value={content}
 		rows="10"
 		required
 	></textarea>
@@ -98,10 +76,10 @@
 			formnovalidate>Cancel</button
 		>
 		<button
-			class="btn preset-filled-primary-700-300 my-2 ml-1 flex-1 rounded-md"
+			class="btn preset-filled-primary invalid:preset-filled-error-400-600 my-2 ml-1 flex-1 rounded-md invalid:cursor-not-allowed"
 			id="submit"
-			formaction="?/{operation.toLocaleLowerCase()}"
-			type="submit">{operation}</button
+			formaction="?/create"
+			type="submit">Create</button
 		>
 	</div>
 </form>

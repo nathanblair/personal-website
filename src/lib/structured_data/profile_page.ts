@@ -1,22 +1,22 @@
-import { StructuredData } from './_'
-import { my_person, Person } from './person'
+import { SD } from './_'
+import { me, Person } from './person'
 
 export class ProfilePage {
-	_: StructuredData
-	private main_entity: Person
+	_: SD
+	private mainEntity: Person
 
 	constructor(person: Person) {
-		this._ = new StructuredData('ProfilePage')
-		this.main_entity = person
+		this._ = new SD('ProfilePage')
+		this.mainEntity = person
 	}
 
 	get structured_data() {
 		return {
 			'@context': this._.context,
 			'@type': this._.type,
-			mainEntity: this.main_entity.structured_data,
+			mainEntity: this.mainEntity.structured_data,
 		}
 	}
 }
 
-export const my_profile = new ProfilePage(my_person)
+export const myProfile = new ProfilePage(me)

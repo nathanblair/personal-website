@@ -1,4 +1,4 @@
-import { env as dynamic_env } from '$env/dynamic/private'
+import { env as dynamicEnv } from '$env/dynamic/private'
 import { SvelteKitAuth } from '@auth/sveltekit'
 import GitHub from '@auth/sveltekit/providers/github'
 
@@ -6,8 +6,8 @@ const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 	return {
 		providers: [
 			GitHub({
-				clientId: dynamic_env.GITHUB_APP_CLIENT_ID,
-				clientSecret: dynamic_env.GITHUB_APP_CLIENT_SECRET,
+				clientId: dynamicEnv.GITHUB_APP_CLIENT_ID,
+				clientSecret: dynamicEnv.GITHUB_APP_CLIENT_SECRET,
 			}),
 		],
 		session: { strategy: 'jwt' },
@@ -16,10 +16,10 @@ const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 			jwt: async ({ token, profile }) => {
 				// Will only be populated on 'signIn' trigger
 				if (profile) {
-					const config_admins =
+					const configAdmins =
 						(await event.platform?.env.config.get('ADMINS')) ||
-						dynamic_env.ADMINS
-					const admins = JSON.parse(config_admins)
+						dynamicEnv.ADMINS
+					const admins = JSON.parse(configAdmins)
 					token.admin = admins.includes(profile.id)
 					token.sub = profile.id || undefined
 				}

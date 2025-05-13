@@ -1,8 +1,8 @@
 <script lang="ts">
 	import {
-		contact_info,
+		contactInfo,
 		education,
-		open_source,
+		openSource,
 		professional,
 		skills,
 	} from '$lib/resume'
@@ -20,16 +20,16 @@
 >
 	{#each education as school}
 		<article
-			class="z-5 card rounded-lg p-2 text-center drop-shadow-md bg-surface-100-900"
+			class="card bg-surface-100-900 z-5 rounded-lg p-2 text-center drop-shadow-md"
 		>
 			<h2 class="text-xl font-bold">{school.name}</h2>
 			<h3 class="text-xl">{school.college}</h3>
-			<h5 class="my-1 flex justify-around text-surface-500">
+			<h5 class="text-surface-500 my-1 flex justify-around">
 				<span class="">{school.dates.start} - {school.dates.end}</span>
 				<span class="">{school.location.city}, {school.location.state}</span>
 			</h5>
 			{#each school.degrees as degree}
-				<h4 class="italic leading-relaxed">{degree}</h4>
+				<h4 class="leading-relaxed italic">{degree}</h4>
 			{/each}
 		</article>
 	{/each}
@@ -44,14 +44,14 @@
 	)}"
 >
 	{#each professional as workplace}
-		<section class="z-5 card rounded-lg p-4 drop-shadow-md bg-surface-100-900">
+		<section class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md">
 			<div class="overflow-x-scroll">
 				<h2 class="inline font-extrabold">{workplace.company}</h2>
 				<h3 class="float-end ml-2 inline font-light">{workplace.position}</h3>
 			</div>
 			<h4 class="text-surface-500">
-				<span>{workplace.start_date}</span> -
-				<span>{workplace.end_date}</span>
+				<span>{workplace.startDate}</span> -
+				<span>{workplace.endDate}</span>
 				<span class="float-end block italic sm:inline"
 					>{workplace.location} ({workplace.site})</span
 				>
@@ -74,9 +74,9 @@
 			professional.length,
 		)}"
 	>
-		{#each open_source as os}
+		{#each openSource as os}
 			<section
-				class="z-5 card rounded-lg p-4 drop-shadow-md bg-surface-100-900"
+				class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md"
 			>
 				<h2 class="font-bold">{os.name}</h2>
 
@@ -111,7 +111,7 @@
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#each skills as skill}
-		<div class="z-5 card rounded-lg p-4 drop-shadow-md bg-surface-100-900">
+		<div class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md">
 			<h2 class="text-center">{skill.name}</h2>
 
 			<hr class="hr my-4 border-t-2" />
@@ -129,20 +129,20 @@
 </section>
 
 <section id="contact-info" class="mb-5 text-center">
-	<a href={contact_info.website.link} target="_blank"
-		>{contact_info.website.name}</a
+	<a href={contactInfo.website.link} target="_blank"
+		>{contactInfo.website.name}</a
 	>
 
 	<h3>
 		<a
 			class="telephone"
-			href="tel:{contact_info.telephone.area_code}-{contact_info.telephone
-				.prefix}-{contact_info.telephone.line_number}"
+			href="tel:{contactInfo.telephone.areaCode}-{contactInfo.telephone
+				.prefix}-{contactInfo.telephone.lineNumber}"
 		>
-			<span>+{contact_info.telephone.country_code}</span>
-			<span>({contact_info.telephone.area_code})</span>
-			<span>{contact_info.telephone.prefix}</span> -
-			<span>{contact_info.telephone.line_number}</span>
+			<span>+{contactInfo.telephone.countryCode}</span>
+			<span>({contactInfo.telephone.areaCode})</span>
+			<span>{contactInfo.telephone.prefix}</span> -
+			<span>{contactInfo.telephone.lineNumber}</span>
 		</a>
 	</h3>
 </section>

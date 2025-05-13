@@ -1,5 +1,7 @@
+import { formatLocaleDateTime } from '$lib/datatime.ts'
 import { create } from '$lib/server/r2'
-import type { BlogObject, Session } from '$lib/types'
+import type { Session } from '$lib/types/auth'
+import type { BlogPost } from '$lib/types/blog'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
@@ -11,47 +13,50 @@ export const load: PageServerLoad = () => {
 }
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	create: async ({ request, locals }) => {
 		const session = (await locals.auth()) as Session
 		if (!session) error(404, 'Not signed in')
 
 		if (!session.user?.admin) error(403, 'Unauthorized')
 
-		const form_data = await request.formData()
+		const formData = await request.formData()
 
-		const title = form_data.get('title')
+		const title = formData.get('title')
 		if (!title) throw new Error('Blog title not found')
 
-		const locale = form_data.get('locale')
+		const locale = formData.get('locale')
 		if (!locale) throw new Error('Locale not found')
-		const timeZone = form_data.get('timeZone')
+		const timeZone = formData.get('timeZone')
 		if (!timeZone) throw new Error('Time Zone not found')
 
-		const date = new Date().toLocaleString(locale.toString(), {
-			timeZone: timeZone.toString(),
-		})
+		const date = formatLocaleDateTime(locale.toString(), timeZone.toString())
 
-		const comments_enabled = form_data.get('comments_enabled')
-		if (!comments_enabled) throw new Error('Time Zone not found')
+		// FIXME Comments enabled is breaking
+		// when comments are not enabled
+		const commentsEnabled = formData.get('commentsEnabled')
+		if (!commentsEnabled) throw new Error('Comments enabled not found')
 
-		const content = form_data.get('content')
+		const content = formData.get('content')
 		if (!content) throw new Error('Blog content not found')
 
-		const content_type = form_data.get('format')
-		if (!content_type) throw new Error('Blog content type not found')
+		const contentType = formData.get('format')
+		if (!contentType) throw new Error('Blog content type not found')
 
-		const formatted_title = title.toString().replace(/ /g, '-')
-		const key = `${formatted_title.toLowerCase()}-${Date.now().toString(36)}`
+		const formattedTitle = title.toString().replace(/ /g, '-')
+		const key = `${formattedTitle.toLowerCase()}-${Date.now().toString(36)}`
 
-		const blog: BlogObject = {
+		const blog: BlogPost = {
 			title: title.toString(),
 			content: content.toString(),
 			date,
-			comments_enabled: Boolean(comments_enabled),
+			commentsEnabled: Boolean(commentsEnabled),
 		}
 
-		await create(locals.blogs, key, content_type.toString(), blog)
+		await create(locals.blogs, key, contentType.toString(), blog)
 
+		redirect(303, '/blog')
+	},
+	cancel: async ({}) => {
 		redirect(303, '/blog')
 	},
 }

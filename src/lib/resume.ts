@@ -1,13 +1,13 @@
-export const contact_info = {
+export const contactInfo = {
 	website: {
 		link: 'https://github.com/nathanblair',
 		name: 'github.com/nathanblair',
 	},
 	telephone: {
-		country_code: '1',
-		area_code: '937',
+		countryCode: '1',
+		areaCode: '937',
 		prefix: '537',
-		line_number: '0724',
+		lineNumber: '0724',
 	},
 }
 
@@ -72,8 +72,8 @@ export const professional = [
 	{
 		company: 'TEN Leasing',
 		position: 'DevOps Engineer',
-		start_date: 'September 2023',
-		end_date: 'Present',
+		startDate: 'September 2023',
+		endDate: 'Present',
 		location: 'Columbus, OH',
 		site: 'Hybrid',
 		points: [
@@ -89,8 +89,8 @@ export const professional = [
 	{
 		company: 'Siemens (EDA)',
 		position: 'Principal Infrastructure Engineer',
-		start_date: 'June 2023',
-		end_date: 'September 2023',
+		startDate: 'June 2023',
+		endDate: 'September 2023',
 		location: 'Wilsonville, OR',
 		site: 'Remote',
 		points: [
@@ -102,8 +102,8 @@ export const professional = [
 	{
 		company: 'Nant Games',
 		position: 'DevOps Engineer',
-		start_date: 'September 2022',
-		end_date: 'June 2023',
+		startDate: 'September 2022',
+		endDate: 'June 2023',
 		location: 'San Diego, CA',
 		site: 'Remote',
 		points: [
@@ -117,8 +117,8 @@ export const professional = [
 	{
 		company: 'Genetesis',
 		position: 'Software Engineering Manager',
-		start_date: 'July 2022',
-		end_date: 'September 2022',
+		startDate: 'July 2022',
+		endDate: 'September 2022',
 		location: 'Mason, OH',
 		site: 'Hybrid',
 		points: [
@@ -131,8 +131,8 @@ export const professional = [
 	{
 		company: 'Genetesis',
 		position: 'DevOps Engineer',
-		start_date: 'November 2020',
-		end_date: 'July 2022',
+		startDate: 'November 2020',
+		endDate: 'July 2022',
 		location: 'Mason, OH',
 		site: 'Hybrid',
 		points: [
@@ -146,8 +146,8 @@ export const professional = [
 	{
 		company: 'Ascendum',
 		position: 'Software Developer',
-		start_date: 'May 2019',
-		end_date: 'November 2020',
+		startDate: 'May 2019',
+		endDate: 'November 2020',
 		location: 'Blue Ash, OH',
 		site: 'Hybrid',
 		points: [
@@ -162,8 +162,8 @@ export const professional = [
 	{
 		company: 'Blue Quartz',
 		position: 'Software Developer',
-		start_date: 'December 2018',
-		end_date: 'May 2019',
+		startDate: 'December 2018',
+		endDate: 'May 2019',
 		location: 'Springboro, OH',
 		site: 'On Site',
 		points: [
@@ -176,7 +176,7 @@ export const professional = [
 	},
 ]
 
-export const open_source = [
+export const openSource = [
 	{
 		name: 'Sonic Original Software',
 		contributions: [

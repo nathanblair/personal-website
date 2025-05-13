@@ -1,6 +1,6 @@
-export const first_name = 'Nathan'
-export const last_name = 'Blair'
-export const name = `${first_name} ${last_name}`
+export const MyFirstName = 'Nathan'
+export const MyLastName = 'Blair'
+export const MyName = `${MyFirstName} ${MyLastName}`
 
-export const comments_table_name = 'comments'
-export const rocks_table_name = 'rocks'
+export const CommentsTableName = 'comments'
+export const RocksTableName = 'rocks'

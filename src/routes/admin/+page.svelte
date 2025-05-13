@@ -1,38 +1,27 @@
 <script lang="ts">
-	import { comments_table_name, rocks_table_name } from '$lib/constants.js'
-	import { onMount } from 'svelte'
+	import { enhance } from '$app/forms'
+	import type { PageProps } from './$types'
 
-	let comments_initialized = $state(false)
-	let rocks_initialized = $state(false)
-
-	onMount(() => {
-		comments()
-		rocks()
-	})
-
-	async function comments(method: 'GET' | 'DELETE' | 'PUT' = 'GET') {
-		const uri = new URL(`/api/${comments_table_name}`, window.location.origin)
-		const r = await fetch(uri, { method })
-		comments_initialized = await r.json()
-	}
-
-	async function rocks(method: 'GET' | 'DELETE' | 'PUT' = 'GET') {
-		const uri = new URL(`/api/${rocks_table_name}`, window.location.origin)
-		const r = await fetch(uri, { method })
-		rocks_initialized = await r.json()
-	}
+	let { data }: PageProps = $props()
 </script>
 
-<button
-	class="btn my-2 w-full preset-tonal lg:w-auto"
-	onclick={() => comments(comments_initialized ? 'DELETE' : 'PUT')}
->
-	{comments_initialized
-		? 'Remove Comments Table'
-		: 'Initialize Comments'}</button
->
-<button
-	class="btn my-2 w-full preset-tonal lg:w-auto"
-	onclick={() => rocks(rocks_initialized ? 'DELETE' : 'PUT')}
-	>{rocks_initialized ? 'Remove Rocks Table' : 'Initialize Rocks'}</button
->
+{#await data.commentsInitialized then initialized}
+	<form use:enhance method="POST">
+		<button
+			class="btn preset-tonal my-2 w-full lg:w-auto"
+			formaction="/comment?/{initialized ? 'drop' : 'create'}"
+		>
+			{initialized ? 'Remove Comments Table' : 'Initialize Comments'}</button
+		>
+	</form>
+{/await}
+
+{#await data.rocksInitialized then initialized}
+	<form use:enhance method="POST">
+		<button
+			class="btn preset-tonal my-2 w-full lg:w-auto"
+			formaction="/rock?/{initialized ? 'drop' : 'create'}"
+			>{initialized ? 'Remove Rocks Table' : 'Initialize Rocks'}</button
+		>
+	</form>
+{/await}

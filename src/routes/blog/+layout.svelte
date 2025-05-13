@@ -7,7 +7,7 @@
 
 	let { children, data } = $props()
 
-	async function confirm_submission(event: SubmitEvent) {
+	async function confirmSubmission(event: SubmitEvent) {
 		const confirmed = confirm(
 			`Are you sure you want to ${event?.submitter?.id} this blog post?`,
 		)
@@ -17,10 +17,10 @@
 </script>
 
 {#if data?.session?.user?.admin}
-	<div id="blog-actions" class="float-right flex">
-		<form method="post" onsubmit={confirm_submission} class="flex">
+	<div id="blog-actions" class="ml-2 flex">
+		<form method="post" onsubmit={confirmSubmission} class="flex">
 			<button
-				class="btn-icon m-2 p-0"
+				class="m-4 p-0"
 				id="delete"
 				name="delete"
 				formaction="?/remove"
@@ -29,7 +29,7 @@
 				title="Delete the blog post"><Trash /></button
 			>
 			<button
-				class="btn-icon m-2 p-0"
+				class="m-4 p-0"
 				id="edit"
 				name="edit"
 				formaction="?/edit"
@@ -39,7 +39,7 @@
 			>
 		</form>
 		<a
-			class="btn-icon m-2 p-0"
+			class="m-4 p-0"
 			href="/blog/create"
 			id="create"
 			aria-label="create"

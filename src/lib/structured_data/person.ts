@@ -1,6 +1,6 @@
-import { StructuredData } from './_'
+import { SD } from './_'
 
-export type PersonStructuredData = {
+export type PersonSD = {
 	// '@context': string
 	'@type': string
 	name: string
@@ -9,19 +9,19 @@ export type PersonStructuredData = {
 }
 
 export class Person {
-	_: StructuredData
+	_: SD
 	name: string
 	description: string
 	url: string
 
 	constructor(name: string, description: string, url: string) {
-		this._ = new StructuredData('Person')
+		this._ = new SD('Person')
 		this.name = name
 		this.description = description
 		this.url = url
 	}
 
-	get structured_data(): PersonStructuredData {
+	get structured_data(): PersonSD {
 		return {
 			// "@context": this._.context,
 			'@type': this._.type,
@@ -32,7 +32,7 @@ export class Person {
 	}
 }
 
-export const my_person = new Person(
+export const me = new Person(
 	'Nathan Blair',
 	'Jack of all trades. Master of Some.',
 	'https://nathanblair.rocks/about',

@@ -1,4 +1,4 @@
-export class StructuredData {
+export class SD {
 	context = 'https://schema.org'
 	type
 

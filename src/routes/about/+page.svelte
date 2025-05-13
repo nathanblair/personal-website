@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { name } from '$lib/constants'
+	import { MyName } from '$lib/constants'
 </script>
 
 <header>
-	<h1 class="px-4 pt-8 text-3xl text-surface-50 sm:text-center">
-		Hi! I'm {name}.
+	<h1 class="text-surface-50 px-4 pt-8 text-3xl sm:text-center">
+		Hi! I'm {MyName}.
 	</h1>
 </header>
 
 <p
-	class="z-5 p-8 text-lg leading-loose text-surface-900-100 sm:mx-[20%] sm:my-1"
+	class="text-surface-900-100 z-5 p-8 text-lg leading-loose sm:mx-[20%] sm:my-1"
 >
 	A proud millennial, tech enthusiast, and lifelong learner, I hold two
 	Bachelor's degrees in Mechanical Engineering and Materials Science and
@@ -19,7 +19,7 @@
 </p>
 
 <p
-	class="z-5 p-8 text-lg leading-loose bg-surface-100-900 text-surface-900-100 sm:mx-[20%] sm:my-1"
+	class="bg-surface-100-900 text-surface-900-100 z-5 p-8 text-lg leading-loose sm:mx-[20%] sm:my-1"
 >
 	My areas of professional experience include steelmaking, failure analysis,
 	MEMS, electronic device characterization and fabrication, software development
@@ -30,7 +30,7 @@
 </p>
 
 <p
-	class="z-5 p-8 text-lg leading-loose text-surface-900-100 sm:mx-[20%] sm:my-1"
+	class="text-surface-900-100 z-5 p-8 text-lg leading-loose sm:mx-[20%] sm:my-1"
 >
 	Outside of my professional life I am an avid motorcyclist and musician. When
 	I'm not getting my wind therapy, I can be found jamming on drum sets, guitar,
@@ -41,7 +41,7 @@
 </p>
 
 <p
-	class="z-5 p-8 text-lg leading-loose bg-surface-100-900 text-surface-900-100 sm:mx-[20%] sm:my-1"
+	class="bg-surface-100-900 text-surface-900-100 z-5 p-8 text-lg leading-loose sm:mx-[20%] sm:my-1"
 >
 	I'm interested in talking with people that share my commitment to continuous
 	education, a sustainable world, and open-mindedness. I see a lot of potential

@@ -19,7 +19,7 @@
 	{href}
 	{target}
 	title={tooltip || label}
-	class="btn-icon hover:text-surface-contrast-100-900 flex h-auto w-auto flex-col gap-0"
+	class="hover:text-surface-contrast-100-900 flex flex-col items-center p-2"
 >
 	{#if children}
 		{@render children()}

@@ -1,23 +1,18 @@
-import type {
-	BlogHead,
-	BlogListResponse,
-	BlogObject,
-	BlogResponse,
-} from '$lib/types'
+import type { BlogPost, BlogSlug, FetchedBlog } from '$lib/types/blog'
 import type { R2Bucket, R2Object } from '@cloudflare/workers-types'
 
 export function create(
 	bucket: R2Bucket,
 	key: string,
-	content_type: string,
-	blog: BlogObject,
+	contentType: string,
+	blog: BlogPost,
 ) {
 	return bucket.put(key, blog.content, {
-		httpMetadata: { contentType: content_type },
+		httpMetadata: { contentType: contentType },
 		customMetadata: {
 			title: blog.title,
 			date: blog.date,
-			comments_enabled: blog.comments_enabled.toString(),
+			commentsEnabled: blog.commentsEnabled.toString(),
 		},
 	})
 }
@@ -26,51 +21,46 @@ export function remove(bucket: R2Bucket, key: string) {
 	return bucket.delete(key)
 }
 
-export async function list(bucket: R2Bucket): Promise<BlogListResponse> {
-	const r2_blogs = await bucket.list({})
+export async function list(bucket: R2Bucket) {
+	const r2Blogs = await bucket.list({})
 
-	if (r2_blogs === undefined) throw new Error('Failed to fetch blogs')
+	if (r2Blogs === undefined) throw new Error('Failed to fetch blogs')
 
-	const blog_heads: BlogHead[] = []
+	const blogHeads: BlogSlug[] = []
 
-	let each_blog_head: R2Object | null, title, date, comments_enabled
-	for (const each_blog_head_object of r2_blogs.objects) {
-		each_blog_head = await bucket.head(each_blog_head_object.key)
+	let eachBlogHead: R2Object | null, title, date, commentsEnabled
+	for (const eachBlogHeadObject of r2Blogs.objects) {
+		eachBlogHead = await bucket.head(eachBlogHeadObject.key)
 
-		title = each_blog_head?.customMetadata?.title || each_blog_head_object.key
-		date = each_blog_head?.customMetadata?.date || 'Unknown'
-		comments_enabled =
-			each_blog_head?.customMetadata?.comments_enabled === 'true'
+		title = eachBlogHead?.customMetadata?.title || eachBlogHeadObject.key
+		date = eachBlogHead?.customMetadata?.date || 'Unknown'
+		commentsEnabled = eachBlogHead?.customMetadata?.commentsEnabled === 'true'
 
-		blog_heads.push({
+		blogHeads.push({
 			title,
-			url: `/blog/${each_blog_head_object.key}`,
+			slug: eachBlogHeadObject.key,
 			date,
-			comments_enabled,
+			commentsEnabled: commentsEnabled,
 		})
 	}
 
-	return { blogs: blog_heads, status: 200, headers: new Headers() }
+	return blogHeads
 }
 
-export async function get(
-	bucket: R2Bucket,
-	key: string,
-	raw: boolean = true,
-): Promise<BlogResponse> {
-	let blog_head
+export async function get(bucket: R2Bucket, key: string) {
+	let blogHead
 	try {
-		blog_head = await bucket.head(key)
+		blogHead = await bucket.head(key)
 	} catch (err: any) {
 		console.error(err)
 		throw err
 	}
 
-	const date = blog_head?.customMetadata?.date
+	const date = blogHead?.customMetadata?.date
 	if (!date) throw new Error(`Blog '${key}' does not have a date`)
-	const title = blog_head?.customMetadata?.title || key
-	const comments_enabled =
-		blog_head?.customMetadata?.comments_enabled === 'true'
+	const title = blogHead?.customMetadata?.title || key
+	const commentsEnabled = blogHead?.customMetadata?.commentsEnabled === 'true'
+	const contentType = blogHead?.httpMetadata?.contentType || 'text/plain'
 
 	let blog = await bucket.get(key)
 
@@ -78,18 +68,13 @@ export async function get(
 
 	let content = await blog.text()
 
-	// if (raw && blog.httpMetadata?.contentType === 'text/markdown') {
-	// 	content = await transcribe_markdown(content)
-	// }
-
-	const headers = new Headers({
-		'Content-Type': blog.httpMetadata?.contentType || 'text/plain',
-		'Cache-Control': blog.httpMetadata?.cacheControl || 'no-cache',
-	})
-
-	return {
-		blog: { title, date, content, comments_enabled },
-		status: 200,
-		headers,
+	const fetchedBlog: FetchedBlog = {
+		title,
+		date,
+		content,
+		commentsEnabled,
+		contentType,
 	}
+
+	return fetchedBlog
 }

@@ -1,4 +1,4 @@
-import { Session } from '$lib/types'
+import { Session } from '$lib/types/auth'
 
 import {
 	CacheStorage,
@@ -15,7 +15,7 @@ declare global {
 			db: D1Database
 			blogs: R2Bucket
 		}
-		interface Platform_Env {
+		interface PlatformEnv {
 			config: KVNamespace
 			blogs: R2Bucket
 			db: D1Database
@@ -26,7 +26,7 @@ declare global {
 		interface Platform {
 			caches: CacheStorage
 			context: any
-			env: Platform_Env
+			env: PlatformEnv
 		}
 		interface PageData {
 			session: Session | null

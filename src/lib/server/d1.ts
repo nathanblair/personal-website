@@ -1,6 +1,7 @@
-import type { Database, Tables } from '$lib/types'
+import type { CommentsTable } from '$lib/types/comments'
+import type { RocksTable } from '$lib/types/rocks'
 import type { D1Database } from '@cloudflare/workers-types'
-import type { Insertable } from 'kysely'
+import type { Generated } from 'kysely'
 import {
 	DummyDriver,
 	Kysely,
@@ -8,6 +9,20 @@ import {
 	SqliteIntrospector,
 	SqliteQueryCompiler,
 } from 'kysely'
+
+export interface SqliteMasterTable {
+	id: Generated<number>
+	name: string
+	type: string
+}
+
+export interface Database {
+	sqlite_master: SqliteMasterTable
+	comments: CommentsTable
+	rocks: RocksTable
+}
+
+export type Tables = keyof Database
 
 export const k = new Kysely<Database>({
 	dialect: {
@@ -30,36 +45,4 @@ export async function has(db: D1Database, table: string) {
 		.bind(...query.parameters)
 		.all()
 	return result.results.length > 0
-}
-
-export async function drop(db: D1Database, table: string) {
-	if (!(await has(db, table))) return false
-
-	const query = k.schema.dropTable(table).compile().sql
-	console.log(query)
-	const results = await db.prepare(query).all()
-
-	if (results.error) return results.error
-
-	return false
-}
-
-export function remove(db: D1Database, table: Tables, id: number) {
-	const query = k.deleteFrom(table).where('id', '=', id).compile()
-	return db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.all()
-}
-
-export function create(
-	db: D1Database,
-	table: Tables,
-	records: Insertable<Database[Tables]>,
-) {
-	const query = k.insertInto(table).values(records).compile()
-	return db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.all()
 }

@@ -1,5 +1,5 @@
 import { building } from '$app/environment'
-import type { Session } from '$lib/types.ts'
+import type { Session } from '$lib/types/auth'
 import type { LayoutServerLoad } from './$types'
 
 export const load: LayoutServerLoad = async (event) => {
