@@ -7,7 +7,7 @@
 	let commentsEnabled = $state(false)
 </script>
 
-<form method="POST" class="flex flex-1 flex-col">
+<form method="POST" class="group flex flex-1 flex-col">
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
 
@@ -20,15 +20,6 @@
 			required
 			placeholder="Enter blog title here"
 		/>
-
-		<!-- <input
-			class="input"
-			type="date"
-			name="date"
-			id="date"
-			required
-			value={new Date().toISOString().split('T')[0]}
-		/> -->
 
 		<select class="select ml-2 w-auto" name="format" id="format">
 			<option value="text/markdown">Markdown</option>
@@ -67,19 +58,17 @@
 		rows="10"
 		required
 	></textarea>
-	<div class="mx-2 flex">
+
+	<div class="m-2 flex space-x-2">
 		<button
-			class="btn preset-filled my-2 mr-1 flex-1 rounded-md"
-			id="cancel"
+			class="btn preset-filled flex-1 rounded-md"
 			formaction="?/cancel"
-			type="submit"
 			formnovalidate>Cancel</button
 		>
 		<button
-			class="btn preset-filled-primary invalid:preset-filled-error-400-600 my-2 ml-1 flex-1 rounded-md invalid:cursor-not-allowed"
+			class="btn preset-filled flex-1 rounded-md group-has-invalid:pointer-events-none group-has-invalid:opacity-50"
 			id="submit"
-			formaction="?/create"
-			type="submit">Create</button
+			formaction="?/create">Create</button
 		>
 	</div>
 </form>
