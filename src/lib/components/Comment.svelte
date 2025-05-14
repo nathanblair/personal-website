@@ -7,14 +7,22 @@
 
 	import Rock from './Rock.svelte'
 
-	import { locale } from '$lib/datatime.ts'
-	import type { Comment } from '$lib/types/comments'
+	import { locale, timeZone } from '$lib/datatime.ts'
+	import type { Comment } from '$lib/types/comment'
 
 	let {
 		comment,
 		index,
 		readonly,
-	}: { comment: Comment; index: number; readonly: boolean } = $props()
+		rocked,
+		rockCount,
+	}: {
+		comment: Comment
+		index: number
+		readonly: boolean
+		rocked: boolean
+		rockCount: number
+	} = $props()
 
 	let showSubmit = $state(false)
 	let commentBody = $state(comment.body)
@@ -70,7 +78,11 @@
 			<span>{comment.userName}</span>
 		</div>
 	</div>
+
 	<form use:enhance method="post" class="flex" onreset={cancel}>
+		<input type="hidden" name="locale" value={locale} />
+		<input type="hidden" name="timeZone" value={timeZone} />
+
 		<textarea
 			rows="3"
 			name="body"
@@ -80,6 +92,7 @@
 			required
 			oninput={() => (showSubmit = commentBody !== comment.body)}
 		></textarea>
+
 		{#if showSubmit}
 			<div
 				class="flex flex-col"
@@ -95,8 +108,10 @@
 			</div>
 		{/if}
 	</form>
+
 	<div class="my-2 flex items-center justify-end">
-		<Rock {comment} />
+		<Rock commentId={comment.id} {rocked} {rockCount} />
+
 		{#if !readonly}
 			<form method="post" use:enhance>
 				<button

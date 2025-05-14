@@ -1,6 +1,7 @@
+import { error } from '@sveltejs/kit'
+
 import { add, read, remove } from '$lib/server/rock.ts'
 import type { Session } from '$lib/types/auth'
-import { error } from '@sveltejs/kit'
 
 export const actions = {
 	toggle: async ({ locals, params }) => {
@@ -10,8 +11,10 @@ export const actions = {
 		const commentId = parseInt(params.id, 10)
 
 		const rock = await read(locals.db, commentId, session.user.id)
-		return rock
-			? remove(locals.db, rock.id)
-			: add(locals.db, commentId, session.user.id)
+		rock
+			? await remove(locals.db, rock.id)
+			: await add(locals.db, { commentId, userId: session.user.id })
+
+		return
 	},
 }

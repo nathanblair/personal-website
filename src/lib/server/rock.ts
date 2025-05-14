@@ -1,5 +1,5 @@
 import { CommentsTableName, RocksTableName } from '$lib/constants.ts'
-import type { Rock } from '$lib/types/rocks.ts'
+import type { NewRock, Rock } from '$lib/types/rock.ts'
 import type { D1Database, D1Result } from '@cloudflare/workers-types'
 import { error } from '@sveltejs/kit'
 import { has, k } from './d1.ts'
@@ -94,19 +94,19 @@ export async function list(db: D1Database, commentId: number): Promise<Rock[]> {
 	return rocks
 }
 
-export async function add(db: D1Database, commentId: number, userId: number) {
-	const query = k
-		.insertInto(RocksTableName)
-		.values({
-			commentId,
-			userId,
-		})
-		.compile()
+export async function add(db: D1Database, newRock: NewRock) {
+	const query = k.insertInto(RocksTableName).values(newRock).compile()
 
-	const rock: Rock | null = await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.first()
+	console.log(query.sql, query.parameters)
+
+	const statement = db.prepare(query.sql).bind(...query.parameters)
+
+	let rock: Rock | null = null
+	try {
+		rock = await statement.first()
+	} catch (err) {
+		console.error(err)
+	}
 
 	return rock
 }
@@ -133,6 +133,9 @@ export async function edit(
 
 export async function remove(db: D1Database, id: number): Promise<Rock | null> {
 	const query = k.deleteFrom(RocksTableName).where('id', '=', id).compile()
+
+	console.log(query.sql, query.parameters)
+
 	const rock: Rock | null = await db
 		.prepare(query.sql)
 		.bind(...query.parameters)

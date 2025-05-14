@@ -5,17 +5,26 @@ import { BlogPostingSD } from '$lib/structured_data/blog_posting'
 import { me } from '$lib/structured_data/person'
 import type { Session } from '$lib/types/auth'
 import type { FetchedBlog, StorageBlog } from '$lib/types/blog'
-import type { Comment } from '$lib/types/comments'
 import type { D1Database, R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
-async function fetchRocks(db: D1Database, commentId: number) {
-	return listRocks(db, commentId)
-}
+async function fetchRocks(
+	db: D1Database,
+	slug: string,
+): Promise<Record<string, { count: number; rocked: boolean }>> {
+	let rockRecords: Record<string, { count: number; rocked: boolean }> = {}
 
-async function fetchComments(db: D1Database, slug: string): Promise<Comment[]> {
-	return listComments(db, slug)
+	const comments = await listComments(db, slug)
+	for (const eachComment of comments) {
+		const rocks = await listRocks(db, eachComment.id)
+		rockRecords[eachComment.id] = {
+			count: rocks.length,
+			rocked: false,
+		}
+	}
+
+	return rockRecords
 }
 
 async function fetchBlog(slug: string, blogs: R2Bucket) {
@@ -42,8 +51,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	return {
 		description: '',
 		blog: fetchBlog(params.slug, locals.blogs),
-		comments: fetchComments(locals.db, params.slug),
-		// rocks: fetchRocks,
+		comments: listComments(locals.db, params.slug),
+		rocks: fetchRocks(locals.db, params.slug),
 	}
 }
 

@@ -106,13 +106,27 @@
 		{#await data.comments}
 			{#each Array(5) as _}{@render commentPlaceholder()}{/each}
 		{:then comments}
-			{#each comments as comment, index}
-				<Comment
-					{comment}
-					{index}
-					readonly={data.session?.user?.id !== comment.userId}
-				/>
-			{/each}
+			{#await data.rocks}
+				{#each comments as comment, index}
+					<Comment
+						{comment}
+						{index}
+						readonly={data.session?.user?.id !== comment.userId}
+						rocked={false}
+						rockCount={0}
+					/>
+				{/each}
+			{:then rocks}
+				{#each comments as comment, index}
+					<Comment
+						{comment}
+						{index}
+						readonly={data.session?.user?.id !== comment.userId}
+						rocked={rocks[comment.id].rocked}
+						rockCount={rocks[comment.id].count}
+					/>
+				{/each}
+			{/await}
 		{/await}
 	{/if}
 {/await}

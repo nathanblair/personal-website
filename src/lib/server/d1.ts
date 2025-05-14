@@ -1,5 +1,5 @@
-import type { CommentsTable } from '$lib/types/comments'
-import type { RocksTable } from '$lib/types/rocks'
+import type { CommentTable } from '$lib/types/comment.ts'
+import type { RockTable } from '$lib/types/rock'
 import type { D1Database } from '@cloudflare/workers-types'
 import type { Generated } from 'kysely'
 import {
@@ -18,8 +18,8 @@ export interface SqliteMasterTable {
 
 export interface Database {
 	sqlite_master: SqliteMasterTable
-	comments: CommentsTable
-	rocks: RocksTable
+	comments: CommentTable
+	rocks: RockTable
 }
 
 export type Tables = keyof Database

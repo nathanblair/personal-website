@@ -1,5 +1,5 @@
 import { CommentsTableName } from '$lib/constants.ts'
-import type { Comment, CommentUpdate, NewComment } from '$lib/types/comments.ts'
+import type { Comment, CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { D1Database, D1Result } from '@cloudflare/workers-types'
 import { error } from '@sveltejs/kit'
 import { has, k } from './d1.ts'

@@ -1,6 +1,7 @@
+import { formatLocaleDateTime } from '$lib/datatime.js'
 import { edit, read, remove } from '$lib/server/comment.js'
 import type { Session } from '$lib/types/auth'
-import type { CommentUpdate } from '$lib/types/comments.js'
+import type { CommentUpdate } from '$lib/types/comment.js'
 import { error } from '@sveltejs/kit'
 
 export const ssr = true
@@ -18,17 +19,25 @@ export const actions = {
 
 		if (session.user.id !== existing.userId) error(403, 'Unauthorized')
 
-		const locale = url.searchParams.get('locale')
+		const formData = await request.formData()
+
+		const locale = formData.get('locale')
 		if (!locale) error(404, 'Locale not found')
-		const timeZone = url.searchParams.get('timeZone')
+		const timeZone = formData.get('timeZone')
 		if (!timeZone) error(404, 'Timezone not found')
 
-		const dateEdited = new Date().toLocaleString(locale, { timeZone })
+		const dateEdited = formatLocaleDateTime(
+			locale.toString(),
+			timeZone.toString(),
+		)
 
-		const j = await request.json()
-		const record: CommentUpdate = { body: j.content, dateEdited }
+		const body = formData.get('body')
+		if (!body) error(404, 'Body not found')
 
-		return edit(locals.db, id, record)
+		const record: CommentUpdate = { body: body?.toString(), dateEdited }
+
+		await edit(locals.db, id, record)
+		return
 	},
 	delete: async ({ params, locals }) => {
 		const session = (await locals.auth()) as Session
@@ -41,6 +50,7 @@ export const actions = {
 
 		if (session.user.id !== existing.userId) error(403, 'Unauthorized')
 
-		return remove(locals.db, id)
+		await remove(locals.db, id)
+		return
 	},
 }

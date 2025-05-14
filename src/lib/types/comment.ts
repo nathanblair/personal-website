@@ -1,6 +1,6 @@
 import type { Generated, Insertable, Selectable, Updateable } from 'kysely'
 
-export interface CommentsTable {
+export interface CommentTable {
 	id: Generated<number>
 	slug: string
 	datePosted: string
@@ -11,6 +11,6 @@ export interface CommentsTable {
 	body: string
 }
 
-export interface Comment extends Selectable<CommentsTable> {}
-export interface NewComment extends Insertable<CommentsTable> {}
-export interface CommentUpdate extends Updateable<CommentsTable> {}
+export interface Comment extends Selectable<CommentTable> {}
+export interface NewComment extends Insertable<CommentTable> {}
+export interface CommentUpdate extends Updateable<CommentTable> {}

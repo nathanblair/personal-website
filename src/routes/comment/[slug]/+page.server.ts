@@ -1,7 +1,7 @@
 import { formatLocaleDateTime } from '$lib/datatime.js'
 import { add } from '$lib/server/comment.js'
 import type { Session } from '$lib/types/auth.js'
-import type { NewComment } from '$lib/types/comments.js'
+import type { NewComment } from '$lib/types/comment.js'
 import { error } from '@sveltejs/kit'
 
 export const ssr = true
@@ -38,6 +38,7 @@ export const actions = {
 			body: body.toString(),
 		}
 
-		return add(locals.db, comment)
+		await add(locals.db, comment)
+		return
 	},
 }
