@@ -20,11 +20,11 @@
 >
 	{#each education as school}
 		<article
-			class="card bg-surface-100-900 z-5 rounded-lg p-2 text-center drop-shadow-md"
+			class="card z-5 rounded-lg bg-slate-100 p-2 text-center drop-shadow-md dark:bg-slate-900"
 		>
 			<h2 class="text-xl font-bold">{school.name}</h2>
 			<h3 class="text-xl">{school.college}</h3>
-			<h5 class="text-surface-500 my-1 flex justify-around">
+			<h5 class="my-1 flex justify-around text-slate-500">
 				<span class="">{school.dates.start} - {school.dates.end}</span>
 				<span class="">{school.location.city}, {school.location.state}</span>
 			</h5>
@@ -44,12 +44,14 @@
 	)}"
 >
 	{#each professional as workplace}
-		<section class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md">
+		<section
+			class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
+		>
 			<div class="overflow-x-scroll">
 				<h2 class="inline font-extrabold">{workplace.company}</h2>
 				<h3 class="float-end ml-2 inline font-light">{workplace.position}</h3>
 			</div>
-			<h4 class="text-surface-500">
+			<h4 class="text-slate-500">
 				<span>{workplace.startDate}</span> -
 				<span>{workplace.endDate}</span>
 				<span class="float-end block italic sm:inline"
@@ -76,7 +78,7 @@
 	>
 		{#each openSource as os}
 			<section
-				class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md"
+				class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
 			>
 				<h2 class="font-bold">{os.name}</h2>
 
@@ -111,7 +113,9 @@
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#each skills as skill}
-		<div class="card bg-surface-100-900 z-5 rounded-lg p-4 drop-shadow-md">
+		<div
+			class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
+		>
 			<h2 class="text-center">{skill.name}</h2>
 
 			<hr class="hr my-4 border-t-2" />

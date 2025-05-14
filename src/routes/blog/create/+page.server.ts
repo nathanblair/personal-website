@@ -39,7 +39,9 @@ export const actions: Actions = {
 		const content = formData.get('content')
 		if (!content) throw new Error('Blog content not found')
 
-		const contentType = formData.get('format')
+		// FIXME Content type is breaking
+		// Its not grabbing the value from the Combobox, only the label
+		const contentType = formData.get('contentType')
 		if (!contentType) throw new Error('Blog content type not found')
 
 		const formattedTitle = title.toString().replace(/ /g, '-')

@@ -8,7 +8,7 @@
 <button
 	type="submit"
 	title={authStatus ? 'Log Out' : 'Log In'}
-	class="hover:text-surface-contrast-50 dark:hover:text-surface-contrast-900"
+	class="hover:text-slate-900 dark:text-slate-100 hover:dark:text-slate-500"
 >
 	{#if authStatus}
 		<LogOut />

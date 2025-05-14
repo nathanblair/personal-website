@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Session } from '$lib/types/auth'
+
 	import AuthButton from './AuthButton.svelte'
 
 	const {
@@ -19,7 +20,8 @@
 			src={session?.user?.image}
 			alt={session?.user?.name}
 		/>
-		<span class="text-surface-800-200 pointer-events-none m-1 w-max"
+		<span
+			class="pointer-events-none m-1 w-max text-slate-800 dark:text-slate-200"
 			>{session?.user?.name}</span
 		>
 	{/if}

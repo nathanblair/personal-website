@@ -17,7 +17,7 @@
 </script>
 
 <nav
-	class="text-primary-800-200 bg-surface-100-900 sticky top-0 z-10 flex justify-between overflow-x-scroll opacity-95 drop-shadow-md"
+	class="text-primary-800 dark:text-primary-200 sticky top-0 z-10 flex justify-between overflow-x-scroll bg-slate-100 opacity-95 drop-shadow-md dark:bg-slate-900"
 >
 	<div class="mr-3 ml-1 flex">
 		<NavTile label="Home" href="/"><Home /></NavTile>

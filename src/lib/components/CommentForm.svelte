@@ -13,7 +13,7 @@
 	<input type="hidden" name="timeZone" value={timeZone} />
 
 	<textarea
-		class="textarea bg-surface-100-900 placeholder:text-surface-300 resize-none pt-2"
+		class="textarea resize-none bg-slate-100 pt-2 placeholder:text-slate-300 dark:bg-slate-900"
 		name="content"
 		id="content"
 		required
@@ -22,7 +22,7 @@
 	></textarea>
 	<button
 		type="submit"
-		class="btn preset-tonal-primary my-3 w-full lg:w-auto"
+		class="my-3 w-full lg:w-auto"
 		formaction="/comment/{slug}?/submit">Submit</button
 	>
 </form>

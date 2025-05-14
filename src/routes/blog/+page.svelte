@@ -5,29 +5,34 @@
 	let { data } = $props()
 </script>
 
+{#snippet blogPlaceholder()}
+	<div
+		class="card placeholder block animate-pulse
+			rounded-md border-slate-100 bg-slate-100
+			p-6 text-slate-900 drop-shadow-md dark:bg-slate-900
+			dark:text-slate-100"
+	>
+		<div class="placeholder animate-pulse text-xl font-bold"></div>
+		<div class="placeholder animate-pulse text-slate-500"></div>
+	</div>
+{/snippet}
+
 <div
 	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#await data.blogsFetch}
 		{#each Array(16) as _}
-			<div
-				class="card placeholder border-surface-contrast-900 bg-surface-100-900 text-surface-900-100
-			block animate-pulse rounded-md p-6
-			drop-shadow-md"
-			>
-				<div class="placeholder animate-pulse text-xl font-bold"></div>
-				<div class="placeholder text-surface-500 animate-pulse"></div>
-			</div>
+			{@render blogPlaceholder()}
 		{/each}
 	{:then blogs}
 		{#each blogs as blog, index}
 			<a
 				in:slide|global={{ duration: 100, delay: index * 100 }}
-				class="card border-surface-contrast-900 bg-surface-100-900 text-surface-900-100 block rounded-md p-6 drop-shadow-md"
+				class="card block rounded-md border-slate-100 bg-slate-100 p-6 text-slate-900 drop-shadow-md dark:bg-slate-900 dark:text-slate-100"
 				href={`/blog/${blog.slug}`}
 			>
 				<h1 class="text-xl font-bold">{blog.title}</h1>
-				<h2 class="text-surface-500">{formatBlogDateTime(blog.date)}</h2>
+				<h2 class="text-slate-500">{formatBlogDateTime(blog.date)}</h2>
 			</a>
 		{/each}
 	{:catch error}

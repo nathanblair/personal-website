@@ -51,7 +51,7 @@
 					.replaceAll(',', '')}</span
 			>
 			{#if comment.dateEdited}
-				<span class="text-surface-500"
+				<span class="text-slate-500"
 					>Edited: {new Date(comment.dateEdited)
 						.toLocaleTimeString(locale, {
 							timeZoneName: 'short',
@@ -74,7 +74,7 @@
 			rows="3"
 			name="body"
 			{readonly}
-			class="form-textarea bg-surface-100-900 textarea my-2 resize-none p-2 read-only:pointer-events-none"
+			class="form-textarea textarea my-2 resize-none bg-slate-100 p-2 read-only:pointer-events-none dark:bg-slate-900"
 			bind:value={commentBody}
 			required
 			oninput={() => (showSubmit = commentBody !== comment.body)}
@@ -87,16 +87,12 @@
 				<form use:enhance method="post">
 					<button
 						formaction="/comment/{comment.slug}/{comment.id}?/edit"
-						class="btn btn-icon preset-filled-primary-500 m-2"
+						class="m-2"
 					>
 						<Check />
 					</button>
 				</form>
-				<button
-					onclick={cancel}
-					onsubmit={() => {}}
-					class="btn btn-icon preset-filled-error-500 m-2"
-				>
+				<button onclick={cancel} onsubmit={() => {}} class="m-2">
 					<Ban />
 				</button>
 			</div>
@@ -108,7 +104,7 @@
 			<form method="post" use:enhance>
 				<button
 					formaction="/comment/{comment.slug}/{comment.id}?/delete"
-					class="btn preset-filled-error-500">Delete</button
+					class="">Delete</button
 				>
 			</form>
 		{/if}

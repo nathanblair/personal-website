@@ -9,13 +9,13 @@
 
 <header class="mt-8 w-auto space-y-2 text-center">
 	<h1 class="text-2xl">{blog.title}</h1>
-	<h2 class="text-surface-500 text-xl">
+	<h2 class="text-xl text-slate-500">
 		{formatBlogDateTime(blog.date)}
 	</h2>
 </header>
 
 <div
-	class="markdown-body !bg-surface-100 !text-surface-900 dark:!bg-surface-900 dark:!text-surface-100 !mx-4 !my-12 min-h-24 w-auto overflow-x-scroll p-8 md:!mx-36"
+	class="markdown-body !mx-4 !my-12 min-h-24 w-auto overflow-x-scroll !bg-slate-100 p-8 !text-slate-900 md:!mx-36 dark:!bg-slate-900 dark:!text-slate-100"
 >
 	{#if blog.contentType === 'text/markdown'}
 		{#await marked.parse(blog.content)}

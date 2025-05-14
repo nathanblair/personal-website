@@ -1,19 +1,35 @@
 <script lang="ts">
+	// import { Combobox } from '@skeletonlabs/skeleton-svelte'
+
 	import Comments from '@lucide/svelte/icons/message-square'
 	import CommentsOff from '@lucide/svelte/icons/message-square-off'
 
 	import { locale, timeZone } from '$lib/datatime.ts'
 
-	let commentsEnabled = $state(false)
+	interface Format {
+		value: string
+		label: string
+	}
+
+	let commentsEnabled = $state(true)
+
+	let formats: Format[] = [
+		{ value: 'text/markdown', label: 'Markdown' },
+		{ value: 'text/html', label: 'HTML' },
+		{ value: 'text/plain', label: 'Plain Text' },
+	]
+
+	let selectedFormat = $state([formats[0].value])
+	$inspect(selectedFormat)
 </script>
 
 <form method="POST" class="group flex flex-1 flex-col">
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
 
-	<div class="m-2 flex">
+	<div class="m-2 flex space-x-2">
 		<input
-			class="input w-auto flex-1"
+			class="input flex-1"
 			type="text"
 			id="title"
 			name="title"
@@ -21,11 +37,17 @@
 			placeholder="Enter blog title here"
 		/>
 
-		<select class="select ml-2 w-auto" name="format" id="format">
-			<option value="text/markdown">Markdown</option>
-			<option value="text/html">HTML</option>
-			<option value="text/plain">Plain Text</option>
-		</select>
+		<!-- <Combobox
+			data={formats}
+			value={selectedFormat}
+			defaultValue={selectedFormat}
+			onValueChange={(e) => (selectedFormat = e.value)}
+			required
+			inputBehavior="autocomplete"
+			width="w-auto"
+			base="flex items-center"
+			name="contentType"
+		></Combobox> -->
 
 		<div class="flex items-center">
 			<input
@@ -38,7 +60,7 @@
 				bind:checked={commentsEnabled}
 			/>
 			<label
-				class="peer-focus-within:ring-primary-500 cursor-pointer p-2 peer-focus-within:ring-1"
+				class="peer-focus-within:ring-primary-500 cursor-pointer peer-focus-within:ring-1"
 				for="commentsEnabled"
 			>
 				{#if commentsEnabled}
@@ -60,13 +82,11 @@
 	></textarea>
 
 	<div class="m-2 flex space-x-2">
-		<button
-			class="btn preset-filled flex-1 rounded-md"
-			formaction="?/cancel"
-			formnovalidate>Cancel</button
+		<button class="flex-1 rounded-md" formaction="?/cancel" formnovalidate
+			>Cancel</button
 		>
 		<button
-			class="btn preset-filled flex-1 rounded-md group-has-invalid:pointer-events-none group-has-invalid:opacity-50"
+			class="flex-1 rounded-md group-has-invalid:pointer-events-none group-has-invalid:opacity-50"
 			id="submit"
 			formaction="?/create">Create</button
 		>

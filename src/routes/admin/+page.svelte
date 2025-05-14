@@ -5,23 +5,21 @@
 	let { data }: PageProps = $props()
 </script>
 
-{#await data.commentsInitialized then initialized}
-	<form use:enhance method="POST">
+<form use:enhance method="POST" class="m-2 flex space-x-2">
+	{#await data.commentsInitialized then initialized}
 		<button
-			class="btn preset-tonal my-2 w-full lg:w-auto"
+			class="flex-1 border p-2"
 			formaction="/comment?/{initialized ? 'drop' : 'create'}"
 		>
 			{initialized ? 'Remove Comments Table' : 'Initialize Comments'}</button
 		>
-	</form>
-{/await}
+	{/await}
 
-{#await data.rocksInitialized then initialized}
-	<form use:enhance method="POST">
+	{#await data.rocksInitialized then initialized}
 		<button
-			class="btn preset-tonal my-2 w-full lg:w-auto"
+			class="flex-1 border p-2"
 			formaction="/rock?/{initialized ? 'drop' : 'create'}"
 			>{initialized ? 'Remove Rocks Table' : 'Initialize Rocks'}</button
 		>
-	</form>
-{/await}
+	{/await}
+</form>
