@@ -13,20 +13,6 @@ export const contactInfo = {
 
 export const education = [
 	{
-		name: 'University of Cincinnati',
-		college: 'College of Engineering and Applied Sciences',
-		degrees: ['N/A Materials Science and Engineering'],
-		dates: {
-			start: 'August 2009',
-			end: 'June 2012',
-		},
-		location: {
-			city: 'Dayton',
-			state: 'Ohio',
-			country: 'USA',
-		},
-	},
-	{
 		name: 'Wright State University',
 		college: 'College of Engineering',
 		degrees: [
@@ -36,6 +22,20 @@ export const education = [
 		dates: {
 			start: 'September 2012',
 			end: 'May 2015',
+		},
+		location: {
+			city: 'Dayton',
+			state: 'Ohio',
+			country: 'USA',
+		},
+	},
+	{
+		name: 'University of Cincinnati',
+		college: 'College of Engineering and Applied Sciences',
+		degrees: ['N/A Materials Science and Engineering'],
+		dates: {
+			start: 'August 2009',
+			end: 'June 2012',
 		},
 		location: {
 			city: 'Dayton',

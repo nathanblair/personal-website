@@ -8,6 +8,22 @@
 
 	button {
 		cursor: pointer;
+		padding: calc(var(--spacing) * 1);
+	}
+
+	textarea {
+		outline-style: var(--tw-outline-style);
+		outline-width: 1px;
+		padding: calc(var(--spacing) * 2);
+	}
+
+	li {
+		list-style-type: disc;
+	}
+
+	.btn {
+		outline-style: var(--tw-outline-style);
+		outline-width: 1px;
 	}
 }
 

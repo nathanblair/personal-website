@@ -46,5 +46,6 @@
 	p {
 		padding: 4.5dvh 4.5dvw;
 		font-size: var(--text-xl);
+		border-radius: var(--radius-md);
 	}
 </style>

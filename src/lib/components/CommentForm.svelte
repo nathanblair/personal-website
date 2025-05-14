@@ -20,9 +20,8 @@
 		rows="4"
 		placeholder="Enter a comment"
 	></textarea>
-	<button
-		type="submit"
-		class="my-3 w-full lg:w-auto"
-		formaction="/comment/{slug}?/submit">Submit</button
+
+	<button class="btn my-3 lg:w-auto" formaction="/comment/{slug}?/submit"
+		>Submit</button
 	>
 </form>

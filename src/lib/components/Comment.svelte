@@ -19,7 +19,8 @@
 	let showSubmit = $state(false)
 	let commentBody = $state(comment.body)
 
-	function cancel() {
+	function cancel(e: Event) {
+		e.preventDefault()
 		showSubmit = false
 		commentBody = comment.body
 	}
@@ -69,12 +70,12 @@
 			<span>{comment.userName}</span>
 		</div>
 	</div>
-	<div class="flex">
+	<form use:enhance method="post" class="flex" onreset={cancel}>
 		<textarea
 			rows="3"
 			name="body"
 			{readonly}
-			class="my-2 w-full resize-none bg-slate-100 p-2 read-only:pointer-events-none dark:bg-slate-900"
+			class="my-2 w-full resize-none bg-slate-100 outline-0 read-only:pointer-events-none dark:bg-slate-900"
 			bind:value={commentBody}
 			required
 			oninput={() => (showSubmit = commentBody !== comment.body)}
@@ -84,27 +85,23 @@
 				class="flex flex-col"
 				transition:slide={{ duration: 500, axis: 'x' }}
 			>
-				<form use:enhance method="post">
-					<button
-						formaction="/comment/{comment.slug}/{comment.id}?/edit"
-						class="m-2"
-					>
-						<Check />
-					</button>
-				</form>
-				<button onclick={cancel} onsubmit={() => {}} class="m-2">
-					<Ban />
+				<button
+					formaction="/comment/{comment.slug}/{comment.id}?/edit"
+					class="m-2"
+				>
+					<Check />
 				</button>
+				<button type="reset" class="m-2"><Ban /></button>
 			</div>
 		{/if}
-	</div>
-	<div class="m-2 flex items-center justify-end">
+	</form>
+	<div class="my-2 flex items-center justify-end">
 		<Rock {comment} />
 		{#if !readonly}
 			<form method="post" use:enhance>
 				<button
 					formaction="/comment/{comment.slug}/{comment.id}?/delete"
-					class="">Delete</button
+					class="btn">Delete</button
 				>
 			</form>
 		{/if}

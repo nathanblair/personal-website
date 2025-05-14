@@ -29,7 +29,7 @@
 
 	<div class="m-2 flex space-x-2">
 		<input
-			class="input flex-1"
+			class="flex-1 p-2 outline-1"
 			type="text"
 			id="title"
 			name="title"
@@ -73,7 +73,7 @@
 	</div>
 
 	<textarea
-		class="textarea m-2 w-auto flex-1 resize-none overflow-y-scroll"
+		class="m-2 w-auto flex-1 resize-none overflow-y-scroll"
 		name="content"
 		id="content"
 		placeholder="Enter blog content here"
@@ -82,11 +82,11 @@
 	></textarea>
 
 	<div class="m-2 flex space-x-2">
-		<button class="flex-1 rounded-md" formaction="?/cancel" formnovalidate
+		<button class="btn flex-1 rounded-md" formaction="?/cancel" formnovalidate
 			>Cancel</button
 		>
 		<button
-			class="flex-1 rounded-md group-has-invalid:pointer-events-none group-has-invalid:opacity-50"
+			class="btn flex-1 rounded-md group-has-invalid:pointer-events-none group-has-invalid:opacity-50"
 			id="submit"
 			formaction="?/create">Create</button
 		>

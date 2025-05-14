@@ -19,7 +19,7 @@
 	{href}
 	{target}
 	title={tooltip || label}
-	class="flex flex-col items-center p-2 hover:text-slate-900 dark:text-slate-100 hover:dark:text-slate-500"
+	class="flex flex-col items-center p-2 hover:text-slate-400 dark:text-slate-100 hover:dark:text-slate-500"
 >
 	{#if children}
 		{@render children()}

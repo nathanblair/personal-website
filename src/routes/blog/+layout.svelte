@@ -17,10 +17,10 @@
 </script>
 
 {#if data?.session?.user?.admin}
-	<div id="blog-actions" class="ml-2 flex">
+	<div id="blog-actions" class="flex">
 		<form method="post" onsubmit={confirmSubmission} class="flex">
 			<button
-				class="m-4 p-0"
+				class="p-2"
 				id="delete"
 				name="delete"
 				formaction="?/remove"
@@ -29,7 +29,7 @@
 				title="Delete the blog post"><Trash /></button
 			>
 			<button
-				class="m-4 p-0"
+				class="p-2"
 				id="edit"
 				name="edit"
 				formaction="?/edit"
@@ -39,7 +39,7 @@
 			>
 		</form>
 		<a
-			class="m-4 p-0"
+			class="flex items-center p-2"
 			href="/blog/create"
 			id="create"
 			aria-label="create"
