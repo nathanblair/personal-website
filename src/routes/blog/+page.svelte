@@ -7,18 +7,18 @@
 
 {#snippet blogPlaceholder()}
 	<div
-		class="card placeholder block animate-pulse
+		class="block animate-pulse
 			rounded-md border-slate-100 bg-slate-100
 			p-6 text-slate-900 drop-shadow-md dark:bg-slate-900
 			dark:text-slate-100"
 	>
-		<div class="placeholder animate-pulse text-xl font-bold"></div>
-		<div class="placeholder animate-pulse text-slate-500"></div>
+		<div class="animate-pulse text-xl font-bold"></div>
+		<div class="animate-pulse text-slate-500"></div>
 	</div>
 {/snippet}
 
 <div
-	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+	class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#await data.blogsFetch}
 		{#each Array(16) as _}
@@ -28,7 +28,7 @@
 		{#each blogs as blog, index}
 			<a
 				in:slide|global={{ duration: 100, delay: index * 100 }}
-				class="card block rounded-md border-slate-100 bg-slate-100 p-6 text-slate-900 drop-shadow-md dark:bg-slate-900 dark:text-slate-100"
+				class="block rounded-md border-slate-100 bg-slate-100 p-6 text-slate-900 drop-shadow-md dark:bg-slate-900 dark:text-slate-100"
 				href={`/blog/${blog.slug}`}
 			>
 				<h1 class="text-xl font-bold">{blog.title}</h1>

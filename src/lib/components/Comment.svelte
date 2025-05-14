@@ -27,7 +27,7 @@
 
 <div
 	in:slide|global={{ duration: 100, delay: index * 100 }}
-	class="card mx-4 my-3 p-2 drop-shadow-md sm:mx-36"
+	class="my-3 drop-shadow-md"
 >
 	<div class="flex items-center">
 		<img
@@ -74,7 +74,7 @@
 			rows="3"
 			name="body"
 			{readonly}
-			class="form-textarea textarea my-2 resize-none bg-slate-100 p-2 read-only:pointer-events-none dark:bg-slate-900"
+			class="my-2 w-full resize-none bg-slate-100 p-2 read-only:pointer-events-none dark:bg-slate-900"
 			bind:value={commentBody}
 			required
 			oninput={() => (showSubmit = commentBody !== comment.body)}

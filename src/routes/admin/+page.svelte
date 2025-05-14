@@ -5,7 +5,7 @@
 	let { data }: PageProps = $props()
 </script>
 
-<form use:enhance method="POST" class="m-2 flex space-x-2">
+<form use:enhance method="POST" class="flex space-x-2 pt-4">
 	{#await data.commentsInitialized then initialized}
 		<button
 			class="flex-1 border p-2"

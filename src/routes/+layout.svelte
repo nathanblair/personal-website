@@ -20,7 +20,7 @@
 <Header session={data.session}></Header>
 
 <main
-	class="flex flex-1 flex-col text-slate-950 dark:bg-slate-900 dark:text-slate-50"
+	class="flex flex-1 flex-col px-4 text-slate-950 md:px-[20%] dark:bg-slate-950 dark:text-slate-50"
 >
 	{@render children()}
 </main>

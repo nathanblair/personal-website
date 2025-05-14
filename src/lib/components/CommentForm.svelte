@@ -8,12 +8,12 @@
 	}: { slug: string; locale: string; timeZone: string } = $props()
 </script>
 
-<form method="POST" use:enhance class="mx-4 my-1 sm:mx-36">
+<form method="POST" use:enhance class="">
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
 
 	<textarea
-		class="textarea resize-none bg-slate-100 pt-2 placeholder:text-slate-300 dark:bg-slate-900"
+		class="w-full resize-none bg-slate-100 p-2 dark:bg-slate-900"
 		name="content"
 		id="content"
 		required

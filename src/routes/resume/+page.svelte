@@ -8,9 +8,10 @@
 	} from '$lib/resume'
 </script>
 
-<h1 class="mt-4 text-center text-4xl">Education</h1>
+<h1 class="my-6">Education</h1>
+
 <section
-	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
+	class="grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
 		2,
 		education.length,
 	)} md:grid-cols-{Math.min(3, education.length)} lg:grid-cols-{Math.min(
@@ -20,7 +21,7 @@
 >
 	{#each education as school}
 		<article
-			class="card z-5 rounded-lg bg-slate-100 p-2 text-center drop-shadow-md dark:bg-slate-900"
+			class="z-5 rounded-lg bg-slate-100 p-2 text-center drop-shadow-md dark:bg-slate-900"
 		>
 			<h2 class="text-xl font-bold">{school.name}</h2>
 			<h3 class="text-xl">{school.college}</h3>
@@ -35,17 +36,15 @@
 	{/each}
 </section>
 
-<h1 class="mx-2 text-center text-4xl">Professional Experience</h1>
+<h1 class="my-6">Professional Experience</h1>
+
 <section
 	id="professional"
-	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
-		2,
-		professional.length,
-	)}"
+	class="grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(2, professional.length)}"
 >
 	{#each professional as workplace}
 		<section
-			class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
+			class="z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
 		>
 			<div class="overflow-x-scroll">
 				<h2 class="inline font-extrabold">{workplace.company}</h2>
@@ -68,17 +67,18 @@
 	{/each}
 </section>
 
-<h1 class="mx-2 text-center text-4xl">Open Source Contributions</h1>
+<h1 class="my-6">Open Source Contributions</h1>
+
 <section id="open-source">
 	<div
-		class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
+		class="grid grid-cols-1 gap-3 sm:grid-cols-{Math.min(
 			2,
 			professional.length,
 		)}"
 	>
 		{#each openSource as os}
 			<section
-				class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
+				class="z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
 			>
 				<h2 class="font-bold">{os.name}</h2>
 
@@ -107,14 +107,15 @@
 	</div>
 </section>
 
-<h1 class="mx-2 mb-4 text-center text-4xl">Technical Skills</h1>
+<h1 class="my-6">Technical Skills</h1>
+
 <section
 	id="skills"
-	class="m-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+	class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
 	{#each skills as skill}
 		<div
-			class="card z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
+			class="z-5 rounded-lg bg-slate-100 p-4 drop-shadow-md dark:bg-slate-900"
 		>
 			<h2 class="text-center">{skill.name}</h2>
 
@@ -132,7 +133,7 @@
 	{/each}
 </section>
 
-<section id="contact-info" class="mb-5 text-center">
+<section id="contact-info" class="my-6 text-center">
 	<a href={contactInfo.website.link} target="_blank"
 		>{contactInfo.website.name}</a
 	>
@@ -150,3 +151,10 @@
 		</a>
 	</h3>
 </section>
+
+<style>
+	h1 {
+		font-size: var(--text-4xl);
+		text-align: center;
+	}
+</style>

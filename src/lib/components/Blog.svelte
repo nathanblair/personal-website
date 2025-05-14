@@ -15,7 +15,7 @@
 </header>
 
 <div
-	class="markdown-body !mx-4 !my-12 min-h-24 w-auto overflow-x-scroll !bg-slate-100 p-8 !text-slate-900 md:!mx-36 dark:!bg-slate-900 dark:!text-slate-100"
+	class="markdown-body min-h-24 w-auto overflow-x-scroll bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100"
 >
 	{#if blog.contentType === 'text/markdown'}
 		{#await marked.parse(blog.content)}
