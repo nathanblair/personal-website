@@ -34,14 +34,18 @@
 		{/if}
 	</div>
 	<div class="mr-1 ml-3 flex items-center">
-		<NavTile href="https://github.com/nathanblair" target="_blank"
-			><GitHub /></NavTile
+		<NavTile
+			href="https://github.com/nathanblair"
+			target="_blank"
+			title="GitHub"><GitHub /></NavTile
 		>
-		<NavTile href="https://linkedin.com/engineernblair" target="_blank"
-			><LinkedIn /></NavTile
+		<NavTile
+			href="https://linkedin.com/engineernblair"
+			target="_blank"
+			title="LinkedIn"><LinkedIn /></NavTile
 		>
 
-		<NavTile href="mailto:me@nathanblair.rocks" target="_blank"
+		<NavTile href="mailto:me@nathanblair.rocks" target="_blank" title="Email"
 			><Mail /></NavTile
 		>
 	</div>

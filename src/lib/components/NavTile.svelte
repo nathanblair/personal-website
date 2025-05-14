@@ -3,13 +3,13 @@
 		label,
 		href,
 		target = '',
-		tooltip,
+		title,
 		children,
 	}: {
 		label?: string
 		href: string
 		target?: string
-		tooltip?: string
+		title?: string
 		children: any
 	} = $props()
 </script>
@@ -18,7 +18,7 @@
 	id="0"
 	{href}
 	{target}
-	title={tooltip || label}
+	title={title || label}
 	class="flex flex-col items-center p-2 hover:text-slate-400 dark:text-slate-100 hover:dark:text-slate-500"
 >
 	{#if children}
