@@ -23,7 +23,7 @@
 				class="p-2"
 				id="delete"
 				name="delete"
-				formaction="?/remove"
+				formaction="?/removeBlog"
 				disabled={page.route.id !== '/blog/[slug]'}
 				type="submit"
 				title="Delete the blog post"><Trash /></button
@@ -32,7 +32,7 @@
 				class="p-2"
 				id="edit"
 				name="edit"
-				formaction="?/edit"
+				formaction="?/editBlog"
 				disabled={page.route.id !== '/blog/[slug]'}
 				type="submit"
 				title="Edit the blog post"><Edit /></button
@@ -48,6 +48,6 @@
 	</div>
 {/if}
 
-<div id="blog-main" class="flex flex-1 flex-col">
+<div id="blog-main" class="mt-4 flex flex-1 flex-col">
 	{@render children()}
 </div>

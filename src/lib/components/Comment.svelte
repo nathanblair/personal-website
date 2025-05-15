@@ -9,6 +9,7 @@
 
 	import { locale, timeZone } from '$lib/datatime.ts'
 	import type { Comment } from '$lib/types/comment'
+	import type { ActionResult } from '@sveltejs/kit'
 
 	let {
 		comment,
@@ -24,13 +25,34 @@
 		rockCount: number
 	} = $props()
 
-	let showSubmit = $state(false)
+	let dateEdited = $state(comment.dateEdited)
 	let commentBody = $state(comment.body)
+	let showSubmit = $state(false)
 
 	function cancel(e: Event) {
 		e.preventDefault()
 		showSubmit = false
 		commentBody = comment.body
+	}
+
+	function inputChanged() {
+		showSubmit = commentBody !== comment.body
+	}
+
+	function handleEditResult({ result }: { result: ActionResult }) {
+		console.log('result', result)
+		if (result.type === 'success') {
+			commentBody = result.data?.body
+			dateEdited = result.data?.dateEdited
+			showSubmit = false
+		}
+	}
+
+	function enhancedHandler() {
+		return async ({ result }: { result: ActionResult }) => {
+			handleEditResult({ result })
+			return
+		}
 	}
 </script>
 
@@ -59,9 +81,10 @@
 					})
 					.replaceAll(',', '')}</span
 			>
-			{#if comment.dateEdited}
+
+			{#if dateEdited}
 				<span class="text-slate-500"
-					>Edited: {new Date(comment.dateEdited)
+					>Edited: {new Date(dateEdited)
 						.toLocaleTimeString(locale, {
 							timeZoneName: 'short',
 							day: 'numeric',
@@ -75,13 +98,20 @@
 						.replaceAll(',', '')}</span
 				>
 			{/if}
+
 			<span>{comment.userName}</span>
 		</div>
 	</div>
 
-	<form use:enhance method="post" class="flex" onreset={cancel}>
+	<form
+		use:enhance={enhancedHandler}
+		method="post"
+		class="flex"
+		onreset={cancel}
+	>
 		<input type="hidden" name="locale" value={locale} />
 		<input type="hidden" name="timeZone" value={timeZone} />
+		<input type="hidden" name="commentId" value={comment.id} />
 
 		<textarea
 			rows="3"
@@ -90,7 +120,7 @@
 			class="my-2 w-full resize-none bg-slate-100 outline-0 read-only:pointer-events-none dark:bg-slate-900"
 			bind:value={commentBody}
 			required
-			oninput={() => (showSubmit = commentBody !== comment.body)}
+			oninput={inputChanged}
 		></textarea>
 
 		{#if showSubmit}
@@ -98,10 +128,7 @@
 				class="flex flex-col"
 				transition:slide={{ duration: 500, axis: 'x' }}
 			>
-				<button
-					formaction="/comment/{comment.slug}/{comment.id}?/edit"
-					class="m-2"
-				>
+				<button formaction="?/editComment" class="m-2">
 					<Check />
 				</button>
 				<button type="reset" class="m-2"><Ban /></button>
@@ -110,14 +137,12 @@
 	</form>
 
 	<div class="my-2 flex items-center justify-end">
-		<Rock commentId={comment.id} {rocked} {rockCount} />
+		<Rock commentId={comment.id} {rocked} {rockCount} {readonly} />
 
 		{#if !readonly}
-			<form method="post" use:enhance>
-				<button
-					formaction="/comment/{comment.slug}/{comment.id}?/delete"
-					class="btn">Delete</button
-				>
+			<form method="POST" use:enhance>
+				<input type="hidden" name="commentId" value={comment.id} />
+				<button formaction="?/deleteComment" class="btn">Delete</button>
 			</form>
 		{/if}
 	</div>

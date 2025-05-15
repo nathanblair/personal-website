@@ -68,10 +68,7 @@ export async function list(db: D1Database, slug: string): Promise<Comment[]> {
 	return comments
 }
 
-export async function read(
-	db: D1Database,
-	id: number,
-): Promise<Comment | null> {
+export async function get(db: D1Database, id: number): Promise<Comment | null> {
 	const query = k
 		.selectFrom(CommentsTableName)
 		.selectAll()

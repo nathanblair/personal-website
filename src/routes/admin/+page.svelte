@@ -9,7 +9,7 @@
 	{#await data.commentsInitialized then initialized}
 		<button
 			class="flex-1 border p-2"
-			formaction="/comment?/{initialized ? 'drop' : 'create'}"
+			formaction="?/{initialized ? 'drop' : 'create'}Comments"
 		>
 			{initialized ? 'Remove Comments Table' : 'Initialize Comments'}</button
 		>
@@ -18,7 +18,7 @@
 	{#await data.rocksInitialized then initialized}
 		<button
 			class="flex-1 border p-2"
-			formaction="/rock?/{initialized ? 'drop' : 'create'}"
+			formaction="?/{initialized ? 'drop' : 'create'}Rocks"
 			>{initialized ? 'Remove Rocks Table' : 'Initialize Rocks'}</button
 		>
 	{/await}

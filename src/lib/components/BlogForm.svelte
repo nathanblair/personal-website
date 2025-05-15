@@ -20,7 +20,6 @@
 	]
 
 	let selectedFormat = $state([formats[0].value])
-	$inspect(selectedFormat)
 </script>
 
 <form method="POST" class="group flex flex-1 flex-col">
@@ -37,17 +36,11 @@
 			placeholder="Enter blog title here"
 		/>
 
-		<!-- <Combobox
-			data={formats}
-			value={selectedFormat}
-			defaultValue={selectedFormat}
-			onValueChange={(e) => (selectedFormat = e.value)}
-			required
-			inputBehavior="autocomplete"
-			width="w-auto"
-			base="flex items-center"
-			name="contentType"
-		></Combobox> -->
+		<select name="contentType" id="contentType">
+			{#each formats as format}
+				<option value={format.value} selected={true}>{format.label}</option>
+			{/each}
+		</select>
 
 		<div class="flex items-center">
 			<input

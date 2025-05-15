@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 
-	let {
-		slug,
-		locale,
-		timeZone,
-	}: { slug: string; locale: string; timeZone: string } = $props()
+	let { locale, timeZone }: { locale: string; timeZone: string } = $props()
 </script>
 
-<form method="POST" use:enhance class="">
+<form method="POST" use:enhance>
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
 
@@ -21,7 +17,5 @@
 		placeholder="Enter a comment"
 	></textarea>
 
-	<button class="btn my-3 lg:w-auto" formaction="/comment/{slug}?/submit"
-		>Submit</button
-	>
+	<button class="btn my-3 lg:w-auto" formaction="?/addComment">Submit</button>
 </form>
