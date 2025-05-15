@@ -55,7 +55,7 @@
 
 <div
 	in:slide|global={{ duration: 100, delay: index * 100 }}
-	class="my-3 drop-shadow-md"
+	class="drop-shadow-md"
 >
 	<div class="flex items-center">
 		<img

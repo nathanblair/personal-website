@@ -4,7 +4,7 @@
 	let { locale, timeZone }: { locale: string; timeZone: string } = $props()
 </script>
 
-<form method="POST" use:enhance class="mt-4 mb-2">
+<form method="POST" use:enhance class="mt-4">
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
 

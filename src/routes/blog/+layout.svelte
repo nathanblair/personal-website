@@ -47,7 +47,8 @@
 
 <div
 	id="blog-main"
-	class="flex flex-1 flex-col {!data?.session?.user?.admin ? 'pt-3' : ''}"
+	class="flex flex-1 flex-col space-y-4"
+	class:pt-3={!data?.session?.user?.admin}
 >
 	{@render children()}
 </div>
