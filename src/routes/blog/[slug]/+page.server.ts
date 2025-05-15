@@ -1,4 +1,4 @@
-import { formatLocaleDateTime } from '$lib/datatime.ts'
+import { formatLocaleDateTime } from '$lib/datetime'
 import {
 	add as addComment,
 	edit as editComment,
@@ -84,14 +84,6 @@ export const actions: Actions = {
 		await removeBlog(locals.blogs, params.slug)
 		redirect(303, '/blog')
 	},
-	editBlog: async ({ params, locals }) => {
-		const session = (await locals.auth()) as Session
-		if (!session) error(404, 'Not signed in')
-
-		if (!session.user?.admin) error(403, 'Unauthorized')
-
-		redirect(303, `/blog/edit/${params.slug}`)
-	},
 	addComment: async ({ request, params, locals }) => {
 		const session = (await locals.auth()) as Session
 		if (!session || !session.user) error(404, 'Not signed in')
@@ -125,13 +117,14 @@ export const actions: Actions = {
 		await addComment(locals.db, comment)
 		return {}
 	},
-	deleteComment: async ({ request, locals }) => {
+	deleteComment: async ({ request, locals, url }) => {
 		const session = (await locals.auth()) as Session
 		if (!session || !session.user) error(404, 'Not signed in')
 
+		let commentId: string | number | null = url.searchParams.get('commentId')
 		const formData = await request.formData()
-		let commentId: FormDataEntryValue | number | null =
-			formData.get('commentId')
+		// let commentId: FormDataEntryValue | number | null =
+		// 	formData.get('commentId')
 		if (!commentId) throw new Error('Comment ID not found')
 
 		commentId = parseInt(commentId?.toString(), 10)
@@ -175,8 +168,7 @@ export const actions: Actions = {
 
 		const record: CommentUpdate = { body: body?.toString(), dateEdited }
 
-		await editComment(locals.db, commentId, record)
-		return record
+		return await editComment(locals.db, commentId, record)
 	},
 	toggleRock: async ({ locals, request }) => {
 		const session = (await locals.auth()) as Session

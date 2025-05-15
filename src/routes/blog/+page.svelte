@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatBlogDateTime } from '$lib/datatime.js'
+	import { formatBlogDateTime } from '$lib/datetime.js'
 	import { slide } from 'svelte/transition'
 
 	let { data } = $props()

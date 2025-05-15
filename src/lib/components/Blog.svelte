@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { marked } from 'marked'
 
-	import { formatBlogDateTime } from '$lib/datatime.ts'
+	import { formatBlogDateTime } from '$lib/datetime'
 	import type { StorageBlog } from '$lib/types/blog'
 
 	let { blog }: { blog: StorageBlog } = $props()

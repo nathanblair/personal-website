@@ -4,7 +4,7 @@
 	import Comments from '@lucide/svelte/icons/message-square'
 	import CommentsOff from '@lucide/svelte/icons/message-square-off'
 
-	import { locale, timeZone } from '$lib/datatime.ts'
+	import { locale, timeZone } from '$lib/datetime'
 
 	interface Format {
 		value: string

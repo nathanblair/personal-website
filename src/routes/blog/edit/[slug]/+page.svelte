@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { locale, timeZone } from '$lib/datatime.ts'
+	import { locale, timeZone } from '$lib/datetime.js'
 
 	let { data } = $props()
 </script>

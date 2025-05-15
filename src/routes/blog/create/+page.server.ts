@@ -1,4 +1,4 @@
-import { formatLocaleDateTime } from '$lib/datatime.ts'
+import { formatLocaleDateTime } from '$lib/datetime'
 import { create } from '$lib/server/r2'
 import type { Session } from '$lib/types/auth'
 import type { BlogPost } from '$lib/types/blog'

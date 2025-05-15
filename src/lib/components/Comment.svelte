@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 
+	import type { ActionResult } from '@sveltejs/kit'
+	import { slide } from 'svelte/transition'
+
 	import Ban from '@lucide/svelte/icons/ban'
 	import Check from '@lucide/svelte/icons/check'
-	import { slide } from 'svelte/transition'
 
 	import Rock from './Rock.svelte'
 
-	import { locale, timeZone } from '$lib/datatime.ts'
+	import { formatBlogDateTime, locale, timeZone } from '$lib/datetime'
 	import type { Comment } from '$lib/types/comment'
-	import type { ActionResult } from '@sveltejs/kit'
 
 	let {
 		comment,
@@ -40,7 +41,6 @@
 	}
 
 	function handleEditResult({ result }: { result: ActionResult }) {
-		console.log('result', result)
 		if (result.type === 'success') {
 			commentBody = result.data?.body
 			dateEdited = result.data?.dateEdited
@@ -48,11 +48,8 @@
 		}
 	}
 
-	function enhancedHandler() {
-		return async ({ result }: { result: ActionResult }) => {
-			handleEditResult({ result })
-			return
-		}
+	function editHandler() {
+		return handleEditResult
 	}
 </script>
 
@@ -67,35 +64,11 @@
 			alt="User Avatar"
 		/>
 		<div class="flex flex-col">
-			<span
-				>{new Date(comment.datePosted)
-					.toLocaleTimeString(locale, {
-						timeZoneName: 'short',
-						day: 'numeric',
-						month: 'numeric',
-						year: 'numeric',
-						hour12: true,
-						hour: 'numeric',
-						minute: 'numeric',
-						weekday: 'long',
-					})
-					.replaceAll(',', '')}</span
-			>
+			<span>{formatBlogDateTime(comment.datePosted)}</span>
 
 			{#if dateEdited}
 				<span class="text-slate-500"
-					>Edited: {new Date(dateEdited)
-						.toLocaleTimeString(locale, {
-							timeZoneName: 'short',
-							day: 'numeric',
-							month: 'numeric',
-							year: 'numeric',
-							hour12: true,
-							hour: 'numeric',
-							minute: 'numeric',
-							weekday: 'long',
-						})
-						.replaceAll(',', '')}</span
+					>Edited: {formatBlogDateTime(dateEdited)}</span
 				>
 			{/if}
 
@@ -103,12 +76,7 @@
 		</div>
 	</div>
 
-	<form
-		use:enhance={enhancedHandler}
-		method="post"
-		class="flex"
-		onreset={cancel}
-	>
+	<form use:enhance={editHandler} method="post" class="flex" onreset={cancel}>
 		<input type="hidden" name="locale" value={locale} />
 		<input type="hidden" name="timeZone" value={timeZone} />
 		<input type="hidden" name="commentId" value={comment.id} />
@@ -141,8 +109,11 @@
 
 		{#if !readonly}
 			<form method="POST" use:enhance>
-				<input type="hidden" name="commentId" value={comment.id} />
-				<button formaction="?/deleteComment" class="btn">Delete</button>
+				<!-- FIXME Deleting deletes the right comment in the backend -->
+				<!-- but doesn't reflect the right comment being deleted in the frontend -->
+				<button formaction="?/deleteComment&commentId={comment.id}" class="btn"
+					>Delete</button
+				>
 			</form>
 		{/if}
 	</div>

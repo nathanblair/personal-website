@@ -1,4 +1,5 @@
 import { building } from '$app/environment'
+
 import type { Session } from '$lib/types/auth'
 import type { LayoutServerLoad } from './$types'
 

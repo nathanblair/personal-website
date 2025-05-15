@@ -18,26 +18,24 @@
 
 {#if data?.session?.user?.admin}
 	<div id="blog-actions" class="flex">
-		<form method="post" onsubmit={confirmSubmission} class="flex">
-			<button
-				class="p-2"
-				id="delete"
-				name="delete"
-				formaction="?/removeBlog"
-				disabled={page.route.id !== '/blog/[slug]'}
-				type="submit"
-				title="Delete the blog post"><Trash /></button
-			>
-			<button
-				class="p-2"
+		{#if page.route.id === '/blog/[slug]'}
+			<form method="post" onsubmit={confirmSubmission} class="flex">
+				<button
+					class="p-2"
+					id="delete"
+					formaction="?/removeBlog"
+					type="submit"
+					title="Delete the blog post"><Trash /></button
+				>
+			</form>
+			<a
+				class="flex items-center p-2"
+				href="/blog/edit/{page.params.slug}"
 				id="edit"
-				name="edit"
-				formaction="?/editBlog"
-				disabled={page.route.id !== '/blog/[slug]'}
-				type="submit"
-				title="Edit the blog post"><Edit /></button
+				aria-label="edit"
+				title="Edit the blog post"><Edit /></a
 			>
-		</form>
+		{/if}
 		<a
 			class="flex items-center p-2"
 			href="/blog/create"
