@@ -45,6 +45,9 @@
 	</div>
 {/if}
 
-<div id="blog-main" class="flex flex-1 flex-col">
+<div
+	id="blog-main"
+	class="flex flex-1 flex-col {!data?.session?.user?.admin ? 'pt-3' : ''}"
+>
 	{@render children()}
 </div>
