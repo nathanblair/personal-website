@@ -1,79 +1,73 @@
+import { formatStorageDateTime } from '$lib/datetime.ts'
 import { create, get } from '$lib/server/r2'
 import type { Session } from '$lib/types/auth'
-import type { BlogPost, FetchedBlog } from '$lib/types/blog'
-import type { R2Bucket } from '@cloudflare/workers-types'
+import type { StorageBlog } from '$lib/types/blog'
+import { ContentType } from '$lib/types/content.ts'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
 
-async function fetchBlog(slug: string, blogs: R2Bucket) {
-	let blog: FetchedBlog
-	try {
-		blog = await get(blogs, slug)
-	} catch (err: any) {
-		return error(404, err.message)
-	}
+export const load: PageServerLoad = async ({ params, locals }) => {
+	const session = (await locals.auth()) as Session
+	if (!session) error(404, 'Not signed in')
 
-	return blog
-}
+	if (!session.user?.admin) error(403, 'Unauthorized')
 
-export const load: PageServerLoad = ({ params, locals }) => {
 	const title = `Edit Blog Post`
 	const description = `Edit a blog post`
 
 	return {
 		title,
 		description,
-		blogFetch: fetchBlog(params.slug, locals.blogs),
+		blog: await get(locals.blogs, params.slug),
 	}
 }
 
 export const actions: Actions = {
-	update: async ({ request, params, locals }) => {
+	default: async ({ request, params, locals }) => {
 		const session = (await locals.auth()) as Session
-		if (!session) error(404, 'Not signed in')
+		if (!session) throw new Error('Not signed in')
 
-		if (!session.user?.admin) error(403, 'Unauthorized')
+		if (!session.user?.admin) throw new Error('Unauthorized')
 
 		const formData = await request.formData()
 
-		const title = formData.get('title')
+		const title = formData.get('title')?.toString()
 		if (!title) throw new Error('Blog title not found')
 
-		const locale = formData.get('locale')
+		const locale = formData.get('locale')?.toString()
 		if (!locale) throw new Error('Locale not found')
-		const timeZone = formData.get('timeZone')
+		const timeZone = formData.get('timeZone')?.toString()
 		if (!timeZone) throw new Error('Time Zone not found')
 
-		const formDate = formData.get('date')
+		const formDate = formData.get('date')?.toString()
 		if (!formDate) throw new Error('Blog date not found')
 
-		// const blogDate = new Date(`${date}T00:00`).toDateString()
-		const date = new Date(formDate.toString()).toLocaleString(
-			locale.toString(),
-			{ timeZone: timeZone.toString() },
-		)
+		const date = new Date(formDate).toISOString()
+		const dateEdited = formatStorageDateTime()
 
 		const commentsEnabled = formData.get('commentsEnabled')
-		if (!commentsEnabled) throw new Error('Time Zone not found')
+		if (!commentsEnabled) throw new Error('Comments enabled not found')
 
-		const content = formData.get('content')
+		const content = formData.get('content')?.toString()
 		if (!content) throw new Error('Blog content not found')
 
-		const contentType = formData.get('format')?.toString()
-		if (!contentType) throw new Error('Blog content type not found')
+		const rawContentType: string | ContentType | undefined = formData
+			.get('contentType')
+			?.toString()
+		if (!rawContentType) throw new Error('Blog content type not found')
+		const contentType: ContentType = rawContentType as ContentType
 
-		const blog: BlogPost = {
-			title: title.toString(),
+		const blog: StorageBlog = {
+			title,
 			date,
+			dateEdited,
+			contentType,
+			content,
 			commentsEnabled: Boolean(commentsEnabled),
-			content: content.toString(),
 		}
 
-		await create(locals.blogs, params.slug, contentType, blog)
+		await create(locals.blogs, params.slug, blog)
 
-		redirect(303, '/blog')
-	},
-	cancel: async ({ params }) => {
 		redirect(303, `/blog/${params.slug}`)
 	},
 }

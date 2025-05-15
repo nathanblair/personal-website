@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatBlogDateTime } from '$lib/datetime.js'
+	import { formatDisplayTime, locale, timeZone } from '$lib/datetime.js'
 	import { slide } from 'svelte/transition'
 
 	let { data } = $props()
@@ -32,7 +32,9 @@
 				href={`/blog/${blog.slug}`}
 			>
 				<h1 class="text-xl font-bold">{blog.title}</h1>
-				<h2 class="text-slate-500">{formatBlogDateTime(blog.date)}</h2>
+				<h2 class="text-slate-500">
+					{formatDisplayTime(blog.date, locale, timeZone)}
+				</h2>
 			</a>
 		{/each}
 	{:catch error}

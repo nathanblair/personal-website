@@ -9,7 +9,7 @@
 
 	import Rock from './Rock.svelte'
 
-	import { formatBlogDateTime, locale, timeZone } from '$lib/datetime'
+	import { formatDisplayTime, locale, timeZone } from '$lib/datetime'
 	import type { Comment } from '$lib/types/comment'
 
 	let {
@@ -64,11 +64,11 @@
 			alt="User Avatar"
 		/>
 		<div class="flex flex-col">
-			<span>{formatBlogDateTime(comment.datePosted)}</span>
+			<span>{formatDisplayTime(comment.datePosted, locale, timeZone)}</span>
 
 			{#if dateEdited}
 				<span class="text-slate-500"
-					>Edited: {formatBlogDateTime(dateEdited)}</span
+					>Edited: {formatDisplayTime(dateEdited, locale, timeZone)}</span
 				>
 			{/if}
 
@@ -109,8 +109,6 @@
 
 		{#if !readonly}
 			<form method="POST" use:enhance>
-				<!-- FIXME Deleting deletes the right comment in the backend -->
-				<!-- but doesn't reflect the right comment being deleted in the frontend -->
 				<button formaction="?/deleteComment&commentId={comment.id}" class="btn"
 					>Delete</button
 				>

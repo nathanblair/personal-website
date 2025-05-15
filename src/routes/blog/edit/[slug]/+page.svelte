@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { locale, timeZone } from '$lib/datetime.js'
+	import BlogForm from '$lib/components/BlogForm.svelte'
+	import type { PageProps } from './$types'
 
-	let { data } = $props()
+	let { data }: PageProps = $props()
 </script>
 
-{#await data.blogFetch then blog}
-	<input type="hidden" name="locale" value={locale} />
-	<input type="hidden" name="timeZone" value={timeZone} />
-{:catch error}
-	<p>{error}</p>
-{/await}
+<BlogForm
+	title={data.blog.title}
+	content={data.blog.content}
+	commentsEnabled={data.blog.commentsEnabled}
+	contentType={data.blog.contentType}
+	date={data.blog.date}
+/>

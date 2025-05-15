@@ -18,6 +18,13 @@
 
 {#if data?.session?.user?.admin}
 	<div id="blog-actions" class="flex">
+		<a
+			class="flex items-center px-2 py-3 pl-0"
+			href="/blog/create"
+			aria-label="create"
+			title="Create a new blog post"><Create /></a
+		>
+
 		{#if page.route.id === '/blog/[slug]'}
 			<form method="post" onsubmit={confirmSubmission} class="flex">
 				<button
@@ -31,21 +38,13 @@
 			<a
 				class="flex items-center p-2"
 				href="/blog/edit/{page.params.slug}"
-				id="edit"
 				aria-label="edit"
 				title="Edit the blog post"><Edit /></a
 			>
 		{/if}
-		<a
-			class="flex items-center p-2"
-			href="/blog/create"
-			id="create"
-			aria-label="create"
-			title="Create a new blog post"><Create /></a
-		>
 	</div>
 {/if}
 
-<div id="blog-main" class="mt-4 flex flex-1 flex-col">
+<div id="blog-main" class="flex flex-1 flex-col">
 	{@render children()}
 </div>

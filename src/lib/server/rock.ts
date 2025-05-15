@@ -1,5 +1,4 @@
-import type { D1Database, D1Result } from '@cloudflare/workers-types'
-import { error } from '@sveltejs/kit'
+import type { D1Database } from '@cloudflare/workers-types'
 
 import { CommentsTableName, RocksTableName } from '$lib/constants.ts'
 import type { NewRock, Rock } from '$lib/types/rock.ts'
@@ -11,7 +10,7 @@ export async function drop(db: D1Database) {
 	const query = k.schema.dropTable(RocksTableName).compile().sql
 	const results = await db.prepare(query).all()
 
-	if (results.error) return results.error
+	if (results.error) throw new Error(results.error)
 
 	return results.results
 }
@@ -38,16 +37,12 @@ export async function create(db: D1Database) {
 	console.log(query)
 	const results = await db.prepare(query).all()
 
-	if (results.error) return error(500, results.error)
+	if (results.error) throw new Error(results.error)
 
 	return results.results
 }
 
-export async function get(
-	db: D1Database,
-	commentId: number,
-	userId: number,
-): Promise<Rock | null> {
+export async function get(db: D1Database, commentId: number, userId: number) {
 	const query = k
 		.selectFrom(RocksTableName)
 		.selectAll()
@@ -55,59 +50,50 @@ export async function get(
 		.where('userId', '=', userId)
 		.compile()
 
-	return await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.first()
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	const rock = await bound.first<Rock>()
+
+	return rock
 }
 
-export async function readById(
-	db: D1Database,
-	id: number,
-): Promise<Rock | null> {
+export async function getById(db: D1Database, id: number) {
 	const query = k
 		.selectFrom(RocksTableName)
 		.selectAll()
 		.where('id', '=', id)
 		.compile()
 
-	return await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.first()
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	const rock = await bound.first<Rock>()
+
+	return rock
 }
 
-export async function listByComments(
-	db: D1Database,
-	commentIds: number[],
-): Promise<Rock[]> {
+export async function listByComments(db: D1Database, commentIds: number[]) {
 	const query = k
 		.selectFrom(RocksTableName)
 		.selectAll()
 		.where('commentId', 'in', commentIds)
 		.compile()
 
-	const all: D1Result<Rock> = await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.all()
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	const all = await bound.all<Rock>()
 
-	if (all.error) return error(500, all.error)
+	if (all.error) throw new Error(all.error)
 
-	const rocks: Rock[] = all.results
+	const rocks = all.results
 	return rocks
 }
 
 export async function add(db: D1Database, newRock: NewRock) {
-	const query = k.insertInto(RocksTableName).values(newRock).compile()
-	const statement = db.prepare(query.sql).bind(...query.parameters)
+	const query = k
+		.insertInto(RocksTableName)
+		.values(newRock)
+		.returningAll()
+		.compile()
 
-	let rock: Rock | null = null
-	try {
-		rock = await statement.first()
-	} catch (err) {
-		console.error(err)
-	}
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	let rock = await bound.first<Rock>()
 
 	return rock
 }
@@ -117,27 +103,29 @@ export async function edit(
 	id: number,
 	commentId: number,
 	userId: number,
-): Promise<Rock | null> {
+) {
 	const query = k
 		.updateTable(RocksTableName)
 		.set({ commentId, userId })
 		.where('id', '=', id)
+		.returningAll()
 		.compile()
 
-	const rock: Rock | null = await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.first()
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	let rock = await bound.first<Rock>()
 
 	return rock
 }
 
-export async function remove(db: D1Database, id: number): Promise<Rock | null> {
-	const query = k.deleteFrom(RocksTableName).where('id', '=', id).compile()
-	const rock: Rock | null = await db
-		.prepare(query.sql)
-		.bind(...query.parameters)
-		.first()
+export async function remove(db: D1Database, id: number) {
+	const query = k
+		.deleteFrom(RocksTableName)
+		.where('id', '=', id)
+		.returningAll()
+		.compile()
+
+	const bound = db.prepare(query.sql).bind(...query.parameters)
+	let rock = await bound.first<Rock>()
 
 	return rock
 }

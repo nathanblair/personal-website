@@ -1,4 +1,4 @@
-import { formatLocaleDateTime } from '$lib/datetime'
+import { formatStorageDateTime } from '$lib/datetime'
 import {
 	add as addComment,
 	edit as editComment,
@@ -16,7 +16,7 @@ import {
 import { BlogPostingSD } from '$lib/structured_data/blog_posting'
 import { me } from '$lib/structured_data/person'
 import type { Session } from '$lib/types/auth'
-import type { FetchedBlog, StorageBlog } from '$lib/types/blog'
+import type { BlogSD, StorageBlog } from '$lib/types/blog'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { D1Database, R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
@@ -44,20 +44,18 @@ async function fetchRocks(
 }
 
 async function fetchBlog(slug: string, blogs: R2Bucket) {
-	let blog: FetchedBlog
+	let blog: StorageBlog
 	try {
 		blog = await getBlog(blogs, slug)
 	} catch (err: any) {
 		return error(404, err.message)
 	}
 
-	const blogDate = new Date(blog.date)
-	const structuredData = new BlogPostingSD(blogDate, blog.title, me)
+	const structuredData = new BlogPostingSD(blog.date, blog.title, me)
 		.structured_data
 
-	const fetched_blog: StorageBlog = {
+	const fetched_blog: BlogSD = {
 		...blog,
-		date: blogDate.toISOString(),
 		structuredData,
 	}
 	return fetched_blog
@@ -77,18 +75,18 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 export const actions: Actions = {
 	removeBlog: async ({ params, locals }) => {
 		const session = (await locals.auth()) as Session
-		if (!session) error(404, 'Not signed in')
+		if (!session) throw new Error('Not signed in')
 
-		if (!session.user?.admin) error(403, 'Unauthorized')
+		if (!session.user?.admin) throw new Error('Unauthorized')
 
 		await removeBlog(locals.blogs, params.slug)
 		redirect(303, '/blog')
 	},
 	addComment: async ({ request, params, locals }) => {
 		const session = (await locals.auth()) as Session
-		if (!session || !session.user) error(404, 'Not signed in')
+		if (!session || !session.user) throw new Error('Not signed in')
 
-		if (!session.user.name) error(404, 'User name not found')
+		if (!session.user.name) throw new Error('User name not found')
 
 		const formData = await request.formData()
 
@@ -97,10 +95,7 @@ export const actions: Actions = {
 		const timeZone = formData.get('timeZone')
 		if (!timeZone) throw new Error('Time Zone not found')
 
-		const datePosted = formatLocaleDateTime(
-			locale.toString(),
-			timeZone.toString(),
-		)
+		const datePosted = formatStorageDateTime()
 
 		const body = formData.get('content')
 		if (!body) throw new Error('Comment content not found')
@@ -117,29 +112,26 @@ export const actions: Actions = {
 		await addComment(locals.db, comment)
 		return {}
 	},
-	deleteComment: async ({ request, locals, url }) => {
+	deleteComment: async ({ locals, url }) => {
 		const session = (await locals.auth()) as Session
-		if (!session || !session.user) error(404, 'Not signed in')
+		if (!session || !session.user) throw new Error('Not signed in')
 
 		let commentId: string | number | null = url.searchParams.get('commentId')
-		const formData = await request.formData()
-		// let commentId: FormDataEntryValue | number | null =
-		// 	formData.get('commentId')
 		if (!commentId) throw new Error('Comment ID not found')
 
-		commentId = parseInt(commentId?.toString(), 10)
+		commentId = parseInt(commentId.toString(), 10)
 
 		const existing = await getComment(locals.db, commentId)
-		if (!existing) error(404, 'Comment not found')
+		if (!existing) throw new Error('Comment not found')
 
-		if (session.user.id !== existing.userId) error(403, 'Unauthorized')
+		if (session.user.id !== existing.userId) throw new Error('Unauthorized')
 
 		await removeComment(locals.db, commentId)
 		return
 	},
 	editComment: async ({ request, locals }) => {
 		const session = (await locals.auth()) as Session
-		if (!session || !session.user) error(404, 'Not signed in')
+		if (!session || !session.user) throw new Error('Not signed in')
 
 		const formData = await request.formData()
 		let commentId: FormDataEntryValue | number | null =
@@ -149,37 +141,34 @@ export const actions: Actions = {
 		commentId = parseInt(commentId?.toString(), 10)
 
 		const existing = await getComment(locals.db, commentId)
-		if (!existing) error(404, 'Comment not found')
+		if (!existing) throw new Error('Comment not found')
 
-		if (session.user.id !== existing.userId) error(403, 'Unauthorized')
+		if (session.user.id !== existing.userId) throw new Error('Unauthorized')
 
 		const locale = formData.get('locale')
-		if (!locale) error(404, 'Locale not found')
+		if (!locale) throw new Error('Locale not found')
 		const timeZone = formData.get('timeZone')
-		if (!timeZone) error(404, 'Timezone not found')
+		if (!timeZone) throw new Error('Timezone not found')
 
-		const dateEdited = formatLocaleDateTime(
-			locale.toString(),
-			timeZone.toString(),
-		)
+		const dateEdited = formatStorageDateTime()
 
 		const body = formData.get('body')
-		if (!body) error(404, 'Body not found')
+		if (!body) throw new Error('Body not found')
 
-		const record: CommentUpdate = { body: body?.toString(), dateEdited }
+		const record: CommentUpdate = { body: body.toString(), dateEdited }
 
 		return await editComment(locals.db, commentId, record)
 	},
 	toggleRock: async ({ locals, request }) => {
 		const session = (await locals.auth()) as Session
-		if (!session || !session.user) error(404, 'Not signed in')
+		if (!session || !session.user) throw new Error('Not signed in')
 
 		const formData = await request.formData()
 		let commentId: FormDataEntryValue | number | null =
 			formData.get('commentId')
 		if (!commentId) throw new Error('Comment ID not found')
 
-		commentId = parseInt(commentId?.toString(), 10)
+		commentId = parseInt(commentId.toString(), 10)
 
 		const rock = await getRock(locals.db, commentId, session.user.id)
 		rock

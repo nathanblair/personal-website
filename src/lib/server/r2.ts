@@ -1,19 +1,20 @@
-import type { BlogPost, BlogSlug, FetchedBlog } from '$lib/types/blog'
+import type { BlogMetadata, BlogSlug, StorageBlog } from '$lib/types/blog'
+import { ContentType } from '$lib/types/content.ts'
 import type { R2Bucket, R2Object } from '@cloudflare/workers-types'
 
-export function create(
-	bucket: R2Bucket,
-	key: string,
-	contentType: string,
-	blog: BlogPost,
-) {
+export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
+	const customMetadata: BlogMetadata = {
+		title: blog.title,
+		date: blog.date,
+		// @ts-ignore
+		commentsEnabled: blog.commentsEnabled.toString(),
+	}
+	if (blog.dateEdited) customMetadata.dateEdited = blog.dateEdited
+
 	return bucket.put(key, blog.content, {
-		httpMetadata: { contentType: contentType },
-		customMetadata: {
-			title: blog.title,
-			date: blog.date,
-			commentsEnabled: blog.commentsEnabled.toString(),
-		},
+		httpMetadata: { contentType: blog.contentType },
+		// @ts-ignore
+		customMetadata,
 	})
 }
 
@@ -40,7 +41,7 @@ export async function list(bucket: R2Bucket) {
 			title,
 			slug: eachBlogHeadObject.key,
 			date,
-			commentsEnabled: commentsEnabled,
+			commentsEnabled,
 		})
 	}
 
@@ -58,9 +59,14 @@ export async function get(bucket: R2Bucket, key: string) {
 
 	const date = blogHead?.customMetadata?.date
 	if (!date) throw new Error(`Blog '${key}' does not have a date`)
+	const dateEdited = blogHead?.customMetadata?.dateEdited
+
 	const title = blogHead?.customMetadata?.title || key
 	const commentsEnabled = blogHead?.customMetadata?.commentsEnabled === 'true'
-	const contentType = blogHead?.httpMetadata?.contentType || 'text/plain'
+
+	const rawContentType =
+		blogHead?.httpMetadata?.contentType || ContentType.PlainText
+	const contentType = rawContentType as ContentType
 
 	let blog = await bucket.get(key)
 
@@ -68,9 +74,10 @@ export async function get(bucket: R2Bucket, key: string) {
 
 	let content = await blog.text()
 
-	const fetchedBlog: FetchedBlog = {
+	const fetchedBlog: StorageBlog = {
 		title,
 		date,
+		dateEdited,
 		content,
 		commentsEnabled,
 		contentType,

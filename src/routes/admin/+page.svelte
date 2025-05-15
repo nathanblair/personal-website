@@ -6,6 +6,17 @@
 </script>
 
 <form use:enhance method="POST" class="flex space-x-2 pt-4">
+	<input
+		type="text"
+		name="blogKey"
+		placeholder="Blog key"
+		class="p-1 outline-1"
+		required
+	/>
+	<button class="border p-2" formaction="?/removeBlog">Delete Blog</button>
+</form>
+
+<form use:enhance method="POST" class="flex space-x-2 pt-4">
 	{#await data.commentsInitialized then initialized}
 		<button
 			class="flex-1 border p-2"

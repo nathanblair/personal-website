@@ -11,11 +11,11 @@ export type BlogPostSD = {
 
 export class BlogPostingSD {
 	_: SD
-	datePublished: Date
+	datePublished: string
 	headline: string
 	author: Person
 
-	constructor(datePublished: Date, headline: string, author: Person) {
+	constructor(datePublished: string, headline: string, author: Person) {
 		this._ = new SD('BlogPosting')
 		this.datePublished = datePublished
 		this.headline = headline
@@ -27,7 +27,7 @@ export class BlogPostingSD {
 			'@context': this._.context,
 			'@type': this._.type,
 			author: this.author.structured_data,
-			datePublished: this.datePublished.toISOString(),
+			datePublished: this.datePublished,
 			headline: this.headline,
 		}
 	}

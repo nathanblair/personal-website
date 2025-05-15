@@ -1,13 +1,17 @@
-export const locale = Intl.DateTimeFormat().resolvedOptions().locale
-export const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+const options = Intl.DateTimeFormat().resolvedOptions()
+export const locale = options.locale
+export const timeZone = options.timeZone
 
-export function formatLocaleDateTime(locale: string, timeZone: string) {
-	return new Date().toLocaleString(locale, {
-		timeZone: timeZone,
-	})
+export function formatStorageDateTime() {
+	const iso = new Date().toISOString()
+	return iso
 }
 
-export function formatBlogDateTime(date: string) {
+export function formatDisplayTime(
+	date: string,
+	locale: string,
+	timeZone: string,
+) {
 	return new Date(date).toLocaleString(locale, {
 		year: 'numeric',
 		hour12: true,
@@ -17,5 +21,6 @@ export function formatBlogDateTime(date: string) {
 		weekday: 'long',
 		day: 'numeric',
 		timeZoneName: 'short',
+		timeZone,
 	})
 }

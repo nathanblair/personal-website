@@ -1,24 +1,28 @@
 import type { BlogPostSD } from '../structured_data/blog_posting.ts'
+import type { ContentType } from './content.ts'
 
-export interface Blog {
+export type Blog = {
 	title: string
 	date: string
+	dateEdited?: string
 }
 
-export interface BlogMetadata extends Blog {
+export type BlogMetadata = Blog & {
 	commentsEnabled: boolean
 }
-export interface BlogSlug extends BlogMetadata {
+
+export type BlogSlug = BlogMetadata & {
 	slug: string
 }
-export interface BlogPost extends BlogMetadata {
+
+export type BlogPost = BlogMetadata & {
 	content: string
 }
 
-export interface FetchedBlog extends BlogPost {
-	contentType: string
+export type StorageBlog = BlogPost & {
+	contentType: ContentType
 }
 
-export interface StorageBlog extends FetchedBlog {
+export type BlogSD = StorageBlog & {
 	structuredData: BlogPostSD
 }
