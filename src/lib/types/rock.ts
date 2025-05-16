@@ -1,10 +1,15 @@
 import type { Generated, Insertable, Selectable } from 'kysely'
 
-export interface RockTable {
+export type RockTable = {
 	id: Generated<number>
 	commentId: number
 	userId: number
 }
 
-export interface Rock extends Selectable<RockTable> {}
-export interface NewRock extends Insertable<RockTable> {}
+export type Rock = Selectable<RockTable> & {}
+export type NewRock = Insertable<RockTable> & {}
+
+export type CommentsRockedState = Record<
+	string,
+	{ count: number; rocked: boolean }
+>

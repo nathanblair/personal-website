@@ -1,44 +1,34 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition'
-
-	import { formatDisplayDateTime, locale, timeZone } from '$lib/datetime.js'
+	import BlogList from '$lib/components/BlogList.svelte'
+	import { getLocaleContext } from '$lib/datetime.js'
 
 	let { data } = $props()
+
+	const { locale, timeZone } = getLocaleContext()
 </script>
 
-{#snippet blogPlaceholder()}
-	<div
-		class="block animate-pulse
-			rounded-md border-slate-100 bg-slate-100
-			p-6 text-slate-900 drop-shadow-md dark:bg-slate-900
-			dark:text-slate-100"
-	>
-		<div class="animate-pulse text-xl font-bold"></div>
-		<div class="animate-pulse text-slate-500"></div>
-	</div>
-{/snippet}
+<!--
+<svelte:head>
+	{#if previousCursor}
+		<link rel="prev" href="/blog?cursor={previousCursor}" />
+	{/if}
+	{#if data.blogs.truncated}
+		<link rel="next" href="/blog?cursor={data.blogs.nextCursor}" />
+	{/if}
+</svelte:head> -->
+
+<!-- <div class="flex justify-evenly">
+	{#if previousCursor}
+		<a href="/blog?cursor={previousCursor}" class="btn">Previous Page</a>
+	{/if}
+
+	{#if data.blogs.truncated && data.blogs.nextCursor}
+		<a href="/blog?cursor={data.blogs.nextCursor}" class="btn">Next Page</a>
+	{/if}
+</div> -->
 
 <div
 	class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
-	{#await data.blogsFetch}
-		{#each Array(16) as _}
-			{@render blogPlaceholder()}
-		{/each}
-	{:then blogs}
-		{#each blogs as blog, index}
-			<a
-				in:slide|global={{ duration: 200, delay: index * 50 }}
-				class="block rounded-md border-slate-100 bg-slate-100 p-6 text-slate-900 drop-shadow-md dark:bg-slate-900 dark:text-slate-100"
-				href={`/blog/${blog.slug}`}
-			>
-				<h1 class="text-xl font-bold">{blog.title}</h1>
-				<h2 class="text-slate-500">
-					{formatDisplayDateTime(blog.date, locale, timeZone)}
-				</h2>
-			</a>
-		{/each}
-	{:catch error}
-		<p>{error}</p>
-	{/await}
+	<BlogList blogSlugs={data.blogs.blogSlugs} {locale} {timeZone} />
 </div>

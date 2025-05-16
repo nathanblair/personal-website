@@ -1,6 +1,14 @@
-import type { BlogMetadata, BlogSlug, StorageBlog } from '$lib/types/blog'
+import type {
+	BlogMetadata,
+	BlogSlug,
+	PaginatedBlogSlugs,
+	StorageBlog,
+} from '$lib/types/blog'
 import { ContentType } from '$lib/types/content.ts'
-import type { R2Bucket, R2Object } from '@cloudflare/workers-types'
+import type {
+	R2Bucket,
+	R2ListOptions,
+} from '@cloudflare/workers-types/2023-07-01'
 
 export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
 	const customMetadata: BlogMetadata = {
@@ -22,22 +30,28 @@ export function remove(bucket: R2Bucket, key: string) {
 	return bucket.delete(key)
 }
 
-export async function list(bucket: R2Bucket) {
-	const r2Blogs = await bucket.list({})
+export async function list(bucket: R2Bucket, limit?: number, cursor?: string) {
+	let prefix = ''
+	const r2ListOptions: R2ListOptions = {
+		limit,
+		cursor,
+		prefix,
+		include: ['customMetadata'],
+	}
+	const r2Blogs = await bucket.list(r2ListOptions)
 
 	if (r2Blogs === undefined) throw new Error('Failed to fetch blogs')
 
-	const blogHeads: BlogSlug[] = []
+	const blogSlugs: BlogSlug[] = []
 
-	let eachBlogHead: R2Object | null, title, date, commentsEnabled
 	for (const eachBlogHeadObject of r2Blogs.objects) {
-		eachBlogHead = await bucket.head(eachBlogHeadObject.key)
+		const title =
+			eachBlogHeadObject.customMetadata?.title || eachBlogHeadObject.key
+		const date = eachBlogHeadObject.customMetadata?.date || 'Unknown'
+		const commentsEnabled =
+			eachBlogHeadObject.customMetadata?.commentsEnabled === 'true'
 
-		title = eachBlogHead?.customMetadata?.title || eachBlogHeadObject.key
-		date = eachBlogHead?.customMetadata?.date || 'Unknown'
-		commentsEnabled = eachBlogHead?.customMetadata?.commentsEnabled === 'true'
-
-		blogHeads.push({
+		blogSlugs.push({
 			title,
 			slug: eachBlogHeadObject.key,
 			date,
@@ -45,7 +59,14 @@ export async function list(bucket: R2Bucket) {
 		})
 	}
 
-	return blogHeads
+	const paginatedBlogSlugs: PaginatedBlogSlugs = {
+		blogSlugs,
+		nextCursor: r2Blogs.truncated ? r2Blogs.cursor : undefined,
+		previousCursor: cursor,
+		truncated: r2Blogs.truncated,
+	}
+
+	return paginatedBlogSlugs
 }
 
 export async function get(bucket: R2Bucket, key: string) {

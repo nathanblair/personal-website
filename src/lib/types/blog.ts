@@ -15,6 +15,13 @@ export type BlogSlug = BlogMetadata & {
 	slug: string
 }
 
+export type PaginatedBlogSlugs = {
+	blogSlugs: BlogSlug[]
+	previousCursor?: string
+	nextCursor?: string
+	truncated: boolean
+}
+
 export type BlogPost = BlogMetadata & {
 	content: string
 }

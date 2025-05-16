@@ -1,6 +1,7 @@
-const options = Intl.DateTimeFormat().resolvedOptions()
-export const locale = options.locale
-export const timeZone = options.timeZone
+import { getContext, setContext } from 'svelte'
+import { LocaleContextName } from './constants.ts'
+
+export type LocaleContext = { locale: string; timeZone: string }
 
 function getFromParts(
 	parts: Intl.DateTimeFormatPart[],
@@ -56,4 +57,12 @@ export function formatDisplayDateTime(
 		timeZoneName: 'short',
 		timeZone,
 	})
+}
+
+export function setLocaleContext(locale: string, timeZone: string) {
+	setContext<LocaleContext>(LocaleContextName, { locale, timeZone })
+}
+
+export function getLocaleContext() {
+	return getContext<LocaleContext>(LocaleContextName)
 }

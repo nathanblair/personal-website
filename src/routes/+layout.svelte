@@ -7,8 +7,15 @@
 	import '../app.css'
 
 	import { MyName } from '$lib/constants'
+	import { setLocaleContext } from '$lib/datetime.js'
+
+	const options = Intl.DateTimeFormat().resolvedOptions()
+	export const locale = options.locale
+	export const timeZone = options.timeZone
 
 	let { children, data } = $props()
+
+	setLocaleContext(locale, timeZone)
 </script>
 
 <svelte:head>

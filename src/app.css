@@ -8,7 +8,6 @@
 
 	button {
 		cursor: pointer;
-		padding: calc(var(--spacing) * 1);
 	}
 
 	textarea {
@@ -24,6 +23,7 @@
 	.btn {
 		outline-style: var(--tw-outline-style);
 		outline-width: 1px;
+		padding: calc(var(--spacing) * 1);
 	}
 }
 

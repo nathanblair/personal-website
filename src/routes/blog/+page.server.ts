@@ -1,25 +1,26 @@
 import { MyName } from '$lib/constants'
 import { list } from '$lib/server/r2'
-import type { R2Bucket } from '@cloudflare/workers-types'
+import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
-async function fetchBlogs(blogs: R2Bucket) {
-	const blogList = await list(blogs)
+export const load: PageServerLoad = async ({ locals, url }) => {
+	const year = url.searchParams.get('year') || undefined
 
-	blogList.sort(
-		(
-			a: { date: string | number | Date },
-			b: { date: string | number | Date },
-		) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-	)
+	const month = url.searchParams.get('month') || undefined
+	if (month && !year) error(400, 'Month is only valid if year is present')
 
-	return blogList
-}
+	const day = url.searchParams.get('day') || undefined
+	if (day && (!year || !month))
+		error(400, 'Day is only valid if year and month are present')
 
-export const load: PageServerLoad = ({ locals }) => {
+	const currentCursor = url.searchParams.get('cursor') || undefined
+	const requestedBlogLimit = url.searchParams.get('limit') || undefined
+	let blogCountLimit: number | undefined = undefined
+	if (requestedBlogLimit) blogCountLimit = parseInt(requestedBlogLimit, 10)
+
 	return {
 		title: 'Blog',
 		description: `The blog of ${MyName}`,
-		blogsFetch: fetchBlogs(locals.blogs),
+		blogs: await list(locals.blogs, blogCountLimit, currentCursor),
 	}
 }

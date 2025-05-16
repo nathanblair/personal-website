@@ -1,6 +1,9 @@
 <script lang="ts">
 	import BlogForm from '$lib/components/BlogForm.svelte'
-	import { locale, timeZone } from '$lib/datetime.ts'
+
+	import { getLocaleContext } from '$lib/datetime.ts'
+
+	const { locale, timeZone } = getLocaleContext()
 </script>
 
 <BlogForm {locale} {timeZone} />

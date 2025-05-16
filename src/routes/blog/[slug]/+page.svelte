@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Blog from '$lib/components/Blog.svelte'
-	import Comment from '$lib/components/Comment.svelte'
 	import CommentForm from '$lib/components/CommentForm.svelte'
-	import { locale, timeZone } from '$lib/datetime.js'
+	import CommentList from '$lib/components/CommentList.svelte'
+
+	import { getLocaleContext } from '$lib/datetime.ts'
 	import type { PageProps } from './$types'
 
 	let { data }: PageProps = $props()
+
+	const { locale, timeZone } = getLocaleContext()
 </script>
 
 <svelte:head>
@@ -19,16 +22,12 @@
 {#if data.blog.commentsEnabled}
 	<CommentForm {locale} {timeZone}></CommentForm>
 
-	{#each data.comments as comment, index (comment.id)}
-		<Comment
-			{comment}
-			{index}
-			{locale}
-			{timeZone}
-			readonly={data.session?.user?.id !== comment.userId ||
-				!data.session?.user?.admin}
-			rocked={data.rocks[comment.id].rocked}
-			rockCount={data.rocks[comment.id].count}
-		/>
-	{/each}
+	<CommentList
+		comments={data.comments}
+		rocks={data.rocks}
+		{locale}
+		{timeZone}
+		admin={data.session?.user?.admin}
+		userId={data.session?.user?.id}
+	/>
 {/if}

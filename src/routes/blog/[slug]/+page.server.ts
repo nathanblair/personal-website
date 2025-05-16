@@ -18,6 +18,7 @@ import { me } from '$lib/structured_data/person'
 import type { Session } from '$lib/types/auth'
 import type { BlogSD, StorageBlog } from '$lib/types/blog'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
+import type { CommentsRockedState } from '$lib/types/rock.ts'
 import type { D1Database, R2Bucket } from '@cloudflare/workers-types'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
@@ -26,21 +27,21 @@ async function fetchRocks(
 	db: D1Database,
 	slug: string,
 	userId?: number,
-): Promise<Record<string, { count: number; rocked: boolean }>> {
+): Promise<CommentsRockedState> {
 	const comments = await listComments(db, slug)
 	const commentIds = comments.map((c) => c.id)
 	const rocks = await listByComments(db, commentIds)
-	const rockRecords: Record<string, { count: number; rocked: boolean }> = {}
+	const commentsRockedState: CommentsRockedState = {}
 
 	for (const id of commentIds) {
 		const rocksForComment = rocks.filter((r) => r.commentId === id)
-		rockRecords[id] = {
+		commentsRockedState[id] = {
 			count: rocksForComment.length,
 			rocked: rocksForComment.some((rock) => rock.userId === userId),
 		}
 	}
 
-	return rockRecords
+	return commentsRockedState
 }
 
 async function fetchBlog(slug: string, blogs: R2Bucket) {

@@ -15,11 +15,8 @@
 	class="flex items-center"
 >
 	{#if authStatus}
-		<img
-			class="mx-2 size-10 rounded-full border"
-			src={session?.user?.image}
-			alt={session?.user?.name}
-		/>
+		<!-- src={session?.user?.image} -->
+		<img class="mx-2 size-10 rounded-full border" alt={session?.user?.name} />
 		<span
 			class="pointer-events-none m-1 w-max text-slate-800 dark:text-slate-200"
 			>{session?.user?.name}</span
