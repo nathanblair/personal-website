@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { marked } from 'marked'
 
-	import { formatDisplayTime, locale, timeZone } from '$lib/datetime'
+	import { formatDisplayDateTime } from '$lib/datetime'
 	import type { StorageBlog } from '$lib/types/blog.ts'
 
-	let { blog }: { blog: StorageBlog } = $props()
+	let {
+		blog,
+		locale,
+		timeZone,
+	}: { blog: StorageBlog; locale: string; timeZone: string } = $props()
 </script>
 
 <header class="w-auto space-y-2 pt-2 text-center">
 	<h1 class="text-2xl">{blog.title}</h1>
 	<h2 class="text-xl text-slate-500">
-		{formatDisplayTime(blog.date, locale, timeZone)}
+		{formatDisplayDateTime(blog.date, locale, timeZone)}
 	</h2>
 	{#if blog.dateEdited}
 		<h3 class="text-xl text-slate-500/50">
-			Last edited: {formatDisplayTime(blog.dateEdited, locale, timeZone)}
+			Last edited: {formatDisplayDateTime(blog.dateEdited, locale, timeZone)}
 		</h3>
 	{/if}
 </header>

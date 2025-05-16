@@ -4,21 +4,25 @@
 	import Comments from '@lucide/svelte/icons/message-square'
 	import CommentsOff from '@lucide/svelte/icons/message-square-off'
 
-	import { locale, timeZone } from '$lib/datetime'
+	import { formatInputDateTime } from '$lib/datetime'
 	import { ContentType } from '$lib/types/content.ts'
 
 	let {
 		title = '',
 		content = '',
-		date,
+		dateTime = new Date().toLocaleString(),
 		commentsEnabled = true,
 		contentType = ContentType.Markdown,
+		locale,
+		timeZone,
 	}: {
 		title?: string
 		content?: string
-		date?: string
+		dateTime?: string
 		commentsEnabled?: boolean
 		contentType?: ContentType
+		locale: string
+		timeZone: string
 	} = $props()
 
 	let commentsEnabledState = $state(commentsEnabled)
@@ -36,7 +40,6 @@
 <form use:enhance method="POST" class="group flex flex-1 flex-col space-y-2">
 	<input type="hidden" name="locale" value={locale} />
 	<input type="hidden" name="timeZone" value={timeZone} />
-	<input type="hidden" name="date" value={date} />
 
 	<div class="flex space-x-2">
 		<input
@@ -46,6 +49,14 @@
 			required
 			placeholder="Enter blog title here"
 			value={title}
+		/>
+
+		<input
+			class="flex-1 p-2 outline-1"
+			type="datetime-local"
+			name="date"
+			required
+			value={formatInputDateTime(dateTime, locale, timeZone)}
 		/>
 
 		<select

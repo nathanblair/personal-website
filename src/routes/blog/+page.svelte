@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDisplayTime, locale, timeZone } from '$lib/datetime.js'
+	import { formatDisplayDateTime, locale, timeZone } from '$lib/datetime.js'
 	import { slide } from 'svelte/transition'
 
 	let { data } = $props()
@@ -33,7 +33,7 @@
 			>
 				<h1 class="text-xl font-bold">{blog.title}</h1>
 				<h2 class="text-slate-500">
-					{formatDisplayTime(blog.date, locale, timeZone)}
+					{formatDisplayDateTime(blog.date, locale, timeZone)}
 				</h2>
 			</a>
 		{/each}

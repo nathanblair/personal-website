@@ -9,7 +9,7 @@
 
 	import Rock from './Rock.svelte'
 
-	import { formatDisplayTime, locale, timeZone } from '$lib/datetime'
+	import { formatDisplayDateTime } from '$lib/datetime'
 	import type { Comment } from '$lib/types/comment'
 
 	let {
@@ -18,12 +18,16 @@
 		readonly,
 		rocked,
 		rockCount,
+		locale,
+		timeZone,
 	}: {
 		comment: Comment
 		index: number
 		readonly: boolean
 		rocked: boolean
 		rockCount: number
+		locale: string
+		timeZone: string
 	} = $props()
 
 	let dateEdited = $state(comment.dateEdited)
@@ -64,11 +68,11 @@
 			alt="User Avatar"
 		/>
 		<div class="flex flex-col">
-			<span>{formatDisplayTime(comment.datePosted, locale, timeZone)}</span>
+			<span>{formatDisplayDateTime(comment.datePosted, locale, timeZone)}</span>
 
 			{#if dateEdited}
 				<span class="text-slate-500"
-					>Edited: {formatDisplayTime(dateEdited, locale, timeZone)}</span
+					>Edited: {formatDisplayDateTime(dateEdited, locale, timeZone)}</span
 				>
 			{/if}
 

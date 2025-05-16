@@ -14,7 +14,7 @@
 	{@html `<script type="application/ld+json">${JSON.stringify(data.blog.structuredData)}</script>`}
 </svelte:head>
 
-<Blog blog={data.blog} />
+<Blog blog={data.blog} {locale} {timeZone} />
 
 {#if data.blog.commentsEnabled}
 	<CommentForm {locale} {timeZone}></CommentForm>
@@ -23,6 +23,8 @@
 		<Comment
 			{comment}
 			{index}
+			{locale}
+			{timeZone}
 			readonly={data.session?.user?.id !== comment.userId ||
 				!data.session?.user?.admin}
 			rocked={data.rocks[comment.id].rocked}
