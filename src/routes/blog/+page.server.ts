@@ -1,4 +1,3 @@
-import { MyName } from '$lib/constants'
 import { list } from '$lib/server/r2'
 import type { PageServerLoad } from './$types'
 
@@ -9,8 +8,6 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	if (requestedBlogLimit) blogCountLimit = parseInt(requestedBlogLimit, 10)
 
 	return {
-		title: 'Blog',
-		description: `The blog of ${MyName}`,
 		blogs: await list(locals.blogs, blogCountLimit, currentCursor),
 	}
 }

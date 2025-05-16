@@ -6,7 +6,7 @@ import {
 	list as listComments,
 	remove as removeComment,
 } from '$lib/server/comment.ts'
-import { get as getBlog, remove as removeBlog } from '$lib/server/r2'
+import { get as getBlog } from '$lib/server/r2'
 import {
 	add as addRock,
 	get as getRock,
@@ -17,12 +17,7 @@ import type { Session } from '$lib/types/auth'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { CommentsRockedState } from '$lib/types/rock.ts'
 import type { D1Database } from '@cloudflare/workers-types'
-import { redirect } from '@sveltejs/kit'
-import type { Actions, PageServerLoad, RouteParams } from './$types'
-
-function routeToBlogKey(params: RouteParams) {
-	return `${params.year}/${params.month}/${params.day}/${params.time}`
-}
+import type { Actions, PageServerLoad } from './$types'
 
 async function fetchRocks(
 	db: D1Database,
@@ -45,10 +40,10 @@ async function fetchRocks(
 	return commentsRockedState
 }
 
-export const load: PageServerLoad = async ({ params, locals }) => {
-	const session = (await locals.auth()) as Session
+export const load: PageServerLoad = async ({ params, locals, parent }) => {
+	const { session } = await parent()
 
-	const blogKey = routeToBlogKey(params)
+	const blogKey = params.slug
 
 	return {
 		description: '',
@@ -59,16 +54,6 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 }
 
 export const actions: Actions = {
-	removeBlog: async ({ params, locals }) => {
-		const session = (await locals.auth()) as Session
-		if (!session) throw new Error('Not signed in')
-
-		if (!session.user?.admin) throw new Error('Unauthorized')
-
-		const blogKey = routeToBlogKey(params)
-		await removeBlog(locals.blogs, blogKey)
-		redirect(303, '/blog')
-	},
 	addComment: async ({ request, params, locals }) => {
 		const session = (await locals.auth()) as Session
 		if (!session || !session.user) throw new Error('Not signed in')
@@ -87,8 +72,10 @@ export const actions: Actions = {
 		const body = formData.get('content')
 		if (!body) throw new Error('Comment content not found')
 
+		const blogKey = params.slug
+
 		const comment: NewComment = {
-			slug: routeToBlogKey(params),
+			blogKey,
 			userId: session.user?.id,
 			userName: session.user.name,
 			userImage: session.user.image,

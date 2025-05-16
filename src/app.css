@@ -25,6 +25,10 @@
 		outline-width: 1px;
 		padding: calc(var(--spacing) * 1);
 	}
+
+	.btn-icon {
+		padding: calc(var(--spacing) * 4);
+	}
 }
 
 html,

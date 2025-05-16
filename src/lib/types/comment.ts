@@ -2,7 +2,7 @@ import type { Generated, Insertable, Selectable, Updateable } from 'kysely'
 
 export type CommentTable = {
 	id: Generated<number>
-	slug: string
+	blogKey: string
 	datePosted: string
 	dateEdited?: string | null
 	userId: number

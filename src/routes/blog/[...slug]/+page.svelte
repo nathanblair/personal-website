@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Edit from '@lucide/svelte/icons/file-pen'
-	import Trash from '@lucide/svelte/icons/trash'
 
 	import Blog from '$lib/components/Blog.svelte'
 	import CommentForm from '$lib/components/CommentForm.svelte'
@@ -27,21 +26,14 @@
 </svelte:head>
 
 {#if data.session?.user?.admin}
-	<form method="post" class="absolute top-0 left-0 flex">
-		<button
-			class="p-2"
-			id="delete"
-			formaction="?/removeBlog"
-			type="submit"
-			title="Delete the blog post"><Trash /></button
+	<form method="post" class="absolute top-0 left-0 flex w-full justify-between">
+		<a
+			class="btn-icon float-right flex items-center"
+			href="/blog/edit/{page.params.slug}"
+			aria-label="edit"
+			title="Edit the blog post"><Edit /></a
 		>
 	</form>
-	<a
-		class="flex items-center p-2"
-		href="/blog/edit/{page.params.slug}"
-		aria-label="edit"
-		title="Edit the blog post"><Edit /></a
-	>
 {/if}
 
 <Blog blog={data.blog} {locale} {timeZone} />

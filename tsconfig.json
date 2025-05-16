@@ -1,10 +1,15 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
+	"exclude": [
+		"node_modules",
+		"build",
+		"dist",
+		"out",
+		"public",
+		".svelte-kit"
+	],
 	"compilerOptions": {
 		"target": "ESNext",
-		"lib": [
-			"ESNext"
-		],
 		"verbatimModuleSyntax": true,
 		"allowImportingTsExtensions": true,
 		"isolatedModules": true,

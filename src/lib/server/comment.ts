@@ -7,7 +7,7 @@ export async function create(db: D1Database) {
 	let schema = k.schema
 		.createTable(CommentsTableName)
 		.addColumn('id', 'integer', (col) => col.autoIncrement().primaryKey())
-		.addColumn('slug', 'text', (col) => col.notNull())
+		.addColumn('blogKey', 'text', (col) => col.notNull())
 		.addColumn('userId', 'integer', (col) => col.notNull())
 		.addColumn('userName', 'text', (col) => col.notNull())
 		.addColumn('userImage', 'text')
@@ -16,6 +16,7 @@ export async function create(db: D1Database) {
 		.addColumn('dateEdited', 'datetime')
 
 	const query = schema.compile().sql
+	console.log(query)
 	const results = await db.prepare(query).all()
 
 	if (results.error) throw new Error(results.error)
@@ -45,11 +46,11 @@ export async function add(db: D1Database, newComment: NewComment) {
 	return comment
 }
 
-export async function list(db: D1Database, slug: string) {
+export async function list(db: D1Database, blogKey: string) {
 	const query = k
 		.selectFrom(CommentsTableName)
 		.selectAll()
-		.where('slug', '=', slug)
+		.where('blogKey', '=', blogKey)
 		.compile()
 
 	const bound = db.prepare(query.sql).bind(...query.parameters)

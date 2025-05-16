@@ -18,14 +18,18 @@ export function formatStorageDateTime() {
 export function formatR2DateTime(locale: string, timeZone: string) {
 	const d = new Date()
 
-	const parts = [
+	const dateParts = [
 		d.getUTCFullYear(),
-		d.getUTCMonth() + 1,
-		d.getUTCDate(),
-		`${d.getUTCHours()}:${d.getUTCMinutes()}`,
+		(d.getUTCMonth() + 1).toString().padStart(2, '0'),
+		d.getUTCDate().toString().padStart(2, '0'),
 	]
 
-	const key = parts.join('/')
+	const timeParts = [
+		d.getUTCHours().toString().padStart(2, '0'),
+		d.getUTCMinutes().toString().padStart(2, '0'),
+	].join(':')
+
+	const key = `${dateParts.join('/')}/${timeParts}`
 	return key
 }
 

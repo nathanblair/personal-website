@@ -39,11 +39,16 @@ export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
 }
 
 export function remove(bucket: R2Bucket, key: string) {
+	console.log('Removing blog', key)
 	return bucket.delete(key)
 }
 
-export async function list(bucket: R2Bucket, limit?: number, cursor?: string) {
-	let prefix = ''
+export async function list(
+	bucket: R2Bucket,
+	limit?: number,
+	cursor?: string,
+	prefix?: string,
+) {
 	const r2ListOptions: R2ListOptions = {
 		limit,
 		cursor,

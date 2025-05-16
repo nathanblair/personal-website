@@ -12,10 +12,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	if (!session.user?.admin) error(403, 'Unauthorized')
 
-	const title = `Create Blog Post`
-	const description = `Create a blog post`
-
-	return { title, description }
+	return { title: `Create Blog Post`, description: `Create a blog post` }
 }
 
 export const actions: Actions = {
