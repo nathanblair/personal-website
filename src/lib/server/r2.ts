@@ -1,3 +1,4 @@
+import { formatR2DateTime } from '$lib/datetime.ts'
 import type {
 	BlogMetadata,
 	BlogSlug,
@@ -7,8 +8,14 @@ import type {
 import { ContentType } from '$lib/types/content.ts'
 import type {
 	R2Bucket,
+	R2Conditional,
 	R2ListOptions,
+	R2PutOptions,
 } from '@cloudflare/workers-types/2023-07-01'
+
+export function formatR2Key(locale: string, timeZone: string) {
+	return formatR2DateTime(locale, timeZone)
+}
 
 export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
 	const customMetadata: BlogMetadata = {
@@ -19,11 +26,16 @@ export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
 	}
 	if (blog.dateEdited) customMetadata.dateEdited = blog.dateEdited
 
-	return bucket.put(key, blog.content, {
+	const options: R2PutOptions & {
+		onlyIf: R2Conditional | Headers
+	} = {
 		httpMetadata: { contentType: blog.contentType },
 		// @ts-ignore
 		customMetadata,
-	})
+	}
+
+	console.log('Creating blog', key)
+	return bucket.put(key, blog.content, options)
 }
 
 export function remove(bucket: R2Bucket, key: string) {

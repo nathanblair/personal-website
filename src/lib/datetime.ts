@@ -15,12 +15,27 @@ export function formatStorageDateTime() {
 	return iso
 }
 
+export function formatR2DateTime(locale: string, timeZone: string) {
+	const d = new Date()
+
+	const parts = [
+		d.getUTCFullYear(),
+		d.getUTCMonth() + 1,
+		d.getUTCDate(),
+		`${d.getUTCHours()}:${d.getUTCMinutes()}`,
+	]
+
+	const key = parts.join('/')
+	return key
+}
+
 export function formatInputDateTime(
 	dateTime: string,
 	locale: string,
 	timeZone: string,
 ) {
 	const d = new Date(dateTime)
+
 	const formatter = new Intl.DateTimeFormat(locale, {
 		year: 'numeric',
 		month: '2-digit',
@@ -30,6 +45,7 @@ export function formatInputDateTime(
 		hour12: false,
 		timeZone,
 	})
+
 	const parts = formatter.formatToParts(d)
 
 	const datePart = [
@@ -37,8 +53,10 @@ export function formatInputDateTime(
 		getFromParts(parts, 'month'),
 		getFromParts(parts, 'day'),
 	]
+
 	const timePart = [getFromParts(parts, 'hour'), getFromParts(parts, 'minute')]
-	return `${datePart.join('-')}T${timePart.join(':')}`
+	const full = `${datePart.join('-')}T${timePart.join(':')}`
+	return full
 }
 
 export function formatDisplayDateTime(

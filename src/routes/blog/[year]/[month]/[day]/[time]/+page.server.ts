@@ -13,15 +13,16 @@ import {
 	listByComments,
 	remove as removeRock,
 } from '$lib/server/rock.ts'
-import { BlogPostingSD } from '$lib/structured_data/blog_posting'
-import { me } from '$lib/structured_data/person'
 import type { Session } from '$lib/types/auth'
-import type { BlogSD, StorageBlog } from '$lib/types/blog'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { CommentsRockedState } from '$lib/types/rock.ts'
-import type { D1Database, R2Bucket } from '@cloudflare/workers-types'
-import { error, redirect } from '@sveltejs/kit'
-import type { Actions, PageServerLoad } from './$types'
+import type { D1Database } from '@cloudflare/workers-types'
+import { redirect } from '@sveltejs/kit'
+import type { Actions, PageServerLoad, RouteParams } from './$types'
+
+function routeToBlogKey(params: RouteParams) {
+	return `${params.year}/${params.month}/${params.day}/${params.time}`
+}
 
 async function fetchRocks(
 	db: D1Database,
@@ -44,32 +45,16 @@ async function fetchRocks(
 	return commentsRockedState
 }
 
-async function fetchBlog(slug: string, blogs: R2Bucket) {
-	let blog: StorageBlog
-	try {
-		blog = await getBlog(blogs, slug)
-	} catch (err: any) {
-		return error(404, err.message)
-	}
-
-	const structuredData = new BlogPostingSD(blog.date, blog.title, me)
-		.structured_data
-
-	const fetched_blog: BlogSD = {
-		...blog,
-		structuredData,
-	}
-	return fetched_blog
-}
-
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const session = (await locals.auth()) as Session
 
+	const blogKey = routeToBlogKey(params)
+
 	return {
 		description: '',
-		blog: await fetchBlog(params.slug, locals.blogs),
-		comments: await listComments(locals.db, params.slug),
-		rocks: await fetchRocks(locals.db, params.slug, session?.user?.id),
+		blog: await getBlog(locals.blogs, blogKey),
+		comments: await listComments(locals.db, blogKey),
+		rocks: await fetchRocks(locals.db, blogKey, session?.user?.id),
 	}
 }
 
@@ -80,7 +65,8 @@ export const actions: Actions = {
 
 		if (!session.user?.admin) throw new Error('Unauthorized')
 
-		await removeBlog(locals.blogs, params.slug)
+		const blogKey = routeToBlogKey(params)
+		await removeBlog(locals.blogs, blogKey)
 		redirect(303, '/blog')
 	},
 	addComment: async ({ request, params, locals }) => {
@@ -102,7 +88,7 @@ export const actions: Actions = {
 		if (!body) throw new Error('Comment content not found')
 
 		const comment: NewComment = {
-			slug: params.slug,
+			slug: routeToBlogKey(params),
 			userId: session.user?.id,
 			userName: session.user.name,
 			userImage: session.user.image,

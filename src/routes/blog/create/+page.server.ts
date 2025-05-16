@@ -1,5 +1,5 @@
-import { formatStorageDateTime } from '$lib/datetime'
-import { create } from '$lib/server/r2'
+import { formatStorageDateTime } from '$lib/datetime.ts'
+import { create, formatR2Key } from '$lib/server/r2'
 import type { Session } from '$lib/types/auth'
 import type { StorageBlog } from '$lib/types/blog'
 import type { ContentType } from '$lib/types/content.ts'
@@ -57,11 +57,10 @@ export const actions: Actions = {
 			commentsEnabled: Boolean(commentsEnabled),
 		}
 
-		const formattedTitle = title.replace(/ /g, '-')
-		const key = `${formattedTitle.toLowerCase()}-${Date.now().toString(36)}`
+		const blogKey = formatR2Key(locale, timeZone)
 
-		await create(locals.blogs, key, blog)
+		await create(locals.blogs, blogKey, blog)
 
-		redirect(303, `/blog/${key}`)
+		redirect(303, `/blog/${blogKey}`)
 	},
 }

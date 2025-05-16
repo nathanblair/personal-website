@@ -6,6 +6,7 @@ import type { LayoutServerLoad } from './$types'
 export const load: LayoutServerLoad = async (event) => {
 	if (building) return { session: null }
 
+	// FIXME Can I use this across all loads?
 	const session = (await event.locals.auth()) as Session
 	return { session }
 }
