@@ -52,7 +52,7 @@
 		/>
 
 		<input
-			class="flex-1 p-2 outline-1"
+			class="p-2 outline-1"
 			type="datetime-local"
 			name="date"
 			required

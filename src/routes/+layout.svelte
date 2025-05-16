@@ -1,10 +1,12 @@
 <script>
 	import { page } from '$app/state'
 
-	import '../app.css'
-
 	import Footer from '$lib/components/Footer.svelte'
 	import Header from '$lib/components/Header.svelte'
+
+	import '../app.css'
+
+	import { MyName } from '$lib/constants'
 
 	let { children, data } = $props()
 </script>
@@ -25,4 +27,4 @@
 	{@render children()}
 </main>
 
-<Footer></Footer>
+<Footer text={MyName}></Footer>

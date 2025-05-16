@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { formatDisplayDateTime, locale, timeZone } from '$lib/datetime.js'
 	import { slide } from 'svelte/transition'
+
+	import { formatDisplayDateTime, locale, timeZone } from '$lib/datetime.js'
 
 	let { data } = $props()
 </script>
@@ -27,7 +28,7 @@
 	{:then blogs}
 		{#each blogs as blog, index}
 			<a
-				in:slide|global={{ duration: 100, delay: index * 100 }}
+				in:slide|global={{ duration: 200, delay: index * 50 }}
 				class="block rounded-md border-slate-100 bg-slate-100 p-6 text-slate-900 drop-shadow-md dark:bg-slate-900 dark:text-slate-100"
 				href={`/blog/${blog.slug}`}
 			>
