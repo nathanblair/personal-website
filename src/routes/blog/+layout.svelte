@@ -17,7 +17,7 @@
 
 	{#if page.route.id !== '/blog/[...slug]'}
 		{#each data.blogScopes as scopes}
-			<Breadcrumb parts={scopes} />
+			<Breadcrumb parts={scopes} root="/blog" />
 		{/each}
 
 		<div
