@@ -23,6 +23,7 @@ declare global {
 		interface Locals {
 			db: D1Database
 			blogs: R2Bucket
+			prefixes: string[]
 		}
 
 		interface Platform {

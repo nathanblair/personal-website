@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types'
 
 import { CommentsTableName, RocksTableName } from '$lib/constants.ts'
+import { prefixes } from '$lib/server/blog'
 import {
 	create as createComments,
 	drop as dropComments,
@@ -29,6 +30,25 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions = {
+	listPrefixes: async ({ locals, request }) => {
+		const session = (await locals.auth()) as Session
+		if (!session) throw new Error('Not signed in')
+
+		if (!session.user?.admin) throw new Error('Unauthorized')
+
+		const formData = await request.formData()
+		const prefix = formData.get('prefix')?.toString()
+		const delimiter = formData.get('delimiter')?.toString()
+
+		console.log('Input Prefix', prefix)
+
+		console.log('Delimiter', delimiter)
+
+		const pres = await prefixes(locals.blogs, prefix, delimiter)
+		console.log('Prefixes', pres)
+
+		return { prefixes: pres }
+	},
 	removeBlog: async ({ params, locals, request }) => {
 		const session = (await locals.auth()) as Session
 		if (!session) throw new Error('Not signed in')

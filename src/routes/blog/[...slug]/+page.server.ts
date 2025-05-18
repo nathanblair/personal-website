@@ -1,4 +1,5 @@
 import { formatStorageDateTime } from '$lib/datetime'
+import { get as getBlog } from '$lib/server/blog'
 import {
 	add as addComment,
 	edit as editComment,
@@ -6,7 +7,6 @@ import {
 	list as listComments,
 	remove as removeComment,
 } from '$lib/server/comment.ts'
-import { get as getBlog } from '$lib/server/r2'
 import {
 	add as addRock,
 	get as getRock,
@@ -17,7 +17,10 @@ import type { Session } from '$lib/types/auth'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { CommentsRockedState } from '$lib/types/rock.ts'
 import type { D1Database } from '@cloudflare/workers-types'
-import type { Actions, PageServerLoad } from './$types'
+import type {
+	Actions,
+	PageServerLoad,
+} from '../[year]/[month]/[day]/[slug]/$types'
 
 async function fetchRocks(
 	db: D1Database,
@@ -40,7 +43,7 @@ async function fetchRocks(
 	return commentsRockedState
 }
 
-export const load: PageServerLoad = async ({ params, locals, parent }) => {
+export const load: PageServerLoad = async ({ locals, parent, params }) => {
 	const { session } = await parent()
 
 	const blogKey = params.slug

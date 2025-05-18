@@ -1,5 +1,5 @@
 import { formatStorageDateTime } from '$lib/datetime.ts'
-import { create, get } from '$lib/server/r2'
+import { create, get } from '$lib/server/blog'
 import type { Session } from '$lib/types/auth'
 import type { StorageBlog } from '$lib/types/blog'
 import { ContentType } from '$lib/types/content.ts'

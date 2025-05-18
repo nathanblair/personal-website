@@ -1,5 +1,5 @@
 import { formatStorageDateTime } from '$lib/datetime.ts'
-import { create, formatR2Key } from '$lib/server/r2'
+import { create, formatKey } from '$lib/server/blog'
 import type { Session } from '$lib/types/auth'
 import type { StorageBlog } from '$lib/types/blog'
 import type { ContentType } from '$lib/types/content.ts'
@@ -54,7 +54,7 @@ export const actions: Actions = {
 			commentsEnabled: Boolean(commentsEnabled),
 		}
 
-		const blogKey = formatR2Key(locale, timeZone)
+		const blogKey = formatKey(locale, timeZone)
 
 		await create(locals.blogs, blogKey, blog)
 

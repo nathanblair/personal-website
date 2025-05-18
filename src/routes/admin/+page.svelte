@@ -3,8 +3,41 @@
 
 	import type { PageProps } from './$types'
 
-	let { data }: PageProps = $props()
+	let { data, form }: PageProps = $props()
 </script>
+
+<form
+	use:enhance={({}) =>
+		({ update }) =>
+			update({ reset: false })}
+	method="POST"
+	class="flex space-x-2 pt-4"
+	action="?/listPrefixes"
+>
+	<input type="text" name="prefix" placeholder="Prefix" class="p-1 outline-1" />
+	<input
+		type="text"
+		name="delimiter"
+		placeholder="Delimiter"
+		class="p-1 outline-1"
+		value="/"
+	/>
+	<button class="btn">List Prefixes</button>
+	{#if form?.prefixes}
+		<label for="prefixes">Prefixes</label>
+		<select
+			name="prefixes"
+			id="prefixes"
+			multiple
+			size="1"
+			class="p-1 outline-1"
+		>
+			{#each form.prefixes as prefix}
+				<option value={prefix}>{prefix}</option>
+			{/each}
+		</select>
+	{/if}
+</form>
 
 <form use:enhance method="POST" class="flex space-x-2 pt-4">
 	<a
