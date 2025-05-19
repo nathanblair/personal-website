@@ -43,7 +43,7 @@
 
 	<div class="flex space-x-2">
 		<input
-			class="flex-1 p-2 outline-1"
+			class="flex-1 p-2"
 			type="text"
 			name="title"
 			required
@@ -52,18 +52,14 @@
 		/>
 
 		<input
-			class="p-2 outline-1"
+			class="p-2"
 			type="datetime-local"
 			name="date"
 			required
 			value={formatInputDateTime(dateTime, locale, timeZone)}
 		/>
 
-		<select
-			name="contentType"
-			id="contentType"
-			class="appearance-none p-1 outline-1"
-		>
+		<select name="contentType" id="contentType" class="appearance-none p-1">
 			{#each formats as format}
 				<option value={format.value} selected={format.value === contentType}
 					>{format.label}</option

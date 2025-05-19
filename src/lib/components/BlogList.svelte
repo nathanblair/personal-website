@@ -10,11 +10,10 @@
 		timeZone,
 	}: { blogSlugs: BlogSlug[]; locale: string; timeZone: string } = $props()
 
-	const sorted = blogSlugs.sort(
-		(
-			a: { date: string | number | Date },
-			b: { date: string | number | Date },
-		) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	const sorted = $derived(
+		blogSlugs.sort(
+			(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+		),
 	)
 </script>
 

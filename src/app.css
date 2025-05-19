@@ -1,9 +1,28 @@
 @import 'tailwindcss';
 
 @layer components {
+	:root {
+		--tw-border-width: 1px;
+		/* FIXME */
+		/* Set the tw-outline-color to theme primary color */
+	}
+
 	:disabled {
 		opacity: 0.5;
 		pointer-events: none;
+	}
+
+	input[type='text'],
+	input[type='datetime-local'],
+	select {
+		border-style: var(--tw-border-style);
+		border-width: var(--tw-border-width);
+	}
+	input[type='text']:focus,
+	input[type='datetime-local']:focus,
+	select:focus,
+	textarea:focus {
+		outline: solid var(--tw-outline-color);
 	}
 
 	button {
@@ -11,18 +30,19 @@
 	}
 
 	textarea {
-		outline-style: var(--tw-outline-style);
-		outline-width: 1px;
+		border-style: var(--tw-border-style);
+		border-width: var(--tw-border-width);
 		padding: calc(var(--spacing) * 2);
 	}
 
-	li {
-		list-style-type: disc;
+	ol,
+	ul {
+		list-style-type: none;
 	}
 
 	.btn {
-		outline-style: var(--tw-outline-style);
-		outline-width: 1px;
+		border-style: var(--tw-border-style);
+		border-width: var(--tw-border-width);
 		padding: calc(var(--spacing) * 1);
 	}
 

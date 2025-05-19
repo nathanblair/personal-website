@@ -1,4 +1,3 @@
-import { formatR2DateTime } from '$lib/datetime.ts'
 import type {
 	BlogMetadata,
 	BlogSlug,
@@ -12,9 +11,21 @@ import type {
 	R2ListOptions,
 	R2PutOptions,
 } from '@cloudflare/workers-types/2023-07-01/index.ts'
+import { Prefix } from './prefix.ts'
 
-export function formatKey(locale: string, timeZone: string) {
-	return formatR2DateTime(locale, timeZone)
+export function formatKey(date?: string) {
+	const d = new Date(date ?? new Date().toISOString())
+
+	const dateParts = [
+		d.getUTCFullYear(),
+		(d.getUTCMonth() + 1).toString().padStart(2, '0'),
+		d.getUTCDate().toString().padStart(2, '0'),
+	]
+
+	const slug = d.getTime().toString(36)
+
+	const key = `${dateParts.join('/')}/${slug}`
+	return key
 }
 
 export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
@@ -38,15 +49,20 @@ export function create(bucket: R2Bucket, key: string, blog: StorageBlog) {
 	return bucket.put(key, blog.content, options)
 }
 
-export async function prefixes(
+export async function entries(
 	bucket: R2Bucket,
 	prefix?: string,
-	delimiter?: string,
+	delimiter: string = '/',
 ) {
 	const r2ListOptions: R2ListOptions = { delimiter, prefix }
 
 	const r2Objects = await bucket.list(r2ListOptions)
-	return r2Objects.delimitedPrefixes
+
+	const prefixes: Prefix[] = r2Objects.delimitedPrefixes.map((eachPrefix) =>
+		Prefix.fromPath(eachPrefix),
+	)
+
+	return prefixes
 }
 
 export async function list(
@@ -83,7 +99,7 @@ export async function list(
 	}
 
 	const paginatedBlogSlugs: PaginatedBlogSlugs = {
-		blogSlugs,
+		slugs: blogSlugs,
 		nextCursor: r2Blogs.truncated ? r2Blogs.cursor : undefined,
 		previousCursor: cursor,
 		truncated: r2Blogs.truncated,

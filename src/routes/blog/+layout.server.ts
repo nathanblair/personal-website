@@ -1,60 +1,40 @@
 import { MyName } from '$lib/constants.ts'
-import { list, prefixes } from '$lib/server/blog'
-import type { R2Bucket } from '@cloudflare/workers-types'
+import { entries, list } from '$lib/server/blog.ts'
+import { Prefix } from '$lib/server/prefix.ts'
+import { Scope } from '$lib/server/scope.ts'
 import type { LayoutServerLoad } from './$types'
-
-type PrefixParams = { prefix: string; delimiter: string }
-
-function buildPrefixParams(
-	year?: string,
-	month?: string,
-	day?: string,
-): PrefixParams {
-	let prefix = ''
-	const delimiter = '/'
-	if (!year) return { prefix, delimiter }
-
-	prefix = `${year}/`
-	if (year && month) prefix += `${month}/`
-	if (year && month && day) prefix += `${day}`
-	return { prefix, delimiter }
-}
-
-async function destructurePrefixes(
-	blogs: R2Bucket,
-	prefixParams: PrefixParams,
-) {
-	const pres = await prefixes(
-		blogs,
-		prefixParams.prefix,
-		prefixParams.delimiter,
-	)
-
-	const destructured = pres.map((eachPrefix) =>
-		eachPrefix.split('/').filter(Boolean),
-	)
-	return destructured
-}
 
 export const load: LayoutServerLoad = async ({ url, locals, params }) => {
 	const currentCursor = url.searchParams.get('cursor') || undefined
 	const requestedBlogLimit = url.searchParams.get('limit') || undefined
-	let blogCountLimit: number | undefined = undefined
-	if (requestedBlogLimit) blogCountLimit = parseInt(requestedBlogLimit, 10)
+	let countLimit: number | undefined = undefined
+	if (requestedBlogLimit) countLimit = parseInt(requestedBlogLimit, 10)
 
-	const prefixParams = buildPrefixParams(params.year, params.month, params.day)
+	const scope = Scope.fromParams(params)
+	console.log('scope', scope)
+	const crumbs = scope.toAnchorProps()
+	console.log('crumbs', crumbs)
+	const prefix = Prefix.fromScope(scope)
+	console.log('prefix', prefix)
+	const keys = await entries(locals.blogs, prefix.toString())
+
+	console.log('keys', keys)
+	const prefixesAtScope = keys.map((eachKey) => eachKey.toAnchorProp())
+
+	const blogs = await list(
+		locals.blogs,
+		countLimit,
+		currentCursor,
+		prefix.toString(),
+	)
 
 	return {
 		title: 'Blog',
 		description: `The blog of ${MyName}`,
 		currentCursor,
-		blogCountLimit,
-		blogScopes: await destructurePrefixes(locals.blogs, prefixParams),
-		blogs: await list(
-			locals.blogs,
-			blogCountLimit,
-			currentCursor,
-			prefixParams.prefix,
-		),
+		countLimit,
+		prefixesAtScope,
+		crumbs,
+		slugs: blogs.slugs,
 	}
 }

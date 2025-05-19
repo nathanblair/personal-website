@@ -1,5 +1,6 @@
 import { formatStorageDateTime } from '$lib/datetime.ts'
-import { create, get } from '$lib/server/blog'
+import { create, formatKey, get } from '$lib/server/blog'
+import { remove } from '$lib/server/r2.ts'
 import type { Session } from '$lib/types/auth'
 import type { StorageBlog } from '$lib/types/blog'
 import { ContentType } from '$lib/types/content.ts'
@@ -63,8 +64,10 @@ export const actions: Actions = {
 			commentsEnabled: Boolean(commentsEnabled),
 		}
 
-		await create(locals.blogs, params.slug, blog)
+		const blogKey = formatKey(date)
+		await remove(locals.blogs, params.slug)
+		await create(locals.blogs, blogKey, blog)
 
-		redirect(303, `/blog/${params.slug}`)
+		redirect(303, `/blog/${blogKey}`)
 	},
 }

@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types'
 
 import { CommentsTableName, RocksTableName } from '$lib/constants.ts'
-import { prefixes } from '$lib/server/blog'
+import { entries } from '$lib/server/blog'
 import {
 	create as createComments,
 	drop as dropComments,
@@ -44,7 +44,7 @@ export const actions = {
 
 		console.log('Delimiter', delimiter)
 
-		const pres = await prefixes(locals.blogs, prefix, delimiter)
+		const pres = await entries(locals.blogs, prefix, delimiter)
 		console.log('Prefixes', pres)
 
 		return { prefixes: pres }

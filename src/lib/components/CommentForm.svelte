@@ -9,7 +9,7 @@
 	<input type="hidden" name="timeZone" value={timeZone} />
 
 	<textarea
-		class="w-full resize-none bg-slate-100 p-2 dark:bg-slate-900"
+		class="w-full resize-none p-2 dark:bg-slate-900"
 		name="content"
 		id="content"
 		required

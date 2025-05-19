@@ -1,4 +1,3 @@
-import { formatStorageDateTime } from '$lib/datetime.ts'
 import { create, formatKey } from '$lib/server/blog'
 import type { Session } from '$lib/types/auth'
 import type { StorageBlog } from '$lib/types/blog'
@@ -32,7 +31,10 @@ export const actions: Actions = {
 		const timeZone = formData.get('timeZone')?.toString()
 		if (!timeZone) throw new Error('Time Zone not found')
 
-		const date = formatStorageDateTime()
+		const formDate = formData.get('date')?.toString()
+		if (!formDate) throw new Error('Blog date not found')
+
+		const date = new Date(formDate).toISOString()
 
 		const commentsEnabled = formData.get('commentsEnabled')
 		if (!commentsEnabled) throw new Error('Comments enabled not found')
@@ -54,7 +56,7 @@ export const actions: Actions = {
 			commentsEnabled: Boolean(commentsEnabled),
 		}
 
-		const blogKey = formatKey(locale, timeZone)
+		const blogKey = formatKey(date)
 
 		await create(locals.blogs, blogKey, blog)
 
