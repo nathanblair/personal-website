@@ -1,13 +1,10 @@
 import type { AnchorProps } from '$lib/types/components.ts'
+import type { LayoutParams } from '../../routes/blog/$types'
 import { Scope } from './scope.ts'
 
 export class Prefix extends Scope {
-	constructor(year?: string, month?: string, day?: string) {
-		super(year, month, day)
-	}
-
-	static fromScope(scope: Scope) {
-		return new Prefix(scope.year, scope.month, scope.day)
+	constructor(params: LayoutParams) {
+		super(params)
 	}
 
 	static fromPath(path: string): Prefix {
@@ -15,14 +12,16 @@ export class Prefix extends Scope {
 		const year = parts[0] ?? undefined
 		const month = parts[1] ?? undefined
 		const day = parts[2] ?? undefined
+		const slug = parts[3] ?? undefined
 
-		return new Prefix(year, month, day)
+		return new Prefix({ year, month, day, slug })
 	}
 
 	toString(): string {
 		let str = this.year ? `${this.year}/` : ''
 		if (this.month) str += `${this.month}/`
 		if (this.day) str += `${this.day}/`
+		if (this.slug) str += `${this.slug}/`
 
 		return str
 	}

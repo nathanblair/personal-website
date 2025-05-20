@@ -2,6 +2,7 @@ import { MyName } from '$lib/constants.ts'
 import { entries, list } from '$lib/server/blog.ts'
 import { Prefix } from '$lib/server/prefix.ts'
 import { Scope } from '$lib/server/scope.ts'
+import type { BlogSlug } from '$lib/types/blog.ts'
 import type { LayoutServerLoad } from './$types'
 
 export const load: LayoutServerLoad = async ({ url, locals, params }) => {
@@ -10,14 +11,18 @@ export const load: LayoutServerLoad = async ({ url, locals, params }) => {
 	let countLimit: number | undefined = undefined
 	if (requestedBlogLimit) countLimit = parseInt(requestedBlogLimit, 10)
 
-	const scope = Scope.fromParams(params)
+	const scope = new Scope(params)
 	const crumbs = scope.toAnchorProps()
-	const prefix = Prefix.fromScope(scope).toString()
+	const prefix = new Prefix(scope).toString()
 	const keys = await entries(locals.blogs, prefix)
 
 	const prefixesAtScope = keys.map((eachKey) => eachKey.toAnchorProp())
 
-	const blogs = await list(locals.blogs, countLimit, currentCursor, prefix)
+	let slugs: BlogSlug[] = []
+	if (!scope.slug) {
+		const blogs = await list(locals.blogs, countLimit, currentCursor, prefix)
+		slugs = blogs.slugs
+	}
 
 	return {
 		title: 'Blog',
@@ -26,6 +31,6 @@ export const load: LayoutServerLoad = async ({ url, locals, params }) => {
 		countLimit,
 		prefixesAtScope,
 		crumbs,
-		slugs: blogs.slugs,
+		slugs,
 	}
 }

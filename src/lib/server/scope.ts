@@ -5,18 +5,14 @@ export class Scope {
 	year?: string
 	month?: string
 	day?: string
+	slug?: string
 
-	constructor(year?: string, month?: string, day?: string) {
+	constructor(params: LayoutParams) {
+		const { year, month, day, slug } = params
 		this.year = year
 		this.month = month
 		this.day = day
-	}
-
-	static fromParams(params: LayoutParams): Scope {
-		const { year, month, day, slug } = params
-		if (year || month || day) return new Scope(year, month, day)
-		if (slug) return new Scope(...slug.split('/').filter(Boolean))
-		return new Scope()
+		this.slug = slug
 	}
 
 	toString(): string {
