@@ -11,22 +11,13 @@ export const load: LayoutServerLoad = async ({ url, locals, params }) => {
 	if (requestedBlogLimit) countLimit = parseInt(requestedBlogLimit, 10)
 
 	const scope = Scope.fromParams(params)
-	console.log('scope', scope)
 	const crumbs = scope.toAnchorProps()
-	console.log('crumbs', crumbs)
-	const prefix = Prefix.fromScope(scope)
-	console.log('prefix', prefix)
-	const keys = await entries(locals.blogs, prefix.toString())
+	const prefix = Prefix.fromScope(scope).toString()
+	const keys = await entries(locals.blogs, prefix)
 
-	console.log('keys', keys)
 	const prefixesAtScope = keys.map((eachKey) => eachKey.toAnchorProp())
 
-	const blogs = await list(
-		locals.blogs,
-		countLimit,
-		currentCursor,
-		prefix.toString(),
-	)
+	const blogs = await list(locals.blogs, countLimit, currentCursor, prefix)
 
 	return {
 		title: 'Blog',

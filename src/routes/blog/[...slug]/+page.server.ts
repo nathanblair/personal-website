@@ -17,10 +17,7 @@ import type { Session } from '$lib/types/auth'
 import type { CommentUpdate, NewComment } from '$lib/types/comment.ts'
 import type { CommentsRockedState } from '$lib/types/rock.ts'
 import type { D1Database } from '@cloudflare/workers-types'
-import type {
-	Actions,
-	PageServerLoad,
-} from '../[year]/[month]/[day]/[slug]/$types'
+import type { Actions, PageServerLoad } from './$types'
 
 async function fetchRocks(
 	db: D1Database,

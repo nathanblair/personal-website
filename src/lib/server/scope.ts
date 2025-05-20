@@ -13,11 +13,10 @@ export class Scope {
 	}
 
 	static fromParams(params: LayoutParams): Scope {
-		const year = params.year
-		const month = params.month
-		const day = params.day
-
-		return new Scope(year, month, day)
+		const { year, month, day, slug } = params
+		if (year || month || day) return new Scope(year, month, day)
+		if (slug) return new Scope(...slug.split('/').filter(Boolean))
+		return new Scope()
 	}
 
 	toString(): string {

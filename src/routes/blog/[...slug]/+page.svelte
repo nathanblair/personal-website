@@ -9,7 +9,7 @@
 	import { getLocaleContext } from '$lib/datetime.ts'
 	import { BlogPostingSD } from '$lib/structured_data/blog_posting.ts'
 	import { me } from '$lib/structured_data/person.ts'
-	import type { PageProps } from '../[year]/[month]/[day]/[slug]/$types'
+	import type { PageProps } from './$types'
 
 	let { data }: PageProps = $props()
 
