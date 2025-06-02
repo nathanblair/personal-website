@@ -29,6 +29,7 @@
 
 <form use:enhance method="POST" class="flex space-x-2 pt-4">
 	<a class="btn" href="/blog/create">Create Post</a>
+
 	<input
 		type="text"
 		name="blogKey"
@@ -37,8 +38,10 @@
 		bind:value={blogKey}
 		required
 	/>
+
 	<a class="btn" href="/blog/edit/{blogKey}">Edit Post</a>
-	<button class="btn text-nowrap" formaction="?/removeBlog">Delete Post</button>
+
+	<button class="btn" formaction="?/removeBlog">Delete Post</button>
 </form>
 
 <form

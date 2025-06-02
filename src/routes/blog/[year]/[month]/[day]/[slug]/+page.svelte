@@ -22,18 +22,6 @@
 	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
 </svelte:head>
 
-<!--
-{#if data.session?.user?.admin}
-	<form method="post" class="absolute top-0 left-0 flex w-full justify-between">
-		<a
-			class="btn-icon float-right flex items-center"
-			href="/blog/edit/{data.prefix}"
-			aria-label="edit"
-			title="Edit the blog post"><Edit /></a
-		>
-	</form>
-{/if} -->
-
 <Blog blog={data.blog} {locale} {timeZone} />
 
 {#if data.blog.commentsEnabled}
