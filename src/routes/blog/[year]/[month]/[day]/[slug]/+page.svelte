@@ -5,7 +5,6 @@
 	import CommentForm from '$lib/components/CommentForm.svelte'
 	import CommentList from '$lib/components/CommentList.svelte'
 
-	import { page } from '$app/state'
 	import { getLocaleContext } from '$lib/datetime.ts'
 	import { BlogPostingSD } from '$lib/structured_data/blog_posting.ts'
 	import { me } from '$lib/structured_data/person.ts'
@@ -29,7 +28,7 @@
 	<form method="post" class="absolute top-0 left-0 flex w-full justify-between">
 		<a
 			class="btn-icon float-right flex items-center"
-			href="/blog/edit/{page.params.slug}"
+			href="/blog/edit/{data.prefix}"
 			aria-label="edit"
 			title="Edit the blog post"><Edit /></a
 		>

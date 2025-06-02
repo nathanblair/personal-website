@@ -40,16 +40,12 @@ export const actions = {
 		const prefix = formData.get('prefix')?.toString()
 		const delimiter = formData.get('delimiter')?.toString()
 
-		console.log('Input Prefix', prefix)
+		const prefixes = await entries(locals.blogs, prefix, delimiter)
+		console.log('Prefixes', prefixes)
 
-		console.log('Delimiter', delimiter)
-
-		const pres = await entries(locals.blogs, prefix, delimiter)
-		console.log('Prefixes', pres)
-
-		return { prefixes: pres }
+		return { prefixes }
 	},
-	removeBlog: async ({ params, locals, request }) => {
+	removeBlog: async ({ locals, request }) => {
 		const session = (await locals.auth()) as Session
 		if (!session) throw new Error('Not signed in')
 

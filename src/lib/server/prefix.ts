@@ -18,10 +18,12 @@ export class Prefix extends Scope {
 	}
 
 	toString(): string {
-		let str = this.year ? `${this.year}/` : ''
+		// If slug is defined, str should be prefixed with '/'
+		let str = this.slug ? '' : ''
+		if (this.year) str += `${this.year}/`
 		if (this.month) str += `${this.month}/`
 		if (this.day) str += `${this.day}/`
-		if (this.slug) str += `${this.slug}/`
+		if (this.slug) str += `${this.slug}`
 
 		return str
 	}

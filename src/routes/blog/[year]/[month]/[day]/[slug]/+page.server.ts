@@ -1,5 +1,5 @@
 import { formatStorageDateTime } from '$lib/datetime'
-import { get as getBlog } from '$lib/server/blog'
+import { get as getBlog } from '$lib/server/blog.ts'
 import {
 	add as addComment,
 	edit as editComment,
@@ -40,21 +40,23 @@ async function fetchRocks(
 	return commentsRockedState
 }
 
-export const load: PageServerLoad = async ({ locals, parent, params }) => {
-	const { session } = await parent()
+export const load: PageServerLoad = async ({ locals, parent }) => {
+	const { session, prefix } = await parent()
+	const blog = await getBlog(locals.blogs, prefix)
+	const comments = await listComments(locals.db, prefix)
+	const rocks = await fetchRocks(locals.db, prefix, session?.user?.id)
 
-	const blogKey = params.slug
-
+	const title = blog.title
 	return {
-		description: '',
-		blog: await getBlog(locals.blogs, blogKey),
-		comments: await listComments(locals.db, blogKey),
-		rocks: await fetchRocks(locals.db, blogKey, session?.user?.id),
+		title,
+		blog,
+		comments,
+		rocks,
 	}
 }
 
 export const actions: Actions = {
-	addComment: async ({ request, params, locals }) => {
+	addComment: async ({ request, url, locals }) => {
 		const session = (await locals.auth()) as Session
 		if (!session || !session.user) throw new Error('Not signed in')
 
@@ -72,7 +74,8 @@ export const actions: Actions = {
 		const body = formData.get('content')
 		if (!body) throw new Error('Comment content not found')
 
-		const blogKey = params.slug
+		// const blogKey = params.slug
+		const blogKey = url.pathname
 
 		const comment: NewComment = {
 			blogKey,

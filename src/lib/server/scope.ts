@@ -32,6 +32,7 @@ export class Scope {
 		if (this.month)
 			anchorProps.push({
 				href: `/blog/${this.year}/${this.month}`,
+				disabled: this.day === undefined,
 				label:
 					this.year && this.month
 						? new Date(
@@ -47,6 +48,7 @@ export class Scope {
 			anchorProps.push({
 				href: `/blog/${this.year}/${this.month}/${this.day}`,
 				label: this.day,
+				disabled: this.slug === undefined,
 			})
 
 		return anchorProps

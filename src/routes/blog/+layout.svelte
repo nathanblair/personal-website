@@ -12,7 +12,7 @@
 	const crumbs = $derived(data.crumbs)
 	const slugs = $derived(data.slugs)
 	const isBlogPage = $derived(
-		page.route.id === '/blog/[...slug]' ||
+		page.route.id === '/blog/[year]/[month]/[day]/[slug]' ||
 			page.route.id === '/blog/create' ||
 			page.route.id === '/blog/edit/[...slug]',
 	)

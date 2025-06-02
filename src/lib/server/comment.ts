@@ -46,11 +46,11 @@ export async function add(db: D1Database, newComment: NewComment) {
 	return comment
 }
 
-export async function list(db: D1Database, blogKey: string) {
+export async function list(db: D1Database, prefix: string) {
 	const query = k
 		.selectFrom(CommentsTableName)
 		.selectAll()
-		.where('blogKey', '=', blogKey)
+		.where('blogKey', '=', prefix)
 		.compile()
 
 	const bound = db.prepare(query.sql).bind(...query.parameters)

@@ -5,6 +5,7 @@ import type {
 	StorageBlog,
 } from '$lib/types/blog.ts'
 import { ContentType } from '$lib/types/content.ts'
+import type { R2ObjectBody } from '@cloudflare/workers-types'
 import type {
 	R2Bucket,
 	R2Conditional,
@@ -58,7 +59,7 @@ export async function entries(
 
 	const r2Objects = await bucket.list(r2ListOptions)
 
-	const prefixes: Prefix[] = r2Objects.delimitedPrefixes.map((eachPrefix) =>
+	const prefixes = r2Objects.delimitedPrefixes.map((eachPrefix) =>
 		Prefix.fromPath(eachPrefix),
 	)
 
@@ -79,24 +80,14 @@ export async function list(
 	}
 	const r2Blogs = await bucket.list(r2ListOptions)
 
-	if (r2Blogs === undefined) throw new Error('Failed to fetch blogs')
+	if (!r2Blogs) throw new Error('Failed to fetch blogs')
 
-	const blogSlugs: BlogSlug[] = []
-
-	for (const eachBlogHeadObject of r2Blogs.objects) {
-		const title =
-			eachBlogHeadObject.customMetadata?.title || eachBlogHeadObject.key
-		const date = eachBlogHeadObject.customMetadata?.date || 'Unknown'
-		const commentsEnabled =
-			eachBlogHeadObject.customMetadata?.commentsEnabled === 'true'
-
-		blogSlugs.push({
-			title,
-			slug: eachBlogHeadObject.key,
-			date,
-			commentsEnabled,
-		})
-	}
+	const blogSlugs: BlogSlug[] = r2Blogs.objects.map((each) => ({
+		title: each.customMetadata?.title || each.key,
+		slug: each.key,
+		date: each.customMetadata?.date || 'Unknown',
+		commentsEnabled: each.customMetadata?.commentsEnabled === 'true',
+	}))
 
 	const paginatedBlogSlugs: PaginatedBlogSlugs = {
 		slugs: blogSlugs,
@@ -109,27 +100,25 @@ export async function list(
 }
 
 export async function get(bucket: R2Bucket, key: string) {
-	let blogHead
+	let blog: R2ObjectBody | null = null
 	try {
-		blogHead = await bucket.head(key)
+		blog = await bucket.get(key)
 	} catch (err: any) {
 		console.error(err)
 		throw err
 	}
 
-	const date = blogHead?.customMetadata?.date
-	if (!date) throw new Error(`Blog '${key}' does not have a date`)
-	const dateEdited = blogHead?.customMetadata?.dateEdited
-
-	const title = blogHead?.customMetadata?.title || key
-	const commentsEnabled = blogHead?.customMetadata?.commentsEnabled === 'true'
-
-	const rawContentType =
-		blogHead?.httpMetadata?.contentType || ContentType.PlainText
-	const contentType = rawContentType as ContentType
-
-	let blog = await bucket.get(key)
 	if (blog === null) throw new Error(`Blog '${key}' not found`)
+
+	const date = blog.customMetadata?.date
+	if (!date) throw new Error(`Blog '${key}' does not have a date`)
+	const dateEdited = blog.customMetadata?.dateEdited
+
+	const title = blog.customMetadata?.title || key
+	const commentsEnabled = blog.customMetadata?.commentsEnabled === 'true'
+
+	const rawContentType = blog.httpMetadata?.contentType || ContentType.PlainText
+	const contentType = rawContentType as ContentType
 
 	let content = await blog.text()
 
