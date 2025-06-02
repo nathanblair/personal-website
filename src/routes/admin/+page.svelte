@@ -4,6 +4,8 @@
 	import type { PageProps } from './$types'
 
 	let { data, form }: PageProps = $props()
+
+	let blogKey = $state()
 </script>
 
 <form use:enhance method="POST" class="flex space-x-2 pt-4">
@@ -26,19 +28,16 @@
 </form>
 
 <form use:enhance method="POST" class="flex space-x-2 pt-4">
-	<a
-		class="btn flex items-center justify-center text-nowrap"
-		href="/blog/create"
-		aria-label="create"
-		title="Create a new blog post">Create Post</a
-	>
+	<a class="btn" href="/blog/create">Create Post</a>
 	<input
 		type="text"
 		name="blogKey"
 		placeholder="Blog key"
 		class="3shrink min-w-0 p-1"
+		bind:value={blogKey}
 		required
 	/>
+	<a class="btn" href="/blog/edit/{blogKey}">Edit Post</a>
 	<button class="btn text-nowrap" formaction="?/removeBlog">Delete Post</button>
 </form>
 

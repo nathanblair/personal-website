@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Edit from '@lucide/svelte/icons/file-pen'
-
 	import Blog from '$lib/components/Blog.svelte'
 	import CommentForm from '$lib/components/CommentForm.svelte'
 	import CommentList from '$lib/components/CommentList.svelte'
@@ -24,6 +22,7 @@
 	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
 </svelte:head>
 
+<!--
 {#if data.session?.user?.admin}
 	<form method="post" class="absolute top-0 left-0 flex w-full justify-between">
 		<a
@@ -33,7 +32,7 @@
 			title="Edit the blog post"><Edit /></a
 		>
 	</form>
-{/if}
+{/if} -->
 
 <Blog blog={data.blog} {locale} {timeZone} />
 
