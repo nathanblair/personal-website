@@ -5,9 +5,6 @@
 </script>
 
 <form method="POST" use:enhance class="mt-4">
-	<input type="hidden" name="locale" value={locale} />
-	<input type="hidden" name="timeZone" value={timeZone} />
-
 	<textarea
 		class="w-full resize-none p-2 dark:bg-slate-900"
 		name="content"

@@ -65,11 +65,6 @@ export const actions: Actions = {
 
 		const formData = await request.formData()
 
-		const locale = formData.get('locale')
-		if (!locale) throw new Error('Locale not found')
-		const timeZone = formData.get('timeZone')
-		if (!timeZone) throw new Error('Time Zone not found')
-
 		const datePosted = formatStorageDateTime()
 
 		const body = formData.get('content')
@@ -87,7 +82,6 @@ export const actions: Actions = {
 		}
 
 		await addComment(locals.db, comment)
-		// return {}
 		return
 	},
 	deleteComment: async ({ locals, url }) => {
@@ -122,11 +116,6 @@ export const actions: Actions = {
 		if (!existing) throw new Error('Comment not found')
 
 		if (session.user.id !== existing.userId) throw new Error('Unauthorized')
-
-		const locale = formData.get('locale')
-		if (!locale) throw new Error('Locale not found')
-		const timeZone = formData.get('timeZone')
-		if (!timeZone) throw new Error('Timezone not found')
 
 		const dateEdited = formatStorageDateTime()
 

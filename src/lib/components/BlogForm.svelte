@@ -26,6 +26,7 @@
 	} = $props()
 
 	let commentsEnabledState = $state(commentsEnabled)
+	let dt = $derived(formatInputDateTime(dateTime, locale, timeZone))
 
 	let formats: {
 		value: ContentType
@@ -38,9 +39,6 @@
 </script>
 
 <form use:enhance method="POST" class="group flex flex-1 flex-col space-y-2">
-	<input type="hidden" name="locale" value={locale} />
-	<input type="hidden" name="timeZone" value={timeZone} />
-
 	<div class="flex space-x-2">
 		<input
 			class="flex-1 p-2"
@@ -54,9 +52,9 @@
 		<input
 			class="p-2"
 			type="datetime-local"
-			name="date"
+			name="datetime"
 			required
-			value={formatInputDateTime(dateTime, locale, timeZone)}
+			bind:value={dt}
 		/>
 
 		<select name="contentType" id="contentType" class="appearance-none p-1">

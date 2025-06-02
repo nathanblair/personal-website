@@ -10,8 +10,8 @@ function getFromParts(
 	return parts.find((p) => p.type === type)?.value ?? ''
 }
 
-export function formatStorageDateTime() {
-	const iso = new Date().toISOString()
+export function formatStorageDateTime(date?: string) {
+	const iso = date ? new Date(date).toISOString() : new Date().toISOString()
 	return iso
 }
 

@@ -81,8 +81,6 @@
 	</div>
 
 	<form use:enhance={editHandler} method="post" class="flex" onreset={cancel}>
-		<input type="hidden" name="locale" value={locale} />
-		<input type="hidden" name="timeZone" value={timeZone} />
 		<input type="hidden" name="commentId" value={comment.id} />
 
 		<textarea
