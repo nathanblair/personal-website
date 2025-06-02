@@ -18,8 +18,7 @@ export class Prefix extends Scope {
 	}
 
 	toString(): string {
-		// If slug is defined, str should be prefixed with '/'
-		let str = this.slug ? '' : ''
+		let str = ''
 		if (this.year) str += `${this.year}/`
 		if (this.month) str += `${this.month}/`
 		if (this.day) str += `${this.day}/`
@@ -29,17 +28,16 @@ export class Prefix extends Scope {
 	}
 
 	toAnchorProp(): AnchorProps | undefined {
-		if (this.day)
+		if (this.day && this.month && this.year)
 			return {
 				href: `/blog/${this.year}/${this.month}/${this.day}`,
 				label: this.day,
 			}
 
-		if (this.month)
+		if (this.month && this.year)
 			return {
 				href: `/blog/${this.year}/${this.month}`,
 				label: new Date(
-					// @ts-ignore
 					parseInt(this.year, 10),
 					parseInt(this.month, 10) - 1,
 				).toLocaleString('default', {

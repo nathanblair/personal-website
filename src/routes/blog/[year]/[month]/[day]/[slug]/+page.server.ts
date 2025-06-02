@@ -7,6 +7,7 @@ import {
 	list as listComments,
 	remove as removeComment,
 } from '$lib/server/comment.ts'
+import { Prefix } from '$lib/server/prefix.ts'
 import {
 	add as addRock,
 	get as getRock,
@@ -43,10 +44,10 @@ async function fetchRocks(
 export const load: PageServerLoad = async ({ locals, parent }) => {
 	const { session, prefix } = await parent()
 	const blog = await getBlog(locals.blogs, prefix)
+	const title = blog.title
 	const comments = await listComments(locals.db, prefix)
 	const rocks = await fetchRocks(locals.db, prefix, session?.user?.id)
 
-	const title = blog.title
 	return {
 		title,
 		blog,
@@ -56,7 +57,7 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
 }
 
 export const actions: Actions = {
-	addComment: async ({ request, url, locals }) => {
+	addComment: async ({ request, locals, params }) => {
 		const session = (await locals.auth()) as Session
 		if (!session || !session.user) throw new Error('Not signed in')
 
@@ -74,8 +75,7 @@ export const actions: Actions = {
 		const body = formData.get('content')
 		if (!body) throw new Error('Comment content not found')
 
-		// const blogKey = params.slug
-		const blogKey = url.pathname
+		const blogKey = new Prefix(params).toString()
 
 		const comment: NewComment = {
 			blogKey,
@@ -87,7 +87,8 @@ export const actions: Actions = {
 		}
 
 		await addComment(locals.db, comment)
-		return {}
+		// return {}
+		return
 	},
 	deleteComment: async ({ locals, url }) => {
 		const session = (await locals.auth()) as Session
